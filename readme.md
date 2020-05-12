@@ -22,7 +22,7 @@
 - 자신에게 적용된 해결방법은 추천 버튼을 만들어 다른 질문보다 상단에 표시될 수 있도록
 - 질문 단위로 box화 하여 보기 좋게
 
-<img src="./img/3_debug.png" width="700" height="1000">
+<img src="./img/3_debug.png" width="830" height="1150">
 
 > career / portfolio
 
@@ -39,11 +39,11 @@
   이를 해결하기 위해 조금씩 질문이 추가되는 형식으로 제작
   progress bar를 통해 중간저장까지 얼마나 남았는지 체크해줌
 
- <img src="./img/4_career.png" width="700" height="1000">
+ <img src="./img/4_career.png" width="830" height="1100">
 
 > portfolio
 
- <img src="./img/5_career_portfolio.png" width="700" height="1000">
+ <img src="./img/5_career_portfolio.png" width="830" height="1100">
 
 ---
 
