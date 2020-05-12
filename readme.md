@@ -7,14 +7,14 @@
 - 첫 페이지에서 오류 검색을 할 수 있도록 연결
 - 하단에는 인기 게시글들이 한눈에 보여 커뮤니티 활동을 할 수 있도록 준비
 
-<img src="./img/1_main.jpg" width="700" height="1000">
+<img src="./img/1_main.png" width="700" height="1000">
 
 > board
 
 - 졸업자들도 이용할만한 사이트를 준비 (익명성 자유롭게 부여, 회사들 정보 공유)
 - 게시판 만들기를 통해 수 많은 취향을 저격할 수 있는 게시판들을 만들 수 있는 사이트
 
-<img src="./img/2_board.jpg" width="700" height="600">
+<img src="./img/2_board.png" width="700" height="600">
 
 > Debug
 
@@ -22,7 +22,7 @@
 - 자신에게 적용된 해결방법은 추천 버튼을 만들어 다른 질문보다 상단에 표시될 수 있도록
 - 질문 단위로 box화 하여 보기 좋게
 
-<img src="./img/3_debug.jpg" width="700" height="1000">
+<img src="./img/3_debug.png" width="700" height="1000">
 
 > career / portfolio
 
@@ -39,11 +39,11 @@
   이를 해결하기 위해 조금씩 질문이 추가되는 형식으로 제작
   progress bar를 통해 중간저장까지 얼마나 남았는지 체크해줌
 
- <img src="./img/4_career.jpg" width="700" height="500">
+ <img src="./img/4_career.png" width="700" height="1000">
 
 > portfolio
 
- <img src="./img/5_career_portfolio.jpg" width="700" height="500">
+ <img src="./img/5_career_portfolio.png" width="700" height="1000">
 
 ---
 
