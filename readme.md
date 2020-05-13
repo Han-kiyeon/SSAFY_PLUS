@@ -1,6 +1,15 @@
 ## 4반 1조 심화프로젝트
 
-1차 목업
+2차 목업
+
+> LoginPage
+
+- 싸피인들의 커뮤니티인것 처럼
+- 싸피인들만 이용할 수 있게?
+
+- 확장성에 문제가 있을 수 있음.
+
+<img src="./img/0_login.png" width="900" height="600">
 
 > MainPage
 
@@ -14,7 +23,7 @@
 - 졸업자들도 이용할만한 사이트를 준비 (익명성 자유롭게 부여, 회사들 정보 공유)
 - 게시판 만들기를 통해 수 많은 취향을 저격할 수 있는 게시판들을 만들 수 있는 사이트
 
-<img src="./img/2_board.png" width="700" height="600">
+<img src="./img/2_board.png" width="900" height="550">
 
 > Debug
 
@@ -139,7 +148,7 @@ https://everytime.kr/
 
 20200508 | 내용 | 음영현
 
-master
-ㄴ develop
-ㄴ frontend
-ㄴ backend
+master  
+ ㄴ1) develop  
+ ㄴ2) frontend  
+ ㄴ2) backend
