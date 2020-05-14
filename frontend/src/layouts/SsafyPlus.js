@@ -16,7 +16,7 @@ import routes from "routes.js";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import logo from "assets/img/reactlogo.png";
-import Container from '@material-ui/core/Container';
+import Container from "@material-ui/core/Container";
 let ps;
 
 // 라우터 변경 부분
@@ -73,7 +73,7 @@ export default function SsafyPlus({ ...rest }) {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
-        suppressScrollY: false
+        suppressScrollY: false,
       });
       document.body.style.overflow = "hidden";
     }
