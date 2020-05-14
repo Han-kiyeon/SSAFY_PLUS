@@ -87,7 +87,6 @@ export default function FixedPlugin(props) {
               </div>
             </a>
           </li>
-          <li className="adjustments-line" />
         </ul>
       </div>
     </div>

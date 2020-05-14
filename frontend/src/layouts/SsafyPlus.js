@@ -47,7 +47,7 @@ export default function SsafyPlus({ ...rest }) {
   const mainPanel = React.createRef();
   // states and functions
   const [color, setColor] = React.useState("blue");
-  const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
+  const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleColorClick = color => {
