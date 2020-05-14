@@ -24,17 +24,17 @@ export default function Footer(props) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#company" className={classes.block}>
-                Company
+                EDU SSAFY
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#portfolio" className={classes.block}>
-                Portfolio
+                JOB SSAFY
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#blog" className={classes.block}>
-                Blog
+                MEETING SSAFY
               </a>
             </ListItem>
           </List>
@@ -47,9 +47,9 @@ export default function Footer(props) {
               target="_blank"
               className={classes.a}
             >
-              Creative Tim
+              코딩의 신
             </a>
-            , made with love for a better web
+            두둥등장 (신상엽, 음영현, 정하정, 한기연, 한승민)
           </span>
         </p>
       </div>

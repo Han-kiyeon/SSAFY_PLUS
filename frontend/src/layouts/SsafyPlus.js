@@ -114,6 +114,7 @@ export default function SsafyPlus({ ...rest }) {
           </div>
         </Container>
 
+        <Footer />
         <FixedPlugin
           handleColorClick={handleColorClick}
           bgColor={color}

@@ -30,8 +30,10 @@ const footerStyle = {
   },
   footer: {
     bottom: "0",
+    height: "50px",
     borderTop: "1px solid " + grayColor[11],
     padding: "15px 0",
+    backgroundColor: "white",
     ...defaultFont
   },
   container,

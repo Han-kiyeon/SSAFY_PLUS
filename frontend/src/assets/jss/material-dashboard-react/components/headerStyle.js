@@ -17,7 +17,7 @@ const headerStyle = () => ({
     boxShadow: "none",
     borderBottom: "0",
     marginBottom: "0",
-    position: "absolute",
+    position: "fixed",
     width: "100%",
     paddingTop: "10px",
     zIndex: "1029",
