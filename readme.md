@@ -160,13 +160,30 @@ https://everytime.kr/
 
 ### 기타 사항
 
-#### 프론트엔드 - React
+> 사용 스택
+
+<img src="./img/stack_react.png" width="500" height="300">   
+<img src="./img/stack_Typescript.png" width="500" height="300">   
+<img src="./img/stack_spring.jpg" width="500" height="300">   
+<img src="./img/stack_mysql.png" width="500" height="300">     
+    
+<img src="./img/stack_aws.png" width="500" height="300">
+   
+> ERD
+
+<img src="./img/erd.png" width="1500" height="900">
+
+> 프로젝트 계획
+
+<img src="./img/project_gant.png" width="1500" height="500">
+
+#### 프론트엔드 - React, TypeScript
 
 - 신상엽
 - 음영현
 - 한승민
 
-#### 백엔드 - Spring, (DB는 미정)
+#### 백엔드 - Spring, Mysql
 
 - 정하정
 - 음영현
