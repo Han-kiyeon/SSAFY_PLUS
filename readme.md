@@ -186,7 +186,7 @@ https://everytime.kr/
 #### 백엔드 - Spring, Mysql
 
 - 정하정
-- 음영현
+- 한기연
 
 ---
 
