@@ -14,12 +14,8 @@ import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-dashboard-react/components/headerStyle.js";
 
 //추가
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { NavLink } from "react-router-dom";
-import Icon from "@material-ui/core/Icon";
-
 
 const useStyles = makeStyles(styles);
 
@@ -36,30 +32,12 @@ export default function Header(props) {
     });
     return name;
   }
-  const { color, logo, logoText, routes } = props;
-
-  var brand = (
-    <div className={classes.logo}>
-      <a
-        href="https://www.creative-tim.com?ref=mdr-sidebar"
-        className={classNames(classes.logoLink)}
-        target="_blank"
-      >
-        <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
-        </div>
-        {logoText}
-      </a>
-    </div>
-  );
+  const { color, routes } = props;
 
   const appBarClasses = classNames({
     [" " + classes[color]]: color
   });
 
-  function activeRoute(routeName) {
-    return window.location.href.indexOf(routeName) > -1 ? true : false;
-  }
   console.log(color)
   var links = (
     <div>
@@ -69,7 +47,7 @@ export default function Header(props) {
           <Button color={window.innerWidth > 959 ? "transparent" : "white"}
             simple={!(window.innerWidth > 959)}
             font-color={color}
-            aria-label="Dashboard"
+            aria-label="ssafyPlus"
             className={classes.buttonLink}>
             <NavLink
               to={prop.layout + prop.path}
@@ -122,8 +100,6 @@ export default function Header(props) {
 
 Header.propTypes = {
   color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
-  logo: PropTypes.string,
-  logoText: PropTypes.string,
   handleDrawerToggle: PropTypes.func,
   routes: PropTypes.arrayOf(PropTypes.object)
 };

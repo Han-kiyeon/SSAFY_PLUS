@@ -4,7 +4,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 //전체 적인 컨셉틀이 될 레이아웃
 import SsafyPlus from "layouts/SsafyPlus.js";
-import "assets/css/material-dashboard-react.css?v=1.8.0";
+import "assets/css/ssafyPlus.css";
 
 const hist = createBrowserHistory();
 
