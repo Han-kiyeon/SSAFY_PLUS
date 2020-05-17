@@ -6,7 +6,7 @@ import Description from "@material-ui/icons/Description";
 // 레이아웃에 입힐 뷰들
 import Main from "views/Main/Main.js";
 import Portfolio from "views/Portfolio/Portfolio.js";
-import QnA from "views/QnA/QnA.js"
+import QnA from "views/QnA/QnA.js";
 
 const dashboardRoutes = [
   {
@@ -14,19 +14,21 @@ const dashboardRoutes = [
     name: "Main",
     icon: Home,
     component: Main,
-    layout: "/plus"
-  }, {
+    layout: "/plus",
+  },
+  {
     path: "/portfolio",
     name: "Portfolio",
     icon: Assignment,
     component: Portfolio,
-    layout: "/plus"
-  }, {
+    layout: "/plus",
+  },
+  {
     path: "/qna",
     name: "QnA",
     icon: Description,
     component: QnA,
-    layout: "/plus"
+    layout: "/plus",
   },
 ];
 
