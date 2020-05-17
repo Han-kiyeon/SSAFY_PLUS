@@ -64,17 +64,31 @@ export default function Sidebar(props) {
       })}
     </List>
   );
-  var brand = (
+  var brand1 = (
     <div className={classes.logo}>
       <a
-        href="https://www.creative-tim.com?ref=mdr-sidebar"
+        href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do"
         className={classNames(classes.logoLink)}
         target="_blank"
       >
         <div className={classes.logoImage}>
           <img src={logo} alt="logo" className={classes.img} />
         </div>
-        {logoText}
+        EDU SSAFY 가기
+      </a>
+    </div>
+  );
+  var brand2 = (
+    <div className={classes.logo}>
+      <a
+        href="https://job.ssafy.com/comm/login/SecurityLoginForm.do"
+        className={classNames(classes.logoLink)}
+        target="_blank"
+      >
+        <div className={classes.logoImage}>
+          <img src={logo} alt="logo" className={classes.img} />
+        </div>
+        JOB SSAFY 가기
       </a>
     </div>
   );
@@ -93,9 +107,12 @@ export default function Sidebar(props) {
             keepMounted: true // Better open performance on mobile.
           }}
         >
-          {brand}
           <div className={classes.sidebarWrapper}>
             {links}
+          </div>
+          <div>
+            {brand1}
+            {brand2}
           </div>
           <div
             className={classes.background}
