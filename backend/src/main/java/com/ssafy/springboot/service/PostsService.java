@@ -3,10 +3,10 @@ package com.ssafy.springboot.service;
 import com.ssafy.springboot.domain.post.Posts;
 import com.ssafy.springboot.domain.post.PostsRepository;
 
-import com.ssafy.springboot.web.dto.PostsListResponseDto;
-import com.ssafy.springboot.web.dto.PostsResponseDto;
-import com.ssafy.springboot.web.dto.PostsSaveRequestDto;
-import com.ssafy.springboot.web.dto.PostsUpdateRequestDto;
+import com.ssafy.springboot.web.dto.post.PostsListResponseDto;
+import com.ssafy.springboot.web.dto.post.PostsResponseDto;
+import com.ssafy.springboot.web.dto.post.PostsSaveRequestDto;
+import com.ssafy.springboot.web.dto.post.PostsUpdateRequestDto;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

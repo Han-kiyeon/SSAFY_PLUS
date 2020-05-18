@@ -2,10 +2,10 @@ package com.ssafy.springboot.web;
 
 import com.ssafy.springboot.service.PostsService;
 
-import com.ssafy.springboot.web.dto.PostsListResponseDto;
-import com.ssafy.springboot.web.dto.PostsResponseDto;
-import com.ssafy.springboot.web.dto.PostsSaveRequestDto;
-import com.ssafy.springboot.web.dto.PostsUpdateRequestDto;
+import com.ssafy.springboot.web.dto.post.PostsListResponseDto;
+import com.ssafy.springboot.web.dto.post.PostsResponseDto;
+import com.ssafy.springboot.web.dto.post.PostsSaveRequestDto;
+import com.ssafy.springboot.web.dto.post.PostsUpdateRequestDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

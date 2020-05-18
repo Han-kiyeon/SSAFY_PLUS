@@ -1,4 +1,4 @@
-package com.ssafy.springboot.web.dto;
+package com.ssafy.springboot.web.dto.post;
 
 import com.ssafy.springboot.domain.post.Posts;
 

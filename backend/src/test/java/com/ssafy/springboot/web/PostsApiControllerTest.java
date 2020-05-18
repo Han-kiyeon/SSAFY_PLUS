@@ -3,9 +3,9 @@ package com.ssafy.springboot.web;
 
 import com.ssafy.springboot.domain.post.Posts;
 import com.ssafy.springboot.domain.post.PostsRepository;
-import com.ssafy.springboot.web.dto.PostsSaveRequestDto;
+import com.ssafy.springboot.web.dto.post.PostsSaveRequestDto;
 
-import com.ssafy.springboot.web.dto.PostsUpdateRequestDto;
+import com.ssafy.springboot.web.dto.post.PostsUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
