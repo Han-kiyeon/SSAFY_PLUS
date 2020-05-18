@@ -54,7 +54,7 @@ export default function Header(props) {
               className={activePro + classes.item}
               key={key}
             >
-              <div button className={classes.itemLink}>
+              <div>
                 <prop.icon
                   className={classNames(classes.itemIcon)}
                 />

@@ -7,6 +7,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import Table from "components/Table/Table.js";
+import CardFooter from 'components/Card/CardFooter';
 
 const styles = {
     cardTitleWhite: {
@@ -50,12 +51,32 @@ export default function Board() {
                                 ]}
                             />
                         </CardBody>
+                        <CardFooter>
+                            게시판 만들기
+                        </CardFooter>
                     </Card>
                 </GridItem>
                 <GridItem xs={12} sm={6} md={6}>
                     <Card>
-                        선택한 게시판에 해당하는<br />
-                        게시글의 제목들이 나열됨
+                        <CardHeader color="info">
+                            <h4 className={classes.cardTitleWhite}>게시판 목록</h4>
+                        </CardHeader>
+                        <CardBody>
+                            <Table
+                                tableHeaderColor="info"
+                                tableHead={["작성자", "제목", "타입", "작성날짜"]}
+                                tableData={[
+                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
+                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
+                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
+                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
+                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"]
+                                ]}
+                            />
+                        </CardBody>
+                        <CardFooter>
+                            게시판 만들기
+                        </CardFooter>
                     </Card>
                 </GridItem>
             </GridContainer>

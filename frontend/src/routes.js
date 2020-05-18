@@ -10,18 +10,21 @@ import Board from "views/Board/Board.js"
 
 const dashboardRoutes = [
   {
+    id: 1,
     path: "/main",
     name: "Main",
     icon: Home,
     component: Main,
     layout: "/plus"
   }, {
+    id: 2,
     path: "/portfolio",
     name: "Portfolio",
     icon: Assignment,
     component: Portfolio,
     layout: "/plus"
   }, {
+    id: 3,
     path: "/board",
     name: "게시판",
     icon: Description,
