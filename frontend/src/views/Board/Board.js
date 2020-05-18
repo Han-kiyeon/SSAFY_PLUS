@@ -19,10 +19,12 @@ import CardFooter from 'components/Card/CardFooter';
 import Button from "components/CustomButtons/Button.js";
 import modalStyle from "assets/jss/material-dashboard-react/components/modalStyle.js";
 
+// 애니메이션 모달 열때 위에서 아래로
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
 
+// 카드 타이틀 스타일
 const styles = {
     cardTitleWhite: {
         color: "#FFFFFF",
@@ -68,9 +70,9 @@ export default function Board() {
                         </CardBody>
                         <CardFooter>
                             <div>
-                                <Button color="rose" round onClick={() => setModal(true)}>
-                                    Modal
-        </Button>
+                                <Button color="info" round onClick={() => setModal(true)}>
+                                    게시판 만들기
+                                </Button>
                             </div>
                             <Dialog
                                 classes={{
@@ -112,7 +114,7 @@ export default function Board() {
                                     <Button onClick={() => setModal(false)}>Never Mind</Button>
                                     <Button onClick={() => setModal(false)} color="success">
                                         Yes
-          </Button>
+                                    </Button>
                                 </DialogActions>
                             </Dialog>
                         </CardFooter>
