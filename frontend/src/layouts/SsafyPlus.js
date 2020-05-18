@@ -64,7 +64,6 @@ export default function SsafyPlus({ ...rest }) {
           logo={logo}
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
-          color={"blue"}
           {...rest}
         />
 

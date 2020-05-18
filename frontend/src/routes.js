@@ -12,6 +12,7 @@ import SignIn from "views/Auth/SignIn";
 
 const dashboardRoutes = [
   {
+    id: 1,
     path: "/main",
     name: "Main",
     icon: Home,
@@ -19,6 +20,7 @@ const dashboardRoutes = [
     layout: "/plus",
   },
   {
+    id: 2,
     path: "/portfolio",
     name: "Portfolio",
     icon: Assignment,
@@ -26,6 +28,7 @@ const dashboardRoutes = [
     layout: "/plus",
   },
   {
+    id: 3,
     path: "/board",
     name: "게시판",
     icon: Description,
