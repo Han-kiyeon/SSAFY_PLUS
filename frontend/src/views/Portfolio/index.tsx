@@ -1,3 +1,3 @@
-import PortfolioContainer from "./PortfoioContainer";
+import PortfolioContainer from "./PortfolioContainer";
 
 export default PortfolioContainer;
