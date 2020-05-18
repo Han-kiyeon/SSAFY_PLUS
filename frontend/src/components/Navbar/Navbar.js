@@ -35,29 +35,29 @@ export default function Header(props) {
   const { color, routes } = props;
 
   const appBarClasses = classNames({
-    [" " + classes[color]]: color
+    [" " + classes[color]]: color,
   });
 
-  console.log(color)
+  console.log(color);
   var links = (
     <div>
       {routes.map((prop, key) => {
         var activePro = " ";
         return (
-          <Button color={window.innerWidth > 959 ? "transparent" : "white"}
+          <Button
+            color={window.innerWidth > 959 ? "transparent" : "white"}
             simple={!(window.innerWidth > 959)}
             font-color={color}
             aria-label="ssafyPlus"
-            className={classes.buttonLink}>
+            className={classes.buttonLink}
+          >
             <NavLink
               to={prop.layout + prop.path}
               className={activePro + classes.item}
               key={key}
             >
               <div button className={classes.itemLink}>
-                <prop.icon
-                  className={classNames(classes.itemIcon)}
-                />
+                <prop.icon className={classNames(classes.itemIcon)} />
                 <ListItemText
                   primary={prop.name}
                   className={classNames(classes.itemText)}
@@ -70,7 +70,6 @@ export default function Header(props) {
       })}
     </div>
   );
-
 
   return (
     <AppBar className={classes.appBar + appBarClasses}>
@@ -101,5 +100,5 @@ export default function Header(props) {
 Header.propTypes = {
   color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
   handleDrawerToggle: PropTypes.func,
-  routes: PropTypes.arrayOf(PropTypes.object)
+  routes: PropTypes.arrayOf(PropTypes.object),
 };
