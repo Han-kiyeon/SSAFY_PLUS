@@ -6,7 +6,7 @@ import PermIdentity from "@material-ui/icons/PermIdentity";
 
 // 레이아웃에 입힐 뷰들
 import Main from "views/Main/Main.js";
-import Portfolio from "views/Portfolio/Portfolio.js";
+import Portfolio from "views/Portfolio";
 import Board from "views/Board/Board.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";

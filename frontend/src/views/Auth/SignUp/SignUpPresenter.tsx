@@ -33,8 +33,6 @@ const Button = styled.button`
   width: 10vw;
 `;
 
-interface SignUpIState {}
-
 const SignInPresenter: React.FunctionComponent<SignUpIState> = ({
   userId,
   password,
