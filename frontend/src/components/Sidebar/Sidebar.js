@@ -26,41 +26,43 @@ export default function Sidebar(props) {
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
-        var activePro = " ";
-        var listItemClasses = classNames({
-          [" " + classes[color]]: activeRoute(prop.layout + prop.path)
-        });
+        if (prop.layout === "/plus" || prop.path === "/SignIn") {
+          var activePro = " ";
+          var listItemClasses = classNames({
+            [" " + classes[color]]: activeRoute(prop.layout + prop.path),
+          });
 
-        const whiteFontClasses = classNames({
-          [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
-        });
-        return (
-          <NavLink
-            to={prop.layout + prop.path}
-            className={activePro + classes.item}
-            activeClassName="active"
-            key={key}
-          >
-            <ListItem button className={classes.itemLink + listItemClasses}>
-              {typeof prop.icon === "string" ? (
-                <Icon
-                  className={classNames(classes.itemIcon, whiteFontClasses)}
-                >
-                  {prop.icon}
-                </Icon>
-              ) : (
+          const whiteFontClasses = classNames({
+            [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path),
+          });
+          return (
+            <NavLink
+              to={prop.layout + prop.path}
+              className={activePro + classes.item}
+              activeClassName="active"
+              key={key}
+            >
+              <ListItem button className={classes.itemLink + listItemClasses}>
+                {typeof prop.icon === "string" ? (
+                  <Icon
+                    className={classNames(classes.itemIcon, whiteFontClasses)}
+                  >
+                    {prop.icon}
+                  </Icon>
+                ) : (
                   <prop.icon
                     className={classNames(classes.itemIcon, whiteFontClasses)}
                   />
                 )}
-              <ListItemText
-                primary={prop.name}
-                className={classNames(classes.itemText, whiteFontClasses)}
-                disableTypography={true}
-              />
-            </ListItem>
-          </NavLink>
-        );
+                <ListItemText
+                  primary={prop.name}
+                  className={classNames(classes.itemText, whiteFontClasses)}
+                  disableTypography={true}
+                />
+              </ListItem>
+            </NavLink>
+          );
+        }
       })}
     </List>
   );
@@ -100,16 +102,14 @@ export default function Sidebar(props) {
           anchor={"right"}
           open={props.open}
           classes={{
-            paper: classNames(classes.drawerPaper)
+            paper: classNames(classes.drawerPaper),
           }}
           onClose={props.handleDrawerToggle}
           ModalProps={{
-            keepMounted: true // Better open performance on mobile.
+            keepMounted: true, // Better open performance on mobile.
           }}
         >
-          <div className={classes.sidebarWrapper}>
-            {links}
-          </div>
+          <div className={classes.sidebarWrapper}>{links}</div>
           <div>
             {brand1}
             {brand2}
@@ -130,5 +130,5 @@ Sidebar.propTypes = {
   logo: PropTypes.string,
   logoText: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object),
-  open: PropTypes.bool
+  open: PropTypes.bool,
 };

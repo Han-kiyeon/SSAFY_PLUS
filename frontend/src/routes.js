@@ -9,6 +9,7 @@ import Main from "views/Main/Main.js";
 import Portfolio from "views/Portfolio/Portfolio.js";
 import Board from "views/Board/Board.js";
 import SignIn from "views/Auth/SignIn";
+import SignUp from "views/Auth/SignUp";
 
 const dashboardRoutes = [
   {
@@ -40,7 +41,13 @@ const dashboardRoutes = [
     name: "로그인",
     icon: PermIdentity,
     component: SignIn,
-    layout: "/plus",
+    layout: "/auth",
+  },
+  {
+    path: "/signUp",
+    name: "회원가입",
+    component: SignUp,
+    layout: "/auth",
   },
 ];
 

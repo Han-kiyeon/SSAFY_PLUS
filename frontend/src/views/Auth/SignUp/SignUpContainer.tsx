@@ -1,17 +1,23 @@
 import React from "react";
-import SignInPresenter from "./SignInPresenter";
+import SignUpPresenter from "./SignUpPresenter";
 
-interface SignInIState {
+interface SignUpIState {
   userId: string;
   password: string;
+  position: string;
+  section: number;
+  season: number;
   loading: boolean;
   error: any;
 }
 
-export default class extends React.Component<{}, SignInIState> {
+export default class extends React.Component<{}, SignUpIState> {
   state = {
     userId: "",
     password: "",
+    position: "",
+    section: 0,
+    season: 0,
     loading: false,
     error: null,
   };
@@ -43,17 +49,34 @@ export default class extends React.Component<{}, SignInIState> {
       this.setState({ userId: value });
     } else if (name === "password") {
       this.setState({ password: value });
+    } else if (name === "position") {
+      this.setState({ position: value });
+    } else if (name === "section") {
+      this.setState({ section: parseInt(value) });
+    } else if (name === "season") {
+      this.setState({ season: parseInt(value) });
     }
   };
 
   render() {
-    const { userId, password, loading, error } = this.state;
+    const {
+      userId,
+      password,
+      loading,
+      error,
+      position,
+      section,
+      season,
+    } = this.state;
     return (
-      <SignInPresenter
+      <SignUpPresenter
         userId={userId}
         password={password}
         loading={loading}
         error={error}
+        position={position}
+        section={section}
+        season={season}
         updateTerm={this.updateTerm}
         handleSubmit={this.handleSubmit}
       />

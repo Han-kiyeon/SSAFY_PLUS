@@ -38,35 +38,36 @@ export default function Header(props) {
     [" " + classes[color]]: color,
   });
 
-  console.log(color);
   var links = (
     <div>
       {routes.map((prop, key) => {
         var activePro = " ";
-        return (
-          <Button
-            color={window.innerWidth > 959 ? "transparent" : "white"}
-            simple={!(window.innerWidth > 959)}
-            font-color={color}
-            aria-label="ssafyPlus"
-            className={classes.buttonLink}
-          >
-            <NavLink
-              to={prop.layout + prop.path}
-              className={activePro + classes.item}
-              key={key}
+        if (prop.layout === "/plus" || prop.path === "/signIn") {
+          return (
+            <Button
+              color={window.innerWidth > 959 ? "transparent" : "white"}
+              simple={!(window.innerWidth > 959)}
+              font-color={color}
+              aria-label="ssafyPlus"
+              className={classes.buttonLink}
             >
-              <div>
-                <prop.icon className={classNames(classes.itemIcon)} />
-                <ListItemText
-                  primary={prop.name}
-                  className={classNames(classes.itemText)}
-                  disableTypography={true}
-                />
-              </div>
-            </NavLink>
-          </Button>
-        );
+              <NavLink
+                to={prop.layout + prop.path}
+                className={activePro + classes.item}
+                key={key}
+              >
+                <div>
+                  <prop.icon className={classNames(classes.itemIcon)} />
+                  <ListItemText
+                    primary={prop.name}
+                    className={classNames(classes.itemText)}
+                    disableTypography={true}
+                  />
+                </div>
+              </NavLink>
+            </Button>
+          );
+        }
       })}
     </div>
   );
