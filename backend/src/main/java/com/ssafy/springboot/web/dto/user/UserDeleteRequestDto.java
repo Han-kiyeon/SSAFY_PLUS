@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UserDeleteRequestDto {
-    String uid;
-    UserDeleteRequestDto(String uid){
-        this.uid=uid;
+    String email;
+
+    UserDeleteRequestDto(String email) {
+        this.email = email;
     }
 }

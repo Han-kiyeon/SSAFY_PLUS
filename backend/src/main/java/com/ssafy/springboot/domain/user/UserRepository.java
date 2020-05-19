@@ -7,23 +7,13 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User,Long> {
-    @Query("select u from User u where u.uid=:uid")
-    User findByuid(@Param("uid") String uid);
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    // 회원가입시 이메일 중복 확인
-    @Query("select u from User u where u.uemail=:uemail")
-    List<User>  findByEmail(@Param("uemail") String uemail);
-
-    // 회원가입시 아이디 중복 확인
-    @Query("select u from User u where u.uid=:uid")
-    List<User> checkByUid(@Param("uid") String uid);
-
+    //회원가입 시 ID(Email)중복 확인
+    @Query("select u from User u where u.email=:email")
+    User findByEmail(@Param("email") String email);
 
     @Modifying
-    @Query("UPDATE User u set u.upass = :upass where u.uid = :uid")
-    void updatePass(@Param("uid") String uid, @Param("upass") String upass);
-
-    @Query("select u from User u where u.uid=:uid")
-    User selectByUid(@Param("uid") String uid);
+    @Query("UPDATE User u set u.password = :password where u.email = :email")
+    void updatePass(@Param("email") String email, @Param("password") String password);
 }

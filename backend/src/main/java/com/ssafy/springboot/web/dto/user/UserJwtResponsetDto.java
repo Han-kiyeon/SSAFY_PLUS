@@ -9,21 +9,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class UserJwtResponsetDto {
-    private Long uuid;
-    private String uid;
-    private String uname;
-    private String uphone;
-    private String uemail;
-    private String unickname;
+    private String email;
+    private String name;
+    private String position;
+    private String season;
+    private String section;
+    private String profile_img;
+
     private Role role;
-    private String upic;
 
     public UserJwtResponsetDto(User entity) {
-        this.uuid = entity.getUuid();
-        this.uid = entity.getUid();
-        this.uemail = entity.getUemail();
-        this.unickname = entity.getUnickname();
+        this.email = entity.getEmail();
+        this.name = entity.getName();
+        this.position = entity.getPosition();
+        this.season = entity.getSeason();
+        this.section = entity.getSection();
+        this.profile_img = entity.getProfile_img();
         this.role = entity.getRole();
-        this.upic = entity.getUpic();
     }
 }

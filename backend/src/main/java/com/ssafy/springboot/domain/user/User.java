@@ -27,33 +27,52 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column
+    private String position; //교육생, 졸업생, 프로, 컨설턴드, 코치 ....
+
+    @Column
+    private String season; // 기수
+
+    @Column
+    private String section; // 반
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
     @Column
-    private String upic;
+    private String profile_img;
 
-
-    public User(Long uuid) {
-        this.uuid=uuid;
-    }
 
     @Builder
-    public User(String uid, String upass, String uemail, String unickname, Role role, String upic) {
-        this.uid = uid;
-        this.upass = upass;
-        this.uemail = uemail;
-        this.unickname = unickname;
+    public User(Long user_id, String email, String password, String name,
+                String position, String season, String section, String profile_img, Role role) {
+        this.user_id = user_id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.position = position;
+        this.season = season;
+        this.section = section;
+        if (profile_img != null)
+            this.profile_img = profile_img;
+        else
+            this.profile_img = "./src/userimg/user.jpg";
         this.role = role;
-        if(upic!=null) this.upic=upic;
-        else this.upic="./src/userimg/user.jpg";
     }
 
+
     // 수정
-    public void update(String upass,String unickname,String upic) {
-        this.upass = upass;
-        this.unickname = unickname;
-        this.upic=upic;
+    public void update(String password, String position, String season, String section, String profile_img) {
+        if (password != null)
+            this.password = password;
+        if (profile_img != null)
+            this.position = position;
+        if (profile_img != null)
+            this.season = season;
+        if (profile_img != null)
+            this.section = section;
+        if (profile_img != null)
+            this.profile_img = profile_img;
     }
 }

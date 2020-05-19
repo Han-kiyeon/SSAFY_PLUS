@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UserJwtRequestDto {
-    private String uid;
-    private String upass;
+    private String email;
+    private String password;
 
     @Builder
-    public UserJwtRequestDto(String uid,String upass){
-        this.uid=uid;
-        this.upass=upass;
+    public UserJwtRequestDto(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 }

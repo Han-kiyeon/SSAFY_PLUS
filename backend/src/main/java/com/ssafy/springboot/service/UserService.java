@@ -28,36 +28,6 @@ public class UserService {
     JavaMailSender javaMailSender;
 
     @Transactional
-    public String getUserInfo(String access_token) {
-        String header = "Bearer " + access_token;
-        try {
-            String apiURL = "https://openapi.naver.com/v1/nid/me";
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", header);
-            int responseCode = con.getResponseCode();
-            BufferedReader br;
-            if (responseCode == 200) { // 정상 호출
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            }
-            String inputLine;
-            StringBuffer res = new StringBuffer();
-            while ((inputLine = br.readLine()) != null) {
-                res.append(inputLine);
-            }
-            br.close();
-            return res.toString();
-        } catch (Exception e) {
-            System.err.println(e);
-            return "Err";
-        }
-    }
-
-
-    @Transactional
     public List<User> selectAll() {
         return userRepository.findAll();
     }
@@ -66,7 +36,7 @@ public class UserService {
     //이메일로 엔티티 가져오기
     @Transactional
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).get(0);
+        return userRepository.findByEmail(email);
     }
 
 
@@ -77,56 +47,48 @@ public class UserService {
         // insert 전에 테이블을 검색해서 중복된 이메일이 있는지 확인한다.
 
         //우리 회원가입 로직은 이메일로만 중복검사를 실행합니다.!!!
-        if (checkEmail(userSaveRequestDto.getUemail())) //이미 이메일이 있으면
+        if (checkEmail(userSaveRequestDto.getEmail())) //이미 이메일이 있으면
             return false;
 
-        // 회원가입완료하면 이메일로 ghld 보내준다.
-        // 2번일 경우 테이블에 승인 상태 추가해야 됨
+        // 회원가입완료 메일 전송
         MailService mailService = new MailService();
         mailService.setJavaMailSender(javaMailSender);
-        mailService.sendSimpleMessage(userSaveRequestDto.getUemail(), "[PlusSafy] 회원가입 완료", "ㅎㅇㅎㅇ");
+        mailService.sendSimpleMessage(userSaveRequestDto.getEmail(), "[PlusSafy] 회원가입 완료", "ㅎㅇㅎㅇ");
 
-        userRepository.save(userSaveRequestDto.toEntity()).getUid();
+        userRepository.save(userSaveRequestDto.toEntity()).getUser_id();
         return true;
     }
 
 
     // 회원가입시 이메일 중복 확인
     @Transactional
-    public boolean checkEmail(String uemail) {
-        List<User> user = userRepository.findByEmail(uemail);
-        if (user.size() > 0) return true; //있으면 1
+    public boolean checkEmail(String emil) {
+        User user = userRepository.findByEmail(emil);
+        if (user != null) return true; //있으면 1
         else return false; //없으면 0
-    }
-
-    // 아이디 중복 확인 (있으면 true, 없으면 false)
-    @Transactional
-    public boolean checkId(String uid) {
-        List<User> user = userRepository.checkByUid(uid);
-        if (user.size() > 0) return true;
-        else return false;
     }
 
 
     // 비밀번호 찾기
     @Transactional
-    public String findPass(String uid, String uemail) {
-        if (!checkId(uid)) return "존재하지 않는 ID 입니다.";
-        User user = userRepository.findByuid(uid);
-        if (user.getUemail().equals(uemail)) {
+    public String findPass(String email, String name) {
+        if (!checkEmail(email)) return "회원 정보가 없습니다.";
+
+        User user = userRepository.findByEmail(email);
+        if (user.getName().equals(name)) {
             // 비밀번호 생성
             String new_pass = generatePass(10);
             // 이메일로 비밀번호 쏴주고!!
             MailService mailService = new MailService();
             mailService.setJavaMailSender(javaMailSender);
-            mailService.sendSimpleMessage(uemail, "[PlusSafy] 비밀번호 재설정", "비밀번호: " + new_pass);
+            mailService.sendSimpleMessage(email, "[PlusSafy] 비밀번호 재설정", "비밀번호: " + new_pass);
             // 테이블에 있는 회원 비밀번호 그걸로 수정!!!!! -> 암호화
-            userRepository.updatePass(uid, SHA256Util.getEncrypt(new_pass));
+            userRepository.updatePass(email, SHA256Util.getEncrypt(new_pass));
         } else {
-            new IllegalArgumentException("존재하지 않는 이메일입니다.");
+            return "입력한 이메일과 이름이 일치하지 않습니다.";
         }
 
-        return user.getUemail();
+        return user.getEmail();
     }
 
     // 비밀번호 생성 메소드
@@ -151,26 +113,28 @@ public class UserService {
     //JwtUserRequest를 만들기 위한 작업으로 필요함.
     //DB까지 가지않고 서비스를 이용하여 끌고옴
     @Transactional
-    public User findByuid(String uid) {
-        return userRepository.findByuid(uid);
+    public User findByID(String email) {
+        return userRepository.findByEmail(email);
     }
 
 
     // 회원 정보 수정
     @Transactional
-    public String update(String uid, UserUpdateRequestDto userUpdateRequestDto) {
-        User user = userRepository.findByuid(uid);
+    public String update(String email, UserUpdateRequestDto userUpdateRequestDto) {
+        User user = userRepository.findByEmail(email);
         if (user == null)
             new IllegalArgumentException("해당 사용자가 없습니다.");
 
-        user.update(SHA256Util.getEncrypt(userUpdateRequestDto.getUpass()), userUpdateRequestDto.getUnickname(), userUpdateRequestDto.getUpic());
-        return uid;
+        user.update(SHA256Util.getEncrypt(userUpdateRequestDto.getPassword()),
+                userUpdateRequestDto.getPosition(), userUpdateRequestDto.getSeason(),
+                userUpdateRequestDto.getSection(), userUpdateRequestDto.getProfile_img());
+        return email;
     }
 
     // 탈퇴(삭제)
     @Transactional
-    public void delete(String uid) {
-        User user = userRepository.findByuid(uid);
+    public void delete(String email) {
+        User user = userRepository.findByEmail(email);
         if (user == null)
             new IllegalArgumentException("해당 사용자가 없습니다.");
 
@@ -179,19 +143,12 @@ public class UserService {
 
     // 로그인
     @Transactional
-    public UserJwtResponsetDto signIn(String uid, String upass) {
-        User user = userRepository.findByuid(uid);
-        if (user == null) {
-            System.out.println("해당 사용자가 없습니다.");
-            new IllegalArgumentException("해당 사용자가 없습니다.");
-        }
-
-
-        if (user.getUpass().equals(upass)) {
+    public UserJwtResponsetDto signIn(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
             return new UserJwtResponsetDto(user);
         } else {
-            System.out.println("아이디/비밀번호가 일치하지 않습니다.");
-            new IllegalArgumentException("아이디/비밀번호가 일치하지 않습니다.");
+            System.out.println("해당 사용자가 없거나,아이디/비밀번호가 일치하지 않습니다.");
             return null;
         }
     }

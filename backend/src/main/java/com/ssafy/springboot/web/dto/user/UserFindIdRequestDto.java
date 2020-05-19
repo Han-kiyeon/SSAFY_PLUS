@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UserFindIdRequestDto {
-    String uname;
-    String uemail;
+    String email;
+    String name;
 
-    public UserFindIdRequestDto(String uname, String uemail){
-        this.uname=uname;
-        this.uname=uemail;
+    public UserFindIdRequestDto(String email, String name) {
+        this.email = email;
+        this.name = name;
     }
 }

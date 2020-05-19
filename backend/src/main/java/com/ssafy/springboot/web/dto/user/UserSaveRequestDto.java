@@ -11,33 +11,40 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserSaveRequestDto {
-    private String uid;
-    private String upass;
-    private String uname;
-    private String uphone;
-    private String uemail;
-    private String unickname;
+    private String email;
+    private String password;
+    private String name;
+    private String position;
+    private String season;
+    private String section;
+    private String profile_img;
+
     private Role role;
-    private  String upic;
 
     @Builder
-    public UserSaveRequestDto(String uid, String upass, String uname, String uphone, String uemail, String unickname, Role role, String upic) {
-        this.uid = uid;
-        this.upass = upass;
-        this.uemail = uemail;
-        this.unickname = unickname;
+    public UserSaveRequestDto(String email, String password, String name,
+                              String position, String season, String section,
+                              String profile_img, Role role) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.position = position;
+        this.season = season;
+        this.section = section;
+        this.profile_img = profile_img;
         this.role = role;
-        this.upic=upic;
     }
 
     public User toEntity() {
         return User.builder()
-                .uid(uid)
-                .upass(upass)
-                .uemail(uemail)
-                .unickname(unickname)
+                .email(email)
+                .password(password)
+                .name(name)
+                .position(position)
+                .season(season)
+                .section(section)
+                .profile_img(profile_img)
                 .role(role)
-                .upic(upic)
                 .build();
     }
 }
