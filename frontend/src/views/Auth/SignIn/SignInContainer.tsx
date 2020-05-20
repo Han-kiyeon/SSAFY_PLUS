@@ -15,7 +15,9 @@ export default class extends React.Component<{}, SignInIState> {
     loading: false,
     error: null,
   };
-
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (this.state.userId !== "" && this.state.password !== "") {

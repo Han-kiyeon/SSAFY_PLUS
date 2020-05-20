@@ -1,12 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Fab from "@material-ui/core/Fab";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
-import { Link } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
 
 interface PortfolioIState {
   useStyles: any;
+  name: string;
+  handleSubmit: (event: React.FormEvent) => void;
+  updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const Container = styled.div`
   width: 80vw;
@@ -29,17 +33,38 @@ const Name = styled.span``;
 const Todo = styled.span``;
 const Description = styled.h5``;
 
-function PortfolioPresenter({ useStyles }: PortfolioIState) {
+function PortfolioPresenter({
+  useStyles,
+  name,
+  handleSubmit,
+  updateTerm,
+}: PortfolioIState) {
   const classes = useStyles();
   return (
     <Container>
-      <Title>포트폴리오에 들어갈 내용을 정리하겠습니다!</Title>
-      <SubTitle>기본 정보</SubTitle>
-      <Todo>이름을 입력해주세요</Todo>
-      <Description>
-        이력서에 들어갈 한글이름으로 정확하게 입력해주세요
-      </Description>
+      <Title>포트폴리오에 들어갈 내용을 정리해 보아요!</Title>
+      <Title>{name}님의 개발 역량을 체크해주세요</Title>
+      <Todo>
+        1. 가장 자신있는 프로그래밍 언어 / 프레임워크 / 시스템을 선택해주세요
+      </Todo>
+      <Description>아래 보기 중 없다면 '기타'를 눌러주세요</Description>
+      <br />
+      <Todo>어느정도 자신있으신가요?</Todo>
+      <br />
 
+      <Todo>자신감의 이유는 무엇인가요?</Todo>
+      <form
+        className={classes.reason}
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
+        <TextField
+          helperText="ex) 반응형 웹사이트 제작 가능, REST API 백엔드 구축 가능"
+          onChange={updateTerm}
+          name="reason1"
+        ></TextField>
+      </form>
       <div className={classes.pageButton}>
         <Link to={{ pathname: "/plus/portfolio" }}>
           <Fab color="primary" aria-label="next">
