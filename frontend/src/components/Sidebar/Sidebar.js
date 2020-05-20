@@ -26,7 +26,10 @@ export default function Sidebar(props) {
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
-        if (prop.layout === "/plus" || prop.path === "/signIn") {
+        if (
+          (prop.layout === "/plus" && !prop.path.startsWith("/2/")) ||
+          prop.path === "/signIn"
+        ) {
           var activePro = " ";
           var listItemClasses = classNames({
             [" " + classes[color]]: activeRoute(prop.layout + prop.path),

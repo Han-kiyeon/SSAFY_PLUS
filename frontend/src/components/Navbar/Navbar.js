@@ -42,7 +42,10 @@ export default function Header(props) {
     <div>
       {routes.map((prop, key) => {
         var activePro = " ";
-        if (prop.layout === "/plus" || prop.path === "/signIn") {
+        if (
+          (prop.layout === "/plus" && !prop.path.startsWith("/2/")) ||
+          prop.path === "/signIn"
+        ) {
           return (
             <Button
               color={window.innerWidth > 959 ? "transparent" : "white"}

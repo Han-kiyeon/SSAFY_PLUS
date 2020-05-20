@@ -38,10 +38,8 @@ const dashboardRoutes = [
     layout: "/plus",
   },
   {
-    id: 2,
-    path: "/2portfolio",
+    path: "/2/portfolio",
     name: "Portfolio2",
-    icon: Assignment,
     component: Portfolio2,
     layout: "/plus",
   },

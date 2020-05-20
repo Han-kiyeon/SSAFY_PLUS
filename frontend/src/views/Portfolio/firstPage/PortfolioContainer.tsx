@@ -136,6 +136,9 @@ export default class extends React.Component<{}, PortfolioIState> {
     cooperative: false, // 협동적인
     error: false,
   };
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
   };

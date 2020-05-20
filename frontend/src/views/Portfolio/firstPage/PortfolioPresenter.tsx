@@ -139,7 +139,7 @@ function PortfolioPresenter({
           onSubmit={handleSubmit}
         >
           <TextField
-            placeholder="이름"
+            label="이름"
             helperText="ex) 김싸피"
             onChange={updateTerm}
             name="name"
@@ -209,7 +209,7 @@ function PortfolioPresenter({
           onSubmit={handleSubmit}
         >
           <TextField
-            placeholder="이메일"
+            label="이메일"
             helperText="ex) ssafy@gmail.com"
             onChange={updateTerm}
             name="email"
@@ -228,7 +228,7 @@ function PortfolioPresenter({
           onSubmit={handleSubmit}
         >
           <TextField
-            placeholder="010-0000-0000"
+            label="휴대전화 번호"
             helperText="숫자만 입력해주세요"
             onChange={updateTerm}
             name="phone"
@@ -557,7 +557,7 @@ function PortfolioPresenter({
           </FormControl>
         </div>
         <div className={classes.pageButton}>
-          <Link to={{ pathname: "/plus/2portfolio" }}>
+          <Link to={{ pathname: "/plus/2/portfolio" }}>
             <Fab color="primary" aria-label="next">
               <ChevronRight />
             </Fab>
