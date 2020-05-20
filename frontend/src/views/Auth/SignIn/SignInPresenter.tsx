@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { Link, Redirect } from "react-router-dom";
 
 const Container = styled.div``;
 
@@ -9,16 +10,24 @@ const Form = styled.form`
   width: 100%;
 `;
 
-const Id_Input = styled.input``;
-const Pass_Input = styled.input``;
+const CardBox = styled.div`
+  height: 50vh;
+  width: 50vw;
+`;
+const Input = styled.input`
+  width: 50vw;
+`;
+const Button = styled.button`
+  height: 5vh;
+  width: 10vw;
+`;
 
 interface SignInIState {
   userId: string;
   password: string;
   loading: boolean;
   error: any;
-  id_updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  pass_updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent) => void;
 }
 
@@ -27,24 +36,33 @@ const SignInPresenter: React.FunctionComponent<SignInIState> = ({
   password,
   loading,
   error,
-  id_updateTerm,
-  pass_updateTerm,
+  updateTerm,
   handleSubmit,
 }) => (
   <>
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <Id_Input
-          placeholder="ID를 입력해주세요. (Test Id: Test)"
-          value={userId}
-          onChange={id_updateTerm}
-        ></Id_Input>
-        <Pass_Input
-          placeholder="PassWord를 입력해주세요. (Test pw: Test)"
-          value={password}
-          onChange={pass_updateTerm}
-        ></Pass_Input>
-      </Form>
+      <CardBox>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="ID를 입력해주세요. (Test Id: Test)"
+            value={userId}
+            onChange={updateTerm}
+            name="userId"
+            type="text"
+          ></Input>
+          <br />
+          <Input
+            placeholder="Password를 입력해주세요. (Test Password: Test)"
+            value={password}
+            onChange={updateTerm}
+            name="password"
+            type="text"
+          ></Input>
+          <br />
+          <Button>Sign In</Button>
+          <Link to={{ pathname: "/auth/signUp" }}>회원가입 하러가기</Link>
+        </Form>
+      </CardBox>
     </Container>
   </>
 );

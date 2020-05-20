@@ -14,10 +14,11 @@ import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import Table from "components/Table/Table.js";
 import CardFooter from 'components/Card/CardFooter';
 import Button from "components/CustomButtons/Button.js";
 import modalStyle from "assets/jss/material-dashboard-react/components/modalStyle.js";
+
+import BoardList from "components/Board/BoardList.js"
 
 // 애니메이션 모달 열때 위에서 아래로
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -43,9 +44,11 @@ const styles = {
     }
 };
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(modalStyle);
+const cartTitleStyles = makeStyles(styles);
 export default function Board() {
     const classes = useStyles();
+    const classesCartTitle = cartTitleStyles();
     const [modal, setModal] = React.useState(false);
     return (
         <div>
@@ -53,20 +56,10 @@ export default function Board() {
                 <GridItem xs={12} sm={6} md={6}>
                     <Card>
                         <CardHeader color="info">
-                            <h4 className={classes.cardTitleWhite}>게시판 목록</h4>
+                            <h4 className={classesCartTitle.cardTitleWhite}>공식 게시판 목록</h4>
                         </CardHeader>
                         <CardBody>
-                            <Table
-                                tableHeaderColor="info"
-                                tableHead={["작성자", "제목", "타입", "작성날짜"]}
-                                tableData={[
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"]
-                                ]}
-                            />
+                            <BoardList></BoardList>
                         </CardBody>
                         <CardFooter>
                             <div>
@@ -100,13 +93,15 @@ export default function Board() {
                                     >
                                         <Close className={classes.modalClose} />
                                     </IconButton>
-                                    <h4 className={classes.modalTitle}>Modal title</h4>
+                                    <h4 className={classes.modalTitle}>게시판 만들기</h4>
                                 </DialogTitle>
                                 <DialogContent
                                     id="modal-slide-description"
                                     className={classes.modalBody}
                                 >
-                                    <h5>Are you sure you want to do this?</h5>
+                                    이  름 : <br/>
+                                    주  제 : <br/>
+                                    간단소개 : <br/>
                                 </DialogContent>
                                 <DialogActions
                                     className={classes.modalFooter + " " + classes.modalFooterCenter}
@@ -123,20 +118,9 @@ export default function Board() {
                 <GridItem xs={12} sm={6} md={6}>
                     <Card>
                         <CardHeader color="info">
-                            <h4 className={classes.cardTitleWhite}>게시글 목록</h4>
+                            <h4 className={classesCartTitle.cardTitleWhite}>내가 가입한 자유 게시판 목록</h4>
                         </CardHeader>
                         <CardBody>
-                            <Table
-                                tableHeaderColor="info"
-                                tableHead={["작성자", "제목", "타입", "작성날짜"]}
-                                tableData={[
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"]
-                                ]}
-                            />
                         </CardBody>
                         <CardFooter>
                             새로운 게시글 만들기
