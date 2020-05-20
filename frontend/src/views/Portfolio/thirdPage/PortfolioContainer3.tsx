@@ -1,27 +1,43 @@
 import React from "react";
-import PortfolioPresenter from "./PortfolioPresenter";
+import PortfolioPresenter from "./PortfolioPresenter3";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 interface PortfolioIState {
   name: string;
-  reason1: string;
+  projectName: string;
+  projectTerm: string;
 }
 export default class extends React.Component<{}, PortfolioIState> {
   state = {
     name: "음메리카노",
-    reason1: "",
+    projectName: "",
+    projectTerm: "",
   };
   componentDidMount() {
     window.scrollTo(0, 0);
   }
+
   useStyles = makeStyles((theme: Theme) =>
     createStyles({
+      plusButton: {
+        "& > *": {
+          margin: theme.spacing(1),
+          width: "36px",
+          height: "36px",
+        },
+      },
       pageButton: {
         "& > *": {
           margin: theme.spacing(1),
         },
       },
-      reason: {
+      projectName: {
+        "& > *": {
+          margin: theme.spacing(1),
+          width: "40ch",
+        },
+      },
+      projectTerm: {
         "& > *": {
           margin: theme.spacing(1),
           width: "40ch",
@@ -37,18 +53,22 @@ export default class extends React.Component<{}, PortfolioIState> {
     const {
       target: { value, name },
     } = event;
-    if (name === "reason1") {
-      this.setState({ reason1: value });
+
+    if (name === "projectName") {
+      this.setState({ projectName: value });
     }
   };
+
   render() {
-    const { name, reason1 } = this.state;
+    const { name, projectName, projectTerm } = this.state;
     return (
       <PortfolioPresenter
+        name={name}
+        projectName={projectName}
+        projectTerm={projectTerm}
+        useStyles={this.useStyles}
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
-        useStyles={this.useStyles}
-        name={name}
       />
     );
   }
