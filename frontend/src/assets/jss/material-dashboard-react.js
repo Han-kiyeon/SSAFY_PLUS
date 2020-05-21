@@ -231,7 +231,7 @@ const title = {
   marginTop: "30px",
   marginBottom: "25px",
   minHeight: "32px",
-  fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+  fontFamily: "'Nanum Myeongjo', serif",
   "& small": {
     color: grayColor[1],
     fontWeight: "400",
