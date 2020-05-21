@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -56,27 +55,63 @@ interface PortfolioIState {
   error: boolean;
 }
 
+const Card = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Container = styled.div`
-  width: 80vw;
-  border: 1px solid black;
+  display: inline-block;
+  position: relative;
+  padding: 40px 35px 80px 35px;
+  width: 60vw;
   background-color: #fafafa;
   border-radius: 5px;
   box-shadow: 0 3px 10px 3px rgba(50, 50, 93, 0.25),
     0 8px 16px -8px rgba(0, 0, 0, 0.3);
+  word-break: break-all;
 `;
-const Title = styled.h1`
+const Title = styled.span`
+  display: block;
+  padding: 10px 10px 40px 10px;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 1.5em;
   color: #1c1c1c;
 `;
 
 const SubTitle = styled.h2`
+  display: inline-block;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 10px;
+  color: #fafafa;
+  border-radius: 5px;
+  background-color: #2e64fe;
+`;
+const Name = styled.span`
+  display: inline-block;
+  font-weight: bold;
+  font-weight: 0.9em;
+  padding: 15px 5px 5px 0px;
+`;
+const Todo = styled.span`
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1em;
+  padding: 15px 5px 5px 0px;
+  width: auto;
+`;
+const Description = styled.span`
+  display: inline-block;
+  font-size: 0.8em;
+  opacity: 0.7;
+`;
+const BirthDivider = styled.span`
+  display: inline-block;
+  width: auto;
+  padding-top: 10px;
   font-size: 1.5em;
 `;
-const Name = styled.span``;
-const Todo = styled.span``;
-const Description = styled.h5``;
-const BirthDivider = styled.span``;
 
 function PortfolioPresenter({
   name,
@@ -123,11 +158,13 @@ function PortfolioPresenter({
 }: PortfolioIState) {
   const classes = useStyles();
   return (
-    <>
+    <Card>
       <Container>
         <Title>당신의 포트폴리오를 만들어보세요!</Title>
         <SubTitle>기본 정보</SubTitle>
+        <br />
         <Todo>이름을 입력해주세요</Todo>
+        <br />
         <Description>
           이력서에 들어갈 한글이름으로 정확하게 입력해주세요
         </Description>
@@ -196,10 +233,10 @@ function PortfolioPresenter({
         </form>
         <Name>{name}</Name>
         <Todo>님의 이메일을 입력해주세요</Todo>
+        <br />
         <Description>
-          포트폴리오에 입력되는 이메일입니다.
-          <br />
-          스팸메일을 보내지 않으니 걱정하지 마세요😅
+          포트폴리오에 입력되는 이메일입니다. &nbsp; 스팸메일을 보내지 않으니
+          걱정하지 마세요😅
         </Description>
         <form
           className={classes.email}
@@ -216,6 +253,7 @@ function PortfolioPresenter({
         </form>
         <Name>{name}</Name>
         <Todo>님의 연락처를 입력해주세요</Todo>
+        <br />
         <Description>
           포트폴리오에 입력되는 연락처입니다.
           <br />
@@ -233,6 +271,9 @@ function PortfolioPresenter({
             name="phone"
             value={phone}
           ></TextField>
+          <br />
+          <Todo>자신과 어울리는 키워드 4가지를 골라주세요!</Todo>
+          <br />
         </form>
         <div className={classes.feature}>
           <FormControl
@@ -241,7 +282,6 @@ function PortfolioPresenter({
             component="fieldset"
             className={classes.formControl}
           >
-            <FormLabel component="legend">Pick Four</FormLabel>
             <FormGroup className={classes.feature}>
               <FormControlLabel
                 control={
@@ -563,7 +603,7 @@ function PortfolioPresenter({
           </Link>
         </div>
       </Container>
-    </>
+    </Card>
   );
 }
 export default PortfolioPresenter;

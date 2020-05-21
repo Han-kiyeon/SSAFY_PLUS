@@ -39,26 +39,46 @@ export default class extends React.Component<{}, PortfolioIState> {
 
   useStyles = makeStyles((theme: Theme) =>
     createStyles({
-      pageButton: {
+      pageButtonLeft: {
         "& > *": {
           margin: theme.spacing(1),
+          position: "absolute",
+          bottom: "10px",
+          left: "-30px",
+          "&:hover": {
+            bottom: "11px",
+            left: "-30px",
+          },
+        },
+      },
+      pageButtonRight: {
+        "& > *": {
+          margin: theme.spacing(1),
+          position: "absolute",
+          bottom: "10px",
+          right: "-30px",
+          "&:hover": {
+            bottom: "11px",
+            right: "-30px",
+          },
         },
       },
       talented_bar: {
         "& > *": {
           margin: theme.spacing(1),
+          width: "40vw",
         },
       },
       motion: {
         "& > *": {
-          margin: theme.spacing(5),
-          width: "45ch",
+          margin: theme.spacing(1),
+          width: "40vw",
         },
       },
       reason: {
         "& > *": {
           margin: theme.spacing(1),
-          width: "40ch",
+          width: "40vw",
         },
       },
     })
@@ -88,7 +108,6 @@ export default class extends React.Component<{}, PortfolioIState> {
 
   sliderUpdate1 = async (event: object, values: number) => {
     await this.setState({ stack1_score: values });
-    console.log(this.state.stack1_score);
   };
   tagUpdate1 = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -102,7 +121,6 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   sliderUpdate2 = async (event: object, values: number) => {
     await this.setState({ stack2_score: values });
-    console.log(this.state.stack2_score);
   };
   tagUpdate2 = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -116,7 +134,6 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   sliderUpdate3 = async (event: object, values: number) => {
     await this.setState({ stack3_score: values });
-    console.log(this.state.stack3_score);
   };
   tagUpdate3 = async (
     event: React.ChangeEvent<HTMLInputElement>,

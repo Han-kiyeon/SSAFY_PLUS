@@ -198,7 +198,7 @@ export default class extends React.Component<{}, PortfolioIState> {
     createStyles({
       name: {
         "& > *": {
-          margin: theme.spacing(3),
+          margin: theme.spacing(1),
           width: "10ch",
         },
       },
@@ -210,13 +210,13 @@ export default class extends React.Component<{}, PortfolioIState> {
       },
       email: {
         "& > *": {
-          margin: theme.spacing(2),
+          margin: theme.spacing(1),
           width: "28ch",
         },
       },
       phone: {
         "& > *": {
-          margin: theme.spacing(2),
+          margin: theme.spacing(1),
           width: "17ch",
         },
       },
@@ -233,6 +233,13 @@ export default class extends React.Component<{}, PortfolioIState> {
       pageButton: {
         "& > *": {
           margin: theme.spacing(1),
+          position: "absolute",
+          bottom: "10px",
+          right: "-30px",
+          "&:hover": {
+            bottom: "11px",
+            right: "-30px",
+          },
         },
       },
     })
