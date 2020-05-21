@@ -1,5 +1,6 @@
 package com.ssafy.springboot.web.dto.post;
 
+import com.ssafy.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

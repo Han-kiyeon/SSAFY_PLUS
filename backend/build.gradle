@@ -27,6 +27,9 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.projectlombok:lombok')
 
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+
+
     //Spring Data JPA
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('com.h2database:h2')

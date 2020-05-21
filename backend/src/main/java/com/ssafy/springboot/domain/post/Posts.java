@@ -1,9 +1,16 @@
 package com.ssafy.springboot.domain.post;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ssafy.springboot.domain.BaseTimeEntity;
+import com.ssafy.springboot.domain.board.Board;
+import com.ssafy.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -16,6 +23,17 @@ public class Posts extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 생성규칙: auto_increment
     private Long id;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "email")
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "board_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "board_id") // 게시글 번호
+    private Board board;
+
     //테이블의 컬럼을 나타냄 기본값 이외의 추가로 변경이 필요한 옵션이 있을때 사용
     @Column(length = 500, nullable = false) //VARCHAR(255)가 기본 -> size를 500으로 늘림
     private String title;
@@ -23,13 +41,18 @@ public class Posts extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false) // 타입을 "TEXT"로 변경
     private String content;
 
-    private String author;
+    private Long like_cnt;
+    private Long comment_cnt;
+
 
     @Builder //해당 클래스의 빌더 패턴 클래스를 생성
-    public Posts(String title, String content, String author) {
+    public Posts(User user, Board board, String title, String content) {
+        this.user = user;
+        this.board = board;
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.like_cnt = Long.valueOf(0);
+        this.comment_cnt = Long.valueOf(0);
     }
 
     public void update(String title, String content) {

@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = {"2. User"})
+@Api(tags = {"1. User"})
 
 @CrossOrigin("*")
 @RestController
