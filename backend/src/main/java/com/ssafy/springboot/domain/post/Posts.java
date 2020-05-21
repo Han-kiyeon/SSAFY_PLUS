@@ -30,6 +30,7 @@ public class Posts extends BaseTimeEntity {
     private User user;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "board_id")
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "board_id") // 게시글 번호
     private Board board;

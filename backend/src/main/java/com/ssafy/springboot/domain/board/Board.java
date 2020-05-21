@@ -28,7 +28,6 @@ public class Board extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-
     private String title;
     @Column(length = 500, nullable = false) //VARCHAR(255)가 기본 -> size를 500으로 늘림
     private String contents;
