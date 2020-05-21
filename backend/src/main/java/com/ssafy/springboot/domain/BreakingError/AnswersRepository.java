@@ -1,4 +1,6 @@
 package com.ssafy.springboot.domain.BreakingError;
 
-public interface AnswerRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AnswersRepository extends JpaRepository<Answers, Long> {
 }

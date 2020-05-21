@@ -1,8 +1,5 @@
-package com.ssafy.springboot.web.domain.BreakingError;
+package com.ssafy.springboot.domain.BreakingError;
 
-import com.ssafy.springboot.domain.BreakingError.Errors;
-import com.ssafy.springboot.domain.BreakingError.ErrorsRepository;
-import com.ssafy.springboot.domain.post.Posts;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,5 +44,28 @@ public class ErrorsRepositoryTest {
         Errors errors = errorsList.get(0);
         assertThat(errors.getTitle()).isEqualTo(title);
         assertThat(errors.getContent()).isEqualTo(content);
+    }
+
+    @Test
+    public void BaseTimeEntity_등록() {
+        //given
+        LocalDateTime now = LocalDateTime.of(2020, 5, 15, 0, 0, 0);
+        errorsRepository.save(Errors.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build()
+        );
+
+        //when
+        List<Errors> errorsList = errorsRepository.findAll();
+
+        //then
+        Errors posts = errorsList.get(0);
+
+        System.out.println(">>>>>>>>>>>>>>>>> createDate=" + posts.getCreatedDate() + ", modifiedDate=" + posts.getModifiedDate());
+
+        assertThat(posts.getCreatedDate()).isAfter(now);
+        assertThat(posts.getModifiedDate()).isAfter(now);
     }
 }

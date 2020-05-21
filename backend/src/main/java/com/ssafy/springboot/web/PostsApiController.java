@@ -23,11 +23,13 @@ public class PostsApiController {
 
     private final PostsService postsService;
 
-    @ApiOperation(value="게시글 작성", notes="게시글을 작성한다.")
+    //@ApiOperation(value="게시글 작성", notes="게시글을 작성한다.")
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
+
         return postsService.save(requestDto);
     }
+
 
     @ApiOperation(value="게시글 수정", notes="해당 id의 게시글을 수정한다.")
     @PutMapping("/api/v1/posts/{id}")

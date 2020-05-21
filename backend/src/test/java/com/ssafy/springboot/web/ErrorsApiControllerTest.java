@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ErrorsApicontrollerTest {
+public class ErrorsApiControllerTest {
 
     @LocalServerPort
     private int port;
@@ -51,7 +51,7 @@ public class ErrorsApicontrollerTest {
                 .author("author")
                 .build();
 
-        String url = "http://localhost:" + port + "/breakingError/errors";
+        String url = "http://localhost:" + port + "/api/breakingError/errors";
 
         //when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
@@ -83,7 +83,7 @@ public class ErrorsApicontrollerTest {
                 .content(expectedContent)
                 .build();
 
-        String url = "http://localhost:" + port + "/breakingError/errors" + updateId;
+        String url = "http://localhost:" + port + "/api/breakingError/errors" + updateId;
 
         HttpEntity<ErrorsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
