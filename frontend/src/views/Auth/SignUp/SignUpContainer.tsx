@@ -29,7 +29,9 @@ export default class extends React.Component<{}, SignUpIState> {
       this.Login();
     }
   };
-
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   Login = async () => {
     const { userId, password } = this.state;
     this.setState({ loading: true });

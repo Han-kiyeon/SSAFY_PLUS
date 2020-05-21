@@ -6,7 +6,8 @@ import PermIdentity from "@material-ui/icons/PermIdentity";
 
 // 레이아웃에 입힐 뷰들
 import Main from "views/Main/Main.js";
-import Portfolio from "views/Portfolio";
+import Portfolio from "views/Portfolio/firstPage";
+import Portfolio2 from "views/Portfolio/secondPage";
 import Board from "views/Board/Board.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
@@ -34,6 +35,12 @@ const dashboardRoutes = [
     name: "게시판",
     icon: Description,
     component: Board,
+    layout: "/plus",
+  },
+  {
+    path: "/2/portfolio",
+    name: "Portfolio2",
+    component: Portfolio2,
     layout: "/plus",
   },
   {
