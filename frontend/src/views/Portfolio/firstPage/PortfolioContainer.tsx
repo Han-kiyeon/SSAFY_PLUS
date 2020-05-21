@@ -161,26 +161,26 @@ export default class extends React.Component<{}, PortfolioIState> {
       this.setState({ email: value });
     } else if (name === "phone") {
       await this.setState({ phone: value });
-      if (this.state.phone.length == 4 && value.substring(3, 4) !== "-") {
+      if (this.state.phone.length === 4 && value.substring(3, 4) !== "-") {
         this.setState({
           phone: value.substring(0, 3) + "-" + value.substring(3, 4),
         });
       } else if (
-        this.state.phone.length == 4 &&
+        this.state.phone.length === 4 &&
         value.substring(3, 4) === "-"
       ) {
         this.setState({
           phone: value.substring(0, 3),
         });
       } else if (
-        this.state.phone.length == 9 &&
+        this.state.phone.length === 9 &&
         value.substring(8, 9) !== "-"
       ) {
         this.setState({
           phone: value.substring(0, 8) + "-" + value.substring(8, 9),
         });
       } else if (
-        this.state.phone.length == 9 &&
+        this.state.phone.length === 9 &&
         value.substring(8, 9) === "-"
       ) {
         this.setState({
@@ -198,7 +198,7 @@ export default class extends React.Component<{}, PortfolioIState> {
     createStyles({
       name: {
         "& > *": {
-          margin: theme.spacing(3),
+          margin: theme.spacing(1),
           width: "10ch",
         },
       },
@@ -210,13 +210,13 @@ export default class extends React.Component<{}, PortfolioIState> {
       },
       email: {
         "& > *": {
-          margin: theme.spacing(2),
+          margin: theme.spacing(1),
           width: "28ch",
         },
       },
       phone: {
         "& > *": {
-          margin: theme.spacing(2),
+          margin: theme.spacing(1),
           width: "17ch",
         },
       },
@@ -233,6 +233,13 @@ export default class extends React.Component<{}, PortfolioIState> {
       pageButton: {
         "& > *": {
           margin: theme.spacing(1),
+          position: "absolute",
+          bottom: "10px",
+          right: "-30px",
+          "&:hover": {
+            bottom: "11px",
+            right: "-30px",
+          },
         },
       },
     })
@@ -273,7 +280,7 @@ export default class extends React.Component<{}, PortfolioIState> {
           this.state.innovative,
           this.state.realistic,
           this.state.cooperative,
-        ].filter(v => v).length != 4,
+        ].filter(v => v).length !== 4,
     });
   };
 

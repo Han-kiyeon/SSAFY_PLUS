@@ -8,6 +8,7 @@ import PermIdentity from "@material-ui/icons/PermIdentity";
 import Main from "views/Main/Main.js";
 import Portfolio from "views/Portfolio/firstPage";
 import Portfolio2 from "views/Portfolio/secondPage";
+import Portfolio3 from "views/Portfolio/thirdPage";
 import Board from "views/Board/Board.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
@@ -39,8 +40,14 @@ const dashboardRoutes = [
   },
   {
     path: "/2/portfolio",
-    name: "Portfolio2",
+    name: "Portfolio",
     component: Portfolio2,
+    layout: "/plus",
+  },
+  {
+    path: "/3/portfolio",
+    name: "Portfolio",
+    component: Portfolio3,
     layout: "/plus",
   },
   {

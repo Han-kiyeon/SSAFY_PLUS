@@ -27,7 +27,9 @@ export default function Sidebar(props) {
     <List className={classes.list}>
       {routes.map((prop, key) => {
         if (
-          (prop.layout === "/plus" && !prop.path.startsWith("/2/")) ||
+          (prop.layout === "/plus" &&
+            !prop.path.startsWith("/2/") &&
+            !prop.path.startsWith("/3/")) ||
           prop.path === "/signIn"
         ) {
           var activePro = " ";
