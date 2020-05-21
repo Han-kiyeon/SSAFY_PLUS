@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { createBrowserHistory } from "history";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+
+//전체 적인 컨셉틀이 될 레이아웃
+import SsafyPlus from "layouts/SsafyPlus.js";
+import SignIn from "views/Auth/SignIn";
+import SignUp from "views/Auth/SignUp";
+import "assets/css/ssafyPlus.css";
+
+const hist = createBrowserHistory();
 
 function App() {
+  console.log("app들어옴");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={hist}>
+      <Switch>
+        <Route path="/plus" component={SsafyPlus} />
+        <Route path="/auth/signUP" component={SsafyPlus} />
+        <Route path="/auth/signIn" component={SsafyPlus} />
+        <Redirect from="/" to="/plus/main" />
+      </Switch>
+    </Router>
   );
 }
 
