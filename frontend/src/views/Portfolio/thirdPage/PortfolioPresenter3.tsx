@@ -20,6 +20,10 @@ interface PortfolioIState {
   projectName1: string;
   projectTerm1: string;
   projectDesc1: string;
+  projectStack1: string;
+  projectDo11: string;
+  projectDo12: string;
+  projectDo13: string;
   error1: boolean;
   frontend1: boolean;
   backend1: boolean;
@@ -35,6 +39,10 @@ interface PortfolioIState {
   projectName2: string;
   projectTerm2: string;
   projectDesc2: string;
+  projectStack2: string;
+  projectDo21: string;
+  projectDo22: string;
+  projectDo23: string;
   error2: boolean;
   frontend2: boolean;
   backend2: boolean;
@@ -50,6 +58,10 @@ interface PortfolioIState {
   projectName3: string;
   projectTerm3: string;
   projectDesc3: string;
+  projectStack3: string;
+  projectDo31: string;
+  projectDo32: string;
+  projectDo33: string;
   error3: boolean;
   frontend3: boolean;
   backend3: boolean;
@@ -65,6 +77,10 @@ interface PortfolioIState {
   projectName4: string;
   projectTerm4: string;
   projectDesc4: string;
+  projectStack4: string;
+  projectDo41: string;
+  projectDo42: string;
+  projectDo43: string;
   error4: boolean;
   frontend4: boolean;
   backend4: boolean;
@@ -110,7 +126,7 @@ const Todo = styled.span`
   display: inline-block;
   font-weight: 600;
   font-size: 1em;
-  padding: 15px 5px 5px 0px;
+  padding: 35px 5px 5px 0px;
   width: auto;
 `;
 const Description = styled.span`
@@ -128,6 +144,20 @@ const AddButton = styled.div`
 const MinusButton = styled.div`
   display: inline-block;
 `;
+const DoIDid = styled.span`
+  display: block;
+  font-size: 0.9em;
+  height: 0.8em;
+  font-weight: 500;
+`;
+const DoIDidNo = styled.div`
+  display: inline-block;
+  width: 0.4em;
+  transform: translateX(20%) translateY(10%);
+  height: 3em;
+  font-weight: 600;
+  font-size: 0.9em;
+`;
 
 function PortfolioPresenter({
   useStyles,
@@ -136,6 +166,10 @@ function PortfolioPresenter({
   projectName1,
   projectTerm1,
   projectDesc1,
+  projectStack1,
+  projectDo11,
+  projectDo12,
+  projectDo13,
   error1,
   frontend1,
   backend1,
@@ -151,6 +185,10 @@ function PortfolioPresenter({
   projectName2,
   projectTerm2,
   projectDesc2,
+  projectStack2,
+  projectDo21,
+  projectDo22,
+  projectDo23,
   error2,
   frontend2,
   backend2,
@@ -166,6 +204,10 @@ function PortfolioPresenter({
   projectName3,
   projectTerm3,
   projectDesc3,
+  projectStack3,
+  projectDo31,
+  projectDo32,
+  projectDo33,
   error3,
   frontend3,
   backend3,
@@ -181,6 +223,10 @@ function PortfolioPresenter({
   projectName4,
   projectTerm4,
   projectDesc4,
+  projectStack4,
+  projectDo41,
+  projectDo42,
+  projectDo43,
   error4,
   frontend4,
   backend4,
@@ -218,7 +264,6 @@ function PortfolioPresenter({
             >
               <TextField
                 label="프로젝트 이름"
-                helperText="ex) 반응형 웹사이트 제작 가능, REST API 백엔드 구축 가능"
                 onChange={updateTerm}
                 name="projectName1"
                 value={projectName1}
@@ -243,7 +288,6 @@ function PortfolioPresenter({
             </form>
             <Todo>프로젝트를 한줄로 소개해주세요</Todo>
             <br />
-            <Description>ex. AI를 이용한 카메라앱 </Description>
             <form
               className={classes.projectDesc}
               noValidate
@@ -251,13 +295,15 @@ function PortfolioPresenter({
               onSubmit={handleSubmit}
             >
               <TextField
-                label="프로젝트 이름"
-                helperText="ex) 반응형 웹사이트 제작 가능, REST API 백엔드 구축 가능"
+                label="프로젝트 소개"
+                helperText="ex) AI를 이용한 카메라 앱"
                 onChange={updateTerm}
                 name="projectDesc1"
                 value={projectDesc1}
               ></TextField>
             </form>
+            <br />
+            <Todo>본인의 역할은 무엇이었습니까?</Todo> <br />
             <div className={classes.feature}>
               <FormControl
                 required
@@ -284,7 +330,7 @@ function PortfolioPresenter({
                       <Checkbox
                         checked={backend1}
                         onChange={handleChange}
-                        name="backend"
+                        name="backend1"
                       />
                     }
                     className={classes.label}
@@ -413,13 +459,62 @@ function PortfolioPresenter({
                 )}
               </FormControl>
             </div>
+            <form
+              className={classes.projectStack}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <Todo>프로젝트에 사용된 기술을 적어주세요</Todo>
+              <br />
+              <TextField
+                label="프로젝트 주요 스택"
+                helperText="ex. React, Spring, MySQL, AWS"
+                onChange={updateTerm}
+                name="projectStack1"
+                value={projectStack1}
+              ></TextField>
+            </form>
+            <br />
+            <Todo>프로젝트에서 맡은 역할을 적어주세요</Todo>
+            <form
+              className={classes.projectDo}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <DoIDid>자신의 역할을 간략히 적어보세요</DoIDid>
+              <DoIDidNo>1. </DoIDidNo>
+              <TextField
+                helperText="ex. REST API 모델 설계 및 구현"
+                onChange={updateTerm}
+                name="projectDo11"
+                value={projectDo11}
+              ></TextField>
+              <br />
+              <DoIDidNo>2. </DoIDidNo>
+              <TextField
+                helperText="ex. React OO 컴포넌트 제작"
+                onChange={updateTerm}
+                name="projectDo12"
+                value={projectDo12}
+              ></TextField>
+              <br />
+              <DoIDidNo>3. </DoIDidNo>
+              <TextField
+                helperText="더 있으시다면 추가로 적어보세요!"
+                onChange={updateTerm}
+                name="projectDo13"
+                value={projectDo13}
+              ></TextField>
+            </form>
           </Project>
           {projectLen > 1 && (
             <Project>
               <Title>2. 추가 프로젝트 경험을 작성해주세요</Title>
               <Todo>프로젝트의 이름은 무엇인가요?</Todo>
               <form
-                className={classes.projectName}
+                className={classes.projectStack}
                 noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit}
@@ -466,6 +561,8 @@ function PortfolioPresenter({
                   value={projectDesc2}
                 ></TextField>
               </form>
+              <br />
+              <Todo>본인의 역할은 무엇이었습니까?</Todo> <br />
               <div className={classes.feature}>
                 <FormControl
                   required
@@ -492,7 +589,7 @@ function PortfolioPresenter({
                         <Checkbox
                           checked={backend2}
                           onChange={handleChange}
-                          name="backend1"
+                          name="backend2"
                         />
                       }
                       className={classes.label}
@@ -621,6 +718,55 @@ function PortfolioPresenter({
                   )}
                 </FormControl>
               </div>
+              <form
+                className={classes.projectStack}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <Todo>프로젝트에 사용된 기술을 적어주세요</Todo>
+                <br />
+                <TextField
+                  label="프로젝트 주요 스택"
+                  helperText="ex. React, Spring, MySQL, AWS"
+                  onChange={updateTerm}
+                  name="projectStack2"
+                  value={projectStack2}
+                ></TextField>
+              </form>
+              <br />
+              <Todo>프로젝트에서 맡은 역할을 적어주세요</Todo>
+              <form
+                className={classes.projectDo}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <DoIDid>자신의 역할을 간략히 적어보세요</DoIDid>
+                <DoIDidNo>1. </DoIDidNo>
+                <TextField
+                  helperText="ex. REST API 모델 설계 및 구현"
+                  onChange={updateTerm}
+                  name="projectDo21"
+                  value={projectDo21}
+                ></TextField>
+                <br />
+                <DoIDidNo>2. </DoIDidNo>
+                <TextField
+                  helperText="ex. React OO 컴포넌트 제작"
+                  onChange={updateTerm}
+                  name="projectDo22"
+                  value={projectDo22}
+                ></TextField>
+                <br />
+                <DoIDidNo>3. </DoIDidNo>
+                <TextField
+                  helperText="더 있으시다면 추가로 적어보세요!"
+                  onChange={updateTerm}
+                  name="projectDo23"
+                  value={projectDo23}
+                ></TextField>
+              </form>
             </Project>
           )}
           {projectLen > 2 && (
@@ -675,6 +821,8 @@ function PortfolioPresenter({
                   value={projectDesc3}
                 ></TextField>
               </form>
+              <br />
+              <Todo>본인의 역할은 무엇이었습니까?</Todo> <br />
               <div className={classes.feature}>
                 <FormControl
                   required
@@ -830,6 +978,55 @@ function PortfolioPresenter({
                   )}
                 </FormControl>
               </div>
+              <form
+                className={classes.projectStack}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <Todo>프로젝트에 사용된 기술을 적어주세요</Todo>
+                <br />
+                <TextField
+                  label="프로젝트 주요 스택"
+                  helperText="ex. React, Spring, MySQL, AWS"
+                  onChange={updateTerm}
+                  name="projectStack3"
+                  value={projectStack3}
+                ></TextField>
+              </form>
+              <br />
+              <Todo>프로젝트에서 맡은 역할을 적어주세요</Todo>
+              <form
+                className={classes.projectDo}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <DoIDid>자신의 역할을 간략히 적어보세요</DoIDid>
+                <DoIDidNo>1. </DoIDidNo>
+                <TextField
+                  helperText="ex. REST API 모델 설계 및 구현"
+                  onChange={updateTerm}
+                  name="projectDo31"
+                  value={projectDo31}
+                ></TextField>
+                <br />
+                <DoIDidNo>2. </DoIDidNo>
+                <TextField
+                  helperText="ex. React OO 컴포넌트 제작"
+                  onChange={updateTerm}
+                  name="projectDo32"
+                  value={projectDo32}
+                ></TextField>
+                <br />
+                <DoIDidNo>3. </DoIDidNo>
+                <TextField
+                  helperText="더 있으시다면 추가로 적어보세요!"
+                  onChange={updateTerm}
+                  name="projectDo33"
+                  value={projectDo33}
+                ></TextField>
+              </form>
             </Project>
           )}
           {projectLen > 3 && (
@@ -884,6 +1081,8 @@ function PortfolioPresenter({
                   value={projectDesc4}
                 ></TextField>
               </form>
+              <br />
+              <Todo>본인의 역할은 무엇이었습니까?</Todo> <br />
               <div className={classes.feature}>
                 <FormControl
                   required
@@ -1039,6 +1238,55 @@ function PortfolioPresenter({
                   )}
                 </FormControl>
               </div>
+              <form
+                className={classes.projectStack}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <Todo>프로젝트에 사용된 기술을 적어주세요</Todo>
+                <br />
+                <TextField
+                  label="프로젝트 주요 스택"
+                  helperText="ex. React, Spring, MySQL, AWS"
+                  onChange={updateTerm}
+                  name="projectStack4"
+                  value={projectStack4}
+                ></TextField>
+              </form>
+              <br />
+              <Todo>프로젝트에서 맡은 역할을 적어주세요</Todo>
+              <form
+                className={classes.projectDo}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <DoIDid>자신의 역할을 간략히 적어보세요</DoIDid>
+                <DoIDidNo>1. </DoIDidNo>
+                <TextField
+                  helperText="ex. REST API 모델 설계 및 구현"
+                  onChange={updateTerm}
+                  name="projectDo41"
+                  value={projectDo41}
+                ></TextField>
+                <br />
+                <DoIDidNo>2. </DoIDidNo>
+                <TextField
+                  helperText="ex. React OO 컴포넌트 제작"
+                  onChange={updateTerm}
+                  name="projectDo42"
+                  value={projectDo42}
+                ></TextField>
+                <br />
+                <DoIDidNo>3. </DoIDidNo>
+                <TextField
+                  helperText="더 있으시다면 추가로 적어보세요!"
+                  onChange={updateTerm}
+                  name="projectDo43"
+                  value={projectDo43}
+                ></TextField>
+              </form>
             </Project>
           )}
           {projectLen > 1 && (

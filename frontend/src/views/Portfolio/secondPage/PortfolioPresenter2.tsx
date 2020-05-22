@@ -186,7 +186,7 @@ function PortfolioPresenter({
             ></TextField>
           </form>
         </Block>
-        {stack1 && stack1_score && reason1 && (
+        {stack1 && stack1_score >= 0 && reason1 && (
           <Block>
             <Todo>
               2. 다음으로 자신있는 프로그래밍 언어 / 프레임워크 / 시스템을
@@ -198,7 +198,7 @@ function PortfolioPresenter({
             <Autocomplete
               options={stack}
               getOptionLabel={option => option}
-              style={{ width: 500 }}
+              style={{ width: 300 }}
               onChange={tagUpdate2}
               renderInput={params => (
                 <TextField {...params} label="Stack" variant="outlined" />
@@ -244,7 +244,7 @@ function PortfolioPresenter({
             </form>
           </Block>
         )}
-        {stack2 && stack2_score && reason2 && (
+        {stack2 && stack2_score >= 0 && reason2 && (
           <Block>
             <Todo>
               3. 마지막으로 자신있는 프로그래밍 언어 / 프레임워크 / 시스템을
@@ -256,7 +256,7 @@ function PortfolioPresenter({
             <Autocomplete
               options={stack}
               getOptionLabel={option => option}
-              style={{ width: 500 }}
+              style={{ width: 300 }}
               onChange={tagUpdate3}
               renderInput={params => (
                 <TextField {...params} label="Stack" variant="outlined" />

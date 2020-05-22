@@ -66,7 +66,6 @@ export default class extends React.Component<{}, PortfolioIState> {
       talented_bar: {
         "& > *": {
           margin: theme.spacing(1),
-          width: "40vw",
         },
       },
       motion: {
@@ -78,7 +77,6 @@ export default class extends React.Component<{}, PortfolioIState> {
       reason: {
         "& > *": {
           margin: theme.spacing(1),
-          width: "40vw",
         },
       },
     })

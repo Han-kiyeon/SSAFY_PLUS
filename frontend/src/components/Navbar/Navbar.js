@@ -45,7 +45,8 @@ export default function Header(props) {
         if (
           (prop.layout === "/plus" &&
             !prop.path.startsWith("/2/") &&
-            !prop.path.startsWith("/3/")) ||
+            !prop.path.startsWith("/3/") &&
+            !prop.path.startsWith("/result/")) ||
           prop.path === "/signIn"
         ) {
           return (

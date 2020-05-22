@@ -8,6 +8,10 @@ interface PortfolioIState {
   projectName1: string;
   projectTerm1: string;
   projectDesc1: string;
+  projectStack1: string;
+  projectDo11: string;
+  projectDo12: string;
+  projectDo13: string;
   error1: boolean;
   frontend1: boolean;
   backend1: boolean;
@@ -23,6 +27,10 @@ interface PortfolioIState {
   projectName2: string;
   projectTerm2: string;
   projectDesc2: string;
+  projectStack2: string;
+  projectDo21: string;
+  projectDo22: string;
+  projectDo23: string;
   error2: boolean;
   frontend2: boolean;
   backend2: boolean;
@@ -38,6 +46,10 @@ interface PortfolioIState {
   projectName3: string;
   projectTerm3: string;
   projectDesc3: string;
+  projectStack3: string;
+  projectDo31: string;
+  projectDo32: string;
+  projectDo33: string;
   error3: boolean;
   frontend3: boolean;
   backend3: boolean;
@@ -53,6 +65,10 @@ interface PortfolioIState {
   projectName4: string;
   projectTerm4: string;
   projectDesc4: string;
+  projectStack4: string;
+  projectDo41: string;
+  projectDo42: string;
+  projectDo43: string;
   error4: boolean;
   frontend4: boolean;
   backend4: boolean;
@@ -73,6 +89,10 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectName1: "",
     projectTerm1: "",
     projectDesc1: "",
+    projectStack1: "",
+    projectDo11: "",
+    projectDo12: "",
+    projectDo13: "",
     error1: false,
     frontend1: false,
     backend1: false,
@@ -88,6 +108,10 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectName2: "",
     projectTerm2: "",
     projectDesc2: "",
+    projectStack2: "",
+    projectDo21: "",
+    projectDo22: "",
+    projectDo23: "",
     error2: false,
     frontend2: false,
     backend2: false,
@@ -103,6 +127,10 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectName3: "",
     projectTerm3: "",
     projectDesc3: "",
+    projectStack3: "",
+    projectDo31: "",
+    projectDo32: "",
+    projectDo33: "",
     error3: false,
     frontend3: false,
     backend3: false,
@@ -118,6 +146,10 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectName4: "",
     projectTerm4: "",
     projectDesc4: "",
+    projectStack4: "",
+    projectDo41: "",
+    projectDo42: "",
+    projectDo43: "",
     error4: false,
     frontend4: false,
     backend4: false,
@@ -171,18 +203,29 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectName: {
         "& > *": {
           margin: theme.spacing(1),
-          width: "40ch",
+        },
+      },
+      projectStack: {
+        "& > *": {
+          margin: theme.spacing(1),
+          width: "20em",
         },
       },
       projectTerm: {
         "& > *": {
           margin: theme.spacing(1),
-          width: "40ch",
         },
       },
       projectDesc: {
         "& > *": {
           margin: theme.spacing(1),
+        },
+      },
+      projectDo: {
+        "& > *": {
+          display: "inline-block",
+          margin: theme.spacing(1),
+          width: "18em",
         },
       },
       feature: {
@@ -381,6 +424,187 @@ export default class extends React.Component<{}, PortfolioIState> {
       } else if (this.state.projectTerm1.length > 17) {
         this.setState({ projectTerm1: value.substring(0, 17) });
       }
+    } else if (name === "projectDesc1") {
+      this.setState({ projectDesc1: value });
+    } else if (name === "projectStack1") {
+      this.setState({ projectStack1: value });
+    } else if (name === "projectDo11") {
+      this.setState({ projectDo11: value });
+    } else if (name === "projectDo12") {
+      this.setState({ projectDo12: value });
+    } else if (name === "projectDo13") {
+      this.setState({ projectDo13: value });
+    } else if (name === "projectName2") {
+      this.setState({ projectName2: value });
+    } else if (name === "projectTerm2") {
+      await this.setState({ projectTerm2: value });
+      if (
+        this.state.projectTerm2.length === 5 &&
+        value.substring(4, 5) !== "."
+      ) {
+        this.setState({
+          projectTerm2: value.substring(0, 4) + "." + value.substring(4, 5),
+        });
+      } else if (
+        this.state.projectTerm2.length === 5 &&
+        value.substring(4, 5) === "."
+      ) {
+        this.setState({
+          projectTerm2: value.substring(0, 4),
+        });
+      } else if (
+        this.state.projectTerm2.length === 8 &&
+        value.substring(7, 8) !== " "
+      ) {
+        this.setState({
+          projectTerm2: value.substring(0, 7) + " - " + value.substring(7, 8),
+        });
+      } else if (
+        this.state.projectTerm2.length === 10 &&
+        value.substring(9, 10) === " "
+      ) {
+        this.setState({
+          projectTerm2: value.substring(0, 7),
+        });
+      } else if (
+        this.state.projectTerm2.length === 15 &&
+        value.substring(14, 15) !== "."
+      ) {
+        this.setState({
+          projectTerm2: value.substring(0, 14) + "." + value.substring(14, 15),
+        });
+      } else if (
+        this.state.projectTerm2.length === 15 &&
+        value.substring(14, 15) === "."
+      ) {
+        this.setState({ projectTerm2: value.substring(0, 14) });
+      } else if (this.state.projectTerm2.length > 17) {
+        this.setState({ projectTerm2: value.substring(0, 17) });
+      }
+    } else if (name === "projectDesc2") {
+      this.setState({ projectDesc2: value });
+    } else if (name === "projectStack2") {
+      this.setState({ projectStack2: value });
+    } else if (name === "projectDo21") {
+      this.setState({ projectDo21: value });
+    } else if (name === "projectDo22") {
+      this.setState({ projectDo22: value });
+    } else if (name === "projectDo23") {
+      this.setState({ projectDo23: value });
+    } else if (name === "projectName3") {
+      this.setState({ projectName3: value });
+    } else if (name === "projectTerm3") {
+      await this.setState({ projectTerm3: value });
+      if (
+        this.state.projectTerm3.length === 5 &&
+        value.substring(4, 5) !== "."
+      ) {
+        this.setState({
+          projectTerm3: value.substring(0, 4) + "." + value.substring(4, 5),
+        });
+      } else if (
+        this.state.projectTerm3.length === 5 &&
+        value.substring(4, 5) === "."
+      ) {
+        this.setState({
+          projectTerm3: value.substring(0, 4),
+        });
+      } else if (
+        this.state.projectTerm3.length === 8 &&
+        value.substring(7, 8) !== " "
+      ) {
+        this.setState({
+          projectTerm3: value.substring(0, 7) + " - " + value.substring(7, 8),
+        });
+      } else if (
+        this.state.projectTerm3.length === 10 &&
+        value.substring(9, 10) === " "
+      ) {
+        this.setState({
+          projectTerm3: value.substring(0, 7),
+        });
+      } else if (
+        this.state.projectTerm3.length === 15 &&
+        value.substring(14, 15) !== "."
+      ) {
+        this.setState({
+          projectTerm3: value.substring(0, 14) + "." + value.substring(14, 15),
+        });
+      } else if (
+        this.state.projectTerm3.length === 15 &&
+        value.substring(14, 15) === "."
+      ) {
+        this.setState({ projectTerm3: value.substring(0, 14) });
+      } else if (this.state.projectTerm3.length > 17) {
+        this.setState({ projectTerm3: value.substring(0, 17) });
+      }
+    } else if (name === "projectDesc3") {
+      this.setState({ projectDesc3: value });
+    } else if (name === "projectStack3") {
+      this.setState({ projectStack3: value });
+    } else if (name === "projectDo31") {
+      this.setState({ projectDo31: value });
+    } else if (name === "projectDo32") {
+      this.setState({ projectDo32: value });
+    } else if (name === "projectDo33") {
+      this.setState({ projectDo33: value });
+    } else if (name === "projectName4") {
+      this.setState({ projectName4: value });
+    } else if (name === "projectTerm4") {
+      await this.setState({ projectTerm4: value });
+      if (
+        this.state.projectTerm4.length === 5 &&
+        value.substring(4, 5) !== "."
+      ) {
+        this.setState({
+          projectTerm4: value.substring(0, 4) + "." + value.substring(4, 5),
+        });
+      } else if (
+        this.state.projectTerm4.length === 5 &&
+        value.substring(4, 5) === "."
+      ) {
+        this.setState({
+          projectTerm4: value.substring(0, 4),
+        });
+      } else if (
+        this.state.projectTerm4.length === 8 &&
+        value.substring(7, 8) !== " "
+      ) {
+        this.setState({
+          projectTerm4: value.substring(0, 7) + " - " + value.substring(7, 8),
+        });
+      } else if (
+        this.state.projectTerm4.length === 10 &&
+        value.substring(9, 10) === " "
+      ) {
+        this.setState({
+          projectTerm4: value.substring(0, 7),
+        });
+      } else if (
+        this.state.projectTerm4.length === 15 &&
+        value.substring(14, 15) !== "."
+      ) {
+        this.setState({
+          projectTerm4: value.substring(0, 14) + "." + value.substring(14, 15),
+        });
+      } else if (
+        this.state.projectTerm4.length === 15 &&
+        value.substring(14, 15) === "."
+      ) {
+        this.setState({ projectTerm4: value.substring(0, 14) });
+      } else if (this.state.projectTerm4.length > 17) {
+        this.setState({ projectTerm4: value.substring(0, 17) });
+      }
+    } else if (name === "projectDesc4") {
+      this.setState({ projectDesc4: value });
+    } else if (name === "projectStack4") {
+      this.setState({ projectStack4: value });
+    } else if (name === "projectDo41") {
+      this.setState({ projectDo41: value });
+    } else if (name === "projectDo42") {
+      this.setState({ projectDo42: value });
+    } else if (name === "projectDo43") {
+      this.setState({ projectDo43: value });
     }
   };
 
@@ -391,6 +615,10 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectName1,
       projectTerm1,
       projectDesc1,
+      projectStack1,
+      projectDo11,
+      projectDo12,
+      projectDo13,
       error1,
       frontend1,
       backend1,
@@ -406,6 +634,10 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectName2,
       projectTerm2,
       projectDesc2,
+      projectStack2,
+      projectDo21,
+      projectDo22,
+      projectDo23,
       error2,
       frontend2,
       backend2,
@@ -421,6 +653,10 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectName3,
       projectTerm3,
       projectDesc3,
+      projectStack3,
+      projectDo31,
+      projectDo32,
+      projectDo33,
       error3,
       frontend3,
       backend3,
@@ -436,6 +672,10 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectName4,
       projectTerm4,
       projectDesc4,
+      projectStack4,
+      projectDo41,
+      projectDo42,
+      projectDo43,
       error4,
       frontend4,
       backend4,
@@ -456,6 +696,10 @@ export default class extends React.Component<{}, PortfolioIState> {
         projectName1={projectName1}
         projectTerm1={projectTerm1}
         projectDesc1={projectDesc1}
+        projectStack1={projectStack1}
+        projectDo11={projectDo11}
+        projectDo12={projectDo12}
+        projectDo13={projectDo13}
         error1={error1}
         frontend1={frontend1}
         backend1={backend1}
@@ -471,6 +715,10 @@ export default class extends React.Component<{}, PortfolioIState> {
         projectName2={projectName2}
         projectTerm2={projectTerm2}
         projectDesc2={projectDesc2}
+        projectStack2={projectStack2}
+        projectDo21={projectDo21}
+        projectDo22={projectDo22}
+        projectDo23={projectDo23}
         error2={error2}
         frontend2={frontend2}
         backend2={backend2}
@@ -486,6 +734,10 @@ export default class extends React.Component<{}, PortfolioIState> {
         projectName3={projectName3}
         projectTerm3={projectTerm3}
         projectDesc3={projectDesc3}
+        projectStack3={projectStack3}
+        projectDo31={projectDo31}
+        projectDo32={projectDo32}
+        projectDo33={projectDo33}
         error3={error3}
         frontend3={frontend3}
         backend3={backend3}
@@ -501,6 +753,10 @@ export default class extends React.Component<{}, PortfolioIState> {
         projectName4={projectName4}
         projectTerm4={projectTerm4}
         projectDesc4={projectDesc4}
+        projectStack4={projectStack4}
+        projectDo41={projectDo41}
+        projectDo42={projectDo42}
+        projectDo43={projectDo43}
         error4={error4}
         frontend4={frontend4}
         backend4={backend4}
