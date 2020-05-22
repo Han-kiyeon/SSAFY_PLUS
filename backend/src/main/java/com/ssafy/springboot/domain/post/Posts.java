@@ -21,7 +21,7 @@ public class Posts extends BaseTimeEntity {
 
     @Id //해당 테이블의 PK 필드
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 생성규칙: auto_increment
-    private Long id;
+    private Long post_id;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "email")
     @ManyToOne

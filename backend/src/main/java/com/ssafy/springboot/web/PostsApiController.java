@@ -34,27 +34,27 @@ public class PostsApiController {
 
     @ApiOperation(value = "게시글 조회", notes = "해당 id의 게시글을 조회한다.")
     @GetMapping("/{id}")
-    public Posts findById(@PathVariable Long id) {
+    public PostsResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
     }
 
-//    @ApiOperation(value = "게시글 수정", notes = "해당 id의 게시글을 수정한다.")
-//    @PutMapping("/{id}")
-//    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
-//        return postsService.update(id, requestDto);
-//    }
-//
-//    @ApiOperation(value = "게시글 삭제", notes = "해당 id의 게시글을 삭제한다.")
-//    @DeleteMapping("/{id}")
-//    public Long delete(@PathVariable Long id) {
-//        postsService.delete(id);
-//        return id;
-//    }
-//
-//
-//    @ApiOperation(value = "모든 게시글 조회", notes = "모든 게시글을 조회한다(id 역순)")
-//    @GetMapping("/list")
-//    public List<PostsListResponseDto> findAll() {
-//        return postsService.findAllDesc();
-//    }
+    @ApiOperation(value = "게시글 수정", notes = "해당 id의 게시글을 수정한다.")
+    @PutMapping("/{id}")
+    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
+        return postsService.update(id, requestDto);
+    }
+
+    @ApiOperation(value = "게시글 삭제", notes = "해당 id의 게시글을 삭제한다.")
+    @DeleteMapping("/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
+    }
+
+
+    @ApiOperation(value = "모든 게시글 조회", notes = "모든 게시글을 조회한다(id 역순)")
+    @GetMapping("/list")
+    public List<PostsListResponseDto> findAll() {
+        return postsService.findAllDesc();
+    }
 }

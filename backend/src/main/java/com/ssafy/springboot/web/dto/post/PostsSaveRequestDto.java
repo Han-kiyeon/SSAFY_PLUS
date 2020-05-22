@@ -39,10 +39,10 @@ public class PostsSaveRequestDto {
 //        this.comment_cnt = comment_cnt;
 //    }
 
-    public Posts toEntity(User user, Optional<Board> board) {
+    public Posts toEntity(User user, Board board) {
         return Posts.builder()
                 .user(user)
-                .board(board.get())
+                .board(board)
                 .title(title)
                 .content(content)
                 .build();
