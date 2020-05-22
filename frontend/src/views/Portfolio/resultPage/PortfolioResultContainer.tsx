@@ -1,11 +1,14 @@
 import React from "react";
 import PortfolioResultPresenter from "./PortfolioResultPresenter";
 
-interface PortfolioResultIState {}
+interface PortfolioResultIState {
+  name: string;
+}
 
 export default class extends React.Component<{}, PortfolioResultIState> {
-  state = {};
+  state = { name: "Eum_mericano" };
   render() {
-    return <PortfolioResultPresenter />;
+    const { name } = this.state;
+    return <PortfolioResultPresenter name={name} />;
   }
 }
