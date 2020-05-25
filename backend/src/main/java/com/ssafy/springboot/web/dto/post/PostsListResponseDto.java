@@ -1,18 +1,7 @@
 package com.ssafy.springboot.web.dto.post;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.ssafy.springboot.domain.board.Board;
 import com.ssafy.springboot.domain.post.Posts;
-import com.ssafy.springboot.domain.user.User;
 import lombok.Getter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
 
 @Getter
 public class PostsListResponseDto {
