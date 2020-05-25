@@ -234,7 +234,7 @@ export default class extends React.Component<{}, PortfolioIState> {
       },
       formControl: {
         display: "inline-block",
-        margin: theme.spacing(2),
+        margin: theme.spacing(1),
         width: "80vw",
       },
       label: {
