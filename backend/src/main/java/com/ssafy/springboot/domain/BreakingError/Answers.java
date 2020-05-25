@@ -19,7 +19,7 @@ public class Answers extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long errorId;
+    private Long answerId;
 
     @Column(length = 500, nullable = false)
     private  String title;

@@ -4,22 +4,21 @@ import com.ssafy.springboot.domain.BreakingError.Answers;
 import lombok.Getter;
 
 @Getter
-public class AnswersResponseDto {
-
+public class AnswersListResponseDto {
     private Long answerId;
-    private String title;
-    private String content;
     private String userEmail;
     private Long errorId;
+    private String title;
+    private String content;
     private Long likeCnt;
     private Long answerCnt;
 
-    public AnswersResponseDto(Answers entity) {
+    public AnswersListResponseDto(Answers entity) {
         this.answerId = entity.getAnswerId();
-        this.title = entity.getTitle();
-        this.content = entity.getContent();
         this.userEmail = entity.getUser().getEmail();
         this.errorId = entity.getError().getErrorId();
+        this.title = entity.getTitle();
+        this.content = entity.getContent();
         this.likeCnt = entity.getLikeCnt();
         this.answerCnt = entity.getAnswerCnt();
     }

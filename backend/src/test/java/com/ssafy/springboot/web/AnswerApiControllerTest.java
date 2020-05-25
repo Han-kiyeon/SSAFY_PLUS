@@ -47,7 +47,6 @@ public class AnswerApiControllerTest {
         AnswersSaveRequestDto requestDto = AnswersSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .author("author")
                 .build();
 
         String url = "http://localhost:" + port + "/api/breakingError/answers";
@@ -70,7 +69,6 @@ public class AnswerApiControllerTest {
         Answers savedAnswers = answersRepository.save(Answers.builder()
                 .title("title")
                 .content("content")
-                .author("author")
                 .build());
 
         Long updateId = savedAnswers.getAnswerId();

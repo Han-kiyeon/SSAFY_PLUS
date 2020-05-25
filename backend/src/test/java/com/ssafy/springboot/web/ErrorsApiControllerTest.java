@@ -48,7 +48,6 @@ public class ErrorsApiControllerTest {
         ErrorsSaveRequestDto requestDto = ErrorsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .author("author")
                 .build();
 
         String url = "http://localhost:" + port + "/api/breakingError/errors";
@@ -71,7 +70,6 @@ public class ErrorsApiControllerTest {
         Errors savedErrors = errorsRepository.save(Errors.builder()
                 .title("title")
                 .content("content")
-                .author("author")
                 .build());
 
         Long updateId = savedErrors.getErrorId();
