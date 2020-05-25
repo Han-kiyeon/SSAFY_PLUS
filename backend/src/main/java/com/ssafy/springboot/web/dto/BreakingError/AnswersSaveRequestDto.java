@@ -1,6 +1,8 @@
 package com.ssafy.springboot.web.dto.BreakingError;
 
 import com.ssafy.springboot.domain.BreakingError.Answers;
+import com.ssafy.springboot.domain.BreakingError.Errors;
+import com.ssafy.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,22 +10,26 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class AnswersSaveRequestDto {
+    private Long errorId;
     private String title;
     private String content;
-    private String author;
+    private String userEmail;
+
 
     @Builder
-    public AnswersSaveRequestDto(String title, String content, String author) {
+    public AnswersSaveRequestDto(Long errorId,String title, String content, String userEmail) {
+        this.errorId = errorId;
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.userEmail = userEmail;
     }
 
-    public Answers toEntity() {
+    public Answers toEntity(User user, Errors error) {
         return Answers.builder()
+                .error(error)
                 .title(title)
                 .content(content)
-                .author(author)
+                .user(user)
                 .build();
     }
 }

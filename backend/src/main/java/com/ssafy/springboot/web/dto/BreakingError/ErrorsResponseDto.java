@@ -5,15 +5,19 @@ import lombok.Getter;
 
 @Getter
 public class ErrorsResponseDto {
-    private Long id;
+    private Long errorId;
     private String title;
     private String content;
-    private String author;
+    private String userEmail;
+    private Long likeCnt;
+    private Long answerCnt;
 
     public ErrorsResponseDto(Errors entity) {
-        this.id = entity.getErrorId();
+        this.errorId = entity.getErrorId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
-        this.author = entity.getAuthor();
+        this.userEmail = entity.getUser().getEmail();
+        this.likeCnt = entity.getLikeCnt();
+        this.answerCnt = entity.getAnswerCnt();
     }
 }

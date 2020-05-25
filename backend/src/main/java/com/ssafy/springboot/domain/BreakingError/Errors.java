@@ -1,9 +1,14 @@
 package com.ssafy.springboot.domain.BreakingError;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ssafy.springboot.domain.BaseTimeEntity;
+import com.ssafy.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -21,14 +26,22 @@ public class Errors extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false) // 타입을 "TEXT"로 변경
     private String content;
 
-    private String author;//user타입으로 변경
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "email")
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    private Long likeCnt;
+    private Long answerCnt;
 
     @Builder //해당 클래스의 빌더 패턴 클래스를 생성
-    public Errors(String title, String content, String author) {
+    public Errors(String title, String content, User user) {
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.user = user;
+        this.likeCnt = Long.valueOf(0);
+        this.answerCnt = Long.valueOf(0);
     }
 
     public void update(String title, String content) {

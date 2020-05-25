@@ -1,9 +1,14 @@
 package com.ssafy.springboot.domain.BreakingError;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ssafy.springboot.domain.BaseTimeEntity;
+import com.ssafy.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -14,21 +19,37 @@ public class Answers extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long answerId;
+    private Long errorId;
 
     @Column(length = 500, nullable = false)
-    private String title;
+    private  String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false) // 타입을 "TEXT"로 변경
     private String content;
 
-    private String author;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "errors_id")
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "errors_id")
+    private Errors error;
 
-    @Builder
-    public Answers(String title, String content, String author) {
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "email")
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private Long likeCnt;
+    private Long answerCnt;
+
+    @Builder //해당 클래스의 빌더 패턴 클래스를 생성
+    public Answers(Errors error, String title, String content, User user) {
+        this.error = error;
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.user = user;
+        this.likeCnt = Long.valueOf(0);
+        this.answerCnt = Long.valueOf(0);
     }
 
     public void update(String title, String content) {
