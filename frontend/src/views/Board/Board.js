@@ -24,13 +24,10 @@ import CardFooter from 'components/Card/CardFooter';
 import Button from "components/CustomButtons/Button.js";
 import NavPills from "components/NavPills/NavPills.js";
 
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-
 // 스타일(꾸미는 용)
 import modalStyle from "assets/jss/material-dashboard-react/components/modalStyle.js";
 import BoardList from "components/Board/BoardList.js"
+import Editor from "components/Editor/Editor.js"
 
 
 // 애니메이션 모달 열때 위에서 아래로
@@ -199,26 +196,7 @@ export default function Board() {
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
-                        <CKEditor
-                            editor={ClassicEditor}
-                            data="<p>Hello from CKEditor 5!</p>"
-                            onInit={editor => {
-                                // You can store the "editor" and use when it is needed.
-                                console.log('Editor is ready to use!', editor);
-                            }}
-                            onChange={(event, editor) => {
-                                const data = editor.getData();
-                                console.log({ event, editor, data });
-                            }}
-                            onBlur={editor => {
-                                console.log('Blur.', editor);
-                            }}
-                            onFocus={editor => {
-                                console.log('Focus.', editor);
-                            }}
-                        />
-
-
+                        <Editor/>
                     </Card>
                 </GridItem>
             </GridContainer>
