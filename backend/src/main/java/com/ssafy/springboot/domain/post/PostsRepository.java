@@ -1,6 +1,5 @@
 package com.ssafy.springboot.domain.post;
 
-import com.ssafy.springboot.domain.board.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +15,6 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query("SELECT p FROM Posts p ORDER BY p.post_id DESC")
     List<Posts> findAllDesc();
 
-
     @Query("SELECT p FROM Posts p WHERE p.post_id = :post_id")
     Posts findByPost_id(@Param("post_id") Long post_id);
 
@@ -27,4 +25,12 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Modifying
     @Query("UPDATE Posts p SET p.comment_cnt = p.comment_cnt-1 WHERE p.post_id = :post_id")
     Integer commentCntDown(@Param("post_id") Long post_id);
+
+    @Modifying
+    @Query("UPDATE Posts p SET p.like_cnt = p.like_cnt+1 WHERE p.post_id = :post_id")
+    Integer likeCntUp(@Param("post_id") Long post_id);
+
+    @Modifying
+    @Query("UPDATE Posts p SET p.like_cnt = p.like_cnt-1 WHERE p.post_id = :post_id")
+    Integer likeCntDown(@Param("post_id") Long post_id);
 }
