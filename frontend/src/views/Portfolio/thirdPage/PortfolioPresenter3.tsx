@@ -24,6 +24,7 @@ interface PortfolioIState {
   projectDo11: string;
   projectDo12: string;
   projectDo13: string;
+  projectUrl1: string;
   error1: boolean;
   frontend1: boolean;
   backend1: boolean;
@@ -43,6 +44,7 @@ interface PortfolioIState {
   projectDo21: string;
   projectDo22: string;
   projectDo23: string;
+  projectUrl2: string;
   error2: boolean;
   frontend2: boolean;
   backend2: boolean;
@@ -62,6 +64,7 @@ interface PortfolioIState {
   projectDo31: string;
   projectDo32: string;
   projectDo33: string;
+  projectUrl3: string;
   error3: boolean;
   frontend3: boolean;
   backend3: boolean;
@@ -81,6 +84,7 @@ interface PortfolioIState {
   projectDo41: string;
   projectDo42: string;
   projectDo43: string;
+  projectUrl4: string;
   error4: boolean;
   frontend4: boolean;
   backend4: boolean;
@@ -170,6 +174,7 @@ function PortfolioPresenter({
   projectDo11,
   projectDo12,
   projectDo13,
+  projectUrl1,
   error1,
   frontend1,
   backend1,
@@ -189,6 +194,7 @@ function PortfolioPresenter({
   projectDo21,
   projectDo22,
   projectDo23,
+  projectUrl2,
   error2,
   frontend2,
   backend2,
@@ -208,6 +214,7 @@ function PortfolioPresenter({
   projectDo31,
   projectDo32,
   projectDo33,
+  projectUrl3,
   error3,
   frontend3,
   backend3,
@@ -227,6 +234,7 @@ function PortfolioPresenter({
   projectDo41,
   projectDo42,
   projectDo43,
+  projectUrl4,
   error4,
   frontend4,
   backend4,
@@ -508,6 +516,22 @@ function PortfolioPresenter({
                 value={projectDo13}
               ></TextField>
             </form>
+            <form
+              className={classes.projectUrl}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <Todo>프로젝트를 소개할 수 있는 Url을 적어주세요</Todo>
+              <br />
+              <TextField
+                label="프로젝트 URL"
+                helperText="Git 주소나 소개영상 링크도 좋아요!"
+                onChange={updateTerm}
+                name="projectUrl1"
+                value={projectUrl1}
+              ></TextField>
+            </form>
           </Project>
           {projectLen > 1 && (
             <Project>
@@ -713,7 +737,7 @@ function PortfolioPresenter({
                       label="기타"
                     />
                   </FormGroup>
-                  {error1 && (
+                  {error2 && (
                     <FormHelperText>1 ~ 3개를 선택해주세요</FormHelperText>
                   )}
                 </FormControl>
@@ -765,6 +789,22 @@ function PortfolioPresenter({
                   onChange={updateTerm}
                   name="projectDo23"
                   value={projectDo23}
+                ></TextField>
+              </form>
+              <form
+                className={classes.projectUrl}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <Todo>프로젝트를 소개할 수 있는 Url을 적어주세요</Todo>
+                <br />
+                <TextField
+                  label="프로젝트 URL"
+                  helperText="Git 주소나 소개영상 링크도 좋아요!"
+                  onChange={updateTerm}
+                  name="projectUrl2"
+                  value={projectUrl2}
                 ></TextField>
               </form>
             </Project>
@@ -973,7 +1013,7 @@ function PortfolioPresenter({
                       label="기타"
                     />
                   </FormGroup>
-                  {error1 && (
+                  {error3 && (
                     <FormHelperText>1 ~ 3개를 선택해주세요</FormHelperText>
                   )}
                 </FormControl>
@@ -1025,6 +1065,22 @@ function PortfolioPresenter({
                   onChange={updateTerm}
                   name="projectDo33"
                   value={projectDo33}
+                ></TextField>
+              </form>
+              <form
+                className={classes.projectUrl}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <Todo>프로젝트를 소개할 수 있는 Url을 적어주세요</Todo>
+                <br />
+                <TextField
+                  label="프로젝트 URL"
+                  helperText="Git 주소나 소개영상 링크도 좋아요!"
+                  onChange={updateTerm}
+                  name="projectUrl3"
+                  value={projectUrl3}
                 ></TextField>
               </form>
             </Project>
@@ -1233,7 +1289,7 @@ function PortfolioPresenter({
                       label="기타"
                     />
                   </FormGroup>
-                  {error1 && (
+                  {error4 && (
                     <FormHelperText>1 ~ 3개를 선택해주세요</FormHelperText>
                   )}
                 </FormControl>
@@ -1285,6 +1341,22 @@ function PortfolioPresenter({
                   onChange={updateTerm}
                   name="projectDo43"
                   value={projectDo43}
+                ></TextField>
+              </form>
+              <form
+                className={classes.projectUrl}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <Todo>프로젝트를 소개할 수 있는 Url을 적어주세요</Todo>
+                <br />
+                <TextField
+                  label="프로젝트 URL"
+                  helperText="Git 주소나 소개영상 링크도 좋아요!"
+                  onChange={updateTerm}
+                  name="projectUrl4"
+                  value={projectUrl4}
                 ></TextField>
               </form>
             </Project>

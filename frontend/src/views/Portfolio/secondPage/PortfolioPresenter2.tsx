@@ -23,6 +23,14 @@ interface PortfolioIState {
   stack3_etc: boolean;
   stack3_score: number;
   reason3: string;
+  stack4: string;
+  stack4_etc: boolean;
+  stack4_score: number;
+  reason4: string;
+  stack5: string;
+  stack5_etc: boolean;
+  stack5_score: number;
+  reason5: string;
   handleSubmit: (event: React.FormEvent) => void;
   updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
   tagUpdate1: any;
@@ -31,6 +39,10 @@ interface PortfolioIState {
   sliderUpdate2: any;
   tagUpdate3: any;
   sliderUpdate3: any;
+  tagUpdate4: any;
+  sliderUpdate4: any;
+  tagUpdate5: any;
+  sliderUpdate5: any;
   valuetext: (value: number) => string;
 }
 const Card = styled.div`
@@ -87,6 +99,14 @@ function PortfolioPresenter({
   stack3_etc,
   stack3_score,
   reason3,
+  stack4,
+  stack4_etc,
+  stack4_score,
+  reason4,
+  stack5,
+  stack5_etc,
+  stack5_score,
+  reason5,
   handleSubmit,
   updateTerm,
   tagUpdate1,
@@ -95,6 +115,10 @@ function PortfolioPresenter({
   sliderUpdate2,
   tagUpdate3,
   sliderUpdate3,
+  tagUpdate4,
+  sliderUpdate4,
+  tagUpdate5,
+  sliderUpdate5,
   valuetext,
 }: PortfolioIState) {
   const classes = useStyles();
@@ -247,7 +271,7 @@ function PortfolioPresenter({
         {stack2 && stack2_score >= 0 && reason2 && (
           <Block>
             <Todo>
-              3. 마지막으로 자신있는 프로그래밍 언어 / 프레임워크 / 시스템을
+              3. 세번째로 자신있는 프로그래밍 언어 / 프레임워크 / 시스템을
               선택해주세요
             </Todo>
             <Description>
@@ -298,6 +322,122 @@ function PortfolioPresenter({
                 onChange={updateTerm}
                 name="reason3"
                 value={reason3}
+              ></TextField>
+            </form>
+          </Block>
+        )}
+        {stack3 && stack3_score >= 0 && reason3 && (
+          <Block>
+            <Todo>
+              4. 네번째로 자신있는 프로그래밍 언어 / 프레임워크 / 시스템을
+              선택해주세요
+            </Todo>
+            <Description>
+              아래 보기 중 원하는 기술이 없다면 '기타'를 선택해주세요
+            </Description>
+            <Autocomplete
+              options={stack}
+              getOptionLabel={option => option}
+              style={{ width: 300 }}
+              onChange={tagUpdate4}
+              renderInput={params => (
+                <TextField {...params} label="Stack" variant="outlined" />
+              )}
+            />
+            {stack4_etc && (
+              <TextField
+                label="직접 입력해주세요"
+                onChange={updateTerm}
+                name="stack4"
+                value={stack4}
+              ></TextField>
+            )}
+            <br />
+            <Todo>어느정도 자신있으신가요?</Todo>
+            <br />
+            <Description>
+              100점을 만점으로 자신의 실력을 평가해보세요
+            </Description>
+            <div className={classes.motion}>
+              <Slider
+                onChange={sliderUpdate4}
+                getAriaValueText={valuetext}
+                step={5}
+                valueLabelDisplay="auto"
+                value={stack4_score}
+                marks={motion}
+              />
+            </div>
+            <Todo>점수의 이유는 무엇인가요?</Todo>
+            <form
+              className={classes.reason}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                helperText="ex) 반응형 웹사이트 제작 가능, REST API 백엔드 구축 가능"
+                onChange={updateTerm}
+                name="reason4"
+                value={reason4}
+              ></TextField>
+            </form>
+          </Block>
+        )}
+        {stack4 && stack4_score >= 0 && reason4 && (
+          <Block>
+            <Todo>
+              5. 마지막으로 자신있는 프로그래밍 언어 / 프레임워크 / 시스템을
+              선택해주세요
+            </Todo>
+            <Description>
+              아래 보기 중 원하는 기술이 없다면 '기타'를 선택해주세요
+            </Description>
+            <Autocomplete
+              options={stack}
+              getOptionLabel={option => option}
+              style={{ width: 300 }}
+              onChange={tagUpdate5}
+              renderInput={params => (
+                <TextField {...params} label="Stack" variant="outlined" />
+              )}
+            />
+            {stack5_etc && (
+              <TextField
+                label="직접 입력해주세요"
+                onChange={updateTerm}
+                name="stack5"
+                value={stack5}
+              ></TextField>
+            )}
+            <br />
+            <Todo>어느정도 자신있으신가요?</Todo>
+            <br />
+            <Description>
+              100점을 만점으로 자신의 실력을 평가해보세요
+            </Description>
+            <div className={classes.motion}>
+              <Slider
+                onChange={sliderUpdate5}
+                getAriaValueText={valuetext}
+                step={5}
+                valueLabelDisplay="auto"
+                value={stack5_score}
+                marks={motion}
+              />
+            </div>
+            <Todo>점수의 이유는 무엇인가요?</Todo>
+            <form
+              className={classes.reason}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                helperText="ex) 반응형 웹사이트 제작 가능, REST API 백엔드 구축 가능"
+                onChange={updateTerm}
+                name="reason5"
+                value={reason5}
               ></TextField>
             </form>
           </Block>

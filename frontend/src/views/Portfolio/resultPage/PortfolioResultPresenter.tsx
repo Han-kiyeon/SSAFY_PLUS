@@ -8,15 +8,18 @@ interface PortfolioResultIState {
   email: string;
   phone: string;
   characters: string[];
-  skill1: string;
-  s_score1: string;
-  s_reason1: string;
-  skill2: string;
-  s_score2: string;
-  s_reason2: string;
-  skill3: string;
-  s_score3: string;
-  s_reason3: string;
+  skill1: string[];
+  skill2: string[];
+  skill3: string[];
+  skill4: string[];
+  skill5: string[];
+  project_len: number;
+  t_projectName1: string;
+  t_projectPeriod1: string;
+  t_projectDesc1: string;
+  t_mystacks1: string[];
+  t_projectStacks1: string;
+  t_roles1: string[];
 }
 
 function PortfolioResultPresenter({
@@ -26,14 +29,17 @@ function PortfolioResultPresenter({
   phone,
   characters,
   skill1,
-  s_score1,
-  s_reason1,
   skill2,
-  s_score2,
-  s_reason2,
   skill3,
-  s_score3,
-  s_reason3,
+  skill4,
+  skill5,
+  project_len,
+  t_projectName1,
+  t_projectPeriod1,
+  t_projectDesc1,
+  t_mystacks1,
+  t_projectStacks1,
+  t_roles1,
 }: PortfolioResultIState) {
   return (
     <PDFDownloadLink
@@ -45,14 +51,17 @@ function PortfolioResultPresenter({
           phone={phone}
           characters={characters}
           skill1={skill1}
-          s_score1={s_score1}
-          s_reason1={s_reason1}
           skill2={skill2}
-          s_score2={s_score2}
-          s_reason2={s_reason2}
           skill3={skill3}
-          s_score3={s_score3}
-          s_reason3={s_reason3}
+          skill4={skill4}
+          skill5={skill5}
+          project_len={project_len}
+          t_projectName1={t_projectName1}
+          t_projectPeriod1={t_projectPeriod1}
+          t_projectDesc1={t_projectDesc1}
+          t_mystacks1={t_mystacks1}
+          t_projectStacks1={t_projectStacks1}
+          t_roles1={t_roles1}
         />
       }
       fileName="pdf_test.pdf"

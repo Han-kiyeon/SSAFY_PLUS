@@ -16,6 +16,14 @@ interface PortfolioIState {
   stack3_etc: boolean;
   stack3_score: number;
   reason3: string;
+  stack4: string;
+  stack4_etc: boolean;
+  stack4_score: number;
+  reason4: string;
+  stack5: string;
+  stack5_etc: boolean;
+  stack5_score: number;
+  reason5: string;
 }
 export default class extends React.Component<{}, PortfolioIState> {
   state = {
@@ -32,6 +40,14 @@ export default class extends React.Component<{}, PortfolioIState> {
     reason3: "",
     stack3_etc: false,
     stack3_score: 50,
+    stack4: "Java",
+    reason4: "",
+    stack4_etc: false,
+    stack4_score: 50,
+    stack5: "Java",
+    reason5: "",
+    stack5_etc: false,
+    stack5_score: 50,
   };
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -101,6 +117,14 @@ export default class extends React.Component<{}, PortfolioIState> {
       this.setState({ stack3: value });
     } else if (name === "reason3") {
       this.setState({ reason3: value });
+    } else if (name === "stack4") {
+      this.setState({ stack4: value });
+    } else if (name === "reason4") {
+      this.setState({ reason4: value });
+    } else if (name === "stack5") {
+      this.setState({ stack5: value });
+    } else if (name === "reason5") {
+      this.setState({ reason5: value });
     }
   };
 
@@ -140,7 +164,33 @@ export default class extends React.Component<{}, PortfolioIState> {
     await this.setState({ stack3: values });
     if (values === "기타") {
       await this.setState({ stack3: "" });
-      this.setState({ stack1_etc: true });
+      this.setState({ stack3_etc: true });
+    }
+  };
+  sliderUpdate4 = async (event: object, values: number) => {
+    await this.setState({ stack4_score: values });
+  };
+  tagUpdate4 = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    values: string
+  ) => {
+    await this.setState({ stack4: values });
+    if (values === "기타") {
+      await this.setState({ stack4: "" });
+      this.setState({ stack4_etc: true });
+    }
+  };
+  sliderUpdate5 = async (event: object, values: number) => {
+    await this.setState({ stack5_score: values });
+  };
+  tagUpdate5 = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    values: string
+  ) => {
+    await this.setState({ stack5: values });
+    if (values === "기타") {
+      await this.setState({ stack5: "" });
+      this.setState({ stack5_etc: true });
     }
   };
   valuetext = (value: number) => {
@@ -161,6 +211,14 @@ export default class extends React.Component<{}, PortfolioIState> {
       stack3_etc,
       stack3_score,
       reason3,
+      stack4,
+      stack4_etc,
+      stack4_score,
+      reason4,
+      stack5,
+      stack5_etc,
+      stack5_score,
+      reason5,
     } = this.state;
     return (
       <PortfolioPresenter
@@ -174,6 +232,10 @@ export default class extends React.Component<{}, PortfolioIState> {
         sliderUpdate2={this.sliderUpdate2}
         tagUpdate3={this.tagUpdate3}
         sliderUpdate3={this.sliderUpdate3}
+        tagUpdate4={this.tagUpdate4}
+        sliderUpdate4={this.sliderUpdate4}
+        tagUpdate5={this.tagUpdate5}
+        sliderUpdate5={this.sliderUpdate5}
         name={name}
         stack1={stack1}
         stack1_etc={stack1_etc}
@@ -187,6 +249,14 @@ export default class extends React.Component<{}, PortfolioIState> {
         stack3_etc={stack3_etc}
         stack3_score={stack3_score}
         reason3={reason3}
+        stack4={stack4}
+        stack4_etc={stack4_etc}
+        stack4_score={stack4_score}
+        reason4={reason4}
+        stack5={stack5}
+        stack5_etc={stack5_etc}
+        stack5_score={stack5_score}
+        reason5={reason5}
       />
     );
   }

@@ -12,6 +12,7 @@ interface PortfolioIState {
   projectDo11: string;
   projectDo12: string;
   projectDo13: string;
+  projectUrl1: string;
   error1: boolean;
   frontend1: boolean;
   backend1: boolean;
@@ -31,6 +32,7 @@ interface PortfolioIState {
   projectDo21: string;
   projectDo22: string;
   projectDo23: string;
+  projectUrl2: string;
   error2: boolean;
   frontend2: boolean;
   backend2: boolean;
@@ -50,6 +52,7 @@ interface PortfolioIState {
   projectDo31: string;
   projectDo32: string;
   projectDo33: string;
+  projectUrl3: string;
   error3: boolean;
   frontend3: boolean;
   backend3: boolean;
@@ -69,6 +72,7 @@ interface PortfolioIState {
   projectDo41: string;
   projectDo42: string;
   projectDo43: string;
+  projectUrl4: string;
   error4: boolean;
   frontend4: boolean;
   backend4: boolean;
@@ -84,7 +88,7 @@ interface PortfolioIState {
 }
 export default class extends React.Component<{}, PortfolioIState> {
   state = {
-    name: "음메리카노",
+    name: "음영현",
     projectLen: 1,
     projectName1: "",
     projectTerm1: "",
@@ -93,6 +97,7 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo11: "",
     projectDo12: "",
     projectDo13: "",
+    projectUrl1: "",
     error1: false,
     frontend1: false,
     backend1: false,
@@ -112,6 +117,7 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo21: "",
     projectDo22: "",
     projectDo23: "",
+    projectUrl2: "",
     error2: false,
     frontend2: false,
     backend2: false,
@@ -131,6 +137,7 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo31: "",
     projectDo32: "",
     projectDo33: "",
+    projectUrl3: "",
     error3: false,
     frontend3: false,
     backend3: false,
@@ -150,6 +157,7 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo41: "",
     projectDo42: "",
     projectDo43: "",
+    projectUrl4: "",
     error4: false,
     frontend4: false,
     backend4: false,
@@ -605,6 +613,14 @@ export default class extends React.Component<{}, PortfolioIState> {
       this.setState({ projectDo42: value });
     } else if (name === "projectDo43") {
       this.setState({ projectDo43: value });
+    } else if (name === "projectUrl1") {
+      this.setState({ projectUrl1: value });
+    } else if (name === "projectUrl2") {
+      this.setState({ projectUrl2: value });
+    } else if (name === "projectUrl3") {
+      this.setState({ projectUrl3: value });
+    } else if (name === "projectUrl4") {
+      this.setState({ projectUrl4: value });
     }
   };
 
@@ -619,6 +635,7 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectDo11,
       projectDo12,
       projectDo13,
+      projectUrl1,
       error1,
       frontend1,
       backend1,
@@ -638,6 +655,7 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectDo21,
       projectDo22,
       projectDo23,
+      projectUrl2,
       error2,
       frontend2,
       backend2,
@@ -657,6 +675,7 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectDo31,
       projectDo32,
       projectDo33,
+      projectUrl3,
       error3,
       frontend3,
       backend3,
@@ -676,6 +695,7 @@ export default class extends React.Component<{}, PortfolioIState> {
       projectDo41,
       projectDo42,
       projectDo43,
+      projectUrl4,
       error4,
       frontend4,
       backend4,
@@ -700,6 +720,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         projectDo11={projectDo11}
         projectDo12={projectDo12}
         projectDo13={projectDo13}
+        projectUrl1={projectUrl1}
         error1={error1}
         frontend1={frontend1}
         backend1={backend1}
@@ -719,6 +740,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         projectDo21={projectDo21}
         projectDo22={projectDo22}
         projectDo23={projectDo23}
+        projectUrl2={projectUrl2}
         error2={error2}
         frontend2={frontend2}
         backend2={backend2}
@@ -738,6 +760,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         projectDo31={projectDo31}
         projectDo32={projectDo32}
         projectDo33={projectDo33}
+        projectUrl3={projectUrl3}
         error3={error3}
         frontend3={frontend3}
         backend3={backend3}
@@ -757,6 +780,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         projectDo41={projectDo41}
         projectDo42={projectDo42}
         projectDo43={projectDo43}
+        projectUrl4={projectUrl4}
         error4={error4}
         frontend4={frontend4}
         backend4={backend4}

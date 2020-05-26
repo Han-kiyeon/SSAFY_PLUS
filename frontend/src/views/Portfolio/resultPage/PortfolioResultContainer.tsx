@@ -7,15 +7,18 @@ interface PortfolioResultIState {
   email: string;
   phone: string;
   characters: string[];
-  skill1: string;
-  s_score1: string;
-  s_reason1: string;
-  skill2: string;
-  s_score2: string;
-  s_reason2: string;
-  skill3: string;
-  s_score3: string;
-  s_reason3: string;
+  skill1: string[];
+  skill2: string[];
+  skill3: string[];
+  skill4: string[];
+  skill5: string[];
+  project_len: number;
+  t_projectName1: string;
+  t_projectPeriod1: string;
+  t_projectDesc1: string;
+  t_mystacks1: string[];
+  t_projectStacks1: string;
+  t_roles1: string[];
 }
 
 export default class extends React.Component<{}, PortfolioResultIState> {
@@ -25,15 +28,23 @@ export default class extends React.Component<{}, PortfolioResultIState> {
     email: "opwer032@naver.com",
     phone: "010-7759-1222",
     characters: ["긍정적인", "꾸준한", "듬직한", "팀을 이끄는"],
-    skill1: "Python",
-    s_score1: "80",
-    s_reason1: "REST API 구축 및 빅데이터 알고리즘 적용",
-    skill2: "Java",
-    s_score2: "80",
-    s_reason2: "REST API 구축 및 알고리즘 학습",
-    skill3: "React",
-    s_score3: "70",
-    s_reason3: "Component 단위 홈페이지 구현 가능",
+    skill1: ["Python", "80", "REST API 구축 및 빅데이터 알고리즘 적용"],
+    skill2: ["Java", "80", "REST API 구축 및 알고리즘 학습"],
+    skill3: ["Mysql", "80", "인터넷을 참고하여 원하는 기능 구현 가능"],
+    skill4: ["React", "70", "Component 단위 홈페이지 구현 가능"],
+    skill5: ["JavaScript", "60", "함수 단위 구현"],
+    project_len: 2,
+    t_projectName1: "ㅎㅎㅎ (핫, 힙, 힐링 플레이스)",
+    t_projectPeriod1: "2020.03 - 2020.05",
+    t_projectDesc1: "[빅데이터] 핫플레이스 추천 SNS",
+    t_mystacks1: ["백엔드 엔지니어", "데이터 엔지니어"],
+    t_projectStacks1: "React, Django, MySQL, AWS",
+    t_roles1: [
+      "REST API 모델 설계 및 구현",
+      "빅데이터 추천 시스템 구축",
+      "배포",
+    ],
+    t_projectUrl1: "https://lab.ssafy.com/s02-bigdata-sub3/s02p23a202",
   };
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -46,14 +57,17 @@ export default class extends React.Component<{}, PortfolioResultIState> {
       phone,
       characters,
       skill1,
-      s_score1,
-      s_reason1,
       skill2,
-      s_score2,
-      s_reason2,
       skill3,
-      s_score3,
-      s_reason3,
+      skill4,
+      skill5,
+      project_len,
+      t_projectName1,
+      t_projectPeriod1,
+      t_projectDesc1,
+      t_mystacks1,
+      t_projectStacks1,
+      t_roles1,
     } = this.state;
     return (
       <PortfolioResultPresenter
@@ -63,14 +77,17 @@ export default class extends React.Component<{}, PortfolioResultIState> {
         phone={phone}
         characters={characters}
         skill1={skill1}
-        s_score1={s_score1}
-        s_reason1={s_reason1}
         skill2={skill2}
-        s_score2={s_score2}
-        s_reason2={s_reason2}
         skill3={skill3}
-        s_score3={s_score3}
-        s_reason3={s_reason3}
+        skill4={skill4}
+        skill5={skill5}
+        project_len={project_len}
+        t_projectName1={t_projectName1}
+        t_projectPeriod1={t_projectPeriod1}
+        t_projectDesc1={t_projectDesc1}
+        t_mystacks1={t_mystacks1}
+        t_projectStacks1={t_projectStacks1}
+        t_roles1={t_roles1}
       />
     );
   }
