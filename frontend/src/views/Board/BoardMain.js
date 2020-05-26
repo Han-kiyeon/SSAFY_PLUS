@@ -23,7 +23,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from 'components/Card/CardFooter';
 import Button from "components/CustomButtons/Button.js";
 import NavPills from "components/NavPills/NavPills.js";
-
+import CustomInput from "components/CustomInput/CustomInput.js"
 // 스타일(꾸미는 용)
 import modalStyle from "assets/jss/material-dashboard-react/components/modalStyle.js";
 import BoardList from "components/Board/BoardList.js"
@@ -64,13 +64,38 @@ export default function Board() {
     return (
         <div>
             <GridContainer>
-                <GridItem xs={12} sm={6} md={6}>
+                <GridItem xs={12} sm={12} md={12}>
                     <Card>
-                        <CardHeader color="info">
-                            <h4 className={classesCartTitle.cardTitleWhite}>공식 게시판 목록</h4>
-                        </CardHeader>
                         <CardBody>
-                            <BoardList></BoardList>
+                            <NavPills
+                                color="info"
+                                tabs={[
+                                    {
+                                        tabButton: "공식 게시판",
+                                        tabContent: (
+                                            <BoardList />
+                                        )
+                                    },
+                                    {
+                                        tabButton: "내가 가입한 자유 게시판",
+                                        tabContent: (
+                                            <BoardList />
+                                        )
+                                    },
+                                    {
+                                        tabButton: "전체 자유 게시판",
+                                        tabContent: (
+                                            <BoardList />
+                                        )
+                                    },
+                                    {
+                                        tabButton: "인기 자유 게시판",
+                                        tabContent: (
+                                            <BoardList />
+                                        )
+                                    }
+                                ]}
+                            />
                         </CardBody>
                         <CardFooter>
                             <div>
@@ -110,93 +135,43 @@ export default function Board() {
                                     id="modal-slide-description"
                                     className={classes.modalBody}
                                 >
-                                    이  름 : <br />
-                                    주  제 : <br />
-                                    간단소개 : <br />
+                                    <GridContainer>
+                                        <GridItem xs={12} sm={12} md={12}><CustomInput
+                                            labelText="게시판 이름"
+                                            id="float"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                        /></GridItem>
+                                    </GridContainer>
+                                    <GridContainer>
+                                        <GridItem xs={12} sm={12} md={12}><CustomInput
+                                            labelText="게시판 간단 소개"
+                                            id="float"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                        /></GridItem>
+                                    </GridContainer>
                                 </DialogContent>
                                 <DialogActions
                                     className={classes.modalFooter + " " + classes.modalFooterCenter}
                                 >
-                                    <Button onClick={() => setModal(false)}>Never Mind</Button>
+                                    <Button onClick={() => setModal(false)}>취 소</Button>
                                     <Button onClick={() => setModal(false)} color="success">
-                                        Yes
+                                        만들기
                                     </Button>
                                 </DialogActions>
                             </Dialog>
+
                         </CardFooter>
-                    </Card>
-                </GridItem>
-                <GridItem xs={12} sm={6} md={6}>
-                    <Card>
-                        <CardBody>
-                            <NavPills
-                                color="info"
-                                tabs={[
-                                    {
-                                        tabButton: "내가 가입한 자유 게시판",
-                                        tabContent: (
-                                            <span>
-                                                <p>
-                                                    Collaboratively administrate empowered markets via
-                                                    plug-and-play networks. Dynamically procrastinate B2C
-                                                    users after installed base benefits.
-                        </p>
-                                                <br />
-                                                <p>
-                                                    Dramatically visualize customer directed convergence
-                                                    without revolutionary ROI. Collaboratively
-                                                    administrate empowered markets via plug-and-play
-                                                    networks. Dynamically procrastinate B2C users after
-                                                    installed base benefits.
-                        </p>
-                                                <br />
-                                                <p>
-                                                    Dramatically visualize customer directed convergence
-                                                    without revolutionary ROI. Collaboratively
-                                                    administrate empowered markets via plug-and-play
-                                                    networks. Dynamically procrastinate B2C users after
-                                                    installed base benefits.
-                        </p>
-                                            </span>
-                                        )
-                                    },
-                                    {
-                                        tabButton: "전체 자유 게시판",
-                                        tabContent: (
-                                            <span>
-                                                <p>
-                                                    Efficiently unleash cross-media information without
-                                                    cross-media value. Quickly maximize timely
-                                                    deliverables for real-time schemas.
-                        </p>
-                                                <br />
-                                                <p>
-                                                    Dramatically maintain clicks-and-mortar solutions
-                                                    without functional solutions. Dramatically visualize
-                                                    customer directed convergence without revolutionary
-                                                    ROI. Collaboratively administrate empowered markets
-                                                    via plug-and-play networks. Dynamically procrastinate
-                                                    B2C users after installed base benefits.
-                        </p>
-                                            </span>
-                                        )
-                                    },
-                                    {
-                                        tabButton: "인기 자유 게시판",
-                                        tabContent: (
-                                            <BoardList />
-                                        )
-                                    }
-                                ]}
-                            />
-                        </CardBody>
                     </Card>
                 </GridItem>
             </GridContainer>
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
-                        <Editor/>
+                        <Editor />
                     </Card>
                 </GridItem>
             </GridContainer>

@@ -10,7 +10,8 @@ import Portfolio from "views/Portfolio/firstPage";
 import Portfolio2 from "views/Portfolio/secondPage";
 import Portfolio3 from "views/Portfolio/thirdPage";
 import PortfolioResult from "views/Portfolio/resultPage";
-import Board from "views/Board/Board.js";
+import BoardMain from "views/Board/BoardMain.js";
+import PostList from "views/Board/PostList.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
 
@@ -36,7 +37,14 @@ const dashboardRoutes = [
     path: "/board",
     name: "게시판",
     icon: Description,
-    component: Board,
+    component: BoardMain,
+    layout: "/plus",
+  },
+  {
+    path: "/postList",
+    name: "게시글 목록",
+    icon: Description,
+    component: PostList,
     layout: "/plus",
   },
   {
