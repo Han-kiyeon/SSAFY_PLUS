@@ -443,14 +443,14 @@ function PortfolioPresenter({
           </Block>
         )}
         <div className={classes.pageButtonLeft}>
-          <Link to={{ pathname: "/plus/portfolio" }}>
+          <Link to={{ pathname: "/plus/portfolio/1/1" }}>
             <Fab color="primary" aria-label="before">
               <ChevronLeft />
             </Fab>
           </Link>
         </div>
         <div className={classes.pageButtonRight}>
-          <Link to={{ pathname: "/plus/3/portfolio" }}>
+          <Link to={{ pathname: "/plus/portfolio/3/1" }}>
             <Fab color="primary" aria-label="next">
               <ChevronRight />
             </Fab>

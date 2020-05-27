@@ -28,10 +28,8 @@ export default function Sidebar(props) {
       {routes.map((prop, key) => {
         if (
           (prop.layout === "/plus" &&
-            !prop.path.startsWith("/2/") &&
-            !prop.path.startsWith("/3/") &&
-            prop.path !== ("/postList") &&
-            !prop.path.startsWith("/result/")) ||
+            prop.path !== "/postList" &&
+            !prop.path.startsWith("/portfolio/")) ||
           prop.path === "/signIn"
         ) {
           var activePro = " ";
