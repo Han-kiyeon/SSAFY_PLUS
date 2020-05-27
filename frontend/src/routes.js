@@ -3,6 +3,7 @@ import Home from "@material-ui/icons/Home";
 import Assignment from "@material-ui/icons/Assignment";
 import Description from "@material-ui/icons/Description";
 import PermIdentity from "@material-ui/icons/PermIdentity";
+import BurstModeIcon from "@material-ui/icons/BurstMode";
 
 // 레이아웃에 입힐 뷰들
 import Main from "views/Main/Main.js";
@@ -10,6 +11,7 @@ import Portfolio from "views/Portfolio/firstPage";
 import Portfolio2 from "views/Portfolio/secondPage";
 import Portfolio3 from "views/Portfolio/thirdPage";
 import PortfolioResult from "views/Portfolio/resultPage";
+import Episode from "views/Episode";
 import Board from "views/Board/Board.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
@@ -24,19 +26,19 @@ const dashboardRoutes = [
     layout: "/plus",
   },
   {
-    id: 2,
-    path: "/portfolio",
-    name: "Portfolio",
-    icon: Assignment,
-    component: Portfolio,
-    layout: "/plus",
-  },
-  {
     id: 3,
     path: "/board",
     name: "게시판",
     icon: Description,
     component: Board,
+    layout: "/plus",
+  },
+  {
+    id: 2,
+    path: "/portfolio",
+    name: "Portfolio",
+    icon: Assignment,
+    component: Portfolio,
     layout: "/plus",
   },
   {
@@ -55,6 +57,13 @@ const dashboardRoutes = [
     path: "/result/portfolio",
     name: "Portfolio",
     component: PortfolioResult,
+    layout: "/plus",
+  },
+  {
+    path: "/Episode",
+    name: "Episode",
+    icon: BurstModeIcon,
+    component: Episode,
     layout: "/plus",
   },
   {
