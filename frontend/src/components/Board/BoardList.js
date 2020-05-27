@@ -47,6 +47,7 @@ class BoardList extends React.Component {
     render() {
         return (
             <Table
+                goto = "/plus/postList" 
                 tableHeaderColor="info"
                 tableHead={["작성자", "제목", "타입", "작성날짜"]}
                 tableData={[

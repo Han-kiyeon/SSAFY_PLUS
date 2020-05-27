@@ -9,12 +9,13 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
 export default function CustomTable(props) {
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor } = props;
+  const { tableHead, tableData, tableHeaderColor, goto } = props;
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
@@ -41,7 +42,9 @@ export default function CustomTable(props) {
                 {prop.map((prop, key) => {
                   return (
                     <TableCell className={classes.tableCell} key={key}>
-                      {prop}
+                      <Link to={{ pathname: goto }}>
+                        {prop}
+                      </Link>
                     </TableCell>
                   );
                 })}
