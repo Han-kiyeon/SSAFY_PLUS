@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class AnswersService {
-    private final AnswersRepository answersRepository;
     private final UserRepository userRepository;
     private final ErrorsRepository errorsRepository;
+    private final AnswersRepository answersRepository;
 
     @Transactional
     public ResponseEntity<?> save(AnswersSaveRequestDto requestDto) {
@@ -39,6 +39,14 @@ public class AnswersService {
                 body(answersRepository.save(requestDto.toEntity(user, error)).getAnswerId());
     }
 
+    @Transactional(readOnly = true)
+    public AnswersResponseDto findById(Long id) {
+        Answers entity = answersRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 답변이 없습니다. id=" + id));
+
+        return new AnswersResponseDto(entity);
+    }
+
     @Transactional
     public Long update(Long id, AnswersUpdateRequestDto requestDto) {
         Answers answers = answersRepository.findById(id)
@@ -47,14 +55,6 @@ public class AnswersService {
         answers.update(requestDto.getTitle(), requestDto.getContent());
 
         return id;
-    }
-
-    @Transactional(readOnly = true)
-    public AnswersResponseDto findById(Long id) {
-        Answers entity = answersRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 답변이 없습니다. id=" + id));
-
-        return new AnswersResponseDto(entity);
     }
 
     @Transactional

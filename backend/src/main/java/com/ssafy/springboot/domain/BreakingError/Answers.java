@@ -21,17 +21,18 @@ public class Answers extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "errors_id")
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "errors_id")
+    private Errors error;
+
     @Column(length = 500, nullable = false)
     private  String title;
 
     @Column(columnDefinition = "TEXT", nullable = false) // 타입을 "TEXT"로 변경
     private String content;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "errors_id")
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "errors_id")
-    private Errors error;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "email")
     @ManyToOne
@@ -56,6 +57,4 @@ public class Answers extends BaseTimeEntity {
         this.title = title;
         this.content = content;
     }
-
-
 }
