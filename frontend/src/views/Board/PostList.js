@@ -67,7 +67,7 @@ export default function PostList() {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="info">
-                            <h2 className={classes.cardTitleWhite}>공지사항 게시판</h2>
+                            <h2 className={classes.cardTitleWhite}>공지 게시판</h2>
                         </CardHeader>
                         <CardBody>
                             <BoardList />
