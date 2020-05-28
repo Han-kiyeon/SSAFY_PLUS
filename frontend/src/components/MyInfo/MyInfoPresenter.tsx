@@ -42,7 +42,7 @@ function PortfolioPresenter({ useStyles, name }: PortfolioIState) {
     <Container>
       <BasicInfo>
         <Title>기본 인적 사항</Title>
-        <InfoBox>{name}</InfoBox>
+        <InfoBox>이름: {name}</InfoBox>
       </BasicInfo>
       <SchoolInfo>
         <Title>학력 사항</Title>
