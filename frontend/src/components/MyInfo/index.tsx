@@ -1,3 +1,3 @@
-import MyInfo from "./MyInfo";
+import MyInfoContainer from "./MyInfoContainer";
 
-export default MyInfo;
+export default MyInfoContainer;
