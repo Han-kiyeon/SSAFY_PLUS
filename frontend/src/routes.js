@@ -4,6 +4,7 @@ import Assignment from "@material-ui/icons/Assignment";
 import Description from "@material-ui/icons/Description";
 import PermIdentity from "@material-ui/icons/PermIdentity";
 import WorkIcon from "@material-ui/icons/Work";
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 // 레이아웃에 입힐 뷰들
 import Main from "views/Main/Main.js";
@@ -39,7 +40,7 @@ const dashboardRoutes = [
     id: 4,
     path: "/breakingerror",
     name: "에러타파",
-    icon: Description,
+    icon: ErrorOutlineIcon,
     component: BreakingError,
     layout: "/plus",
   },

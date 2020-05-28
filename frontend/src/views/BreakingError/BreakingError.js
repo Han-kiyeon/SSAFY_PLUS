@@ -80,26 +80,14 @@ class BreakingError extends React.Component {
       <div>
        
         <GridContainer>
-          <GridItem xs={12} sm={6} md={12}>
-            <Card id="search">
                <SearchBox />
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <DateRange />
-                Last 24 Hours
-              </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
           <GridItem xs={12} sm={6} md={6}>
             <Card>
               <CardHeader color="success" stats icon>
                 <p className={classes.cardCategory}> 미해결 에러 </p>
-                {isLoading ? console.log(isLoading) : this.state.errorLists.map(errorList => {
+                {isLoading ? true : this.state.errorLists.map(errorList => {
                   return <ErrorList id={errorList.id} bname={errorList.bname} key={errorList.id} />
-                }
-                )
-                }
+                })}
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -113,7 +101,7 @@ class BreakingError extends React.Component {
             <Card>
               <CardHeader color="success" stats icon>
                 <p className={classes.cardCategory}> SSAFY Debug Rank </p>
-                {isLoading ? console.log("아직") : this.state.rankLists.map(rankList => {
+                {isLoading ? true : this.state.rankLists.map(rankList => {
                   return <RankList id={rankList.id} bname={rankList.bname} key={rankList.id} />
                 }
                 )
