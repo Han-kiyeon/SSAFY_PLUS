@@ -1,0 +1,22 @@
+p {
+    color: black;
+}
+
+#search {
+    text-align: center;
+}
+.floatDiv {
+    float: left;
+}
+
+#rankList {
+    padding-left: 5vw;
+    text-align: left;
+    color: black;
+}
+
+#errorList {
+    padding-left: 5vw;
+    text-align: left;
+    color: black;
+}
