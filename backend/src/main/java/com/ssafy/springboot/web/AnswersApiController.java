@@ -51,8 +51,8 @@ public class AnswersApiController {
 
     @ApiOperation(value = "모든 답변 조회", notes = "모든 답변을 조회한다(id 역순)")
     @GetMapping("/list")
-    public List<AnswersListResponseDto> findAll() {
-        return answersService.findAllDesc();
+    public List<AnswersListResponseDto> findAll(@PathVariable Long id) {
+        return answersService.findAllDesc(id);
     }
 
 

@@ -21,10 +21,10 @@ public class Answers extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "errors_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "error_id")
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "errors_id")
+    @JoinColumn(name = "error_id")
     private Errors error;
 
     @Column(length = 500, nullable = false)
