@@ -1,0 +1,29 @@
+p {
+    color: black;
+}
+
+#searchIcon {
+    transform: translate(-8vw, 1.1vw);
+    font-size: large;
+}
+#searchBox {
+    transform: translate(6vw, 0vw);
+}
+#search {
+    text-align: center;
+}
+.floatDiv {
+    float: left;
+}
+
+#rankList {
+    padding-left: 5vw;
+    text-align: left;
+    color: black;
+}
+
+#errorList {
+    padding-left: 5vw;
+    text-align: left;
+    color: black;
+}

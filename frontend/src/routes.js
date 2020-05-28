@@ -4,6 +4,7 @@ import Assignment from "@material-ui/icons/Assignment";
 import Description from "@material-ui/icons/Description";
 import PermIdentity from "@material-ui/icons/PermIdentity";
 import WorkIcon from "@material-ui/icons/Work";
+import ErrorIcon from '@material-ui/icons/Error';
 
 // 레이아웃에 입힐 뷰들
 import Main from "views/Main/Main.js";
@@ -16,6 +17,7 @@ import BoardMain from "views/Board/BoardMain.js";
 import PostList from "views/Board/PostList.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
+import BreakingError from "views/BreakingError/BreakingError.js";
 
 const dashboardRoutes = [
   {
@@ -32,6 +34,14 @@ const dashboardRoutes = [
     name: "게시판",
     icon: Description,
     component: BoardMain,
+    layout: "/plus",
+  },
+  {
+    id: 4,
+    path: "/breakingerror",
+    name: "에러타파",
+    icon: ErrorIcon,
+    component: BreakingError,
     layout: "/plus",
   },
   {
