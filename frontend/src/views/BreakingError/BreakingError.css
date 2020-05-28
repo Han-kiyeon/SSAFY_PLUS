@@ -2,6 +2,13 @@ p {
     color: black;
 }
 
+#searchIcon {
+    transform: translate(-8vw, 1.1vw);
+    font-size: large;
+}
+#searchBox {
+    transform: translate(6vw, 0vw);
+}
 #search {
     text-align: center;
 }

@@ -9,11 +9,12 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import SearchList from "./SearchList.js";
 import axios from "axios";
+import './BreakingError.css';
 
 const useStyles = makeStyles((theme) => ({
   searchBox: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0),
       width: '17vw',
     },
   },
@@ -97,7 +98,7 @@ export default function SearchBox() {
   return (<>
     <GridItem xs={12} sm={6} md={12}>
       <Card id="search">
-        <form className={classes.searchBox} noValidate autoComplete="off" >
+        <form className={classes.searchBox} noValidate autoComplete="off" id="searchBox">
           <TextField id="standard-basic" label="검색" value={value} onChange={handleChange} onKeyPress={appKeyPress} />
           <SearchIcon type="button" onClick={appClick} id="searchIcon" />
         </form>
