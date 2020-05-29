@@ -16,7 +16,7 @@ class BoardList extends React.Component {
     componentDidMount() {
         axios({
             method: "get",
-            url: `${process.env.REACT_APP_URL}/filter/type`,
+            url: `http://13.125.238.102:8080/api/board/list/`,
 
             // params: {
             //     type: type,
@@ -24,7 +24,7 @@ class BoardList extends React.Component {
             // },
         })
             .then((res) => {
-                //console.log(res.data);
+                console.log(res.data);
 
                 // let storeInfo = [];
                 // for (var i = 0; i < res.data.store_id.length; i++) {
@@ -40,7 +40,7 @@ class BoardList extends React.Component {
                 // this.setState({ info: storeInfo, loading: false });
             })
             .catch((error) => {
-                //console.log(error);
+                console.log(error);
             });
     }
 
