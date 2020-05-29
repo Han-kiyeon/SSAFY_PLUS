@@ -101,6 +101,10 @@ const InfoBox = styled.span`
 const Form = styled.form`
   display: inline-block;
 `;
+const BlockForm = styled.form`
+  display: block;
+  margin-top: 15px;
+`;
 const Button = styled.div`
   display: inline-block;
 `;
@@ -388,22 +392,44 @@ function MyInfoPresenter({
             </Fab>
           </Button>
         )}
-        <br />
-        <Form
-          className={classes.input10}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            label="회사명"
-            onChange={updateTerm}
-            name="university_name"
-            value={university.name}
-            variant="outlined"
-          ></TextField>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </Form>
+        {careerLen > 0 && (
+          <>
+            <BlockForm
+              className={classes.input10}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                label="회사명"
+                onChange={updateTerm}
+                name="careers[0]_name"
+                value={careers[0].name}
+                variant="outlined"
+              ></TextField>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <TextField
+                label="직급"
+                onChange={updateTerm}
+                name="careers[0]_position"
+                value={careers[0].position}
+                variant="outlined"
+              ></TextField>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <TextField
+                label="재학 기간"
+                onChange={updateTerm}
+                name="careers[0]_duration"
+                value={careers[0].duration}
+                variant="outlined"
+              ></TextField>
+            </BlockForm>
+            <br />
+          </>
+        )}
+        {careerLen > 1 && <></>}
+        {careerLen > 2 && <></>}
+        {careerLen > 3 && <></>}
       </Box>
 
       <Box>

@@ -76,17 +76,17 @@ export default class extends React.Component<{}, MyInfoIState> {
     careers: [
       {
         id: 1,
-        name: "경력1",
-        position: "사원",
-        duration: "2018.01 - 2019.01",
-        description: "커피타기",
+        name: "",
+        position: "",
+        duration: "",
+        description: "",
       },
       {
         id: 2,
-        name: "경력2",
-        position: "사원",
-        duration: "2019.01 - 2019.05",
-        description: "잡무",
+        name: "",
+        position: "",
+        duration: "",
+        description: "",
       },
       {
         id: 3,
@@ -286,16 +286,94 @@ export default class extends React.Component<{}, MyInfoIState> {
           classification: this.state.university.classification,
         },
       });
-      if (this.state.birth.length === 5 && value.substring(4, 5) !== ".") {
+      var tempValue = value;
+      if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
         this.setState({
-          birth: value.substring(0, 4) + "." + value.substring(4, 5),
+          university: {
+            name: this.state.university.name,
+            location: this.state.university.location,
+            duration: value.substring(0, 4) + "." + value.substring(4, 5),
+            major: this.state.university.major,
+            subMajor: this.state.university.subMajor,
+            gradeAvg: this.state.university.gradeAvg,
+            classification: this.state.university.classification,
+          },
+        });
+      } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        this.setState({
+          university: {
+            name: this.state.university.name,
+            location: this.state.university.location,
+            duration: value.substring(0, 4),
+            major: this.state.university.major,
+            subMajor: this.state.university.subMajor,
+            gradeAvg: this.state.university.gradeAvg,
+            classification: this.state.university.classification,
+          },
         });
       } else if (
-        this.state.birth.length === 5 &&
-        value.substring(4, 5) === "."
+        //////
+        tempValue.length === 8 &&
+        value.substring(7, 8) !== " "
       ) {
         this.setState({
-          birth: value.substring(0, 4),
+          university: {
+            name: this.state.university.name,
+            location: this.state.university.location,
+            duration: value.substring(0, 7) + " - " + value.substring(7, 8),
+            major: this.state.university.major,
+            subMajor: this.state.university.subMajor,
+            gradeAvg: this.state.university.gradeAvg,
+            classification: this.state.university.classification,
+          },
+        });
+      } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        this.setState({
+          university: {
+            name: this.state.university.name,
+            location: this.state.university.location,
+            duration: value.substring(0, 7),
+            major: this.state.university.major,
+            subMajor: this.state.university.subMajor,
+            gradeAvg: this.state.university.gradeAvg,
+            classification: this.state.university.classification,
+          },
+        });
+      } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        this.setState({
+          university: {
+            name: this.state.university.name,
+            location: this.state.university.location,
+            duration: value.substring(0, 14) + "." + value.substring(14, 15),
+            major: this.state.university.major,
+            subMajor: this.state.university.subMajor,
+            gradeAvg: this.state.university.gradeAvg,
+            classification: this.state.university.classification,
+          },
+        });
+      } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        this.setState({
+          university: {
+            name: this.state.university.name,
+            location: this.state.university.location,
+            duration: value.substring(0, 14),
+            major: this.state.university.major,
+            subMajor: this.state.university.subMajor,
+            gradeAvg: this.state.university.gradeAvg,
+            classification: this.state.university.classification,
+          },
+        });
+      } else if (tempValue.length > 17) {
+        this.setState({
+          university: {
+            name: this.state.university.name,
+            location: this.state.university.location,
+            duration: value.substring(0, 17),
+            major: this.state.university.major,
+            subMajor: this.state.university.subMajor,
+            gradeAvg: this.state.university.gradeAvg,
+            classification: this.state.university.classification,
+          },
         });
       }
     } else if (name === "university_major") {
@@ -363,12 +441,237 @@ export default class extends React.Component<{}, MyInfoIState> {
         },
       });
     } else if (name === "highschool_duration") {
-      this.setState({
+      await this.setState({
         highschool: {
           name: this.state.highschool.name,
           location: this.state.highschool.location,
           duration: value,
         },
+      });
+      var tempValue = value;
+      if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.setState({
+          highschool: {
+            name: this.state.highschool.name,
+            location: this.state.highschool.location,
+            duration: value.substring(0, 4) + "." + value.substring(4, 5),
+          },
+        });
+      } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        this.setState({
+          highschool: {
+            name: this.state.highschool.name,
+            location: this.state.highschool.location,
+            duration: value.substring(0, 4),
+          },
+        });
+      } else if (tempValue.length === 8 && value.substring(7, 8) !== " ") {
+        this.setState({
+          highschool: {
+            name: this.state.highschool.name,
+            location: this.state.highschool.location,
+            duration: value.substring(0, 7) + " - " + value.substring(7, 8),
+          },
+        });
+      } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        this.setState({
+          highschool: {
+            name: this.state.highschool.name,
+            location: this.state.highschool.location,
+            duration: value.substring(0, 7),
+          },
+        });
+      } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        this.setState({
+          highschool: {
+            name: this.state.highschool.name,
+            location: this.state.highschool.location,
+            duration: value.substring(0, 14) + "." + value.substring(14, 15),
+          },
+        });
+      } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        this.setState({
+          highschool: {
+            name: this.state.highschool.name,
+            location: this.state.highschool.location,
+            duration: value.substring(0, 14),
+          },
+        });
+      } else if (tempValue.length > 17) {
+        this.setState({
+          highschool: {
+            name: this.state.highschool.name,
+            location: this.state.highschool.location,
+            duration: value.substring(0, 17),
+          },
+        });
+      }
+    } else if (name === "careers[0]_name") {
+      this.setState({
+        careers: [
+          {
+            id: this.state.careers[0].id,
+            name: value,
+            position: this.state.careers[0].position,
+            duration: this.state.careers[0].duration,
+            description: this.state.careers[0].description,
+          },
+          this.state.careers[1],
+          this.state.careers[2],
+          this.state.careers[3],
+        ],
+      });
+    } else if (name === "careers[0]_position") {
+      this.setState({
+        careers: [
+          {
+            id: this.state.careers[0].id,
+            name: this.state.careers[0].name,
+            position: value,
+            duration: this.state.careers[0].duration,
+            description: this.state.careers[0].description,
+          },
+          this.state.careers[1],
+          this.state.careers[2],
+          this.state.careers[3],
+        ],
+      });
+    } else if (name === "careers[0]_duration") {
+      await this.setState({
+        careers: [
+          {
+            id: this.state.careers[0].id,
+            name: this.state.careers[0].name,
+            position: this.state.careers[0].position,
+            duration: value,
+            description: this.state.careers[0].description,
+          },
+          this.state.careers[1],
+          this.state.careers[2],
+          this.state.careers[3],
+        ],
+      });
+      var tempValue = value;
+      if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.setState({
+          careers: [
+            {
+              id: this.state.careers[0].id,
+              name: this.state.careers[0].name,
+              position: this.state.careers[0].position,
+              duration: value.substring(0, 4) + "." + value.substring(4, 5),
+              description: this.state.careers[0].description,
+            },
+            this.state.careers[1],
+            this.state.careers[2],
+            this.state.careers[3],
+          ],
+        });
+      } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        this.setState({
+          careers: [
+            {
+              id: this.state.careers[0].id,
+              name: this.state.careers[0].name,
+              position: this.state.careers[0].position,
+              duration: value.substring(0, 4),
+              description: this.state.careers[0].description,
+            },
+            this.state.careers[1],
+            this.state.careers[2],
+            this.state.careers[3],
+          ],
+        });
+      } else if (tempValue.length === 8 && value.substring(7, 8) !== " ") {
+        this.setState({
+          careers: [
+            {
+              id: this.state.careers[0].id,
+              name: this.state.careers[0].name,
+              position: this.state.careers[0].position,
+              duration: value.substring(0, 7) + " - " + value.substring(7, 8),
+              description: this.state.careers[0].description,
+            },
+            this.state.careers[1],
+            this.state.careers[2],
+            this.state.careers[3],
+          ],
+        });
+      } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        this.setState({
+          careers: [
+            {
+              id: this.state.careers[0].id,
+              name: this.state.careers[0].name,
+              position: this.state.careers[0].position,
+              duration: value.substring(0, 7),
+              description: this.state.careers[0].description,
+            },
+            this.state.careers[1],
+            this.state.careers[2],
+            this.state.careers[3],
+          ],
+        });
+      } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        this.setState({
+          careers: [
+            {
+              id: this.state.careers[0].id,
+              name: this.state.careers[0].name,
+              position: this.state.careers[0].position,
+              duration: value.substring(0, 14) + "." + value.substring(14, 15),
+              description: this.state.careers[0].description,
+            },
+            this.state.careers[1],
+            this.state.careers[2],
+            this.state.careers[3],
+          ],
+        });
+      } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        this.setState({
+          careers: [
+            {
+              id: this.state.careers[0].id,
+              name: this.state.careers[0].name,
+              position: this.state.careers[0].position,
+              duration: value.substring(0, 14),
+              description: this.state.careers[0].description,
+            },
+            this.state.careers[1],
+            this.state.careers[2],
+            this.state.careers[3],
+          ],
+        });
+      } else if (tempValue.length > 17) {
+        this.setState({
+          careers: [
+            {
+              id: this.state.careers[0].id,
+              name: this.state.careers[0].name,
+              position: this.state.careers[0].position,
+              duration: value.substring(0, 17),
+              description: this.state.careers[0].description,
+            },
+            this.state.careers[1],
+            this.state.careers[2],
+            this.state.careers[3],
+          ],
+        });
+      }
+    } else if (name === "careers[0]_description") {
+      this.setState({
+        careers: [
+          {
+            id: this.state.careers[0].id,
+            name: this.state.careers[0].name,
+            position: this.state.careers[0].position,
+            duration: this.state.careers[0].duration,
+            description: value,
+          },
+          this.state.careers[1],
+          this.state.careers[2],
+          this.state.careers[3],
+        ],
       });
     }
   };
@@ -376,37 +679,31 @@ export default class extends React.Component<{}, MyInfoIState> {
     if (this.state.careerLen > 0) {
       this.setState({ careerLen: this.state.careerLen - 1 });
     }
-    console.log(this.state.careerLen);
   };
   handleCareerAdd = (event: React.FormEvent) => {
     if (this.state.careerLen < 4) {
       this.setState({ careerLen: this.state.careerLen + 1 });
     }
-    console.log(this.state.careerLen);
   };
   handleAwardMinus = (event: React.FormEvent) => {
     if (this.state.awardLen > 0) {
       this.setState({ awardLen: this.state.awardLen - 1 });
     }
-    console.log(this.state.careerLen);
   };
   handleAwardAdd = (event: React.FormEvent) => {
     if (this.state.awardLen < 4) {
       this.setState({ awardLen: this.state.awardLen + 1 });
     }
-    console.log(this.state.careerLen);
   };
   handleClassMinus = (event: React.FormEvent) => {
     if (this.state.classificationLen > 0) {
       this.setState({ classificationLen: this.state.classificationLen - 1 });
     }
-    console.log(this.state.careerLen);
   };
   handleClassAdd = (event: React.FormEvent) => {
     if (this.state.classificationLen < 4) {
       this.setState({ classificationLen: this.state.classificationLen + 1 });
     }
-    console.log(this.state.careerLen);
   };
   useStyles = makeStyles((theme: Theme) =>
     createStyles({
