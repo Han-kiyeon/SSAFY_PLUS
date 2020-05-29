@@ -32,6 +32,7 @@ public class AnswersService {
         if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("아이디 없음?!");
         System.out.println(requestDto.getErrorId());
         Errors error = errorsRepository.findByErrorId(requestDto.getErrorId());
+        errorsRepository.answerCntUp(error.getErrorId());
         System.out.println(error);
         if (error == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("질문 없음?!");
         return ResponseEntity.
@@ -63,13 +64,14 @@ public class AnswersService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 답변이 없습니다. id=" + id));
 
         answersRepository.delete(answers);
+        errorsRepository.answerCntDown(answers.getError().getErrorId());
     }
 
 
     @Transactional(readOnly = true)
-    public List<AnswersListResponseDto> findAllDesc() {
-        return answersRepository.findAllDesc().stream()
-                .map(AnswersListResponseDto::new) //.map(posts -> new PostsListResponseDto(post))
+    public List<AnswersListResponseDto> findAllDesc(Long errorId) {
+        return answersRepository.findAllDesc(errorId).stream()
+                .map(AnswersListResponseDto::new)
                 .collect(Collectors.toList());
     }
 }
