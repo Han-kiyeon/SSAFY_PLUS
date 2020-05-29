@@ -18,6 +18,7 @@ function App() {
         <Route path="/plus" component={SsafyPlus} />
         <Route path="/auth/signUP" component={SsafyPlus} />
         <Route path="/auth/signIn" component={SsafyPlus} />
+        <Route path="/auth/portfolio" component={SsafyPlus} />
         <Redirect from="/" to="/plus/main" />
       </Switch>
     </Router>

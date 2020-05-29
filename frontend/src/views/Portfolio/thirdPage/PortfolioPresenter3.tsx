@@ -1376,14 +1376,14 @@ function PortfolioPresenter({
             </AddButton>
           )}
           <div className={classes.pageButtonLeft}>
-            <Link to={{ pathname: "/plus/2/portfolio" }}>
+            <Link to={{ pathname: "/plus/portfolio/2/1" }}>
               <Fab color="primary" aria-label="next">
                 <ChevronLeft />
               </Fab>
             </Link>
           </div>
           <div className={classes.pageButtonRight}>
-            <Link to={{ pathname: "/plus/result/portfolio" }}>
+            <Link to={{ pathname: "/plus/portfolio/result/1" }}>
               <Fab color="primary" aria-label="next">
                 <ChevronRight />
               </Fab>

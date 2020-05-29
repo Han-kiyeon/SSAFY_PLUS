@@ -56,6 +56,7 @@ interface PortfolioIState {
 }
 
 const Card = styled.div`
+  margin: 20px 0px;
   display: flex;
   justify-content: center;
 `;
@@ -596,7 +597,7 @@ function PortfolioPresenter({
           </FormControl>
         </div>
         <div className={classes.pageButton}>
-          <Link to={{ pathname: "/plus/2/portfolio" }}>
+          <Link to={{ pathname: "/plus/portfolio/2/2" }}>
             <Fab color="primary" aria-label="next">
               <ChevronRight />
             </Fab>
