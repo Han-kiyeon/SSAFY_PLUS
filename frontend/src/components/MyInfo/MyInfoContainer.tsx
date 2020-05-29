@@ -8,38 +8,43 @@ interface MyInfoIState {
   email: string;
   gender: string;
   phone: string;
-  university_name: string;
-  university_location: string;
-  university_duration: string;
-  university_major: string;
-  university_subMajor: string;
-  university_gradeAvg: string;
-  university_classification: string;
-
+  university: {
+    name: string;
+    location: string;
+    duration: string;
+    major: string;
+    subMajor: string;
+    gradeAvg: string;
+    classification: string;
+  };
   highschool: {
     name: string;
     location: string;
     duration: string;
-    classification: string;
   };
-  career: {
+  careers: Array<{
+    id: number;
     name: string;
     position: string;
     duration: string;
     description: string;
-  };
-  award: {
+  }>;
+  careerLen: number;
+  awards: Array<{
+    id: number;
     name: string;
-    organization: string;
     date: string;
-  };
-  classification: {
+    organization: string;
+  }>;
+  awardLen: number;
+  classifications: Array<{
     type: string;
     name: string;
     date: string;
     grade: string;
     Associtation: string;
-  };
+  }>;
+  classificationLen: number;
 }
 export default class extends React.Component<{}, MyInfoIState> {
   state = {
@@ -51,42 +56,118 @@ export default class extends React.Component<{}, MyInfoIState> {
     phone: "",
     // 학력 사항
     // 대학
-    university_name: "",
-    university_location: "",
-    university_major: "",
-    university_subMajor: "",
-    university_gradeAvg: "",
-    university_duration: "",
-    university_classification: "",
+    university: {
+      name: "",
+      location: "",
+      duration: "",
+      major: "",
+      subMajor: "",
+      gradeAvg: "",
+      classification: "",
+    },
 
     // 고등학교
     highschool: {
       name: "",
       location: "",
       duration: "",
-      classification: "",
     },
     // 경력 사항
-    career: {
-      name: "",
-      position: "",
-      duration: "",
-      description: "",
-    },
+    careers: [
+      {
+        id: 1,
+        name: "경력1",
+        position: "사원",
+        duration: "2018.01 - 2019.01",
+        description: "커피타기",
+      },
+      {
+        id: 2,
+        name: "경력2",
+        position: "사원",
+        duration: "2019.01 - 2019.05",
+        description: "잡무",
+      },
+      {
+        id: 3,
+        name: "",
+        position: "",
+        duration: "",
+        description: "",
+      },
+      {
+        id: 4,
+        name: "",
+        position: "",
+        duration: "",
+        description: "",
+      },
+    ],
+    careerLen: 0,
     // 수상 내역
-    award: {
-      name: "",
-      organization: "",
-      date: "",
-    },
+    awards: [
+      {
+        id: 1,
+        name: "",
+        organization: "",
+        date: "",
+      },
+      {
+        id: 2,
+        name: "",
+        organization: "",
+        date: "",
+      },
+      {
+        id: 3,
+        name: "",
+        organization: "",
+        date: "",
+      },
+      {
+        id: 4,
+        name: "",
+        organization: "",
+        date: "",
+      },
+    ],
+    awardLen: 0,
     // 자격 사항
-    classification: {
-      type: "",
-      name: "",
-      date: "",
-      grade: "",
-      Associtation: "",
-    },
+    classifications: [
+      {
+        id: 1,
+        type: "",
+        name: "",
+        date: "",
+        grade: "",
+        Associtation: "",
+      },
+      {
+        id: 2,
+        type: "",
+        name: "",
+        date: "",
+        grade: "",
+        Associtation: "",
+      },
+      {
+        id: 3,
+        type: "",
+        name: "",
+        date: "",
+        grade: "",
+        Associtation: "",
+      },
+      {
+        id: 4,
+        type: "",
+        name: "",
+        date: "",
+        grade: "",
+        Associtation: "",
+      },
+    ],
+    classificationLen: 0,
   };
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -169,8 +250,42 @@ export default class extends React.Component<{}, MyInfoIState> {
           birth: value.substring(0, 10),
         });
       }
+    } else if (name === "university_name") {
+      this.setState({
+        university: {
+          name: value,
+          location: this.state.university.location,
+          duration: this.state.university.duration,
+          major: this.state.university.major,
+          subMajor: this.state.university.subMajor,
+          gradeAvg: this.state.university.gradeAvg,
+          classification: this.state.university.classification,
+        },
+      });
+    } else if (name === "university_location") {
+      this.setState({
+        university: {
+          name: this.state.university.name,
+          location: value,
+          duration: this.state.university.duration,
+          major: this.state.university.major,
+          subMajor: this.state.university.subMajor,
+          gradeAvg: this.state.university.gradeAvg,
+          classification: this.state.university.classification,
+        },
+      });
     } else if (name === "university_duration") {
-      await this.setState({ university_duration: value });
+      await this.setState({
+        university: {
+          name: this.state.university.name,
+          location: this.state.university.location,
+          duration: value,
+          major: this.state.university.major,
+          subMajor: this.state.university.subMajor,
+          gradeAvg: this.state.university.gradeAvg,
+          classification: this.state.university.classification,
+        },
+      });
       if (this.state.birth.length === 5 && value.substring(4, 5) !== ".") {
         this.setState({
           birth: value.substring(0, 4) + "." + value.substring(4, 5),
@@ -182,29 +297,137 @@ export default class extends React.Component<{}, MyInfoIState> {
         this.setState({
           birth: value.substring(0, 4),
         });
-      } else if (
-        this.state.birth.length === 8 &&
-        value.substring(7, 8) !== "."
-      ) {
-        this.setState({
-          birth: value.substring(0, 7) + "." + value.substring(7, 8),
-        });
-      } else if (
-        this.state.birth.length === 8 &&
-        value.substring(7, 8) === "."
-      ) {
-        this.setState({
-          birth: value.substring(0, 7),
-        });
-      } else if (this.state.birth.length === 11) {
-        this.setState({
-          birth: value.substring(0, 10),
-        });
       }
+    } else if (name === "university_major") {
+      this.setState({
+        university: {
+          name: this.state.university.name,
+          location: this.state.university.location,
+          duration: this.state.university.duration,
+          major: value,
+          subMajor: this.state.university.subMajor,
+          gradeAvg: this.state.university.gradeAvg,
+          classification: this.state.university.classification,
+        },
+      });
+    } else if (name === "university_subMajor") {
+      this.setState({
+        university: {
+          name: this.state.university.name,
+          location: this.state.university.location,
+          duration: this.state.university.duration,
+          major: this.state.university.major,
+          subMajor: value,
+          gradeAvg: this.state.university.gradeAvg,
+          classification: this.state.university.classification,
+        },
+      });
+    } else if (name === "university_gradeAvg") {
+      this.setState({
+        university: {
+          name: this.state.university.name,
+          location: this.state.university.location,
+          duration: this.state.university.duration,
+          major: this.state.university.major,
+          subMajor: this.state.university.subMajor,
+          gradeAvg: value,
+          classification: this.state.university.classification,
+        },
+      });
+    } else if (name === "university_classification") {
+      this.setState({
+        university: {
+          name: this.state.university.name,
+          location: this.state.university.location,
+          duration: this.state.university.duration,
+          major: this.state.university.major,
+          subMajor: this.state.university.subMajor,
+          gradeAvg: this.state.university.gradeAvg,
+          classification: value,
+        },
+      });
+    } else if (name === "highschool_name") {
+      this.setState({
+        highschool: {
+          name: value,
+          location: this.state.highschool.location,
+          duration: this.state.highschool.duration,
+        },
+      });
+    } else if (name === "highschool_location") {
+      this.setState({
+        highschool: {
+          name: this.state.highschool.name,
+          location: value,
+          duration: this.state.highschool.duration,
+        },
+      });
+    } else if (name === "highschool_duration") {
+      this.setState({
+        highschool: {
+          name: this.state.highschool.name,
+          location: this.state.highschool.location,
+          duration: value,
+        },
+      });
     }
+  };
+  handleCareerMinus = (event: React.FormEvent) => {
+    if (this.state.careerLen > 0) {
+      this.setState({ careerLen: this.state.careerLen - 1 });
+    }
+    console.log(this.state.careerLen);
+  };
+  handleCareerAdd = (event: React.FormEvent) => {
+    if (this.state.careerLen < 4) {
+      this.setState({ careerLen: this.state.careerLen + 1 });
+    }
+    console.log(this.state.careerLen);
+  };
+  handleAwardMinus = (event: React.FormEvent) => {
+    if (this.state.awardLen > 0) {
+      this.setState({ awardLen: this.state.awardLen - 1 });
+    }
+    console.log(this.state.careerLen);
+  };
+  handleAwardAdd = (event: React.FormEvent) => {
+    if (this.state.awardLen < 4) {
+      this.setState({ awardLen: this.state.awardLen + 1 });
+    }
+    console.log(this.state.careerLen);
+  };
+  handleClassMinus = (event: React.FormEvent) => {
+    if (this.state.classificationLen > 0) {
+      this.setState({ classificationLen: this.state.classificationLen - 1 });
+    }
+    console.log(this.state.careerLen);
+  };
+  handleClassAdd = (event: React.FormEvent) => {
+    if (this.state.classificationLen < 4) {
+      this.setState({ classificationLen: this.state.classificationLen + 1 });
+    }
+    console.log(this.state.careerLen);
   };
   useStyles = makeStyles((theme: Theme) =>
     createStyles({
+      input8: {
+        "& > *": {
+          marginTop: "2vh",
+          width: "8vw",
+        },
+      },
+      input10: {
+        "& > *": {
+          marginTop: "2vh",
+          width: "10vw",
+        },
+      },
+      input15: {
+        "& > *": {
+          marginTop: "2vh",
+          width: "15vw",
+        },
+      },
       input20: {
         "& > *": {
           marginTop: "2vh",
@@ -226,39 +449,39 @@ export default class extends React.Component<{}, MyInfoIState> {
       email,
       gender,
       phone,
-      university_name,
-      university_location,
-      university_duration,
-      university_major,
-      university_subMajor,
-      university_gradeAvg,
-      university_classification,
+      university,
       highschool,
-      career,
-      award,
-      classification,
+      careers,
+      careerLen,
+      awards,
+      awardLen,
+      classifications,
+      classificationLen,
     } = this.state;
     return (
       <MyInfoPresenter
         useStyles={this.useStyles}
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
+        handleCareerAdd={this.handleCareerAdd}
+        handleCareerMinus={this.handleCareerMinus}
+        handleAwardAdd={this.handleAwardAdd}
+        handleAwardMinus={this.handleAwardMinus}
+        handleClassAdd={this.handleClassAdd}
+        handleClassMinus={this.handleClassMinus}
         name={name}
         birth={birth}
         email={email}
         gender={gender}
         phone={phone}
-        university_name={university_name}
-        university_location={university_location}
-        university_duration={university_duration}
-        university_major={university_major}
-        university_subMajor={university_subMajor}
-        university_gradeAvg={university_gradeAvg}
-        university_classification={university_classification}
+        university={university}
         highschool={highschool}
-        career={career}
-        award={award}
-        classification={classification}
+        careers={careers}
+        careerLen={careerLen}
+        awards={awards}
+        awardLen={awardLen}
+        classifications={classifications}
+        classificationLen={classificationLen}
       />
     );
   }
