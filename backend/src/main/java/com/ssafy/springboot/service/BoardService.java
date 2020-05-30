@@ -66,12 +66,18 @@ public class BoardService {
     }
 
     @Transactional
-    public ResponseEntity<?> findByUser(String email) {
+    public List<BoardListResponseDto> findByUser(String email) {
         User user = userRepository.findByEmail(email);
-//        return boardRepository.findByUser(user.getUser_id())
-//                .stream()
-//                .map(BoardListResponseDto::new)
-//                .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body("1234");
+
+        System.out.println(boardRepository.findByUser(user.getUser_id())
+                .stream()
+                .map(BoardListResponseDto::new)
+                .collect(Collectors.toList()));
+
+
+        return boardRepository.findByUser(user.getUser_id())
+                .stream()
+                .map(BoardListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

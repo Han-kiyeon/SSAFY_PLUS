@@ -30,12 +30,6 @@ public class BoardController {
     }
 
 
-    @ApiOperation(value = "게시판 리스트", notes = "생성된 게시판의 리스트를 가져오기")
-    @GetMapping("/list")
-    public List<BoardListResponseDto> list() {
-        return boardService.selectAll();
-    }
-
     @ApiOperation(value = "게시판 수정")
     @PutMapping("{board_id}") // 게시글 수정
     public void update(@PathVariable Long board_id, @RequestBody BoardUpdateRequestDto requestDto) {
@@ -54,18 +48,24 @@ public class BoardController {
         boardPartyService.update(board_id, requestDto);
     }
 
+    @ApiOperation(value = "게시판 리스트", notes = "생성된 게시판의 리스트를 가져오기")
+    @GetMapping("/list")
+    public List<BoardListResponseDto> list() {
+        return boardService.selectAll();
+    }
+
     @ApiOperation(value = "type 이 free/public/private인 게시판 목록 조회")
     @GetMapping("/list/{type}")
     public List<BoardListResponseDto> findByType(@PathVariable String type) {
         return boardService.findByType(type);
     }
 
-//    @ApiOperation(value = "유저가 가입한 게시판 목록 조회")
-//    @GetMapping("/joinlist/{user_email:.+}")
-//    public ResponseEntity<?> findByUser(@PathVariable String user_email) {
-//        return boardService.findByUser(user_email);
-//    }
+    @ApiOperation(value = "유저가 가입한 게시판 목록 조회")
+    @GetMapping("/joinlist/{email:.+}/")
+    public List<BoardListResponseDto> findByUser(@PathVariable String email) {
+        System.out.println(email);
+        return boardService.selectAll();
+    }
 
-//  @ApiOperation(value = "type 이 free 인 것중 가입자가 많은 순으로 뽑아 주는 목록 조회(10개만)")
-
+//    @ApiOperation(value = "type 이 free 인 것중 가입자가 많은 순으로 뽑아 주는 목록 조회(10개만)")
 }

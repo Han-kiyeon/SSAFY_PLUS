@@ -27,6 +27,9 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, unique = true)
+    private String nickname;
+
     @Column
     private String position; //교육생, 졸업생, 프로, 컨설턴드, 코치 ....
 
@@ -45,12 +48,13 @@ public class User extends BaseTimeEntity {
 
 
     @Builder
-    public User(Long user_id, String email, String password, String name,
+    public User(Long user_id, String email, String password, String name, String nickname,
                 String position, String season, String section, String profile_img, Role role) {
         this.user_id = user_id;
         this.email = email;
         this.password = password;
         this.name = name;
+        this.nickname = nickname;
         this.position = position;
         this.season = season;
         this.section = section;
@@ -83,6 +87,7 @@ public class User extends BaseTimeEntity {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", position='" + position + '\'' +
                 ", season='" + season + '\'' +
                 ", section='" + section + '\'' +
