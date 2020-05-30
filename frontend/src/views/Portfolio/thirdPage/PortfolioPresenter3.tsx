@@ -1362,16 +1362,16 @@ function PortfolioPresenter({
             </Project>
           )}
           {projectLen > 1 && (
-            <MinusButton className={classes.AMButton}>
+            <MinusButton className={classes.AMButton} onClick={handleMinus}>
               <Fab color="primary" aria-label="next" size="small">
-                <Minus fontSize="small" onClick={handleMinus} />
+                <Minus fontSize="small" />
               </Fab>
             </MinusButton>
           )}
           {projectLen !== 4 && (
-            <AddButton className={classes.AMButton}>
+            <AddButton className={classes.AMButton} onClick={handleAdd}>
               <Fab color="primary" aria-label="next" size="small">
-                <Add fontSize="small" onClick={handleAdd} />
+                <Add fontSize="small" />
               </Fab>
             </AddButton>
           )}

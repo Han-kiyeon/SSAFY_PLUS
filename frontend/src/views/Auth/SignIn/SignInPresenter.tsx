@@ -20,6 +20,13 @@ const Button = styled.button`
   height: 5vh;
   width: 10vw;
 `;
+const TestLogin = styled.form`
+  margin: 20px;
+  font-size: 20px;
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 interface SignInIState {
   userId: string;
@@ -28,6 +35,8 @@ interface SignInIState {
   error: any;
   updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent) => void;
+  loginTest1: (event: React.FormEvent) => void;
+  loginTest2: (event: React.FormEvent) => void;
 }
 
 const SignInPresenter: React.FunctionComponent<SignInIState> = ({
@@ -37,6 +46,8 @@ const SignInPresenter: React.FunctionComponent<SignInIState> = ({
   error,
   updateTerm,
   handleSubmit,
+  loginTest1,
+  loginTest2,
 }) => (
   <>
     <Container>
@@ -62,6 +73,8 @@ const SignInPresenter: React.FunctionComponent<SignInIState> = ({
           <Link to={{ pathname: "/auth/signUp" }}>회원가입 하러가기</Link>
         </Form>
       </CardBox>
+      <TestLogin onClick={loginTest1}>Test Login (Position:1) </TestLogin>
+      <TestLogin onClick={loginTest2}>Test Login (Position:3) </TestLogin>
     </Container>
   </>
 );

@@ -13,8 +13,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
+import Button from "components/CustomButtons/Button.js";
 
 const useStyles = makeStyles(styles);
+
+async function LogOut() {
+  await sessionStorage.clear();
+  window.location.reload();
+}
 
 export default function Sidebar(props) {
   const classes = useStyles();
@@ -30,7 +36,8 @@ export default function Sidebar(props) {
           (prop.layout === "/plus" &&
             prop.path !== "/postList" &&
             !prop.path.startsWith("/portfolio/")) ||
-          prop.path === "/signIn"
+          (prop.path === "/signIn" &&
+            sessionStorage.getItem("user_email") === null)
         ) {
           var activePro = " ";
           var listItemClasses = classNames({
@@ -69,6 +76,9 @@ export default function Sidebar(props) {
           );
         }
       })}
+      {sessionStorage.getItem("user_email") !== null && (
+        <Button onClick={LogOut}>Logout</Button>
+      )}
     </List>
   );
   var brand1 = (
