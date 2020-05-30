@@ -27,12 +27,6 @@ public class Answers extends BaseTimeEntity {
     @JoinColumn(name = "error_id")
     private Errors error;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "parent")
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    //@JoinColumn(name = "errors_id")
-    private Answers parent;
-
     @Column(length = 500, nullable = false)
     private  String title;
 
