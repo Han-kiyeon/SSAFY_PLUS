@@ -56,7 +56,7 @@ interface MyInfoIState {
     name: string;
     date: string;
     grade: string;
-    Associtation: string;
+    association: string;
   }>;
   classificationLen: number;
   handleSubmit: (event: React.FormEvent) => void;
@@ -73,7 +73,7 @@ const Box = styled.div`
 `;
 const SubTitle = styled.div`
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   opacity: 0.7;
   margin-top: 24px;
 `;
@@ -104,6 +104,7 @@ const Form = styled.form`
 const BlockForm = styled.form`
   display: block;
   margin-top: 15px;
+  margin-bottom: 10px;
 `;
 const Button = styled.div`
   display: inline-block;
@@ -394,8 +395,9 @@ function MyInfoPresenter({
         )}
         {careerLen > 0 && (
           <>
+            <SubTitle>경력 1</SubTitle>
             <BlockForm
-              className={classes.input10}
+              className={classes.input20}
               noValidate
               autoComplete="off"
               onSubmit={handleSubmit}
@@ -415,7 +417,7 @@ function MyInfoPresenter({
                 value={careers[0].position}
                 variant="outlined"
               ></TextField>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
               <TextField
                 label="재학 기간"
                 onChange={updateTerm}
@@ -425,11 +427,180 @@ function MyInfoPresenter({
               ></TextField>
             </BlockForm>
             <br />
+            <Form
+              className={classes.input50}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                label="경험 정리"
+                onChange={updateTerm}
+                multiline
+                rows={6}
+                name="careers[0]_description"
+                value={careers[0].description}
+                variant="outlined"
+              ></TextField>
+            </Form>
           </>
         )}
-        {careerLen > 1 && <></>}
-        {careerLen > 2 && <></>}
-        {careerLen > 3 && <></>}
+        {careerLen > 1 && (
+          <>
+            <SubTitle>경력 2</SubTitle>
+            <BlockForm
+              className={classes.input20}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                label="회사명"
+                onChange={updateTerm}
+                name="careers[1]_name"
+                value={careers[1].name}
+                variant="outlined"
+              ></TextField>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <TextField
+                label="직급"
+                onChange={updateTerm}
+                name="careers[1]_position"
+                value={careers[1].position}
+                variant="outlined"
+              ></TextField>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+              <TextField
+                label="재학 기간"
+                onChange={updateTerm}
+                name="careers[1]_duration"
+                value={careers[1].duration}
+                variant="outlined"
+              ></TextField>
+            </BlockForm>
+            <br />
+            <Form
+              className={classes.input50}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                label="경험 정리"
+                onChange={updateTerm}
+                multiline
+                rows={6}
+                name="careers[1]_description"
+                value={careers[1].description}
+                variant="outlined"
+              ></TextField>
+            </Form>
+          </>
+        )}
+        {careerLen > 2 && (
+          <>
+            <SubTitle>경력 3</SubTitle>
+            <BlockForm
+              className={classes.input20}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                label="회사명"
+                onChange={updateTerm}
+                name="careers[2]_name"
+                value={careers[2].name}
+                variant="outlined"
+              ></TextField>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <TextField
+                label="직급"
+                onChange={updateTerm}
+                name="careers[2]_position"
+                value={careers[2].position}
+                variant="outlined"
+              ></TextField>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+              <TextField
+                label="재학 기간"
+                onChange={updateTerm}
+                name="careers[2]_duration"
+                value={careers[2].duration}
+                variant="outlined"
+              ></TextField>
+            </BlockForm>
+            <br />
+            <Form
+              className={classes.input50}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                label="경험 정리"
+                onChange={updateTerm}
+                multiline
+                rows={6}
+                name="careers[2]_description"
+                value={careers[2].description}
+                variant="outlined"
+              ></TextField>
+            </Form>
+          </>
+        )}
+        {careerLen > 3 && (
+          <>
+            <SubTitle>경력 4</SubTitle>
+            <BlockForm
+              className={classes.input20}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                label="회사명"
+                onChange={updateTerm}
+                name="careers[3]_name"
+                value={careers[3].name}
+                variant="outlined"
+              ></TextField>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <TextField
+                label="직급"
+                onChange={updateTerm}
+                name="careers[3]_position"
+                value={careers[3].position}
+                variant="outlined"
+              ></TextField>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+              <TextField
+                label="재학 기간"
+                onChange={updateTerm}
+                name="careers[3]_duration"
+                value={careers[3].duration}
+                variant="outlined"
+              ></TextField>
+            </BlockForm>
+            <br />
+            <Form
+              className={classes.input50}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                label="경험 정리"
+                onChange={updateTerm}
+                multiline
+                rows={6}
+                name="careers[3]_description"
+                value={careers[3].description}
+                variant="outlined"
+              ></TextField>
+            </Form>
+          </>
+        )}
       </Box>
 
       <Box>
@@ -451,6 +622,146 @@ function MyInfoPresenter({
         )}
         <br />
       </Box>
+      {awardLen > 0 && (
+        <>
+          <SubTitle>수상경험 1</SubTitle>
+          <BlockForm
+            className={classes.input15}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="수상 명칭"
+              onChange={updateTerm}
+              name="awards[0]_name"
+              value={awards[0].name}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="수상 날짜"
+              onChange={updateTerm}
+              name="awards[0]_date"
+              value={awards[0].date}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="지급 기관"
+              onChange={updateTerm}
+              name="awards[0]_organization"
+              value={awards[0].organization}
+              variant="outlined"
+            ></TextField>
+          </BlockForm>
+        </>
+      )}
+      {awardLen > 1 && (
+        <>
+          <SubTitle>수상경험 2</SubTitle>
+          <BlockForm
+            className={classes.input15}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="수상 명칭"
+              onChange={updateTerm}
+              name="awards[1]_name"
+              value={awards[1].name}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="수상 날짜"
+              onChange={updateTerm}
+              name="awards[1]_date"
+              value={awards[1].date}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="지급 기관"
+              onChange={updateTerm}
+              name="awards[1]_organization"
+              value={awards[1].organization}
+              variant="outlined"
+            ></TextField>
+          </BlockForm>
+        </>
+      )}
+      {awardLen > 2 && (
+        <>
+          <SubTitle>수상경험 3</SubTitle>
+          <BlockForm
+            className={classes.input15}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="수상 명칭"
+              onChange={updateTerm}
+              name="awards[2]_name"
+              value={awards[2].name}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="수상 날짜"
+              onChange={updateTerm}
+              name="awards[2]_date"
+              value={awards[2].date}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="지급 기관"
+              onChange={updateTerm}
+              name="awards[2]_organization"
+              value={awards[2].organization}
+              variant="outlined"
+            ></TextField>
+          </BlockForm>
+        </>
+      )}
+      {awardLen > 3 && (
+        <>
+          <SubTitle>수상경험 4</SubTitle>
+          <BlockForm
+            className={classes.input15}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="수상 명칭"
+              onChange={updateTerm}
+              name="awards[3]_name"
+              value={awards[3].name}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="수상 날짜"
+              onChange={updateTerm}
+              name="awards[3]_date"
+              value={awards[3].date}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="지급 기관"
+              onChange={updateTerm}
+              name="awards[3]_organization"
+              value={awards[3].organization}
+              variant="outlined"
+            ></TextField>
+          </BlockForm>
+        </>
+      )}
       <Box>
         <AddTitle>자격 사항</AddTitle>
         {classificationLen !== 4 && (
@@ -470,6 +781,222 @@ function MyInfoPresenter({
         )}
         <br />
       </Box>
+      {classificationLen > 0 && (
+        <>
+          <SubTitle>어학 / 자격증 1</SubTitle>
+          <BlockForm
+            className={classes.input15}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="종류"
+              helperText="ex) 어학(영어), 자격증"
+              onChange={updateTerm}
+              name="classifications[0]_type"
+              value={classifications[0].type}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="자격 이름"
+              helperText="ex) OPIC, 정보처리기사"
+              onChange={updateTerm}
+              name="classifications[0]_name"
+              value={classifications[0].name}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="취득 날짜"
+              onChange={updateTerm}
+              name="classifications[0]_date"
+              value={classifications[0].date}
+              variant="outlined"
+            ></TextField>
+            <br />
+            <TextField
+              label="성적"
+              onChange={updateTerm}
+              helperText="ex) 기사, IM, Level 7"
+              name="classifications[0]_grade"
+              value={classifications[0].grade}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="지급 기관"
+              onChange={updateTerm}
+              name="classifications[0]_association"
+              value={classifications[0].association}
+              variant="outlined"
+            ></TextField>
+          </BlockForm>
+        </>
+      )}
+      {classificationLen > 1 && (
+        <>
+          <SubTitle>어학 / 자격증 2</SubTitle>
+          <BlockForm
+            className={classes.input15}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="종류"
+              helperText="ex) 어학(영어), 자격증"
+              onChange={updateTerm}
+              name="classifications[1]_type"
+              value={classifications[1].type}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="자격 이름"
+              helperText="ex) OPIC, 정보처리기사"
+              onChange={updateTerm}
+              name="classifications[1]_name"
+              value={classifications[1].name}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="취득 날짜"
+              onChange={updateTerm}
+              name="classifications[1]_date"
+              value={classifications[1].date}
+              variant="outlined"
+            ></TextField>
+            <br />
+            <TextField
+              label="성적"
+              onChange={updateTerm}
+              helperText="ex) 기사, IM, Level 7"
+              name="classifications[1]_grade"
+              value={classifications[1].grade}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="지급 기관"
+              onChange={updateTerm}
+              name="classifications[1]_association"
+              value={classifications[1].association}
+              variant="outlined"
+            ></TextField>
+          </BlockForm>
+        </>
+      )}
+      {classificationLen > 2 && (
+        <>
+          <SubTitle>어학 / 자격증 3</SubTitle>
+          <BlockForm
+            className={classes.input15}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="종류"
+              helperText="ex) 어학(영어), 자격증"
+              onChange={updateTerm}
+              name="classifications[2]_type"
+              value={classifications[2].type}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="자격 이름"
+              helperText="ex) OPIC, 정보처리기사"
+              onChange={updateTerm}
+              name="classifications[2]_name"
+              value={classifications[2].name}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="취득 날짜"
+              onChange={updateTerm}
+              name="classifications[2]_date"
+              value={classifications[2].date}
+              variant="outlined"
+            ></TextField>
+            <br />
+            <TextField
+              label="성적"
+              onChange={updateTerm}
+              helperText="ex) 기사, IM, Level 7"
+              name="classifications[2]_grade"
+              value={classifications[2].grade}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="지급 기관"
+              onChange={updateTerm}
+              name="classifications[2]_association"
+              value={classifications[2].association}
+              variant="outlined"
+            ></TextField>
+          </BlockForm>
+        </>
+      )}
+      {classificationLen > 3 && (
+        <>
+          <SubTitle>어학 / 자격증 4</SubTitle>
+          <BlockForm
+            className={classes.input15}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="종류"
+              helperText="ex) 어학(영어), 자격증"
+              onChange={updateTerm}
+              name="classifications[3]_type"
+              value={classifications[3].type}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="자격 이름"
+              helperText="ex) OPIC, 정보처리기사"
+              onChange={updateTerm}
+              name="classifications[3]_name"
+              value={classifications[3].name}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="취득 날짜"
+              onChange={updateTerm}
+              name="classifications[3]_date"
+              value={classifications[3].date}
+              variant="outlined"
+            ></TextField>
+            <br />
+            <TextField
+              label="성적"
+              onChange={updateTerm}
+              helperText="ex) 기사, IM, Level 7"
+              name="classifications[3]_grade"
+              value={classifications[3].grade}
+              variant="outlined"
+            ></TextField>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              label="지급 기관"
+              onChange={updateTerm}
+              name="classifications[3]_association"
+              value={classifications[3].association}
+              variant="outlined"
+            ></TextField>
+          </BlockForm>
+        </>
+      )}
     </Container>
   );
 }
