@@ -63,9 +63,12 @@ public class BoardController {
     @ApiOperation(value = "유저가 가입한 게시판 목록 조회")
     @GetMapping("/joinlist/{email:.+}/")
     public List<BoardListResponseDto> findByUser(@PathVariable String email) {
-        System.out.println(email);
         return boardService.selectAll();
     }
 
-//    @ApiOperation(value = "type 이 free 인 것중 가입자가 많은 순으로 뽑아 주는 목록 조회(10개만)")
+    @ApiOperation(value = "비공개 게시판 중 가입자가 많은 순 목록 조회(10개)")
+    @GetMapping("/top10")
+    public List<BoardListResponseDto> findByUser() {
+        return boardService.top10();
+    }
 }

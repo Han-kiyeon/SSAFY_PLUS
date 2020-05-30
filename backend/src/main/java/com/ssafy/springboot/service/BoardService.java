@@ -69,15 +69,17 @@ public class BoardService {
     public List<BoardListResponseDto> findByUser(String email) {
         User user = userRepository.findByEmail(email);
 
-        System.out.println(boardRepository.findByUser(user.getUser_id())
-                .stream()
-                .map(BoardListResponseDto::new)
-                .collect(Collectors.toList()));
-
-
         return boardRepository.findByUser(user.getUser_id())
                 .stream()
                 .map(BoardListResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<BoardListResponseDto> top10() {
+        List<Board> list = boardRepository.top10();
+        if (list.size() > 10)
+            list.subList(0, 9);
+        return list.stream().map(BoardListResponseDto::new).collect(Collectors.toList());
     }
 }
