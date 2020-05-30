@@ -4,7 +4,7 @@ import Assignment from "@material-ui/icons/Assignment";
 import Description from "@material-ui/icons/Description";
 import PermIdentity from "@material-ui/icons/PermIdentity";
 import WorkIcon from "@material-ui/icons/Work";
-import ErrorIcon from '@material-ui/icons/Error';
+import ErrorIcon from "@material-ui/icons/Error";
 
 // 레이아웃에 입힐 뷰들
 import Main from "views/Main/Main.js";

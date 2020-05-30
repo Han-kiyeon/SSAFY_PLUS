@@ -17,6 +17,7 @@ export default class extends React.Component<{}, SignInIState> {
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    console.log(sessionStorage.getItem("user_email"));
   }
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -24,6 +25,20 @@ export default class extends React.Component<{}, SignInIState> {
       console.log("login 요청");
       this.Login();
     }
+  };
+  loginTest1 = async (event: React.FormEvent) => {
+    console.log("test 로그인 요청1");
+    await window.sessionStorage.setItem("user_name", "Test1");
+    await window.sessionStorage.setItem("user_email", "test1@gmail.com");
+    await window.sessionStorage.setItem("user_position", "1");
+    window.location.href = "http://localhost:3000/plus/main";
+  };
+  loginTest2 = async (event: React.FormEvent) => {
+    console.log("test 로그인 요청2");
+    await window.sessionStorage.setItem("user_name", "Test2");
+    await window.sessionStorage.setItem("user_email", "test2@gmail.com");
+    await window.sessionStorage.setItem("user_position", "3");
+    window.location.href = "http://localhost:3000/plus/main";
   };
 
   Login = async () => {
@@ -58,6 +73,8 @@ export default class extends React.Component<{}, SignInIState> {
         error={error}
         updateTerm={this.updateTerm}
         handleSubmit={this.handleSubmit}
+        loginTest1={this.loginTest1}
+        loginTest2={this.loginTest2}
       />
     );
   }
