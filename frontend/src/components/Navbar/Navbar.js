@@ -19,6 +19,10 @@ import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
+async function LogOut() {
+  await sessionStorage.clear();
+  window.location.reload();
+}
 export default function Header(props) {
   const classes = useStyles();
 
@@ -46,7 +50,8 @@ export default function Header(props) {
           (prop.layout === "/plus" &&
             prop.path !== "/postList" &&
             !prop.path.startsWith("/portfolio/")) ||
-          prop.path === "/signIn"
+          (prop.path === "/signIn" &&
+            sessionStorage.getItem("user_email") === null)
         ) {
           return (
             <Button
@@ -74,6 +79,9 @@ export default function Header(props) {
           );
         }
       })}
+      {sessionStorage.getItem("user_email") !== null && (
+        <Button onClick={LogOut}>Logout</Button>
+      )}
     </div>
   );
 
