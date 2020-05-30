@@ -3,6 +3,7 @@ package com.ssafy.springboot.domain.portfolio;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.ssafy.springboot.domain.project.Project;
 import com.ssafy.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,20 +40,21 @@ public class Portfolio {
     @ElementCollection
     private List<String> skills;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projects")
-    @JsonBackReference
-    private List<Project> Projects;
+//    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+//    @JsonBackReference
+//    private List<Project> projects;
 
     @Builder
-    public Portfolio(User user, String name, String birth, String email, String phone) {
+    public Portfolio(User user, String name, String birth, String email, String phone
+            , List<String> characters, List<String> skills, List<Project> projects) {
         this.user = user;
         this.name = name;
         this.birth = birth;
         this.email = email;
         this.phone = phone;
-        this.characters = new ArrayList<String>();
-        this.skills = new ArrayList<String>();
-        this.Projects = new ArrayList<Project>();
+        this.characters = characters;
+        this.skills = skills;
+//        this.projects = projects;
     }
 
 }

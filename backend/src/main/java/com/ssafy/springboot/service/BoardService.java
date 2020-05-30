@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +24,9 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<BoardListResponseDto> selectAll() {
-        return boardRepository.findAllDesc().stream()
-                .map(BoardListResponseDto::new) //.map(posts -> new PostsListResponseDto(post))
+        return boardRepository.findAllDesc()
+                .stream()
+                .map(BoardListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
@@ -55,5 +57,21 @@ public class BoardService {
         boardRepository.delete(posts);
     }
 
+    @Transactional(readOnly = true)
+    public List<BoardListResponseDto> findByType(String type) {
+        return boardRepository.findByType(type)
+                .stream()
+                .map(BoardListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
+    @Transactional
+    public ResponseEntity<?> findByUser(String email) {
+        User user = userRepository.findByEmail(email);
+//        return boardRepository.findByUser(user.getUser_id())
+//                .stream()
+//                .map(BoardListResponseDto::new)
+//                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body("1234");
+    }
 }

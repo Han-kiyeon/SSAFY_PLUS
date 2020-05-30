@@ -1,11 +1,16 @@
 package com.ssafy.springboot.web;
 
-import com.ssafy.springboot.service.ProtfolioService;
-import com.ssafy.springboot.web.dto.portfolio.ProjectSaveRequestDto;
+import com.ssafy.springboot.service.PortfolioService;
+import com.ssafy.springboot.web.dto.portfolio.PortfolioListResponseDto;
+import com.ssafy.springboot.web.dto.portfolio.PortfolioSaveRequestDto;
+import com.ssafy.springboot.web.dto.project.ProjectListResponseDto;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @Api(tags = {"Portfolio"})
 @RequestMapping("/api/portfolio")
@@ -13,27 +18,32 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PortfolioController {
 
-    private final ProtfolioService protfolioService;
+    private final PortfolioService portfolioService;
 
-    @PostMapping("/project") // 게시글 업로드
-    public ResponseEntity<?> save(@RequestBody ProjectSaveRequestDto requestDto) {
-        return protfolioService.save(requestDto);
+
+    @GetMapping("/list")
+    public List<PortfolioListResponseDto> findAll() {
+        return portfolioService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public PortfolioListResponseDto findById(@PathVariable Long id) {
+        return portfolioService.findById(id);
+    }
 
-//    @GetMapping("/project/list")
-//    public List<BoardListResponseDto> list() {
-//        return boardService.selectAll();
+    @PostMapping("")
+    public ResponseEntity<?> save(@RequestBody PortfolioSaveRequestDto requestDto) {
+        return portfolioService.save(requestDto);
+    }
+
+//    @PutMapping("/{id}")
+//    public Long update(@PathVariable Long id, @RequestBody ProjectUpdateRequestDto requestDto) {
+//        return projectService.update(id, requestDto);
 //    }
 //
-//    @PutMapping("/project/{project_id}") // 게시글 수정
-//    public void update(@PathVariable Long project_id, @RequestBody BoardUpdateRequestDto requestDto) {
-//        boardService.update(project_id, requestDto);
+//    @DeleteMapping("/{id}")
+//    public Long delete(@PathVariable Long id) {
+//        projectService.delete(id);
+//        return id;
 //    }
-//
-//    @DeleteMapping("/project/{project_id}")
-//    public void delete(@PathVariable Long project_id) {
-//        boardService.delete(project_id);
-//    }
-
 }

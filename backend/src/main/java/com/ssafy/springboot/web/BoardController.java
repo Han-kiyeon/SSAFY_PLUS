@@ -48,11 +48,24 @@ public class BoardController {
         boardService.delete(board_id);
     }
 
-
     @ApiOperation(value = "게시판 가입")
     @PostMapping("/join/{board_id}")
     public void delete(@PathVariable Long board_id, @RequestBody BoardPartySaveRequestDto requestDto) {
         boardPartyService.update(board_id, requestDto);
     }
+
+    @ApiOperation(value = "type 이 free/public/private인 게시판 목록 조회")
+    @GetMapping("/list/{type}")
+    public List<BoardListResponseDto> findByType(@PathVariable String type) {
+        return boardService.findByType(type);
+    }
+
+//    @ApiOperation(value = "유저가 가입한 게시판 목록 조회")
+//    @GetMapping("/joinlist/{user_email:.+}")
+//    public ResponseEntity<?> findByUser(@PathVariable String user_email) {
+//        return boardService.findByUser(user_email);
+//    }
+
+//  @ApiOperation(value = "type 이 free 인 것중 가입자가 많은 순으로 뽑아 주는 목록 조회(10개만)")
 
 }

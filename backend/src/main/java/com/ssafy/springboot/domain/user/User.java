@@ -75,4 +75,19 @@ public class User extends BaseTimeEntity {
         if (profile_img != null)
             this.profile_img = profile_img;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", position='" + position + '\'' +
+                ", season='" + season + '\'' +
+                ", section='" + section + '\'' +
+                ", role=" + role +
+                ", profile_img='" + profile_img + '\'' +
+                '}';
+    }
 }
