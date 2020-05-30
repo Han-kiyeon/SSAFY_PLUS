@@ -1,7 +1,7 @@
 package com.ssafy.springboot.service;
 
-import com.ssafy.springboot.domain.project.Project;
-import com.ssafy.springboot.domain.project.ProjectRepository;
+import com.ssafy.springboot.domain.portfolio.project.Project;
+import com.ssafy.springboot.domain.portfolio.project.ProjectRepository;
 import com.ssafy.springboot.domain.user.User;
 import com.ssafy.springboot.domain.user.UserRepository;
 import com.ssafy.springboot.web.dto.project.ProjectListResponseDto;

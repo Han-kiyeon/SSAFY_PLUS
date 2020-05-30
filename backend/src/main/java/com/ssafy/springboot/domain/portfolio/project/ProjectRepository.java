@@ -1,4 +1,4 @@
-package com.ssafy.springboot.domain.project;
+package com.ssafy.springboot.domain.portfolio.project;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

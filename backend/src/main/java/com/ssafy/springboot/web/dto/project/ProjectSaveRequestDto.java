@@ -1,11 +1,10 @@
 package com.ssafy.springboot.web.dto.project;
 
-import com.ssafy.springboot.domain.project.Project;
+import com.ssafy.springboot.domain.portfolio.project.Project;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.ElementCollection;
 import java.util.List;
 
 @Getter

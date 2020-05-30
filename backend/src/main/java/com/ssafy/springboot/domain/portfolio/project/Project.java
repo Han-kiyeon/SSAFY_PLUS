@@ -1,10 +1,12 @@
-package com.ssafy.springboot.domain.project;
+package com.ssafy.springboot.domain.portfolio.project;
 
+import com.ssafy.springboot.domain.portfolio.PortfolioProject;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,6 +28,7 @@ public class Project {
     private List<String> roles;
 
     private String url;
+
 
     @Builder
     public Project(String name, String period, String description, List<String> stacks, List<String> roles, String url) {
