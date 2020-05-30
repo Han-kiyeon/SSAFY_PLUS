@@ -59,8 +59,9 @@ public class UserController {
     }
 
     // 아이디 중복 확인(회원가입시)
-    @PostMapping("/checkid/{email:.+}")
+    @GetMapping("/checkid/{email:.+}/")
     public boolean checkId(@PathVariable String email) {
+        System.out.println(email);
         return userService.checkEmail(email);
     }
 

@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class BoardPartySaveRequestDto {
 
     private String user_email;
-    private Long board_password;
+    private String board_password;
 
     @Builder
-    public BoardPartySaveRequestDto(String user_email, Long board_password) {
+    public BoardPartySaveRequestDto(String user_email, String board_password) {
         this.user_email = user_email;
         this.board_password = board_password;
     }

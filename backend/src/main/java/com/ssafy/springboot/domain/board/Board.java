@@ -56,4 +56,16 @@ public class Board extends BaseTimeEntity {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "Board{" +
+                "board_id=" + board_id +
+                ", user=" + user +
+                ", title='" + title + '\'' +
+                ", contents='" + contents + '\'' +
+                ", topic='" + topic + '\'' +
+                ", type='" + type + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

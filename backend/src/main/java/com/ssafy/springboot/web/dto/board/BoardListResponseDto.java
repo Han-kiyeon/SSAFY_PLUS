@@ -1,8 +1,9 @@
 package com.ssafy.springboot.web.dto.board;
 
 import com.ssafy.springboot.domain.board.Board;
-import com.ssafy.springboot.domain.user.User;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -14,7 +15,8 @@ public class BoardListResponseDto {
     private String contents;
     private String topic;
     private String type;
-    private String password;
+    private LocalDateTime created_date;
+    private LocalDateTime modified_date;
 
 
     public BoardListResponseDto(Board entity) {
@@ -23,8 +25,22 @@ public class BoardListResponseDto {
         this.type = entity.getType();
         this.title = entity.getTitle();
         this.contents = entity.getContents();
-        this.password = entity.getPassword();
         this.topic = entity.getTopic();
+        this.created_date = entity.getCreatedDate();
+        this.modified_date = entity.getModifiedDate();
     }
 
+    @Override
+    public String toString() {
+        return "BoardListResponseDto{" +
+                "board_id=" + board_id +
+                ", manager_email='" + manager_email + '\'' +
+                ", title='" + title + '\'' +
+                ", contents='" + contents + '\'' +
+                ", topic='" + topic + '\'' +
+                ", type='" + type + '\'' +
+                ", created_date=" + created_date +
+                ", modified_date=" + modified_date +
+                '}';
+    }
 }

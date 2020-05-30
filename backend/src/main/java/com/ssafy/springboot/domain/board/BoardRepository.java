@@ -14,4 +14,12 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("SELECT b FROM Board b WHERE b.board_id = :board_id")
     Board findByBoard_id(@Param("board_id") Long board_id);
 
+    @Query("SELECT b FROM Board b WHERE b.type = :type")
+    List<Board> findByType(@Param("type") String type);
+
+    @Query("SELECT b FROM Board b WHERE b.board_id IN (SELECT bp.board.board_id FROM BoardParty bp WHERE bp.user.user_id=:user_id)")
+    List<Board> findByUser(@Param("user_id") Long user_id);
+
+    @Query("SELECT b FROM Board b WHERE b.board_id IN (SELECT bp.board.board_id FROM BoardParty bp GROUP BY bp.board.board_id ORDER BY COUNT(bp))")
+    List<Board> top10();
 }

@@ -60,4 +60,17 @@ public class Posts extends BaseTimeEntity {
         this.title = title;
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Posts{" +
+                "post_id=" + post_id +
+                ", user=" + user +
+                ", board=" + board +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", like_cnt=" + like_cnt +
+                ", comment_cnt=" + comment_cnt +
+                '}';
+    }
 }

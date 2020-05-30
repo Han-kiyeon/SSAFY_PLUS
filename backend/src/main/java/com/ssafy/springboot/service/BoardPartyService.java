@@ -1,18 +1,17 @@
 package com.ssafy.springboot.service;
 
-import com.ssafy.springboot.domain.board.Board;
-import com.ssafy.springboot.domain.board.BoardParty;
-import com.ssafy.springboot.domain.board.BoardPartyRepository;
-import com.ssafy.springboot.domain.board.BoardRepository;
-import com.ssafy.springboot.domain.user.User;
-import com.ssafy.springboot.domain.user.UserRepository;
-import com.ssafy.springboot.web.dto.board.BoardPartySaveRequestDto;
-import com.ssafy.springboot.web.dto.post.PostLikeUpdateRequestDto;
+import com.ssafy.springboot.domain.board.*;
+import com.ssafy.springboot.domain.user.*;
+import com.ssafy.springboot.web.dto.board.*;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -34,14 +33,15 @@ public class BoardPartyService {
 
         System.out.println(board.getBoard_id() + " " + user.getUser_id());
         BoardParty boardParty = boardPartyRepository.findByPostIDAndUserID(board_id, user.getUser_id());
-        System.out.println(board.getPassword());
-        if (board.getPassword() != null) {
+        if (board.getType().equals("private")) {
             if (boardParty == null) {
                 System.out.println("가입 안되있음");
+                System.out.println(board.getPassword() + " " + requestDto.getBoard_password());
                 if (board.getPassword().equals(requestDto.getBoard_password())) {
                     boardPartyRepository.save(requestDto.toEntity(user, board));
                     System.out.println("가입 완료~");
-                }else{
+                    return ResponseEntity.status(HttpStatus.OK).body("가입완료");
+                } else {
                     System.out.println("가입실패");
                 }
             } else {
@@ -53,4 +53,6 @@ public class BoardPartyService {
 
         return null;
     }
+
+
 }
