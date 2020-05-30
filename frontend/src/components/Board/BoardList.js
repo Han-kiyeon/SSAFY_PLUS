@@ -16,28 +16,21 @@ class BoardList extends React.Component {
     componentDidMount() {
         axios({
             method: "get",
-            url: `http://13.125.238.102:8080/api/board/list/`,
-
-            // params: {
-            //     type: type,
-            //     user: user.id,
-            // },
+            url: `http://13.125.238.102:8080/api/board/list`
         })
             .then((res) => {
                 console.log(res.data);
-
-                // let storeInfo = [];
-                // for (var i = 0; i < res.data.store_id.length; i++) {
-                //     var store = {};
-                //     store.id = res.data.store_id[i];
-                //     store.store_name = res.data.store_name[i];
-                //     if (res.data.store_img[i] !== null) store.img = res.data.store_img[i];
-                //     else store.img = store_img;
-                //     store.area = res.data.store_area[i];
-                //     storeInfo[i] = store;
-                // }
-
-                // this.setState({ info: storeInfo, loading: false });
+                let listInfo = [];
+                for (var i = 0; i < res.data.length; i++) {
+                    var list = [];
+                    console.log(res.data[i].board_id);
+                    list[0] = res.data[i].board_id;
+                    list[1] = res.data[i].title;
+                    listInfo[i] = list;
+                }
+                console.log('새로만든 배열')
+                console.log(listInfo)
+                this.setState({ info: listInfo, loading: false });
             })
             .catch((error) => {
                 console.log(error);
@@ -47,16 +40,11 @@ class BoardList extends React.Component {
     render() {
         return (
             <Table
-                goto = "/plus/postList" 
+                goto="/plus/postList"
                 tableHeaderColor="info"
-                tableHead={["작성자", "제목", "타입", "작성날짜"]}
-                tableData={[
-                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"],
-                    ["신상엽", "테이블은 이렇게 사용", "공식", "2020-05-15"]
-                ]}
+                tableHead={["작성자", "제목", "작성날짜"]}
+                tableData={this.state.info}
+                infoList={this.state.info}
             />
         );
     }
