@@ -18,13 +18,14 @@ import java.util.List;
 @RequestMapping("/api/comment")
 @RequiredArgsConstructor
 @RestController
-public class CommentApiController {
+public class CommentController {
 
     private final CommentService commentService;
 
     @ApiOperation(value = "해당 게시글의 모든 댓글 조회")
     @GetMapping("/list/{id}")
     public List<CommentListResponseDto> findAll(@PathVariable Long id) {
+        System.out.println(id);
         return commentService.findAllDesc(id);
     }
 
