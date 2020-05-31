@@ -67,4 +67,15 @@ public class ErrorsService {
                 .collect(Collectors.toList());
     }
 
+    public List<ErrorsListResponseDto> searchErrorByTitle(String keyword) {
+        List<ErrorsListResponseDto> list = findAllDesc();
+
+
+
+
+        return  errorsRepository.seachErrorByTitle("%"+keyword+"%").stream()
+                .map(ErrorsListResponseDto::new)
+                .collect(Collectors.toList());
+
+    }
 }
