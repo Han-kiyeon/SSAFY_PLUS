@@ -2,11 +2,14 @@ package com.ssafy.springboot.service;
 
 import com.ssafy.springboot.domain.portfolio.Portfolio;
 import com.ssafy.springboot.domain.portfolio.PortfolioRepository;
+import com.ssafy.springboot.domain.project.ProjectRepository;
 import com.ssafy.springboot.domain.user.User;
 import com.ssafy.springboot.domain.user.UserRepository;
+import com.ssafy.springboot.web.dto.board.BoardListResponseDto;
 import com.ssafy.springboot.web.dto.portfolio.PortfolioListResponseDto;
 import com.ssafy.springboot.web.dto.portfolio.PortfolioSaveRequestDto;
 import com.ssafy.springboot.web.dto.portfolio.PortfolioUpdateRequestDto;
+import com.ssafy.springboot.web.dto.project.ProjectListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +26,25 @@ public class PortfolioService {
 
     private final UserRepository userRepository;
     private final PortfolioRepository portfolioRepository;
-    //private final ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
     @Transactional(readOnly = true)
     public List<PortfolioListResponseDto> findAll() {
-        return portfolioRepository.findAll().stream()
+        List<PortfolioListResponseDto> ret = portfolioRepository.findAll()
+                .stream()
                 .map(PortfolioListResponseDto::new)
                 .collect(Collectors.toList());
+
+        for (int i = 0; i < ret.size(); i++) {
+            ret.get(i).setProject(
+                    projectRepository.findAllByPortfolioId(ret.get(i).getPortfolio_id())
+                            .stream()
+                            .map(ProjectListResponseDto::new)
+                            .collect(Collectors.toList())
+            );
+        }
+
+        return ret;
     }
 
 
@@ -38,7 +53,16 @@ public class PortfolioService {
         Portfolio entity = portfolioRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 
-        return new PortfolioListResponseDto(entity);
+        PortfolioListResponseDto ret = new PortfolioListResponseDto(entity);
+
+        ret.setProject(
+                projectRepository.findAllByPortfolioId(ret.getPortfolio_id())
+                        .stream()
+                        .map(ProjectListResponseDto::new)
+                        .collect(Collectors.toList())
+        );
+
+        return ret;
     }
 
     @Transactional
@@ -74,5 +98,28 @@ public class PortfolioService {
 
         portfolioRepository.delete(entity);
     }
+
+
+    @Transactional
+    public List<PortfolioListResponseDto> findByUser(String email) {
+        User user = userRepository.findByEmail(email);
+
+        List<PortfolioListResponseDto> ret = portfolioRepository.findByUser(user.getUser_id())
+                .stream()
+                .map(PortfolioListResponseDto::new)
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < ret.size(); i++) {
+            ret.get(i).setProject(
+                    projectRepository.findAllByPortfolioId(ret.get(i).getPortfolio_id())
+                            .stream()
+                            .map(ProjectListResponseDto::new)
+                            .collect(Collectors.toList())
+            );
+        }
+
+        return ret;
+    }
+
 
 }
