@@ -25,6 +25,7 @@ public class Board extends BaseTimeEntity {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "email")
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
     private User user;
 
     private String title;
