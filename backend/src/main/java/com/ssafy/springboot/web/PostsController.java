@@ -51,10 +51,16 @@ public class PostsController {
         return id;
     }
 
-
     @ApiOperation(value = "모든 게시글 조회", notes = "모든 게시글을 조회한다(id 역순)")
     @GetMapping("/list")
     public List<PostsListResponseDto> findAll() {
         return postsService.findAllDesc();
+    }
+
+
+    @GetMapping("/list/{board_id}")
+    public List<PostsListResponseDto> findByBoardID(@PathVariable Long board_id) {
+        System.out.println(board_id);
+        return postsService.findByBoardID(board_id);
     }
 }

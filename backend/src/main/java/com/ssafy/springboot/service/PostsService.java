@@ -29,7 +29,6 @@ public class PostsService {
     private final PostsRepository postsRepository;
 
 
-
     @Transactional
     public ResponseEntity<?> save(PostsSaveRequestDto requestDto) {
         User user = userRepository.findByEmail(requestDto.getUser_email());
@@ -73,6 +72,18 @@ public class PostsService {
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc() {
         return postsRepository.findAllDesc()
+                .stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findByBoardID(Long id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 없습니다. id=" + id));
+
+        return postsRepository.findByBoardID(board.getBoard_id())
                 .stream()
                 .map(PostsListResponseDto::new)
                 .collect(Collectors.toList());
