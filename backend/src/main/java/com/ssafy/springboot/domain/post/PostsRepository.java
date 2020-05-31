@@ -37,4 +37,5 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     //SpringDataJpa에서 제공하지 않는 메소드를 쿼리로 작성해서 사용
     @Query("SELECT p FROM Posts p WHERE p.board.board_id = :board_id ORDER BY p.post_id DESC")
     List<Posts> findByBoardID(@Param("board_id") Long board_id);
+
 }
