@@ -18,22 +18,22 @@ public class ErrorLike {
 
     @Id //해당 테이블의 PK 필드
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 생성규칙: auto_increment
-    private Long elId;
+    private Long el_id;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "user_id")
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User userLike;
+    private User user_like;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "error_id")
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Errors errorLike;
+    private Errors error_like;
 
     @Builder
     public ErrorLike(User user, Errors error){
-        this.userLike=user;
-        this.errorLike=error;
+        this.user_like=user;
+        this.error_like=error;
     }
 
 }

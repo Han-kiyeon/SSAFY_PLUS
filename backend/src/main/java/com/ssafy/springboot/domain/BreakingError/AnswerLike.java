@@ -18,22 +18,22 @@ public class AnswerLike {
 
     @Id //해당 테이블의 PK 필드
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 생성규칙: auto_increment
-    private Long alId;
+    private Long al_id;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "user_id")
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User userLike;
+    private User user_like;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "answer_id")
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Answers answerLike;
+    private Answers answer_like;
 
     @Builder
     public AnswerLike(User user, Answers answer){
-        this.userLike=user;
-        this.answerLike=answer;
+        this.user_like=user;
+        this.answer_like=answer;
     }
 
 }

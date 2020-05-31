@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ErrorLikeSaveRequestDto {
 
-    private String userEmail;
-    private Long errorId;
+    private String user_email;
+    private Long error_id;
 
     @Builder
     public ErrorLikeSaveRequestDto(String userEmail, Long errorId) {
-        this.userEmail = userEmail;
-        this.errorId = errorId;
+        this.user_email = userEmail;
+        this.error_id = errorId;
     }
 
 

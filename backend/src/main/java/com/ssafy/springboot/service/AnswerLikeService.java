@@ -26,24 +26,24 @@ public class AnswerLikeService {
     @Transactional
     public ResponseEntity<?> update(AnswerLikeUpdateRequestDto requestDto) {
 
-        Answers answer = answersRepository.findById(requestDto.getAnswerId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 답변이 없습니다. id=" + requestDto.getAnswerId()));
+        Answers answer = answersRepository.findById(requestDto.getAnswer_id())
+                .orElseThrow(() -> new IllegalArgumentException("해당 답변이 없습니다. id=" + requestDto.getAnswer_id()));
         //유저 있나 확인
-        User user = userRepository.findByEmail(requestDto.getUserEmail());
-        System.out.println(answer.getAnswerId() + " " + user.getUser_id());
+        User user = userRepository.findByEmail(requestDto.getUser_email());
+        System.out.println(answer.getAnswer_id() + " " + user.getUser_id());
 
         if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("아이디 없음?!");
 
-        AnswerLike answerLike = answerLikeRepository.findByAnswerIDAndUserID(answer.getAnswerId(), user.getUser_id());
+        AnswerLike answerLike = answerLikeRepository.findByAnswerIDAndUserID(answer.getAnswer_id(), user.getUser_id());
         if (answerLike == null) {
             //안눌렀으면 디비에 저장....
-            AnswerLikeSaveRequestDto dto = new AnswerLikeSaveRequestDto(user.getEmail(), answer.getAnswerId());
+            AnswerLikeSaveRequestDto dto = new AnswerLikeSaveRequestDto(user.getEmail(), answer.getAnswer_id());
             answerLikeRepository.save(dto.toEntity(user, answer));
-            answersRepository.likeCntUp(answer.getAnswerId());
+            answersRepository.likeCntUp(answer.getAnswer_id());
             return ResponseEntity.status(HttpStatus.OK).body("like");
         } else {
             answerLikeRepository.delete(answerLike);
-            answersRepository.likeCntDown(answer.getAnswerId());
+            answersRepository.likeCntDown(answer.getAnswer_id());
             return ResponseEntity.status(HttpStatus.OK).body("unlike");
         }
     }

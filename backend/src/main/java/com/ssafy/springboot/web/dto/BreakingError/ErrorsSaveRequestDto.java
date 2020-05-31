@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 public class ErrorsSaveRequestDto {
     private String title;
     private String content;
-    private String userEmail;
+    private String user_email;
 
     @Builder
-    public ErrorsSaveRequestDto(String title, String content, String userEmail) {
+    public ErrorsSaveRequestDto(String title, String content, String user_email) {
         this.title = title;
         this.content = content;
-        this.userEmail = userEmail;
+        this.user_email = user_email;
     }
 
     public Errors toEntity(User user) {

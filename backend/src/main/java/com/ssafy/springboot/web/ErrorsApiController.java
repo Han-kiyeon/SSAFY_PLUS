@@ -53,5 +53,9 @@ public class ErrorsApiController {
     public List<ErrorsListResponseDto> findAll() {
         return errorsService.findAllDesc();
     }
+//
+//    @GetMapping("/search")
+//    public String search(@RequestParam(value = "keyword") String keyword, Mo)
+
 
 }
