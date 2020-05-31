@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ssafy.springboot.domain.BaseTimeEntity;
 import com.ssafy.springboot.domain.user.User;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class Answers extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long answerId;
+    private Long answer_id;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "error_id")
     @ManyToOne
@@ -27,11 +28,8 @@ public class Answers extends BaseTimeEntity {
     @JoinColumn(name = "error_id")
     private Errors error;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "parent")
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    //@JoinColumn(name = "errors_id")
-    private Answers parent;
+    @Column( nullable = false)
+    private Long parent;
 
     @Column(length = 500, nullable = false)
     private  String title;
@@ -46,17 +44,20 @@ public class Answers extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private Long likeCnt;
-    private Long answerCnt;
+
+    private Long like_cnt;
+    private Long answer_cnt;
 
     @Builder //해당 클래스의 빌더 패턴 클래스를 생성
-    public Answers(Errors error, String title, String content, User user) {
+    public Answers(Errors error, Long parent, String title, String content, User user) {
         this.error = error;
         this.title = title;
         this.content = content;
         this.user = user;
-        this.likeCnt = Long.valueOf(0);
-        this.answerCnt = Long.valueOf(0);
+        this.like_cnt = Long.valueOf(0);
+        this.answer_cnt = Long.valueOf(0);
+        this.parent = parent;
+
     }
 
     public void update(String title, String content) {

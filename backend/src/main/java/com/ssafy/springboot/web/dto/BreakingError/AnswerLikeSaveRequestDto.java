@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnswerLikeSaveRequestDto {
 
-    private String userEmail;
-    private Long answerId;
+    private String user_email;
+    private Long answer_id;
 
     @Builder
     public AnswerLikeSaveRequestDto(String userEmail, Long answerId) {
-        this.userEmail = userEmail;
-        this.answerId = answerId;
+        this.user_email = userEmail;
+        this.answer_id = answerId;
     }
 
 

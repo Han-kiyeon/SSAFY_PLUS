@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Errors extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long errorId;
+    private Long error_id;
 
     @Column(length = 500, nullable = false)
     private  String title;
@@ -32,16 +32,16 @@ public class Errors extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private Long likeCnt;
-    private Long answerCnt;
+    private Long like_cnt;
+    private Long answer_cnt;
 
     @Builder //해당 클래스의 빌더 패턴 클래스를 생성
     public Errors(String title, String content, User user) {
         this.title = title;
         this.content = content;
         this.user = user;
-        this.likeCnt = Long.valueOf(0);
-        this.answerCnt = Long.valueOf(0);
+        this.like_cnt = Long.valueOf(0);
+        this.answer_cnt = Long.valueOf(0);
     }
 
     public void update(String title, String content) {

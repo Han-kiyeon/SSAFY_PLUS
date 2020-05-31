@@ -9,26 +9,26 @@ import java.util.List;
 
 public interface ErrorsRepository extends JpaRepository<Errors, Long>{
 
-    @Query("SELECT e FROM Errors e ORDER BY e.errorId DESC")
+    @Query("SELECT e FROM Errors e ORDER BY e.error_id DESC")
     List<Errors> findAllDesc();
 
-    @Query("SELECT e FROM Errors e WHERE e.errorId = :error_id")
-    Errors findByErrorId(@Param("error_id") Long errorId);
+    @Query("SELECT e FROM Errors e WHERE e.error_id = :error_id")
+    Errors findByErrorId(@Param("error_id") Long error_id);
 
     @Modifying
-    @Query("UPDATE Errors e SET e.answerCnt = e.answerCnt+1 WHERE e.errorId = :error_id")
-    Integer answerCntUp(@Param("error_id") Long errorId);
+    @Query("UPDATE Errors e SET e.answer_cnt = e.answer_cnt+1 WHERE e.error_id = :error_id")
+    Integer answerCntUp(@Param("error_id") Long error_id);
 
     @Modifying
-    @Query("UPDATE Errors e SET e.answerCnt = e.answerCnt-1 WHERE e.errorId = :error_id")
-    Integer answerCntDown(@Param("error_id") Long errorId);
+    @Query("UPDATE Errors e SET e.answer_cnt = e.answer_cnt-:count WHERE e.error_id = :error_id")
+    Integer answerCntDown(@Param("error_id") Long error_id, @Param("count") Long count);
 
     @Modifying
-    @Query("UPDATE Errors e SET e.likeCnt = e.likeCnt+1 WHERE e.errorId = :error_id")
-    Integer likeCntUp(@Param("error_id") Long errorId);
+    @Query("UPDATE Errors e SET e.like_cnt = e.like_cnt+1 WHERE e.error_id = :error_id")
+    Integer likeCntUp(@Param("error_id") Long error_id);
 
     @Modifying
-    @Query("UPDATE Errors e SET e.likeCnt = e.likeCnt-1 WHERE e.errorId = :error_id")
-    Integer likeCntDown(@Param("error_id") Long errorId);
+    @Query("UPDATE Errors e SET e.like_cnt = e.like_cnt-1 WHERE e.error_id = :error_id")
+    Integer likeCntDown(@Param("error_id") Long error_id);
 
 }

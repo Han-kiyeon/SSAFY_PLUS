@@ -26,24 +26,24 @@ public class ErrorLikeService {
     @Transactional
     public ResponseEntity<?> update(ErrorLikeUpdateRequestDto requestDto) {
 
-        Errors error = errorsRepository.findById(requestDto.getErrorId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 질문이 없습니다. id=" + requestDto.getErrorId()));
+        Errors error = errorsRepository.findById(requestDto.getError_id())
+                .orElseThrow(() -> new IllegalArgumentException("해당 질문이 없습니다. id=" + requestDto.getError_id()));
         //유저 있나 확인
-        User user = userRepository.findByEmail(requestDto.getUserEmail());
-        System.out.println(error.getErrorId() + " " + user.getUser_id());
+        User user = userRepository.findByEmail(requestDto.getUser_email());
+        System.out.println(error.getError_id() + " " + user.getUser_id());
 
         if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("아이디 없음?!");
 
-        ErrorLike errorLike = errorLikeRepository.findByErrorIDAndUserID(error.getErrorId(), user.getUser_id());
+        ErrorLike errorLike = errorLikeRepository.findByErrorIDAndUserID(error.getError_id(), user.getUser_id());
         if (errorLike == null) {
             //안눌렀으면 디비에 저장....
-            ErrorLikeSaveRequestDto dto = new ErrorLikeSaveRequestDto(user.getEmail(), error.getErrorId());
+            ErrorLikeSaveRequestDto dto = new ErrorLikeSaveRequestDto(user.getEmail(), error.getError_id());
             errorLikeRepository.save(dto.toEntity(user, error));
-            errorsRepository.likeCntUp(error.getErrorId());
+            errorsRepository.likeCntUp(error.getError_id());
             return ResponseEntity.status(HttpStatus.OK).body("like");
         } else {
             errorLikeRepository.delete(errorLike);
-            errorsRepository.likeCntDown(error.getErrorId());
+            errorsRepository.likeCntDown(error.getError_id());
             return ResponseEntity.status(HttpStatus.OK).body("unlike");
         }
     }

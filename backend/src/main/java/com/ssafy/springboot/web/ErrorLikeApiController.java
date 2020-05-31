@@ -23,7 +23,7 @@ public class ErrorLikeApiController {
     @ApiOperation(value = "좋아요(on/off)", notes = "질문의 좋아요 유무에 따라 다르게 동작")
     @PutMapping("")
     public ResponseEntity<?> update(@RequestBody ErrorLikeUpdateRequestDto requestDto) {
-        System.out.println("UPDATE " + requestDto.getErrorId() + " " + requestDto.getUserEmail());
+        System.out.println("UPDATE " + requestDto.getError_id() + " " + requestDto.getUser_email());
         return errorLikeService.update(requestDto);
     }
 }
