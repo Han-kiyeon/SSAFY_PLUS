@@ -4,7 +4,6 @@ import com.ssafy.springboot.service.PortfolioService;
 import com.ssafy.springboot.web.dto.portfolio.PortfolioListResponseDto;
 import com.ssafy.springboot.web.dto.portfolio.PortfolioSaveRequestDto;
 import com.ssafy.springboot.web.dto.portfolio.PortfolioUpdateRequestDto;
-import com.ssafy.springboot.web.dto.project.ProjectListResponseDto;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

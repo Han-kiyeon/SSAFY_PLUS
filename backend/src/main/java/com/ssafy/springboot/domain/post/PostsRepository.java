@@ -33,4 +33,9 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Modifying
     @Query("UPDATE Posts p SET p.like_cnt = p.like_cnt-1 WHERE p.post_id = :post_id")
     Integer likeCntDown(@Param("post_id") Long post_id);
+
+    //SpringDataJpa에서 제공하지 않는 메소드를 쿼리로 작성해서 사용
+    @Query("SELECT p FROM Posts p WHERE p.board.board_id = :board_id ORDER BY p.post_id DESC")
+    List<Posts> findByBoardID(@Param("board_id") Long board_id);
+
 }
