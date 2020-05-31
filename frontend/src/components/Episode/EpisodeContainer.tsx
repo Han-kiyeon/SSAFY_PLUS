@@ -19,7 +19,7 @@ export default class extends React.Component<{}, IEpisode> {
         id: 1,
         user_id: 2,
         date: "2020-03-31",
-        title: "SSAFY 특화프로젝트",
+        title: "SSAFY 공통프로젝트",
         strength: ["배려", "노력"],
         content: "공통프로젝트에서 이러저러해서 열심히 노력하였다",
       },
