@@ -13,7 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
-import Button from "components/CustomButtons/Button.js";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles(styles);
 
@@ -77,7 +77,15 @@ export default function Sidebar(props) {
         }
       })}
       {sessionStorage.getItem("user_email") !== null && (
-        <Button onClick={LogOut}>Logout</Button>
+        <ListItem button onClick={LogOut} className={classes.itemLink}>
+          <ExitToAppIcon className={classNames(classes.itemIcon)} />
+          <ListItemText
+            className={classNames(classes.itemText)}
+            disableTypography={true}
+          >
+            로그 아웃
+          </ListItemText>
+        </ListItem>
       )}
     </List>
   );

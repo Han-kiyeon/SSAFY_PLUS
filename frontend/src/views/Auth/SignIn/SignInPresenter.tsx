@@ -1,25 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin: 50px 5px;
+`;
 
 const Form = styled.form`
-  margin-bottom: 50px;
   width: 100%;
 `;
 
 const CardBox = styled.div`
+  background-color: #fafafa;
+  padding: 20px 10px;
   height: 50vh;
   width: 50vw;
 `;
-const Input = styled.input`
-  width: 50vw;
-`;
-const Button = styled.button`
-  height: 5vh;
-  width: 10vw;
-`;
+
 const TestLogin = styled.form`
   margin: 20px;
   font-size: 20px;
@@ -37,9 +36,10 @@ interface SignInIState {
   handleSubmit: (event: React.FormEvent) => void;
   loginTest1: (event: React.FormEvent) => void;
   loginTest2: (event: React.FormEvent) => void;
+  useStyles: any;
 }
 
-const SignInPresenter: React.FunctionComponent<SignInIState> = ({
+function SignInPresenter({
   userId,
   password,
   loading,
@@ -48,34 +48,43 @@ const SignInPresenter: React.FunctionComponent<SignInIState> = ({
   handleSubmit,
   loginTest1,
   loginTest2,
-}) => (
-  <>
-    <Container>
-      <CardBox>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            placeholder="ID를 입력해주세요. (Test Id: Test)"
-            value={userId}
-            onChange={updateTerm}
-            name="userId"
-            type="text"
-          ></Input>
-          <br />
-          <Input
-            placeholder="Password를 입력해주세요. (Test Password: Test)"
-            value={password}
-            onChange={updateTerm}
-            name="password"
-            type="text"
-          ></Input>
-          <br />
-          <Button>Sign In</Button>
-          <Link to={{ pathname: "/auth/signUp" }}>회원가입 하러가기</Link>
-        </Form>
-      </CardBox>
-      <TestLogin onClick={loginTest1}>Test Login (Position:1) </TestLogin>
-      <TestLogin onClick={loginTest2}>Test Login (Position:3) </TestLogin>
-    </Container>
-  </>
-);
+  useStyles,
+}: SignInIState) {
+  const classes = useStyles();
+  return (
+    <>
+      <Container>
+        <CardBox>
+          <Form onSubmit={handleSubmit} className={classes.loginbar}>
+            <TextField
+              label="이메일 계정"
+              helperText="ex) example@gmail.com"
+              onChange={updateTerm}
+              name="userId"
+              value={userId}
+              variant="outlined"
+            ></TextField>
+            <br />
+            <TextField
+              label="비밀번호"
+              onChange={updateTerm}
+              name="password"
+              value={password}
+              variant="outlined"
+            ></TextField>
+            <br />
+            <Link to={{ pathname: "/auth/signUp" }}>회원가입 하러가기</Link>
+          </Form>
+          <Form onSubmit={handleSubmit} className={classes.button}>
+            <Button variant="contained" color="primary">
+              로그인
+            </Button>
+          </Form>
+        </CardBox>
+        <TestLogin onClick={loginTest1}>Test Login (Position:1) </TestLogin>
+        <TestLogin onClick={loginTest2}>Test Login (Position:3) </TestLogin>
+      </Container>
+    </>
+  );
+}
 export default SignInPresenter;
