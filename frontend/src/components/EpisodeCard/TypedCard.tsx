@@ -96,8 +96,8 @@ function Card({ id, date, title, strength, content, useStyles }: ICard) {
         <Fade in={open}>
           <div className={classes.paper}>
             <EpisodeBox>
-              <EpisodeBoxTitle>에피소드 등록</EpisodeBoxTitle>
-              <EpisodeBoxSubTitle>에피소드 등록</EpisodeBoxSubTitle>
+              <EpisodeBoxTitle>에피소드 수정</EpisodeBoxTitle>
+              <EpisodeBoxSubTitle>에피소드 수정</EpisodeBoxSubTitle>
               <form className={classes.title} noValidate autoComplete="off">
                 <TextField
                   id="outlined-basic"
