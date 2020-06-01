@@ -1,5 +1,6 @@
 import React from "react";
 import SignInPresenter from "./SignInPresenter";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 interface SignInIState {
   userId: string;
@@ -52,6 +53,24 @@ export default class extends React.Component<{}, SignInIState> {
     }
   };
 
+  useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      loginbar: {
+        "& > *": {
+          margin: theme.spacing(1),
+          marginTop: "2vh",
+          width: "22vw",
+        },
+      },
+      button: {
+        "& > *": {
+          margin: theme.spacing(1),
+          marginTop: "2vh",
+          width: "7vw",
+        },
+      },
+    })
+  );
   updateTerm = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value, name },
@@ -75,6 +94,7 @@ export default class extends React.Component<{}, SignInIState> {
         handleSubmit={this.handleSubmit}
         loginTest1={this.loginTest1}
         loginTest2={this.loginTest2}
+        useStyles={this.useStyles}
       />
     );
   }

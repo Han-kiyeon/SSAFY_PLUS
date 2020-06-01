@@ -168,6 +168,7 @@ export default class extends React.Component<{}, MyInfoIState> {
       },
     ],
     classificationLen: 0,
+    tempValue: "",
   };
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -287,8 +288,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             classification: this.state.university.classification,
           },
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             university: {
               name: this.state.university.name,
@@ -300,7 +304,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               classification: this.state.university.classification,
             },
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             university: {
               name: this.state.university.name,
@@ -313,8 +320,7 @@ export default class extends React.Component<{}, MyInfoIState> {
             },
           });
         } else if (
-          //////
-          tempValue.length === 8 &&
+          this.state.tempValue.length === 8 &&
           value.substring(7, 8) !== " "
         ) {
           this.setState({
@@ -328,7 +334,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               classification: this.state.university.classification,
             },
           });
-        } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        } else if (
+          this.state.tempValue.length === 10 &&
+          value.substring(9, 10) === " "
+        ) {
           this.setState({
             university: {
               name: this.state.university.name,
@@ -340,7 +349,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               classification: this.state.university.classification,
             },
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) !== "."
+        ) {
           this.setState({
             university: {
               name: this.state.university.name,
@@ -352,7 +364,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               classification: this.state.university.classification,
             },
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) === "."
+        ) {
           this.setState({
             university: {
               name: this.state.university.name,
@@ -364,7 +379,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               classification: this.state.university.classification,
             },
           });
-        } else if (tempValue.length > 17) {
+        } else if (this.state.tempValue.length > 17) {
           this.setState({
             university: {
               name: this.state.university.name,
@@ -451,8 +466,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             duration: value,
           },
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             highschool: {
               name: this.state.highschool.name,
@@ -460,7 +478,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               duration: value.substring(0, 4) + "." + value.substring(4, 5),
             },
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             highschool: {
               name: this.state.highschool.name,
@@ -468,7 +489,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               duration: value.substring(0, 4),
             },
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== " ") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== " "
+        ) {
           this.setState({
             highschool: {
               name: this.state.highschool.name,
@@ -476,7 +500,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               duration: value.substring(0, 7) + " - " + value.substring(7, 8),
             },
           });
-        } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        } else if (
+          this.state.tempValue.length === 10 &&
+          value.substring(9, 10) === " "
+        ) {
           this.setState({
             highschool: {
               name: this.state.highschool.name,
@@ -484,7 +511,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               duration: value.substring(0, 7),
             },
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) !== "."
+        ) {
           this.setState({
             highschool: {
               name: this.state.highschool.name,
@@ -492,7 +522,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               duration: value.substring(0, 14) + "." + value.substring(14, 15),
             },
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) === "."
+        ) {
           this.setState({
             highschool: {
               name: this.state.highschool.name,
@@ -500,7 +533,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               duration: value.substring(0, 14),
             },
           });
-        } else if (tempValue.length > 17) {
+        } else if (this.state.tempValue.length > 17) {
           this.setState({
             highschool: {
               name: this.state.highschool.name,
@@ -556,8 +589,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             careers: [
               {
@@ -572,7 +608,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             careers: [
               {
@@ -587,7 +626,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== " ") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== " "
+        ) {
           this.setState({
             careers: [
               {
@@ -602,7 +644,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        } else if (
+          this.state.tempValue.length === 10 &&
+          value.substring(9, 10) === " "
+        ) {
           this.setState({
             careers: [
               {
@@ -617,7 +662,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) !== "."
+        ) {
           this.setState({
             careers: [
               {
@@ -633,7 +681,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) === "."
+        ) {
           this.setState({
             careers: [
               {
@@ -648,7 +699,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length > 17) {
+        } else if (this.state.tempValue.length > 17) {
           this.setState({
             careers: [
               {
@@ -724,8 +775,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -740,7 +794,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -755,7 +812,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== " ") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== " "
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -770,7 +830,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        } else if (
+          this.state.tempValue.length === 10 &&
+          value.substring(9, 10) === " "
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -785,7 +848,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) !== "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -801,7 +867,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) === "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -816,7 +885,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length > 17) {
+        } else if (this.state.tempValue.length > 17) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -892,8 +961,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -908,7 +980,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -923,7 +998,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== " ") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== " "
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -938,7 +1016,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        } else if (
+          this.state.tempValue.length === 10 &&
+          value.substring(9, 10) === " "
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -953,7 +1034,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) !== "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -969,7 +1053,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) === "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -984,7 +1071,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[3],
             ],
           });
-        } else if (tempValue.length > 17) {
+        } else if (this.state.tempValue.length > 17) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -1060,8 +1147,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             },
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -1076,7 +1166,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -1091,7 +1184,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== " ") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== " "
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -1106,7 +1202,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 10 && value.substring(9, 10) === " ") {
+        } else if (
+          this.state.tempValue.length === 10 &&
+          value.substring(9, 10) === " "
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -1121,7 +1220,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) !== ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) !== "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -1137,7 +1239,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 15 && value.substring(14, 15) === ".") {
+        } else if (
+          this.state.tempValue.length === 15 &&
+          value.substring(14, 15) === "."
+        ) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -1152,7 +1257,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length > 17) {
+        } else if (this.state.tempValue.length > 17) {
           this.setState({
             careers: [
               this.state.careers[0],
@@ -1213,8 +1318,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.awards[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             awards: [
               {
@@ -1228,7 +1336,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             awards: [
               {
@@ -1242,7 +1353,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== "."
+        ) {
           this.setState({
             awards: [
               {
@@ -1256,7 +1370,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) === ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) === "."
+        ) {
           this.setState({
             awards: [
               {
@@ -1270,7 +1387,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 11) {
+        } else if (this.state.tempValue.length === 11) {
           this.setState({
             awards: [
               {
@@ -1327,8 +1444,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.awards[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1342,7 +1462,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1356,7 +1479,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1370,7 +1496,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) === ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) === "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1384,7 +1513,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 11) {
+        } else if (this.state.tempValue.length === 11) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1441,8 +1570,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.awards[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1456,7 +1588,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1470,7 +1605,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1484,7 +1622,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) === ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) === "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1498,7 +1639,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[3],
             ],
           });
-        } else if (tempValue.length === 11) {
+        } else if (this.state.tempValue.length === 11) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1555,8 +1696,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             },
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1570,7 +1714,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1584,7 +1731,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1598,7 +1748,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) === ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) === "."
+        ) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1612,7 +1765,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 11) {
+        } else if (this.state.tempValue.length === 11) {
           this.setState({
             awards: [
               this.state.awards[0],
@@ -1688,8 +1841,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.classifications[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             classifications: [
               {
@@ -1705,7 +1861,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             classifications: [
               {
@@ -1721,7 +1880,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== "."
+        ) {
           this.setState({
             classifications: [
               {
@@ -1736,7 +1898,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) === ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) === "."
+        ) {
           this.setState({
             classifications: [
               {
@@ -1752,7 +1917,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 11) {
+        } else if (this.state.tempValue.length === 11) {
           this.setState({
             classifications: [
               {
@@ -1843,8 +2008,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.classifications[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -1859,7 +2027,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -1874,7 +2045,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -1889,7 +2063,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) === ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) === "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -1904,7 +2081,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 11) {
+        } else if (this.state.tempValue.length === 11) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -1995,8 +2172,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.classifications[3],
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2011,7 +2191,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2026,7 +2209,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2041,7 +2227,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) === ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) === "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2056,7 +2245,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.classifications[3],
             ],
           });
-        } else if (tempValue.length === 11) {
+        } else if (this.state.tempValue.length === 11) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2147,8 +2336,11 @@ export default class extends React.Component<{}, MyInfoIState> {
             },
           ],
         });
-        var tempValue = value;
-        if (tempValue.length === 5 && value.substring(4, 5) !== ".") {
+        this.state.tempValue = value;
+        if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) !== "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2163,7 +2355,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 5 && value.substring(4, 5) === ".") {
+        } else if (
+          this.state.tempValue.length === 5 &&
+          value.substring(4, 5) === "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2178,7 +2373,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) !== ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) !== "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2193,7 +2391,10 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 8 && value.substring(7, 8) === ".") {
+        } else if (
+          this.state.tempValue.length === 8 &&
+          value.substring(7, 8) === "."
+        ) {
           this.setState({
             classifications: [
               this.state.classifications[0],
@@ -2208,7 +2409,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               },
             ],
           });
-        } else if (tempValue.length === 11) {
+        } else if (this.state.tempValue.length === 11) {
           this.setState({
             classifications: [
               this.state.classifications[0],

@@ -16,6 +16,7 @@ import styles from "assets/jss/material-dashboard-react/components/headerStyle.j
 //추가
 import ListItemText from "@material-ui/core/ListItemText";
 import { NavLink } from "react-router-dom";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles(styles);
 
@@ -80,7 +81,25 @@ export default function Header(props) {
         }
       })}
       {sessionStorage.getItem("user_email") !== null && (
-        <Button onClick={LogOut}>Logout</Button>
+        <Button
+          color={window.innerWidth > 959 ? "transparent" : "white"}
+          simple={!(window.innerWidth > 959)}
+          font-color={color}
+          aria-label="ssafyPlus"
+          className={classes.buttonLink}
+          onClick={LogOut}
+        >
+          <div>
+            <ExitToAppIcon className={classNames(classes.itemIcon)} />
+
+            <ListItemText
+              className={classNames(classes.itemText)}
+              disableTypography={true}
+            >
+              로그 아웃
+            </ListItemText>
+          </div>
+        </Button>
       )}
     </div>
   );
