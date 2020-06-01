@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class PortfolioUpdateRequestDto {
 
-    private Long skill_id;
     private String user_email;
     private String name;
     private String birth;
@@ -23,9 +22,8 @@ public class PortfolioUpdateRequestDto {
     private List<ProjectUpdateRequestDto> projects;
 
     @Builder
-    public PortfolioUpdateRequestDto(Long skill_id, String user_email, String name, String birth, String email, String phone
+    public PortfolioUpdateRequestDto( String user_email, String name, String birth, String email, String phone
             , List<String> characters, List<SkillUpdateRequestDto> skills, List<ProjectUpdateRequestDto> projects) {
-        this.skill_id = skill_id;
         this.user_email = user_email;
         this.name = name;
         this.birth = birth;
