@@ -34,7 +34,7 @@ export default function Sidebar(props) {
       {routes.map((prop, key) => {
         if (
           (prop.layout === "/plus" &&
-            prop.path !== "/postList" &&
+            prop.path !== "/postList" && prop.path !== "/postdetail" && prop.path !== "/postcreate" &&
             !prop.path.startsWith("/portfolio/")) ||
           (prop.path === "/signIn" &&
             sessionStorage.getItem("user_email") === null)
