@@ -25,7 +25,7 @@ public class AnswerLikeApiController {
     @ApiOperation(value = "좋아요(on/off)", notes = "질문의 좋아요 유무에 따라 다르게 동작")
     @PutMapping("")
     public ResponseEntity<?> update(@RequestBody AnswerLikeUpdateRequestDto requestDto) {
-        System.out.println("UPDATE " + requestDto.getAnswerId() + " " + requestDto.getUserEmail());
+        System.out.println("UPDATE " + requestDto.getAnswer_id() + " " + requestDto.getUser_email());
         return answerLikeService.update(requestDto);
     }
 }

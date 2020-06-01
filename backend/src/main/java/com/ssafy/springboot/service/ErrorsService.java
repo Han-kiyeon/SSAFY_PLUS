@@ -25,12 +25,12 @@ public class ErrorsService {
 
     @Transactional
     public ResponseEntity<?> save(ErrorsSaveRequestDto requestDto) {
-        User user = userRepository.findByEmail(requestDto.getUserEmail());
+        User user = userRepository.findByEmail(requestDto.getUser_email());
         if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("아이디 없음?!");
 
         return ResponseEntity.
                 status(HttpStatus.OK).
-                body(errorsRepository.save(requestDto.toEntity(user)).getErrorId());
+                body(errorsRepository.save(requestDto.toEntity(user)).getError_id());
     }
 
     @Transactional

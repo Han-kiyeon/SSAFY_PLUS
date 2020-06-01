@@ -28,16 +28,20 @@ public class AnswersService {
 
     @Transactional
     public ResponseEntity<?> save(AnswersSaveRequestDto requestDto) {
-        User user = userRepository.findByEmail(requestDto.getUserEmail());
+        User user = userRepository.findByEmail(requestDto.getUser_email());
         if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("아이디 없음?!");
-        System.out.println(requestDto.getErrorId());
-        Errors error = errorsRepository.findByErrorId(requestDto.getErrorId());
-        errorsRepository.answerCntUp(error.getErrorId());
+        System.out.println(requestDto.getError_id());
+        Errors error = errorsRepository.findByErrorId(requestDto.getError_id());
+        if(requestDto.getParent()!=0) {
+            Answers parent = answersRepository.findByAnswerId(requestDto.getParent());
+            answersRepository.answerCntUp(parent.getAnswer_id());
+        }
+        errorsRepository.answerCntUp(error.getError_id());
         System.out.println(error);
         if (error == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("질문 없음?!");
         return ResponseEntity.
                 status(HttpStatus.OK).
-                body(answersRepository.save(requestDto.toEntity(user, error)).getAnswerId());
+                body(answersRepository.save(requestDto.toEntity(user, error)).getAnswer_id());
     }
 
     @Transactional(readOnly = true)
@@ -60,17 +64,33 @@ public class AnswersService {
 
     @Transactional
     public void delete(Long id) {
-        Answers answers = answersRepository.findById(id)
+        Answers answer = answersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 답변이 없습니다. id=" + id));
+        if (answer.getParent()!=0){
+            answersRepository.answerCntDown(answer.getParent(), (long) 1);
+        }else{
+            List<Answers> list = answersRepository.findNextAnswerDesc(id);
+            errorsRepository.answerCntDown(answer.getError().getError_id(), (long) list.size());
+            for(Answers a: list ){
+                answersRepository.delete(a);
 
-        answersRepository.delete(answers);
-        errorsRepository.answerCntDown(answers.getError().getErrorId());
+            }
+        }
+        answersRepository.delete(answer);
+        errorsRepository.answerCntDown(answer.getError().getError_id(), (long) 1);
     }
 
 
     @Transactional(readOnly = true)
-    public List<AnswersListResponseDto> findAllDesc(Long errorId) {
-        return answersRepository.findAllDesc(errorId).stream()
+    public List<AnswersListResponseDto> findAllDesc() {
+        return answersRepository.findAllDesc().stream()
+                .map(AnswersListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<AnswersListResponseDto> findNextAnswerDesc(Long parent) {
+        return answersRepository.findNextAnswerDesc(parent).stream()
                 .map(AnswersListResponseDto::new)
                 .collect(Collectors.toList());
     }

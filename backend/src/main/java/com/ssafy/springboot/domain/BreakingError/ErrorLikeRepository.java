@@ -6,8 +6,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface ErrorLikeRepository extends JpaRepository<ErrorLike, Long> {
 
-    @Query("SELECT e FROM ErrorLike e WHERE e.errorLike.errorId=:error_id AND e.userLike.user_id=:user_id")
-    ErrorLike findByErrorIDAndUserID(@Param("error_id") Long errorId, @Param("user_id") Long user_id);
+    @Query("SELECT e FROM ErrorLike e WHERE e.error_like.error_id=:error_id AND e.user_like.user_id=:user_id")
+    ErrorLike findByErrorIDAndUserID(@Param("error_id") Long error_id, @Param("user_id") Long user_id);
 
 
 }
