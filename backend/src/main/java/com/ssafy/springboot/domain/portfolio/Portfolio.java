@@ -2,6 +2,7 @@ package com.ssafy.springboot.domain.portfolio;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.ssafy.springboot.domain.BaseTimeEntity;
 import com.ssafy.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Portfolio {
+public class Portfolio extends BaseTimeEntity {
 
     @Id //해당 테이블의 PK 필드
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 생성규칙: auto_increment
@@ -34,31 +35,24 @@ public class Portfolio {
 
     @ElementCollection
     private List<String> characters;
-    @ElementCollection
-    private List<String> skills;
-
-
 
     @Builder
     public Portfolio(User user, String name, String birth, String email, String phone
-            , List<String> characters, List<String> skills) {
+            , List<String> characters) {
         this.user = user;
         this.name = name;
         this.birth = birth;
         this.email = email;
         this.phone = phone;
         this.characters = characters;
-        this.skills = skills;
     }
 
-    public void update(String name, String birth, String email, String phone
-            , List<String> characters, List<String> skills) {
+    public void update(String name, String birth, String email, String phone, List<String> characters) {
         if (name != null) this.name = name;
         if (birth != null) this.birth = birth;
         if (email != null) this.email = email;
         if (phone != null) this.phone = phone;
         if (characters != null) this.characters = characters;
-        if (skills != null) this.skills = skills;
     }
 
 }

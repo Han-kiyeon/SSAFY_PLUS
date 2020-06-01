@@ -1,6 +1,5 @@
-package com.ssafy.springboot.domain.project;
+package com.ssafy.springboot.domain.portfolio.project;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ssafy.springboot.domain.portfolio.Portfolio;

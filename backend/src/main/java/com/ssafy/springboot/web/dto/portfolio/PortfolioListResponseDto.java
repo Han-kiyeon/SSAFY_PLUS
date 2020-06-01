@@ -1,7 +1,8 @@
 package com.ssafy.springboot.web.dto.portfolio;
 
 import com.ssafy.springboot.domain.portfolio.Portfolio;
-import com.ssafy.springboot.web.dto.project.ProjectListResponseDto;
+import com.ssafy.springboot.web.dto.portfolio.project.ProjectListResponseDto;
+import com.ssafy.springboot.web.dto.portfolio.skill.SkillListResponseDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,8 +21,8 @@ public class PortfolioListResponseDto {
     private String email;
     private String phone;
     private List<String> characters;
-    private List<String> skills;
-    private List<ProjectListResponseDto> project;
+    private List<SkillListResponseDto> skills;
+    private List<ProjectListResponseDto> projects;
 
     public PortfolioListResponseDto(Portfolio entity) {
         this.portfolio_id = entity.getPortfolio_id();
@@ -31,7 +32,7 @@ public class PortfolioListResponseDto {
         this.email = entity.getEmail();
         this.phone = entity.getPhone();
         this.characters = entity.getCharacters();
-        this.skills = entity.getSkills();
-        this.project = new ArrayList<>();
+        this.skills = new ArrayList<>();
+        this.projects = new ArrayList<>();
     }
 }

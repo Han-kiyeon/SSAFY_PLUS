@@ -1,29 +1,22 @@
-package com.ssafy.springboot.web.dto.portfolio.project;
+package com.ssafy.springboot.web.dto.portfolio.skill;
 
-import com.ssafy.springboot.domain.portfolio.project.Project;
+import com.ssafy.springboot.domain.portfolio.skill.Skill;
 import lombok.Getter;
 
-import java.util.List;
 
 
 @Getter
-public class ProjectListResponseDto {
+public class SkillListResponseDto {
 
-    private Long project_id;
+    private Long skill_id;
     private String name;
-    private String period;
-    private String desc;
-    private List<String> stacks;
-    private List<String> roles;
-    private String url;
+    private Long percentage;
+    private String description;
 
-    public ProjectListResponseDto(Project entity) {
-        this.project_id = entity.getProject_id();
+    public SkillListResponseDto(Skill entity) {
+        this.skill_id = entity.getSkill_id();
         this.name = entity.getName();
-        this.period = entity.getPeriod();
-        this.desc = entity.getDescription();
-        this.stacks = entity.getStacks();
-        this.roles = entity.getRoles();
-        this.url = entity.getUrl();
+        this.percentage = entity.getPercentage();
+        this.description = entity.getDescription();
     }
 }

@@ -39,6 +39,7 @@ public class PortfolioController {
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody PortfolioSaveRequestDto requestDto) {
+        System.out.println("Portfolio SAVE");
         return portfolioService.save(requestDto);
     }
 

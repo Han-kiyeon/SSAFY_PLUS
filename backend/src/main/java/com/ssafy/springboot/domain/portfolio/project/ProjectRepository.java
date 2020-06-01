@@ -1,6 +1,5 @@
-package com.ssafy.springboot.domain.project;
+package com.ssafy.springboot.domain.portfolio.project;
 
-import com.ssafy.springboot.domain.post.Posts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
