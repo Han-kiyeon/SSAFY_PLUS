@@ -37,6 +37,8 @@ public class Portfolio {
     @ElementCollection
     private List<String> skills;
 
+
+
     @Builder
     public Portfolio(User user, String name, String birth, String email, String phone
             , List<String> characters, List<String> skills) {

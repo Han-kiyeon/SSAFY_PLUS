@@ -59,6 +59,16 @@ public class ProjectService {
     }
 
     @Transactional
+    public ResponseEntity<?> saveAll(List<ProjectSaveRequestDto> requestDto) {
+        for (ProjectSaveRequestDto dto : requestDto) {
+            save(dto);
+        }
+        return ResponseEntity.
+                status(HttpStatus.OK).
+                body("OK");
+    }
+
+    @Transactional
     public Long update(Long id, ProjectUpdateRequestDto requestDto) {
         System.out.println(requestDto.toString());
         Project entity = projectRepository.findById(id)

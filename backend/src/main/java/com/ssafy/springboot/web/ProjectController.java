@@ -34,6 +34,11 @@ public class ProjectController {
         return projectService.save(requestDto);
     }
 
+    @PostMapping("saveAll")
+    public ResponseEntity<?> saveAll(@RequestBody List<ProjectSaveRequestDto> requestDto) {
+        return projectService.saveAll(requestDto);
+    }
+
     @PutMapping("/{id}")
     public Long update(@PathVariable Long id, @RequestBody ProjectUpdateRequestDto requestDto) {
         return projectService.update(id, requestDto);
