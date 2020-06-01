@@ -1,7 +1,7 @@
-package com.ssafy.springboot.web.dto.project;
+package com.ssafy.springboot.web.dto.portfolio.project;
 
 import com.ssafy.springboot.domain.portfolio.Portfolio;
-import com.ssafy.springboot.domain.project.Project;
+import com.ssafy.springboot.domain.portfolio.project.Project;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
