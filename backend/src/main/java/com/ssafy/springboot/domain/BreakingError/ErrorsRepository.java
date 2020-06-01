@@ -33,5 +33,8 @@ public interface ErrorsRepository extends JpaRepository<Errors, Long>{
     Integer likeCntDown(@Param("error_id") Long error_id);
 
     @Query("SELECT e FROM Errors e WHERE e.title like :keyword ORDER BY e.error_id DESC")
-    List<Errors> seachErrorByTitle(@Param("keyword") String keyword);
+    List<Errors> searchErrorUsingTitle(@Param("keyword") String keyword);
+
+    @Query("SELECT e FROM Errors e WHERE e.content like :keyword ORDER BY e.error_id DESC")
+    List<Errors> searchErrorUsingContent(@Param("keyword") String keyword);
 }

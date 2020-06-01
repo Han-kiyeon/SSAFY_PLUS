@@ -67,13 +67,15 @@ public class ErrorsService {
                 .collect(Collectors.toList());
     }
 
-    public List<ErrorsListResponseDto> searchErrorByTitle(String keyword) {
-        List<ErrorsListResponseDto> list = findAllDesc();
+    public List<ErrorsListResponseDto> searchErrorUsingTitle(String keyword) {
+        return  errorsRepository.searchErrorUsingTitle(new SearchService().translate(keyword)).stream()
+                .map(ErrorsListResponseDto::new)
+                .collect(Collectors.toList());
 
+    }
 
-
-
-        return  errorsRepository.seachErrorByTitle("%"+keyword+"%").stream()
+    public List<ErrorsListResponseDto> searchErrorUsingContent(String keyword) {
+        return  errorsRepository.searchErrorUsingContent(new SearchService().translate(keyword)).stream()
                 .map(ErrorsListResponseDto::new)
                 .collect(Collectors.toList());
 
