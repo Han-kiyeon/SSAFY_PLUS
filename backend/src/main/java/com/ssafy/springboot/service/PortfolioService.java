@@ -110,67 +110,74 @@ public class PortfolioService {
 
         portfolio.update(requestDto.getName(), requestDto.getBirth(), requestDto.getEmail(),
                 requestDto.getPhone(), requestDto.getCharacters());
-
-        List<Project> projects = projectRepository.findAllByPortfolioId(portfolio.getPortfolio_id());
-
-        for (ProjectUpdateRequestDto dto : requestDto.getProjects()) {
-            //새로저장
-            if (dto.getProject_id() == null)
-                projectRepository.save(
-                        new ProjectSaveRequestDto(
-                                dto.getName(), dto.getPeriod(), dto.getDescription(),
-                                dto.getStacks(), dto.getRoles(), dto.getUrl()
-                        ).toEntity(portfolio));
-            //수정
+        if (requestDto.getProjects() != null) {
+            List<Project> projects = projectRepository.findAllByPortfolioId(portfolio.getPortfolio_id());
+            //삭제
             for (Project p : projects) {
-                if (p.getProject_id() == dto.getProject_id()) {
-                    p.update(dto.getName(), dto.getPeriod(), dto.getDescription(), dto.getStacks(), dto.getRoles(), dto.getUrl());
-                    break;
+                boolean flag = true;
+                for (ProjectUpdateRequestDto dto : requestDto.getProjects()) {
+                    if (dto.getProject_id() == p.getProject_id()) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    projectRepository.delete(p);
                 }
             }
-        }
-        //삭제
-        for (Project p : projects) {
-            boolean flag = true;
+
             for (ProjectUpdateRequestDto dto : requestDto.getProjects()) {
-                if (dto.getProject_id() == p.getProject_id()) {
-                    flag = false;
-                    break;
+                //새로저장
+                if (dto.getProject_id() == null) {
+                    projectRepository.save(
+                            new ProjectSaveRequestDto(
+                                    dto.getName(), dto.getPeriod(), dto.getDescription(),
+                                    dto.getStacks(), dto.getRoles(), dto.getUrl()
+                            ).toEntity(portfolio));
+                    continue;
+                }
+                //수정
+                for (Project p : projects) {
+                    if (p.getProject_id() == dto.getProject_id()) {
+                        p.update(dto.getName(), dto.getPeriod(), dto.getDescription(), dto.getStacks(), dto.getRoles(), dto.getUrl());
+                        break;
+                    }
                 }
             }
-            if (flag)
-                projectRepository.delete(p);
         }
 
-
-        List<Skill> skills = skillRepository.findAllByPortfolioId(portfolio.getPortfolio_id());
-
-        for (SkillUpdateRequestDto dto : requestDto.getSkills()) {
-            //새로저장
-            if (dto.getSkill_id() == null)
-                skillRepository.save(
-                        new SkillSaveRequestDto(
-                                dto.getName(), dto.getPercentage(), dto.getDescription()
-                        ).toEntity(portfolio));
-            //수정
+        if (requestDto.getSkills() != null) {
+            List<Skill> skills = skillRepository.findAllByPortfolioId(portfolio.getPortfolio_id());
+            //삭제
             for (Skill s : skills) {
-                if (s.getSkill_id() == dto.getSkill_id()) {
-                    s.update(dto.getName(), dto.getPercentage(), dto.getDescription());
-                    break;
+                boolean flag = true;
+                for (SkillUpdateRequestDto dto : requestDto.getSkills()) {
+                    if (dto.getSkill_id() == s.getSkill_id()) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    skillRepository.delete(s);
                 }
             }
-        }
-        //삭제
-        for (Skill s : skills) {
-            boolean flag = true;
+
             for (SkillUpdateRequestDto dto : requestDto.getSkills()) {
-                if (dto.getSkill_id() == s.getSkill_id()) {
-                    flag = false;
-                    break;
+                //새로저장
+                if (dto.getSkill_id() == null) {
+                    skillRepository.save(
+                            new SkillSaveRequestDto(
+                                    dto.getName(), dto.getPercentage(), dto.getDescription()
+                            ).toEntity(portfolio));
+                }
+                //수정
+                for (Skill s : skills) {
+                    if (s.getSkill_id() == dto.getSkill_id()) {
+                        s.update(dto.getName(), dto.getPercentage(), dto.getDescription());
+                        break;
+                    }
                 }
             }
-            if (flag)
-                skillRepository.delete(s);
         }
         return id;
     }
