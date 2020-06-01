@@ -15,7 +15,7 @@ const useStyles = makeStyles(styles);
 
 export default function CustomTable(props) {
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor, goto, infoList } = props;
+  const { tableHead, tableData, tableHeaderColor, goto } = props;
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
@@ -36,13 +36,15 @@ export default function CustomTable(props) {
           </TableHead>
         ) : null}
         <TableBody>
-          {tableData.map((prop, key) => {
+          {tableData.map((board, key) => {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
-                {prop.map((prop, key) => {
+                {board.map((prop, key) => {
+                  console.log(board)
+                  console.log(prop)
                   return (
                     <TableCell className={classes.tableCell} key={key}>
-                      <Link to={{ pathname: goto }}>
+                      <Link to={{ pathname: goto, state: { board_id: board[0], btitle:board[2]} }}>
                         {prop}
                       </Link>
                     </TableCell>

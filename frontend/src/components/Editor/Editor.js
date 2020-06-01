@@ -1,8 +1,9 @@
+// Summernote Editor 사용하기
+
 import React, { Component } from 'react';
 import ReactSummernote from 'react-summernote';
 import 'react-summernote/dist/react-summernote.css'; // import styles
 import "react-summernote/lang/summernote-ko-KR";
-
 
 // Import bootstrap(v3 or v4) dependencies
 import 'bootstrap/js/modal';
@@ -10,7 +11,8 @@ import 'bootstrap/js/dropdown';
 import 'bootstrap/js/tooltip';
 import 'bootstrap/dist/css/bootstrap.css';
 
-class Editor extends Component {
+class Editor extends React.Component {
+
   onChange(content) {
     console.log('onChange', content);
   }
@@ -34,6 +36,7 @@ class Editor extends Component {
           ]
         }}
         onChange={this.onChange}
+        id="contents"
       />
     );
   }

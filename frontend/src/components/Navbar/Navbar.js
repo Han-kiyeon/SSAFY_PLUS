@@ -48,7 +48,7 @@ export default function Header(props) {
         var activePro = " ";
         if (
           (prop.layout === "/plus" &&
-            prop.path !== "/postList" &&
+            prop.path !== "/postList" && prop.path !== "/postdetail" && prop.path !== "/postcreate" &&
             !prop.path.startsWith("/portfolio/")) ||
           (prop.path === "/signIn" &&
             sessionStorage.getItem("user_email") === null)
