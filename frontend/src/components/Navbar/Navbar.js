@@ -50,7 +50,8 @@ export default function Header(props) {
         if (
           (prop.layout === "/plus" &&
             prop.path !== "/postList" && prop.path !== "/postdetail" && prop.path !== "/postcreate" &&
-            !prop.path.startsWith("/portfolio/")) ||
+            !prop.path.startsWith("/portfolio/") &&
+            !prop.path.startsWith("/breakingerror_detail/")) ||
           (prop.path === "/signIn" &&
             sessionStorage.getItem("user_email") === null)
         ) {
