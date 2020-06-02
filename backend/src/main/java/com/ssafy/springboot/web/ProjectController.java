@@ -1,7 +1,7 @@
 //package com.ssafy.springboot.web;
 //
 //import com.ssafy.springboot.service.ProjectService;
-//import com.ssafy.springboot.web.dto.project.*;
+//import com.ssafy.springboot.web.dto.portfolio.project.*;
 //import io.swagger.annotations.Api;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.http.ResponseEntity;
@@ -19,19 +19,24 @@
 //    private final ProjectService projectService;
 //
 //
-//    @GetMapping("/list")
-//    public List<ProjectListResponseDto> findAll() {
-//        return projectService.findAll();
+//    @GetMapping("/list/{portfolio_id}")
+//    public List<ProjectListResponseDto> findAll(@PathVariable Long portfolio_id) {
+//        return projectService.findAll(portfolio_id);
 //    }
 //
-//    @GetMapping("/{id}")
-//    public ProjectListResponseDto findById(@PathVariable Long id) {
-//        return projectService.findById(id);
+//    @GetMapping("/{project_id}")
+//    public ProjectListResponseDto findById(@PathVariable Long project_id) {
+//        return projectService.findById(project_id);
 //    }
 //
 //    @PostMapping("")
 //    public ResponseEntity<?> save(@RequestBody ProjectSaveRequestDto requestDto) {
 //        return projectService.save(requestDto);
+//    }
+//
+//    @PostMapping("saveAll")
+//    public ResponseEntity<?> saveAll(@RequestBody List<ProjectSaveRequestDto> requestDto) {
+//        return projectService.saveAll(requestDto);
 //    }
 //
 //    @PutMapping("/{id}")

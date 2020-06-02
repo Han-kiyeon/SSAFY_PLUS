@@ -1,12 +1,12 @@
 //package com.ssafy.springboot.service;
 //
-//import com.ssafy.springboot.domain.project.Project;
-//import com.ssafy.springboot.domain.project.ProjectRepository;
+//import com.ssafy.springboot.domain.portfolio.Portfolio;
+//import com.ssafy.springboot.domain.portfolio.PortfolioRepository;
+//import com.ssafy.springboot.domain.portfolio.project.Project;
+//import com.ssafy.springboot.domain.portfolio.project.ProjectRepository;
 //import com.ssafy.springboot.domain.user.User;
 //import com.ssafy.springboot.domain.user.UserRepository;
-//import com.ssafy.springboot.web.dto.project.ProjectListResponseDto;
-//import com.ssafy.springboot.web.dto.project.ProjectSaveRequestDto;
-//import com.ssafy.springboot.web.dto.project.ProjectUpdateRequestDto;
+//import com.ssafy.springboot.web.dto.portfolio.project.*;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
@@ -23,10 +23,14 @@
 //
 //    private final UserRepository userRepository;
 //    private final ProjectRepository projectRepository;
+//    private final PortfolioRepository portfolioRepository;
 //
 //    @Transactional(readOnly = true)
-//    public List<ProjectListResponseDto> findAll() {
-//        return projectRepository.findAll().stream()
+//    public List<ProjectListResponseDto> findAll(Long id) {
+//        Portfolio portfolio = portfolioRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 포트폴리오는 없습니다. id=" + id));
+//
+//        return projectRepository.findAllByPortfolioId(id).stream()
 //                .map(ProjectListResponseDto::new) //.map(posts -> new PostsListResponseDto(post))
 //                .collect(Collectors.toList());
 //    }
@@ -44,12 +48,25 @@
 //    public ResponseEntity<?> save(ProjectSaveRequestDto requestDto) {
 //        User user = userRepository.findByEmail(requestDto.getUser_email());
 //        if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("아이디 없음?!");
-//        System.out.println(requestDto.toString());
-//        projectRepository.save(requestDto.toEntity());
-//        System.out.println("?");
+//
+//        Portfolio portfolio = portfolioRepository.findById(requestDto.getPortfolio_id())
+//                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + requestDto.getPortfolio_id()));
+//
+//        projectRepository.save(requestDto.toEntity(portfolio));
+//
 //        return ResponseEntity.
 //                status(HttpStatus.OK).
-//                body("dd");
+//                body("OK");
+//    }
+//
+//    @Transactional
+//    public ResponseEntity<?> saveAll(List<ProjectSaveRequestDto> requestDto) {
+//        for (ProjectSaveRequestDto dto : requestDto) {
+//            save(dto);
+//        }
+//        return ResponseEntity.
+//                status(HttpStatus.OK).
+//                body("OK");
 //    }
 //
 //    @Transactional

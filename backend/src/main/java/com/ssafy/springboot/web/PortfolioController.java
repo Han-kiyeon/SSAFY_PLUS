@@ -26,6 +26,12 @@ public class PortfolioController {
         return portfolioService.findAll();
     }
 
+    @GetMapping("/list/{email:.+}/")
+    public List<PortfolioListResponseDto> findAll(@PathVariable String email) {
+        return portfolioService.findByUser(email);
+    }
+
+
     @GetMapping("/{id}")
     public PortfolioListResponseDto findById(@PathVariable Long id) {
         return portfolioService.findById(id);
@@ -33,6 +39,7 @@ public class PortfolioController {
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody PortfolioSaveRequestDto requestDto) {
+        System.out.println("Portfolio SAVE");
         return portfolioService.save(requestDto);
     }
 
