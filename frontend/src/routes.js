@@ -15,9 +15,11 @@ import PortfolioResult from "views/Portfolio/resultPage";
 import Support from "views/Support";
 import BoardMain from "views/Board/BoardMain.js";
 import PostList from "views/Board/PostList.js";
+import PostDetail from "views/Board/PostDetail.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
 import BreakingError from "views/BreakingError/BreakingError.js";
+import MakePost from "views/Board/MakePost.js";
 
 const dashboardRoutes = [
   {
@@ -47,7 +49,6 @@ const dashboardRoutes = [
   {
     path: "/postList",
     name: "게시글 목록",
-    icon: Description,
     component: PostList,
     layout: "/plus",
   },
@@ -96,6 +97,18 @@ const dashboardRoutes = [
     name: "회원가입",
     component: SignUp,
     layout: "/auth",
+  },
+  {
+    path: "/postdetail",
+    name: "게시글상세",
+    component: PostDetail,
+    layout: "/plus",
+  },
+  {
+    path: "/postcreate",
+    name: "게시글작성하기",
+    component: MakePost,
+    layout: "/plus",
   },
 ];
 

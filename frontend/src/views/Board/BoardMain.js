@@ -1,3 +1,4 @@
+//게시판 메인 함수형 컴포너트
 import React from 'react';
 import axios from "axios";
 
@@ -51,13 +52,13 @@ const useStyles = makeStyles(modalStyle);
 const radioStyles = makeStyles(styles);
 const selectStyles = makeStyles((theme) => ({
     formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
+        margin: theme.spacing(1),
+        minWidth: 120,
     },
     selectEmpty: {
-      marginTop: theme.spacing(2),
+        marginTop: theme.spacing(2),
     },
-  }));
+}));
 export default function Board() {
     const classes = useStyles();
     const classesRadio = radioStyles();
@@ -85,6 +86,7 @@ export default function Board() {
         console.log(e.target.value)
         setType(e.target.value);
     }
+    // 게시판 만들기 axios
     const submit = () => {
         console.log(title);
         console.log(contents);
@@ -127,25 +129,25 @@ export default function Board() {
                                     {
                                         tabButton: "공식 게시판",
                                         tabContent: (
-                                            <BoardList />
+                                            <BoardList type="public" />
                                         )
                                     },
                                     {
                                         tabButton: "내가 가입한 자유 게시판",
                                         tabContent: (
-                                            <BoardList />
+                                            <BoardList type="free" />
                                         )
                                     },
                                     {
                                         tabButton: "전체 자유 게시판",
                                         tabContent: (
-                                            <BoardList />
+                                            <BoardList type="free" />
                                         )
                                     },
                                     {
                                         tabButton: "인기 자유 게시판",
                                         tabContent: (
-                                            <BoardList />
+                                            <BoardList type="free" />
                                         )
                                     }
                                 ]}
@@ -290,13 +292,6 @@ export default function Board() {
                             </Dialog>
 
                         </CardFooter>
-                    </Card>
-                </GridItem>
-            </GridContainer>
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                    <Card>
-                        <Editor />
                     </Card>
                 </GridItem>
             </GridContainer>
