@@ -22,6 +22,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
+    private final BoardPartyService boardPartyService;
+
     @Transactional(readOnly = true)
     public List<BoardListResponseDto> selectAll() {
         return boardRepository.findAllDesc()
@@ -33,14 +35,19 @@ public class BoardService {
     @Transactional
     public ResponseEntity<?> save(BoardSaveRequestDto requestDto) {
         User user = userRepository.findByEmail(requestDto.getManager_email());
-        if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("아이디 없음?!");
-        return ResponseEntity.status(HttpStatus.OK).body(boardRepository.save(requestDto.toEntity(user)).getBoard_id());
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User does not exist... user_email=" + requestDto.getManager_email());
+        Board board = boardRepository.save(requestDto.toEntity(user));
+        if (!board.getPassword().equals(""))
+            boardPartyService.update(board.getBoard_id(), new BoardPartySaveRequestDto(requestDto.getManager_email(), board.getPassword()));
+
+        return ResponseEntity.status(HttpStatus.OK).body(board.getBoard_id());
     }
 
     @Transactional
     public ResponseEntity<?> update(Long id, BoardUpdateRequestDto requestDto) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시판 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Board does not exist... " + id));
         //User user, String title, String contents, String topic, String type, String password
         User user = userRepository.findByEmail(requestDto.getManager_email());
         board.update(user, requestDto.getTitle(),
@@ -52,7 +59,7 @@ public class BoardService {
     @Transactional
     public void delete(Long id) {
         Board posts = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시판 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Board does not exist... " + id));
 
         boardRepository.delete(posts);
     }
