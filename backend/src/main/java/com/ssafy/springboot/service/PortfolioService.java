@@ -108,7 +108,7 @@ public class PortfolioService {
         Portfolio portfolio = portfolioRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Portfolio does not exist... id=" + id));
 
-        portfolio.update(requestDto.getName(), requestDto.getBirth(), requestDto.getEmail(),
+        portfolio.update(requestDto.getTitle(), requestDto.getName(), requestDto.getBirth(), requestDto.getEmail(),
                 requestDto.getPhone(), requestDto.getCharacters());
         if (requestDto.getProjects() != null) {
             List<Project> projects = projectRepository.findAllByPortfolioId(portfolio.getPortfolio_id());

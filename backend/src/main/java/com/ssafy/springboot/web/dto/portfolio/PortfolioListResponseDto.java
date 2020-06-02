@@ -16,6 +16,8 @@ public class PortfolioListResponseDto {
 
     private Long portfolio_id;
     private String user_email;
+
+    private String title;
     private String name;
     private String birth;
     private String email;
@@ -27,6 +29,8 @@ public class PortfolioListResponseDto {
     public PortfolioListResponseDto(Portfolio entity) {
         this.portfolio_id = entity.getPortfolio_id();
         this.user_email = entity.getUser().getEmail();
+
+        this.title = entity.getTitle();
         this.name = entity.getName();
         this.birth = entity.getBirth();
         this.email = entity.getEmail();

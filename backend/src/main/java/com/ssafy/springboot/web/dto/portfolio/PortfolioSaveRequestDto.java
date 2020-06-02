@@ -15,6 +15,8 @@ import java.util.List;
 public class PortfolioSaveRequestDto {
 
     private String user_email;
+
+    private String title;
     private String name;
     private String birth;
     private String email;
@@ -24,9 +26,10 @@ public class PortfolioSaveRequestDto {
     private List<ProjectSaveRequestDto> projects;
 
     @Builder
-    public PortfolioSaveRequestDto(String user_email, String name, String birth, String email, String phone,
+    public PortfolioSaveRequestDto(String user_email, String title, String name, String birth, String email, String phone,
                                    List<String> characters, List<SkillSaveRequestDto> skills, List<ProjectSaveRequestDto> projects) {
         this.user_email = user_email;
+        this.title = title;
         this.name = name;
         this.birth = birth;
         this.email = email;
@@ -39,6 +42,7 @@ public class PortfolioSaveRequestDto {
     public Portfolio toEntity(User user) {
         return Portfolio.builder()
                 .user(user)
+                .title(title)
                 .name(name)
                 .birth(birth)
                 .email(email)

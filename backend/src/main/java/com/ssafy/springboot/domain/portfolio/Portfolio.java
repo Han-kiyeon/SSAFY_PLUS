@@ -28,6 +28,7 @@ public class Portfolio extends BaseTimeEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    private String title;
     private String name;
     private String birth;
     private String email;
@@ -37,8 +38,9 @@ public class Portfolio extends BaseTimeEntity {
     private List<String> characters;
 
     @Builder
-    public Portfolio(User user, String name, String birth, String email, String phone
+    public Portfolio(User user, String title, String name, String birth, String email, String phone
             , List<String> characters) {
+        this.title = title;
         this.user = user;
         this.name = name;
         this.birth = birth;
@@ -47,7 +49,8 @@ public class Portfolio extends BaseTimeEntity {
         this.characters = characters;
     }
 
-    public void update(String name, String birth, String email, String phone, List<String> characters) {
+    public void update(String title, String name, String birth, String email, String phone, List<String> characters) {
+        if (title != null) this.title = title;
         if (name != null) this.name = name;
         if (birth != null) this.birth = birth;
         if (email != null) this.email = email;
