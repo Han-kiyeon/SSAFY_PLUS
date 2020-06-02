@@ -29,6 +29,7 @@ import modalStyle from "assets/jss/material-dashboard-react/components/modalStyl
 import PostListByType from "components/Board/PostListByType.js"
 import Editor from "components/Editor/Editor.js"
 import DetailPost from 'components/Board/DetailPost';
+import CommentList from 'components/Board/CommentList';
 
 
 // 애니메이션 모달 열때 위에서 아래로
@@ -76,12 +77,8 @@ export default function PostDetail(props) {
                         </CardBody>
                     </Card>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                    <Card>
-                        댓글
-                    </Card>
-                </GridItem>
             </GridContainer>
+            <CommentList post_id={board_id}></CommentList>
         </div >
     );
 }

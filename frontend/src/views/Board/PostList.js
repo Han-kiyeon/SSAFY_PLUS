@@ -56,7 +56,7 @@ export default function PostList(props) {
                                 <Link to={{ pathname: `/plus/postcreate`, state: { board_id: board_id } }}>
                                     <Button color="info" round >
                                         게시글 작성하기
-                                </Button>
+                                    </Button>
                                 </Link>
                             </div>
                         </CardFooter>

@@ -40,8 +40,6 @@ export default function CustomTable(props) {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
                 {board.map((prop, key) => {
-                  console.log(board)
-                  console.log(prop)
                   return (
                     <TableCell className={classes.tableCell} key={key}>
                       <Link to={{ pathname: goto, state: { board_id: board[0], btitle:board[2]} }}>
