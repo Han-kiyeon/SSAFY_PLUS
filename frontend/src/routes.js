@@ -18,6 +18,7 @@ import PostList from "views/Board/PostList.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
 import BreakingError from "views/BreakingError/BreakingError.js";
+import BreakingError2 from "views/BreakingError/BreakingError2.js";
 
 const dashboardRoutes = [
   {
@@ -42,6 +43,12 @@ const dashboardRoutes = [
     name: "에러타파",
     icon: ErrorIcon,
     component: BreakingError,
+    layout: "/plus",
+  },
+  {
+    path: "/breakingerror_detail/:id",
+    name: "에러타파",
+    component: BreakingError2,
     layout: "/plus",
   },
   {

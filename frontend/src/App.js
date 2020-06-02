@@ -7,6 +7,7 @@ import SsafyPlus from "layouts/SsafyPlus.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
 import "assets/css/ssafyPlus.css";
+import BreakingError from "views/BreakingError/BreakingError";
 
 const hist = createBrowserHistory();
 
@@ -18,7 +19,7 @@ function App() {
         <Route path="/plus" component={SsafyPlus} />
         <Route path="/auth/signUP" component={SsafyPlus} />
         <Route path="/auth/signIn" component={SsafyPlus} />
-        <Route path="/auth/portfolio" component={SsafyPlus} />
+        <Route path="/plus/breakingerror/" exact={true} component={SsafyPlus} />
         <Redirect from="/" to="/plus/main" />
       </Switch>
     </Router>
