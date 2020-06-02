@@ -79,20 +79,13 @@ export default function Board() {
         setContents(e.target.value);
     }
     const changePassword = (e) => {
-        console.log(e.target.value)
         setPassword(e.target.value);
     }
     const changeType = (e) => {
-        console.log(e.target.value)
         setType(e.target.value);
     }
     // 게시판 만들기 axios
     const submit = () => {
-        console.log(title);
-        console.log(contents);
-        console.log(password);
-        console.log(window.sessionStorage.getItem("user_email"))
-        console.log(type);
         axios({
             method: "post",
             url: `http://13.125.238.102:8080/api/board`,
@@ -112,7 +105,6 @@ export default function Board() {
                 setType('');
             })
             .catch((error) => {
-                //console.log(error);
                 alert("리뷰 작성에 실패했습니다");
             });
     };
@@ -133,12 +125,6 @@ export default function Board() {
                                         )
                                     },
                                     {
-                                        tabButton: "내가 가입한 자유 게시판",
-                                        tabContent: (
-                                            <BoardList type="free" />
-                                        )
-                                    },
-                                    {
                                         tabButton: "전체 자유 게시판",
                                         tabContent: (
                                             <BoardList type="free" />
@@ -147,9 +133,15 @@ export default function Board() {
                                     {
                                         tabButton: "인기 자유 게시판",
                                         tabContent: (
-                                            <BoardList type="free" />
+                                            <BoardList type="top" />
                                         )
-                                    }
+                                    },
+                                    {
+                                        tabButton: "내가 가입한 자유 게시판",
+                                        tabContent: (
+                                            <BoardList type="free" my="true" />
+                                        )
+                                    },
                                 ]}
                             />
                         </CardBody>

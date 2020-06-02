@@ -17,14 +17,21 @@ class BoardList extends React.Component {
 
     // 리스트 불러오기
     componentDidMount() {
-        console.log(this.props.type);
-        var axiosUrl = `http://13.125.238.102:8080/api/board/list/${this.props.type}`
+        if(this.props.my==="true"){
+            var axiosUrl = `http://13.125.238.102:8080/api/board/joinlist/${window.sessionStorage.getItem("user_email")}`
+        }else {
+            if(this.props.type==="top"){
+                var axiosUrl = `http://13.125.238.102:8080/api/board/top10`
+            }else{
+                var axiosUrl = `http://13.125.238.102:8080/api/board/list/${this.props.type}`
+            }
+        }
+        console.log(axiosUrl)
         axios({
             method: "get",
             url: axiosUrl
         })
             .then((res) => {
-                console.log('연결 잘됨')
                 let listInfo = [];
                 for (var i = 0; i < res.data.length; i++) {
                     var list = [];
