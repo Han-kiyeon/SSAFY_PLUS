@@ -82,8 +82,8 @@ public class AnswersService {
 
 
     @Transactional(readOnly = true)
-    public List<AnswersListResponseDto> findAllDesc() {
-        return answersRepository.findAllDesc().stream()
+    public List<AnswersListResponseDto> findFirstAnswer() {
+        return answersRepository.findFirstAnswer().stream()
                 .map(AnswersListResponseDto::new)
                 .collect(Collectors.toList());
     }
@@ -94,4 +94,12 @@ public class AnswersService {
                 .map(AnswersListResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<AnswersListResponseDto> findErrorAnswer(Long parent) {
+        return answersRepository.findErrorAnswer(parent).stream()
+                .map(AnswersListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
 }

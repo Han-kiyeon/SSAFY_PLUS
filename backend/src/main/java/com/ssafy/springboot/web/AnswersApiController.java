@@ -49,10 +49,10 @@ public class AnswersApiController {
     }
 
 
-    @ApiOperation(value = "모든 답변 조회", notes = "모든 답변을 조회한다(id 역순)")
+    @ApiOperation(value = "모든 답변 조회", notes = "모든 첫번째 답변을 조회한다(id 역순)")
     @GetMapping("/list")
-    public List<AnswersListResponseDto> findAll() {
-        return answersService.findAllDesc();
+    public List<AnswersListResponseDto> findFirstAnswer() {
+        return answersService.findFirstAnswer();
     }
 
     @ApiOperation(value = "해당 답변에 대한 다음 답변 조회", notes = "모든 답변을 조회한다(id 역순)")
@@ -61,5 +61,10 @@ public class AnswersApiController {
         return answersService.findNextAnswerDesc(id);
     }
 
+    @ApiOperation(value = "해당 질문에 대한 답변 조회", notes = "질문에 대한 첫번째 답변을 조회한다(id 역순)")
+    @GetMapping("/error/{id}")
+    public List<AnswersListResponseDto> findErrorAnswer(@PathVariable Long id) {
+        return answersService.findErrorAnswer(id);
+    }
 
 }
