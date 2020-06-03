@@ -12,7 +12,7 @@ public interface AnswersRepository extends JpaRepository<Answers, Long> {
     @Query("SELECT a FROM Answers a WHERE a.parent = 0 ORDER BY a.answer_id DESC")
     List<Answers> findFirstAnswer();//이렇게 따로 조회하는게 좋은지 그냥 다 보여주고 프론트에서 구분하는게 좋은지 물어보고 결정
 
-    @Query("SELECT a FROM Answers a WHERE a.error= :error ORDER BY a.answer_id DESC")
+    @Query("SELECT a FROM Answers a WHERE a.error= :error and a.parent=0 ORDER BY a.answer_id DESC")
     List<Answers> findErrorAnswer(@Param("error") Errors error);
 
     @Query("SELECT a FROM Answers a WHERE a.parent= :parent ORDER BY a.answer_id DESC")
