@@ -54,6 +54,17 @@ export default function MakePost(props) {
     const onChange = (content) => {
         setContent(content)
     }
+    const onImageUpload = (images, insertImage) => {
+        for (let i = 0; i < images.length; i++) {
+          const reader = new FileReader();
+    
+          reader.onloadend = () => {
+            insertImage(reader.result);
+          };
+    
+          reader.readAsDataURL(images[i]);
+        }
+      };
     // 게시글 만들기 axios
     const submit = () => {
         axios({
@@ -110,6 +121,7 @@ export default function MakePost(props) {
                                         ]
                                     }}
                                     onChange={onChange}
+                                    onImageUpload={onImageUpload}
                                     id="contents"
                                 />
                             </GridItem>

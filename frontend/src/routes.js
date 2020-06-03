@@ -19,11 +19,8 @@ import PostDetail from "views/Board/PostDetail.js";
 import SignIn from "views/Auth/SignIn";
 import SignUp from "views/Auth/SignUp";
 import BreakingError from "views/BreakingError/BreakingError.js";
-<<<<<<< HEAD
 import MakePost from "views/Board/MakePost.js";
-=======
 import BreakingError2 from "views/BreakingError/BreakingError2.js";
->>>>>>> 01a0b61e1bcee0ad0d8d5112acb4e5bd508215cd
 
 const dashboardRoutes = [
   {

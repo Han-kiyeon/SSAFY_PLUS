@@ -80,12 +80,20 @@ export default function Board() {
     }
     const changePassword = (e) => {
         setPassword(e.target.value);
+        console.log(password);
+        console.log(type);
     }
     const changeType = (e) => {
         setType(e.target.value);
     }
     // 게시판 만들기 axios
     const submit = () => {
+        console.log(password);
+        console.log(type);
+        if(password.length>1){
+            setType('private');
+            console.log(type)
+        }
         axios({
             method: "post",
             url: `http://13.125.238.102:8080/api/board`,
