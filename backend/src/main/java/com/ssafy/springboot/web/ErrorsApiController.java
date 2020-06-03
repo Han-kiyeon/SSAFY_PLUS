@@ -53,9 +53,17 @@ public class ErrorsApiController {
     public List<ErrorsListResponseDto> findAll() {
         return errorsService.findAllDesc();
     }
-//
-//    @GetMapping("/search")
-//    public String search(@RequestParam(value = "keyword") String keyword, Mo)
 
+    @ApiOperation(value = "질문 제목 검색", notes = "제목으로 검색")
+    @GetMapping("/searchTitle")
+    public List<ErrorsListResponseDto> searchTitle(@RequestParam(value = "keyword") String keyword){
+        return errorsService.searchErrorUsingTitle(keyword);
+    }
+
+    @ApiOperation(value = "질문 내용 검색", notes = "내용으로 검색")
+    @GetMapping("/searchContent")
+    public List<ErrorsListResponseDto> searchContent(@RequestParam(value = "keyword") String keyword){
+        return errorsService.searchErrorUsingContent(keyword);
+    }
 
 }
