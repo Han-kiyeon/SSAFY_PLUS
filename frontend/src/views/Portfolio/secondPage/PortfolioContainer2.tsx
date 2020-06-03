@@ -51,6 +51,14 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    if (
+      window.sessionStorage
+        .getItem("portfolio_list")
+        ?.includes(window.location.href.substring(39))
+    ) {
+    } else {
+      window.location.href = "http://localhost:3000/plus/main";
+    }
   }
 
   useStyles = makeStyles((theme: Theme) =>
@@ -196,6 +204,53 @@ export default class extends React.Component<{}, PortfolioIState> {
   valuetext = (value: number) => {
     return `${value}점`;
   };
+  handleBeforeButton = async (event: React.FormEvent) => {
+    var portfolio_id = parseInt(window.location.href.substring(39));
+    window.location.href = `http://localhost:3000/plus/portfolio/1/${portfolio_id}`;
+  };
+  handleNextButton = async (event: React.FormEvent) => {
+    var skills = [];
+    var skill1 = {
+      name: this.state.stack1,
+      percentage: this.state.stack1_score,
+      description: this.state.reason1,
+    };
+    skills.push(skill1);
+    var skill2 = {
+      name: this.state.stack2,
+      percentage: this.state.stack2_score,
+      description: this.state.reason2,
+    };
+    skills.push(skill2);
+    var skill3 = {
+      name: this.state.stack3,
+      percentage: this.state.stack3_score,
+      description: this.state.reason3,
+    };
+    skills.push(skill3);
+    var skill4 = {
+      name: this.state.stack4,
+      percentage: this.state.stack4_score,
+      description: this.state.reason4,
+    };
+    skills.push(skill4);
+    var skill5 = {
+      name: this.state.stack5,
+      percentage: this.state.stack5_score,
+      description: this.state.reason5,
+    };
+    skills.push(skill5);
+
+    if (this.state.stack5 !== "" && this.state.reason5 !== "") {
+      window.sessionStorage.setItem(
+        "portfolio_2_skills",
+        JSON.stringify(skills)
+      );
+      var portfolio_id = parseInt(window.location.href.substring(39));
+      window.location.href = `http://localhost:3000/plus/portfolio/3/${portfolio_id}`;
+    }
+  };
+
   render() {
     const {
       name,
@@ -223,6 +278,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     return (
       <PortfolioPresenter
         handleSubmit={this.handleSubmit}
+        handleBeforeButton={this.handleBeforeButton}
+        handleNextButton={this.handleNextButton}
         updateTerm={this.updateTerm}
         useStyles={this.useStyles}
         valuetext={this.valuetext}
