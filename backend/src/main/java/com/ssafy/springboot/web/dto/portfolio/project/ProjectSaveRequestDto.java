@@ -20,13 +20,15 @@ public class ProjectSaveRequestDto {
     private String big_image_url;
     private String small_image_url;
     private List<String> roles;
+    private List<String> my_stacks;
 
     private String url;
 
 
     @Builder
     public ProjectSaveRequestDto(String name, String period, String description,
-                                 String stacks, String big_image_url, String small_image_url, List<String> roles, String url) {
+                                 String stacks, String big_image_url, String small_image_url, List<String> roles,
+                                 List<String> my_stacks, String url) {
         this.name = name;
         this.period = period;
         this.description = description;
@@ -34,6 +36,7 @@ public class ProjectSaveRequestDto {
         this.big_image_url = big_image_url;
         this.small_image_url = small_image_url;
         this.roles = roles;
+        this.my_stacks = my_stacks;
         this.url = url;
     }
 
@@ -44,6 +47,7 @@ public class ProjectSaveRequestDto {
                 .period(period)
                 .url(url)
                 .roles(roles)
+                .my_stacks(my_stacks)
                 .stacks(stacks)
                 .big_image_url(big_image_url)
                 .small_image_url(small_image_url)

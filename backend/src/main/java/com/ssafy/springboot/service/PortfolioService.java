@@ -109,7 +109,7 @@ public class PortfolioService {
                 .orElseThrow(() -> new IllegalArgumentException("Portfolio does not exist... id=" + id));
 
         portfolio.update(requestDto.getTitle(), requestDto.getName(), requestDto.getBirth(), requestDto.getEmail(),
-                requestDto.getPhone(), requestDto.getCharacters(), requestDto.getMy_stacks());
+                requestDto.getPhone(), requestDto.getCharacters());
         if (requestDto.getProjects() != null) {
             List<Project> projects = projectRepository.findAllByPortfolioId(portfolio.getPortfolio_id());
             //삭제
@@ -132,15 +132,17 @@ public class PortfolioService {
                     projectRepository.save(
                             new ProjectSaveRequestDto(
                                     dto.getName(), dto.getPeriod(), dto.getDescription(),
-                                    dto.getStacks(), dto.getBig_image_url(), dto.getSmall_image_url(), dto.getRoles(), dto.getUrl()
+                                    dto.getStacks(), dto.getBig_image_url(), dto.getSmall_image_url(), dto.getRoles(),
+                                    dto.getMy_stacks(), dto.getUrl()
                             ).toEntity(portfolio));
                     continue;
                 }
                 //수정
                 for (Project p : projects) {
                     if (p.getProject_id() == dto.getProject_id()) {
-                        p.update(dto.getName(), dto.getPeriod(), dto.getDescription(), dto.getStacks()
-                                , dto.getBig_image_url(), dto.getSmall_image_url(), dto.getRoles(), dto.getUrl());
+                        p.update(dto.getName(), dto.getPeriod(), dto.getDescription(), dto.getStacks(),
+                                dto.getBig_image_url(), dto.getSmall_image_url(), dto.getRoles(),
+                                dto.getMy_stacks(), dto.getUrl());
                         break;
                     }
                 }

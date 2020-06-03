@@ -18,12 +18,14 @@ public class ProjectUpdateRequestDto {
     private String big_image_url;
     private String small_image_url;
     private List<String> roles;
+    private List<String> my_stacks;
     private String url;
 
 
     @Builder
     public ProjectUpdateRequestDto(Long project_id, String name, String period, String description,
-                                   String stacks, String big_image_url, String small_image_url, List<String> roles, String url) {
+                                   String stacks, String big_image_url, String small_image_url,
+                                   List<String> roles, List<String> my_stacks, String url) {
         this.project_id = project_id;
         this.name = name;
         this.period = period;
@@ -32,6 +34,7 @@ public class ProjectUpdateRequestDto {
         this.big_image_url = big_image_url;
         this.small_image_url = small_image_url;
         this.roles = roles;
+        this.my_stacks = my_stacks;
         this.url = url;
     }
 }

@@ -20,13 +20,12 @@ public class PortfolioUpdateRequestDto {
     private String email;
     private String phone;
     private List<String> characters;
-    private List<String> my_stacks;
     private List<SkillUpdateRequestDto> skills;
     private List<ProjectUpdateRequestDto> projects;
 
     @Builder
     public PortfolioUpdateRequestDto(String title, String user_email, String name, String birth, String email, String phone
-            , List<String> characters, List<String> my_stacks, List<SkillUpdateRequestDto> skills, List<ProjectUpdateRequestDto> projects) {
+            , List<String> characters, List<SkillUpdateRequestDto> skills, List<ProjectUpdateRequestDto> projects) {
         this.user_email = user_email;
 
         this.title = title;
@@ -35,7 +34,6 @@ public class PortfolioUpdateRequestDto {
         this.email = email;
         this.phone = phone;
         this.characters = characters;
-        this.my_stacks = my_stacks;
         this.skills = skills;
         this.projects = projects;
     }

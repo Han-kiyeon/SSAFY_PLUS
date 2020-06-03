@@ -17,6 +17,7 @@ public class ProjectListResponseDto {
     private String big_image_url;
     private String small_image_url;
     private List<String> roles;
+    private List<String> my_stacks;
     private String url;
 
     public ProjectListResponseDto(Project entity) {
@@ -28,6 +29,7 @@ public class ProjectListResponseDto {
         this.big_image_url = entity.getBig_image_url();
         this.small_image_url = entity.getSmall_image_url();
         this.roles = entity.getRoles();
+        this.my_stacks = entity.getMy_stacks();
         this.url = entity.getUrl();
     }
 }
