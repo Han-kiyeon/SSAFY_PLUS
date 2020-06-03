@@ -24,11 +24,13 @@ public class Project {
     private String name;
     private String period;
     private String description;
+    private String stacks;
+    private String big_image_url;
+    private String small_image_url;
 
     @ElementCollection
-    private List<String> stacks;
-    @ElementCollection
     private List<String> roles;
+
 
     private String url;
 
@@ -39,17 +41,21 @@ public class Project {
     private Portfolio portfolio;
 
     @Builder
-    public Project(Portfolio portfolio, String name, String period, String description, List<String> stacks, List<String> roles, String url) {
+    public Project(Portfolio portfolio, String name, String period, String description, String stacks,
+                   String big_image_url, String small_image_url, List<String> roles, String url) {
         this.portfolio = portfolio;
         this.name = name;
         this.period = period;
         this.description = description;
         this.stacks = stacks;
+        this.big_image_url = big_image_url;
+        this.small_image_url = small_image_url;
         this.roles = roles;
         this.url = url;
     }
 
-    public void update(String name, String period, String description, List<String> stacks, List<String> roles, String url) {
+    public void update(String name, String period, String description, String stacks, String big_image_url, String small_image_url,
+                       List<String> roles, String url) {
         if (name != null)
             this.name = name;
         if (period != null)
@@ -58,6 +64,10 @@ public class Project {
             this.description = description;
         if (stacks != null)
             this.stacks = stacks;
+        if (big_image_url != null)
+            this.big_image_url = big_image_url;
+        if (small_image_url != null)
+            this.small_image_url = small_image_url;
         if (roles != null)
             this.roles = roles;
         if (url != null)

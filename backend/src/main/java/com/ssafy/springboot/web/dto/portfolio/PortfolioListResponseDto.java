@@ -23,6 +23,7 @@ public class PortfolioListResponseDto {
     private String email;
     private String phone;
     private List<String> characters;
+    private List<String> my_stacks;
     private List<SkillListResponseDto> skills;
     private List<ProjectListResponseDto> projects;
 
@@ -36,6 +37,7 @@ public class PortfolioListResponseDto {
         this.email = entity.getEmail();
         this.phone = entity.getPhone();
         this.characters = entity.getCharacters();
+        this.my_stacks = entity.getMy_stacks();
         this.skills = new ArrayList<>();
         this.projects = new ArrayList<>();
     }

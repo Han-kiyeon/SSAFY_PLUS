@@ -13,7 +13,9 @@ public class ProjectListResponseDto {
     private String name;
     private String period;
     private String desc;
-    private List<String> stacks;
+    private String stacks;
+    private String big_image_url;
+    private String small_image_url;
     private List<String> roles;
     private String url;
 
@@ -23,6 +25,8 @@ public class ProjectListResponseDto {
         this.period = entity.getPeriod();
         this.desc = entity.getDescription();
         this.stacks = entity.getStacks();
+        this.big_image_url = entity.getBig_image_url();
+        this.small_image_url = entity.getSmall_image_url();
         this.roles = entity.getRoles();
         this.url = entity.getUrl();
     }

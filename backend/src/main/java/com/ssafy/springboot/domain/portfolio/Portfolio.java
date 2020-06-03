@@ -11,7 +11,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Getter
@@ -37,9 +37,12 @@ public class Portfolio extends BaseTimeEntity {
     @ElementCollection
     private List<String> characters;
 
+    @ElementCollection
+    private List<String> my_stacks;
+
     @Builder
     public Portfolio(User user, String title, String name, String birth, String email, String phone
-            , List<String> characters) {
+            , List<String> characters, List<String> my_stacks) {
         this.title = title;
         this.user = user;
         this.name = name;
@@ -47,15 +50,18 @@ public class Portfolio extends BaseTimeEntity {
         this.email = email;
         this.phone = phone;
         this.characters = characters;
+        this.my_stacks = my_stacks;
     }
 
-    public void update(String title, String name, String birth, String email, String phone, List<String> characters) {
+    public void update(String title, String name, String birth, String email, String phone, List<String> characters
+            , List<String> my_stacks) {
         if (title != null) this.title = title;
         if (name != null) this.name = name;
         if (birth != null) this.birth = birth;
         if (email != null) this.email = email;
         if (phone != null) this.phone = phone;
         if (characters != null) this.characters = characters;
+        if (my_stacks != null) this.my_stacks = my_stacks;
     }
 
 }
