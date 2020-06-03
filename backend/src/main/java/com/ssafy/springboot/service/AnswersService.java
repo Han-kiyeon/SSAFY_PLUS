@@ -96,8 +96,8 @@ public class AnswersService {
     }
 
     @Transactional(readOnly = true)
-    public List<AnswersListResponseDto> findErrorAnswer(Long parent) {
-        return answersRepository.findErrorAnswer(parent).stream()
+    public List<AnswersListResponseDto> findErrorAnswer(Long error_id) {
+        return answersRepository.findErrorAnswer(errorsRepository.findByErrorId(error_id)).stream()
                 .map(AnswersListResponseDto::new)
                 .collect(Collectors.toList());
     }
