@@ -123,6 +123,7 @@ export default class extends React.Component<{}, CreateContainerI> {
       this.setState({ new_title: "" });
     }
   };
+
   updateTerm = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value, name },
@@ -131,6 +132,7 @@ export default class extends React.Component<{}, CreateContainerI> {
       this.setState({ new_title: value });
     }
   };
+
   render() {
     const { open, new_title, portfolios } = this.state;
     return (

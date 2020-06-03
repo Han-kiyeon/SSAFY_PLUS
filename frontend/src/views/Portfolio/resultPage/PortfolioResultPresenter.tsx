@@ -2,24 +2,29 @@ import React from "react";
 import Portfolio from "./Portfolio";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-interface PortfolioResultIState {
+interface PortfolioDTO {
   name: string;
   birth: string;
   email: string;
   phone: string;
   characters: string[];
-  skill1: string[];
-  skill2: string[];
-  skill3: string[];
-  skill4: string[];
-  skill5: string[];
+  projects: Array<ProjectDTO>;
+  skills: Array<SkillDTO>;
   project_len: number;
-  t_projectName1: string;
-  t_projectPeriod1: string;
-  t_projectDesc1: string;
-  t_mystacks1: string[];
-  t_projectStacks1: string;
-  t_roles1: string[];
+}
+interface SkillDTO {
+  description: "string";
+  name: "string";
+  percentage: number;
+}
+interface ProjectDTO {
+  description: "string";
+  name: "string";
+  period: "string";
+  roles: Array<string>;
+  myStack: Array<String>;
+  stacks: "string";
+  url: "string";
 }
 
 function PortfolioResultPresenter({
@@ -28,51 +33,37 @@ function PortfolioResultPresenter({
   email,
   phone,
   characters,
-  skill1,
-  skill2,
-  skill3,
-  skill4,
-  skill5,
+  skills,
   project_len,
-  t_projectName1,
-  t_projectPeriod1,
-  t_projectDesc1,
-  t_mystacks1,
-  t_projectStacks1,
-  t_roles1,
-}: PortfolioResultIState) {
+  projects,
+}: PortfolioDTO) {
   return (
-    <PDFDownloadLink
-      document={
-        <Portfolio
-          name={name}
-          birth={birth}
-          email={email}
-          phone={phone}
-          characters={characters}
-          skill1={skill1}
-          skill2={skill2}
-          skill3={skill3}
-          skill4={skill4}
-          skill5={skill5}
-          project_len={project_len}
-          t_projectName1={t_projectName1}
-          t_projectPeriod1={t_projectPeriod1}
-          t_projectDesc1={t_projectDesc1}
-          t_mystacks1={t_mystacks1}
-          t_projectStacks1={t_projectStacks1}
-          t_roles1={t_roles1}
-        />
-      }
-      fileName="pdf_test.pdf"
-      style={{
-        textDecoration: "none",
-        padding: "10px",
-        border: "1px solid black",
-      }}
-    >
-      포트폴리오 다운로드
-    </PDFDownloadLink>
+    <>
+      {false && name !== "" && projects !== [] && skills !== [] && (
+        <PDFDownloadLink
+          document={
+            <Portfolio
+              name={name}
+              birth={birth}
+              email={email}
+              phone={phone}
+              characters={characters}
+              skills={skills}
+              project_len={project_len}
+              projects={projects}
+            />
+          }
+          fileName={`${window.sessionStorage.getItem("portfolio_title")}.pdf`}
+          style={{
+            textDecoration: "none",
+            padding: "10px",
+            border: "1px solid black",
+          }}
+        >
+          포트폴리오 다운로드
+        </PDFDownloadLink>
+      )}
+    </>
   );
 }
 

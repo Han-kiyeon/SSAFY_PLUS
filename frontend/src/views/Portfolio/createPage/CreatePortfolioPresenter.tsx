@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import TextField from "@material-ui/core/TextField";
+import BoxDiv from "./LinkTo";
 
 interface PortfolioPresenterI {
   useStyles: any;
@@ -46,25 +46,18 @@ const Container = styled.div`
   justify-content: space-around;
   margin: 20px 10px;
   border-top: 1px black rgba(0, 0, 0, 0.6);
-  padding: 40px 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
 `;
 
 const Card = styled.div`
-  padding: 20px 10px;
+  padding: 10px 10px;
   border-radius: 5px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
   width: 50vw;
   height: 50vh;
 `;
-const List = styled.div`
-  border-radius: 5px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
-  margin: 10px 0px;
-  height: 10vh;
-`;
 
 const PortfolioBox = styled.div`
-  margin: 20px 0px 10px 0px;
+  margin: 5px 0px 10px 0px;
 `;
 const PortfolioBoxTitle = styled.div`
   padding: 10px 10px 20px 10px;
@@ -77,6 +70,19 @@ const PortfolioBoxSubTitle = styled.div`
   font-size: 13px;
   font-weight: 600;
   opacity: 0.7;
+`;
+const Title = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+`;
+const SubTitle = styled.span`
+  transform: translateX(-10%) translateY(30%);
+  font-size: 20px;
+  opacity: 0.8;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 export default function DisplayPresenter({
   open,
@@ -91,14 +97,17 @@ export default function DisplayPresenter({
   const classes = useStyles();
   return (
     <>
-      <Button
-        className={classes.createButton}
-        variant="contained"
-        color="primary"
-        onClick={handleOpen}
-      >
-        포트폴리오 만들기
-      </Button>
+      <Title>
+        <SubTitle>포트폴리오 리스트</SubTitle>
+        <Button
+          className={classes.createButton}
+          variant="contained"
+          color="primary"
+          onClick={handleOpen}
+        >
+          포트폴리오 만들기
+        </Button>
+      </Title>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -142,17 +151,7 @@ export default function DisplayPresenter({
       <Container>
         <Card>
           {portfolios.map(portfolio => (
-            <>
-              <List key={portfolio.portfolio_id}>
-                <Link
-                  to={{
-                    pathname: `/plus/portfolio/1/${[portfolio.portfolio_id]}`,
-                  }}
-                >
-                  {portfolio.portfolio_id} &nbsp; &nbsp; {portfolio.title}
-                </Link>
-              </List>
-            </>
+            <BoxDiv id={portfolio.portfolio_id} title={portfolio.title} />
           ))}
         </Card>
       </Container>
