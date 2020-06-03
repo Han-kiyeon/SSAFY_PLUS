@@ -51,13 +51,15 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    var link = window.location.href.split("/");
     if (
+      window.sessionStorage.getItem("portfolio_list") !== undefined &&
       window.sessionStorage
         .getItem("portfolio_list")
-        ?.includes(window.location.href.substring(39))
+        ?.includes(link[link.length - 1])
     ) {
     } else {
-      window.location.href = "http://localhost:3000/plus/main";
+      window.location.href = "../../main";
     }
   }
 
@@ -205,8 +207,9 @@ export default class extends React.Component<{}, PortfolioIState> {
     return `${value}점`;
   };
   handleBeforeButton = async (event: React.FormEvent) => {
-    var portfolio_id = parseInt(window.location.href.substring(39));
-    window.location.href = `http://localhost:3000/plus/portfolio/1/${portfolio_id}`;
+    var link = window.location.href.split("/");
+    var portfolio_id = parseInt(link[link.length - 1]);
+    window.location.href = `../1/${portfolio_id}`;
   };
   handleNextButton = async (event: React.FormEvent) => {
     var skills = [];
@@ -246,8 +249,9 @@ export default class extends React.Component<{}, PortfolioIState> {
         "portfolio_2_skills",
         JSON.stringify(skills)
       );
-      var portfolio_id = parseInt(window.location.href.substring(39));
-      window.location.href = `http://localhost:3000/plus/portfolio/3/${portfolio_id}`;
+      var link = window.location.href.split("/");
+      var portfolio_id = parseInt(link[link.length - 1]);
+      window.location.href = `../3/${portfolio_id}`;
     }
   };
 

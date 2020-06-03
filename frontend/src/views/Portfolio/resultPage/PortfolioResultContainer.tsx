@@ -48,13 +48,15 @@ export default class extends React.Component<{}, PortfolioResultIState> {
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    var link = window.location.href.split("/");
     if (
+      window.sessionStorage.getItem("portfolio_list") !== undefined &&
       window.sessionStorage
         .getItem("portfolio_list")
-        ?.includes(window.location.href.substring(44))
+        ?.includes(link[link.length - 1])
     ) {
     } else {
-      window.location.href = "http://localhost:3000/plus/main";
+      window.location.href = "../../main";
     }
   }
   render() {

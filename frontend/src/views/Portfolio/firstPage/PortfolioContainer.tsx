@@ -138,13 +138,15 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    var link = window.location.href.split("/");
     if (
+      window.sessionStorage.getItem("portfolio_list") !== undefined &&
       window.sessionStorage
         .getItem("portfolio_list")
-        ?.includes(window.location.href.substring(39))
+        ?.includes(link[link.length - 1])
     ) {
     } else {
-      window.location.href = "http://localhost:3000/plus/main";
+      window.location.href = "../../main";
     }
   }
   handleSubmit = (event: React.FormEvent) => {
@@ -314,9 +316,6 @@ export default class extends React.Component<{}, PortfolioIState> {
     if (this.state.goal) {
       await feature_list.push("goal");
     }
-    if (this.state.goal) {
-      await feature_list.push("goal");
-    }
     if (this.state.bright) {
       await feature_list.push("bright");
     }
@@ -404,8 +403,9 @@ export default class extends React.Component<{}, PortfolioIState> {
         "portfolio_feature_list",
         JSON.stringify(feature_list)
       );
-      var portfolio_id = parseInt(window.location.href.substring(39));
-      window.location.href = `http://localhost:3000/plus/portfolio/2/${portfolio_id}`;
+      var link = window.location.href.split("/");
+      var portfolio_id = parseInt(link[link.length - 1]);
+      window.location.href = `../2/${portfolio_id}`;
     }
   };
 

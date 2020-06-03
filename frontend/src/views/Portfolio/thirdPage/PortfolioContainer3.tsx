@@ -623,20 +623,23 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   async componentDidMount() {
     window.scrollTo(0, 0);
+    var link = window.location.href.split("/");
     if (
+      window.sessionStorage.getItem("portfolio_list") !== undefined &&
       window.sessionStorage
         .getItem("portfolio_list")
-        ?.includes(window.location.href.substring(39))
+        ?.includes(link[link.length - 1])
     ) {
     } else {
-      window.location.href = "http://localhost:3000/plus/main";
+      window.location.href = "../../main";
     }
     console.log(window.sessionStorage.getItem("projects"));
   }
 
   handleBeforeButton = async (event: React.FormEvent) => {
-    var portfolio_id = parseInt(window.location.href.substring(39));
-    window.location.href = `http://localhost:3000/plus/portfolio/2/${portfolio_id}`;
+    var link = window.location.href.split("/");
+    var portfolio_id = parseInt(link[link.length - 1]);
+    window.location.href = `../2/${portfolio_id}`;
   };
   handleNextButton = async (event: React.FormEvent) => {
     var projects = [];
@@ -707,22 +710,19 @@ export default class extends React.Component<{}, PortfolioIState> {
         "portfolio_3_projects",
         JSON.stringify(projects)
       );
-      var portfolio_id = parseInt(window.location.href.substring(39));
+      var link = window.location.href.split("/");
+      var portfolio_id = parseInt(link[link.length - 1]);
 
       //put 신호 넣기
       axios
-        .put(`http://13.125.238.102:8080/api/portfolio/${portfolio_id}/`, {
+        .put(`http://13.125.238.102:8080/api/portfolio/${portfolio_id}`, {
           name: window.sessionStorage.getItem("portfolio_name"),
           birth: window.sessionStorage.getItem("portfolio_birth"),
           email: window.sessionStorage.getItem("portfolio_email"),
           characters: window.sessionStorage.getItem("portfolio_feature_list"),
-          projects: JSON.stringify(
-            window.sessionStorage.getItem("portfolio_3_projects")
-          ),
-          skills: JSON.stringify(
-            window.sessionStorage.getItem("portfolio_2_skills")
-          ),
-          title: "putTest",
+          projects: window.sessionStorage.getItem("portfolio_3_projects"),
+          skills: window.sessionStorage.getItem("portfolio_2_skills"),
+          user_email: window.sessionStorage.getItem("user_email"),
         })
         .then(response => {
           console.log("put신호 넣어봄");
