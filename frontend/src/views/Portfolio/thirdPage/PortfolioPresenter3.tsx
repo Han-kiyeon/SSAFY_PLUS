@@ -102,6 +102,8 @@ interface PortfolioIState {
   handleMinus: (event: React.FormEvent) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBeforeButton: (event: React.FormEvent) => void;
+  handleNextButton: (event: React.FormEvent) => void;
 }
 const Card = styled.div`
   display: flex;
@@ -252,6 +254,8 @@ function PortfolioPresenter({
   handleMinus,
   handleChange,
   updateTerm,
+  handleBeforeButton,
+  handleNextButton,
 }: PortfolioIState) {
   const classes = useStyles();
 
@@ -1376,18 +1380,18 @@ function PortfolioPresenter({
             </AddButton>
           )}
           <div className={classes.pageButtonLeft}>
-            <Link to={{ pathname: "/plus/portfolio/2/1" }}>
-              <Fab color="primary" aria-label="next">
+            <form onClick={handleBeforeButton}>
+              <Fab color="primary" aria-label="before">
                 <ChevronLeft />
               </Fab>
-            </Link>
+            </form>
           </div>
           <div className={classes.pageButtonRight}>
-            <Link to={{ pathname: "/plus/portfolio/result/1" }}>
+            <form onClick={handleNextButton}>
               <Fab color="primary" aria-label="next">
                 <ChevronRight />
               </Fab>
-            </Link>
+            </form>
           </div>
         </div>
       </Container>

@@ -138,6 +138,14 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    if (
+      window.sessionStorage
+        .getItem("portfolio_list")
+        ?.includes(window.location.href.substring(39))
+    ) {
+    } else {
+      window.location.href = "http://localhost:3000/plus/main";
+    }
   }
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -283,6 +291,123 @@ export default class extends React.Component<{}, PortfolioIState> {
         ].filter(v => v).length !== 4,
     });
   };
+  handleNextButton = async (event: React.FormEvent) => {
+    var feature_list = new Array();
+    if (this.state.customer) {
+      await feature_list.push("customer");
+    }
+    if (this.state.national) {
+      await feature_list.push("national");
+    }
+    if (this.state.positive) {
+      await feature_list.push("positive");
+    }
+    if (this.state.steady) {
+      await feature_list.push("steady");
+    }
+    if (this.state.versatile) {
+      await feature_list.push("versatile");
+    }
+    if (this.state.reliable) {
+      await feature_list.push("reliable");
+    }
+    if (this.state.goal) {
+      await feature_list.push("goal");
+    }
+    if (this.state.goal) {
+      await feature_list.push("goal");
+    }
+    if (this.state.bright) {
+      await feature_list.push("bright");
+    }
+    if (this.state.learner) {
+      await feature_list.push("learner");
+    }
+    if (this.state.sincere) {
+      await feature_list.push("sincere");
+    }
+    if (this.state.communicating) {
+      await feature_list.push("communicating");
+    }
+    if (this.state.doing) {
+      await feature_list.push("doing");
+    }
+    if (this.state.passionate) {
+      await feature_list.push("passionate");
+    }
+    if (this.state.polite) {
+      await feature_list.push("polite");
+    }
+    if (this.state.perfective) {
+      await feature_list.push("perfective");
+    }
+    if (this.state.principles) {
+      await feature_list.push("principles");
+    }
+    if (this.state.flexible) {
+      await feature_list.push("flexible");
+    }
+    if (this.state.patience) {
+      await feature_list.push("patience");
+    }
+    if (this.state.active) {
+      await feature_list.push("active");
+    }
+    if (this.state.honesty) {
+      await feature_list.push("honesty");
+    }
+    if (this.state.creative) {
+      await feature_list.push("creative");
+    }
+    if (this.state.responsibility) {
+      await feature_list.push("responsibility");
+    }
+    if (this.state.best) {
+      await feature_list.push("best");
+    }
+    if (this.state.leading) {
+      await feature_list.push("leading");
+    }
+    if (this.state.committed) {
+      await feature_list.push("committed");
+    }
+    if (this.state.innovative) {
+      await feature_list.push("innovative");
+    }
+    if (this.state.realistic) {
+      await feature_list.push("realistic");
+    }
+    if (this.state.cooperative) {
+      await feature_list.push("cooperative");
+    }
+    console.log(
+      this.state.name,
+      this.state.year,
+      this.state.month,
+      this.state.day
+    );
+    console.log(this.state.email, this.state.phone);
+    console.log(feature_list);
+    if (
+      feature_list.length === 4 &&
+      this.state.email !== "" &&
+      this.state.phone !== "" &&
+      this.state.name !== ""
+    ) {
+      var birth =
+        this.state.year + "-" + this.state.month + "-" + this.state.day;
+      await window.sessionStorage.setItem("portfolio_name", this.state.name);
+      await window.sessionStorage.setItem("portfolio_birth", birth);
+      await window.sessionStorage.setItem("portfolio_email", this.state.email);
+      await window.sessionStorage.setItem("portfolio_phone", this.state.phone);
+      await window.sessionStorage.setItem(
+        "portfolio_feature_list",
+        JSON.stringify(feature_list)
+      );
+      var portfolio_id = parseInt(window.location.href.substring(39));
+      window.location.href = `http://localhost:3000/plus/portfolio/2/${portfolio_id}`;
+    }
+  };
 
   render() {
     const {
@@ -330,6 +455,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
         useStyles={this.useStyles}
+        handleNextButton={this.handleNextButton}
         years={years}
         year={year}
         months={months}
