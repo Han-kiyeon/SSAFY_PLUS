@@ -713,10 +713,10 @@ export default class extends React.Component<{}, PortfolioIState> {
       var portfolio_id = parseInt(link[link.length - 1]);
 
       //put 신호 넣기
-      console.log(
-        typeof window.sessionStorage.getItem("portfolio_2_skills"),
-        window.sessionStorage.getItem("portfolio_2_skills")
-      );
+      // console.log(
+      //   typeof window.sessionStorage.getItem("portfolio_2_skills"),
+      //   window.sessionStorage.getItem("portfolio_2_skills")
+      // );
       axios
         .put(`http://13.125.238.102:8080/api/portfolio/${portfolio_id}`, {
           name: window.sessionStorage.getItem("portfolio_name"),
