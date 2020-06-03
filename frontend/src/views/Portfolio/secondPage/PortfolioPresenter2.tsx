@@ -33,6 +33,8 @@ interface PortfolioIState {
   reason5: string;
   handleSubmit: (event: React.FormEvent) => void;
   updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBeforeButton: (event: React.FormEvent) => void;
+  handleNextButton: (event: React.FormEvent) => void;
   tagUpdate1: any;
   sliderUpdate1: any;
   tagUpdate2: any;
@@ -109,6 +111,8 @@ function PortfolioPresenter({
   reason5,
   handleSubmit,
   updateTerm,
+  handleBeforeButton,
+  handleNextButton,
   tagUpdate1,
   sliderUpdate1,
   tagUpdate2,
@@ -443,18 +447,18 @@ function PortfolioPresenter({
           </Block>
         )}
         <div className={classes.pageButtonLeft}>
-          <Link to={{ pathname: "/plus/portfolio/1/1" }}>
+          <form onClick={handleBeforeButton}>
             <Fab color="primary" aria-label="before">
               <ChevronLeft />
             </Fab>
-          </Link>
+          </form>
         </div>
         <div className={classes.pageButtonRight}>
-          <Link to={{ pathname: "/plus/portfolio/3/1" }}>
+          <form onClick={handleNextButton}>
             <Fab color="primary" aria-label="next">
               <ChevronRight />
             </Fab>
-          </Link>
+          </form>
         </div>
       </Container>
     </Card>

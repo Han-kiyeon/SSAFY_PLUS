@@ -1,3 +1,3 @@
-import PortfolioContainer from "./PortfolioContainer";
+import CreatePortfolioContainer from "./createPage/CreatePortfolioContainer";
 
-export default PortfolioContainer;
+export default CreatePortfolioContainer;

@@ -52,6 +52,7 @@ interface PortfolioIState {
   handleSubmit: (event: React.FormEvent) => void;
   updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleNextButton: (event: React.FormEvent) => void;
   error: boolean;
 }
 
@@ -127,6 +128,7 @@ function PortfolioPresenter({
   handleSubmit,
   updateTerm,
   handleChange,
+  handleNextButton,
   error,
   customer,
   national,
@@ -596,13 +598,11 @@ function PortfolioPresenter({
             {error && <FormHelperText>4개를 선택해주세요</FormHelperText>}
           </FormControl>
         </div>
-        <div className={classes.pageButton}>
-          <Link to={{ pathname: "/plus/portfolio/2/2" }}>
-            <Fab color="primary" aria-label="next">
-              <ChevronRight />
-            </Fab>
-          </Link>
-        </div>
+        <form className={classes.pageButton} onClick={handleNextButton}>
+          <Fab color="primary" aria-label="next">
+            <ChevronRight />
+          </Fab>
+        </form>
       </Container>
     </Card>
   );

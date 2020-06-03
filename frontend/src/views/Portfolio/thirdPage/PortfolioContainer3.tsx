@@ -1,6 +1,7 @@
 import React from "react";
 import PortfolioPresenter from "./PortfolioPresenter3";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
 
 interface PortfolioIState {
   name: string;
@@ -171,9 +172,6 @@ export default class extends React.Component<{}, PortfolioIState> {
     data4: false,
     etc4: false,
   };
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
 
   useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -623,6 +621,122 @@ export default class extends React.Component<{}, PortfolioIState> {
       this.setState({ projectUrl4: value });
     }
   };
+  async componentDidMount() {
+    window.scrollTo(0, 0);
+    var link = window.location.href.split("/");
+    if (
+      window.sessionStorage.getItem("portfolio_list") !== undefined &&
+      window.sessionStorage
+        .getItem("portfolio_list")
+        ?.includes(link[link.length - 1])
+    ) {
+    } else {
+      window.location.href = "../../main";
+    }
+  }
+
+  handleBeforeButton = async (event: React.FormEvent) => {
+    var link = window.location.href.split("/");
+    var portfolio_id = parseInt(link[link.length - 1]);
+    window.location.href = `../2/${portfolio_id}`;
+  };
+  handleNextButton = async (event: React.FormEvent) => {
+    var projects = [];
+    var roles = [];
+    await roles.push(this.state.projectDo11);
+    await roles.push(this.state.projectDo12);
+    await roles.push(this.state.projectDo13);
+    var project1 = await {
+      name: this.state.projectName1,
+      period: this.state.projectTerm1,
+      description: this.state.projectDesc1,
+      roles,
+      stacks: [this.state.projectStack1],
+      url: this.state.projectUrl1,
+    };
+    projects.push(project1);
+
+    if (this.state.projectLen > 1 && this.state.projectName2 !== "") {
+      var roles2 = [];
+      await roles2.push(this.state.projectDo21);
+      await roles2.push(this.state.projectDo22);
+      await roles2.push(this.state.projectDo23);
+
+      var project2 = await {
+        name: this.state.projectName2,
+        period: this.state.projectTerm2,
+        description: this.state.projectDesc2,
+        roles: roles2,
+        stacks: this.state.projectStack2,
+        url: this.state.projectUrl2,
+      };
+      projects.push(project2);
+    }
+    if (this.state.projectLen > 2 && this.state.projectName3 !== "") {
+      var roles3 = [];
+      await roles3.push(this.state.projectDo31);
+      await roles3.push(this.state.projectDo32);
+      await roles3.push(this.state.projectDo33);
+
+      var project3 = await {
+        name: this.state.projectName3,
+        period: this.state.projectTerm3,
+        description: this.state.projectDesc3,
+        roles: roles3,
+        stacks: this.state.projectStack3,
+        url: this.state.projectUrl3,
+      };
+      projects.push(project3);
+    }
+    if (this.state.projectLen > 3 && this.state.projectName4 !== "") {
+      var roles4 = [];
+      await roles4.push(this.state.projectDo41);
+      await roles4.push(this.state.projectDo42);
+      await roles4.push(this.state.projectDo43);
+
+      var project4 = await {
+        name: this.state.projectName4,
+        period: this.state.projectTerm4,
+        description: this.state.projectDesc4,
+        roles: roles4,
+        stacks: this.state.projectStack4,
+        url: this.state.projectUrl4,
+      };
+      projects.push(project4);
+    }
+    if (this.state.projectName1 !== "") {
+      window.sessionStorage.setItem(
+        "portfolio_3_projects",
+        JSON.stringify(projects)
+      );
+      var link = window.location.href.split("/");
+      var portfolio_id = parseInt(link[link.length - 1]);
+
+      //put 신호 넣기
+      // console.log(
+      //   typeof window.sessionStorage.getItem("portfolio_2_skills"),
+      //   window.sessionStorage.getItem("portfolio_2_skills")
+      // );
+      axios
+        .put(`http://13.125.238.102:8080/api/portfolio/${portfolio_id}`, {
+          name: window.sessionStorage.getItem("portfolio_name"),
+          birth: window.sessionStorage.getItem("portfolio_birth"),
+          email: window.sessionStorage.getItem("portfolio_email"),
+          characters: window.sessionStorage.getItem("portfolio_feature_list"),
+          // projects: window.sessionStorage.getItem("portfolio_3_projects"),
+          projects: [],
+          // skills: window.sessionStorage.getItem("portfolio_2_skills"),
+          skills: [],
+          user_email: window.sessionStorage.getItem("user_email"),
+        })
+        .then(response => {
+          console.log("put신호 넣어봄");
+        });
+    }
+    //result 에서 get 정보 받고 대입하기                                                                                                 ````````````
+    // var portfolio_id = parseInt(window.location.href.substring(39));
+    // window.location.href = `http://localhost:3000/plus/portfolio/result/${portfolio_id}`;
+  };
 
   render() {
     const {
@@ -799,6 +913,8 @@ export default class extends React.Component<{}, PortfolioIState> {
         handleMinus={this.handleMinus}
         updateTerm={this.updateTerm}
         handleChange={this.handleChange}
+        handleBeforeButton={this.handleBeforeButton}
+        handleNextButton={this.handleNextButton}
       />
     );
   }

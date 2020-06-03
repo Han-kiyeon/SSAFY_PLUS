@@ -32,13 +32,14 @@ export default class extends React.Component<{}, SignInIState> {
     await window.sessionStorage.setItem("user_name", "Test1");
     await window.sessionStorage.setItem("user_email", "test1@gmail.com");
     await window.sessionStorage.setItem("user_position", "1");
+    window.location.href = "../plus/main";
   };
   loginTest2 = async (event: React.FormEvent) => {
     console.log("test 로그인 요청2");
     await window.sessionStorage.setItem("user_name", "Test2");
     await window.sessionStorage.setItem("user_email", "test2@gmail.com");
     await window.sessionStorage.setItem("user_position", "3");
-    window.location.href = "http://localhost:3000/plus/main";
+    window.location.href = "../plus/main";
   };
 
   Login = async () => {
