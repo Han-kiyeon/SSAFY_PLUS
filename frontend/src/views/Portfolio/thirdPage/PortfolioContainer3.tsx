@@ -651,7 +651,7 @@ export default class extends React.Component<{}, PortfolioIState> {
       period: this.state.projectTerm1,
       description: this.state.projectDesc1,
       roles,
-      stacks: [this.state.projectStack1],
+      stacks: this.state.projectStack1,
       url: this.state.projectUrl1,
     };
     projects.push(project1);
@@ -713,29 +713,30 @@ export default class extends React.Component<{}, PortfolioIState> {
       var portfolio_id = parseInt(link[link.length - 1]);
 
       //put 신호 넣기
-      // console.log(
-      //   typeof window.sessionStorage.getItem("portfolio_2_skills"),
-      //   window.sessionStorage.getItem("portfolio_2_skills")
-      // );
       axios
         .put(`http://13.125.238.102:8080/api/portfolio/${portfolio_id}`, {
           name: window.sessionStorage.getItem("portfolio_name"),
           birth: window.sessionStorage.getItem("portfolio_birth"),
           email: window.sessionStorage.getItem("portfolio_email"),
-          characters: window.sessionStorage.getItem("portfolio_feature_list"),
-          // projects: window.sessionStorage.getItem("portfolio_3_projects"),
-          projects: [],
-          // skills: window.sessionStorage.getItem("portfolio_2_skills"),
-          skills: [],
+          phone: window.sessionStorage.getItem("portfolio_phone"),
+          characters: JSON.parse(
+            window.sessionStorage.getItem("portfolio_feature_list") || "[]"
+          ),
+          projects: JSON.parse(
+            window.sessionStorage.getItem("portfolio_3_projects") || "[]"
+          ),
+          skills: JSON.parse(
+            window.sessionStorage.getItem("portfolio_2_skills") || "[]"
+          ),
           user_email: window.sessionStorage.getItem("user_email"),
         })
         .then(response => {
           console.log("put신호 넣어봄");
         });
     }
-    //result 에서 get 정보 받고 대입하기                                                                                                 ````````````
-    // var portfolio_id = parseInt(window.location.href.substring(39));
-    // window.location.href = `http://localhost:3000/plus/portfolio/result/${portfolio_id}`;
+    var link = window.location.href.split("/");
+    var portfolio_id = parseInt(link[link.length - 1]);
+    window.location.href = `http://localhost:3000/plus/portfolio/result/${portfolio_id}`;
   };
 
   render() {
