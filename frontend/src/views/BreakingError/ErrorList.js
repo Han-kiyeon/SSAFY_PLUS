@@ -4,23 +4,27 @@ import PropTypes from "prop-types";
 import './BreakingError.css';
 
 
-function ErrorList({ id, bname }) {
+function ErrorList({answerCnt, content, errorId, likeCnt, title, userEmail}) {
 return(
-    <Link to={{
-        pathname:`/plus/breakingerror_detail/${id}`,
+    <Link key={errorId} to={{
+        pathname:`/plus/breakingerror_detail/${errorId}`,
         state:{
-            id,
-            bname,
+            answerCnt, content, errorId, likeCnt, title, userEmail
         }
     }}>
-    <h1 id="errorList">{id} {bname}</h1>
+    <h1 id="errorList">{title} {content}</h1>
     </Link>
     ); 
 }
 
 ErrorList.propTypes = {
-    id: PropTypes.number.isRequired,
-    bname: PropTypes.string.isRequired,
-};
+    answerCnt: PropTypes.number.isRequired, 
+    content: PropTypes.string.isRequired, 
+    errorId: PropTypes.number.isRequired, 
+    likeCnt: PropTypes.number.isRequired, 
+    title: PropTypes.string.isRequired, 
+    userEmail: PropTypes.string.isRequired
+}
+;
 
 export default ErrorList;

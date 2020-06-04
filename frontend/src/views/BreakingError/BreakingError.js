@@ -21,6 +21,7 @@ class BreakingError extends React.Component {
   state = {
     context: "",
     isLoading: true,
+    errorLists: [],
     rankLists: [
       {
         id: 0,
@@ -36,25 +37,11 @@ class BreakingError extends React.Component {
       },
 
     ],
-    errorLists: [
-      {
-        id: 0,
-        bname: "a",
-      },
-      {
-        id: 1,
-        bname: "b",
-      },
-      {
-        id: 2,
-        bname: "c",
-      },
-    ]
   };
 
   getBreakingError = async () => {
-    // const errorLists = await axios.get("");
-    this.setState({ isLoading: false });
+    const errorLists = await axios.get("http://13.125.238.102:8080/api/breakingError/errors/list");
+    this.setState({errorLists, isLoading : false });
   }
   getRankList = async () => {
     // const rankLists = await axios.get("");
@@ -75,7 +62,7 @@ class BreakingError extends React.Component {
 
   render() {
     const classes = this.useStyles;
-    const { isLoading} = this.state;
+    const { isLoading, errorLists} = this.state;
     return (
       <div>
        
@@ -85,14 +72,14 @@ class BreakingError extends React.Component {
             <Card>
               <CardHeader color="success" stats icon>
                 <p className={classes.cardCategory}> 미해결 에러 </p>
-                {isLoading ? true : this.state.errorLists.map(errorList => {
-                  return <ErrorList id={errorList.id} bname={errorList.bname} key={errorList.id} />
+                {isLoading ? true : errorLists.data.map(errorList => {
+                  return <ErrorList key={errorList.errorId} answerCnt={errorList.answerCnt} content={errorList.content} errorId={errorList.errorId} likeCnt={errorList.likeCnt} title={errorList.title} userEmail={errorList.userEmail} />
                 })}
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
                   <DateRange />
-                Last 24 Hours
+                Last 24 Hours 
               </div>
               </CardFooter>
             </Card>
