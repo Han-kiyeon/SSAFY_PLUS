@@ -21,6 +21,7 @@ import SignUp from "views/Auth/SignUp";
 import BreakingError from "views/BreakingError/BreakingError.js";
 import MakePost from "views/Board/MakePost.js";
 import BreakingError2 from "views/BreakingError/BreakingError2.js";
+import PostUpdate from "views/Board/PostUpdate.js";
 
 const dashboardRoutes = [
   {
@@ -115,6 +116,12 @@ const dashboardRoutes = [
     path: "/postcreate",
     name: "게시글작성하기",
     component: MakePost,
+    layout: "/plus",
+  },
+  {
+    path: "/postupdate",
+    name: "게시글수정하기",
+    component: PostUpdate,
     layout: "/plus",
   },
 ];

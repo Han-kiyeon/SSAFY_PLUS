@@ -3,7 +3,10 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import Table from "components/Table/Table.js";
 import Pagination from "components/Pagination/Pagination";
+import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Grid/GridItem.js";
 import { Button } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 
 
 // 클래스형 컴포넌트는 위단계에서 보내주는걸 props로 받아 올 수 있다.
@@ -81,9 +84,6 @@ class BoardList extends React.Component {
                 let listInfoArr = [];
                 listInfoArr = listInfo.slice(this.state.start, this.state.end);
                 this.setState({ info: listInfo, listInfoArr: listInfoArr, loading: false });
-                console.log("배열의 갯수")
-                console.log(this.state.info.length)
-                console.log(this.state.start + " : " + this.state.end);
 
             })
             .catch((error) => {
@@ -93,24 +93,36 @@ class BoardList extends React.Component {
 
     render() {
         return (
-            <div>
-                <Table
-                    goto="/plus/postList"
-                    tableHeaderColor="info"
-                    tableHead={["번호", "게시판 주인", "게시판 이름", "타입", "생성/수정 날짜"]}
-                    tableData={this.state.listInfoArr}
-                />
-                <Button
-                    onClick={() => this.handleChangeIndexDown()}
-                >
-                    이전
-              </Button>
-                <Button
-                    onClick={() => this.handleChangeIndexUP()}
-                >
-                    다음
-              </Button>
-            </div>
+            <Container>
+                <GridContainer>
+                    <GridItem xs={4} sm={3} md={2}>
+                        <Button
+                            onClick={() => this.handleChangeIndexDown()}
+                        >
+                            이전
+                        </Button>
+                    </GridItem>
+                    <GridItem xs={4} sm={6} md={8}>
+                    </GridItem>
+                    <GridItem xs={4} sm={3} md={2}>
+                        <Button
+                            onClick={() => this.handleChangeIndexUP()}
+                        >
+                            다음
+                    </Button>
+                    </GridItem>
+                </GridContainer>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <Table
+                            goto="/plus/postList"
+                            tableHeaderColor="info"
+                            tableHead={["번호", "게시판 주인", "게시판 이름", "타입", "생성/수정 날짜"]}
+                            tableData={this.state.listInfoArr}
+                        />
+                    </GridItem>
+                </GridContainer>
+            </Container>
         );
     }
 }

@@ -34,7 +34,7 @@ export default function Sidebar(props) {
       {routes.map((prop, key) => {
         if (
           (prop.layout === "/plus" &&
-            prop.path !== "/postList" && prop.path !== "/postdetail" && prop.path !== "/postcreate" &&
+            prop.path !== "/postList" && prop.path !== "/postdetail" && prop.path !== "/postcreate" && prop.path !== "/postupdate" &&
             !prop.path.startsWith("/portfolio/") &&
             !prop.path.startsWith("/breakingerror_detail/")) ||
           (prop.path === "/signIn" &&
