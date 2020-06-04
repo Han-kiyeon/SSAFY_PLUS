@@ -22,7 +22,7 @@ interface ProjectDTO {
   name: "string";
   period: "string";
   roles: Array<string>;
-  myStack: Array<String>;
+  my_stacks: Array<String>;
   stacks: "string";
   url: "string";
 }
@@ -56,7 +56,7 @@ export default class extends React.Component<{}, PortfolioDTO> {
         `http://13.125.238.102:8080/api/portfolio/${link[link.length - 1]}`
       )
     ).data;
-    console.log("render 전입니다", portfolio);
+
     this.setState({ project_len: portfolio.projects.length });
     this.setState({
       name: portfolio.name,
@@ -81,7 +81,6 @@ export default class extends React.Component<{}, PortfolioDTO> {
     } = this.state;
     return (
       <>
-        {console.log(this.state.projects)}
         <PortfolioResultPresenter
           name={name}
           birth={birth}

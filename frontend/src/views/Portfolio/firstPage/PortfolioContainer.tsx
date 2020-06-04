@@ -1,6 +1,7 @@
 import React from "react";
 import PortfolioPresenter from "./PortfolioPresenter";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Axios from "axios";
 
 interface PortfolioIState {
   name: string;
@@ -148,6 +149,72 @@ export default class extends React.Component<{}, PortfolioIState> {
     } else {
       window.location.href = "../../main";
     }
+    var RecordResponse: any;
+    var portfolio = Axios.get(
+      `http://13.125.238.102:8080/api/portfolio/${link[link.length - 1]}`
+    )
+      .then(response => {
+        RecordResponse = response.data;
+        window.sessionStorage.setItem("portfolio_name", response.data.name);
+        window.sessionStorage.setItem("portfolio_birth", response.data.birth);
+        window.sessionStorage.setItem("portfolio_phone", response.data.phone);
+        window.sessionStorage.setItem("portfolio_email", response.data.email);
+        window.sessionStorage.setItem(
+          "portfolio_feature_list",
+          response.data.characters || "[]"
+        );
+        window.sessionStorage.setItem(
+          "portfolio_2_skills",
+          JSON.stringify(response.data.skills) || "[]"
+        );
+        window.sessionStorage.setItem(
+          "portfolio_3_projects",
+          JSON.stringify(response.data.projects) || "[]"
+        );
+      })
+      .finally(() => {
+        var birth = RecordResponse.birth.split("-");
+
+        this.setState({
+          name: RecordResponse.name || "",
+          year: parseInt(birth[0]) || 1994,
+          month: parseInt(birth[1]) || 1,
+          day: parseInt(birth[2]) || 15,
+          email: RecordResponse.email || "",
+          phone: RecordResponse.phone || "",
+          customer: RecordResponse.characters.includes("customer") || false, // 고객지향
+          national: RecordResponse.characters.includes("national") || false, // 국제적인
+          positive: RecordResponse.characters.includes("positive") || false, // 긍정적인
+          steady: RecordResponse.characters.includes("steady") || false, // 꾸준한
+          versatile: RecordResponse.characters.includes("versatile") || false, // 다재다능한
+          reliable: RecordResponse.characters.includes("reliable") || false, // 듬직한
+          goal: RecordResponse.characters.includes("goal") || false, // 목표지향적인
+          bright: RecordResponse.characters.includes("bright") || false, // 밝은
+          learner: RecordResponse.characters.includes("learner") || false, // 빨리배우는
+          sincere: RecordResponse.characters.includes("sincere") || false, // 성실한
+          communicating:
+            RecordResponse.characters.includes("communicating") || false, // 소통하는
+          doing: RecordResponse.characters.includes("doing") || false, // 실행력
+          passionate: RecordResponse.characters.includes("passionate") || false, // 열정적인
+          polite: RecordResponse.characters.includes("polite") || false, // 예의바른
+          perfective: RecordResponse.characters.includes("perfective") || false, // 완벽주의
+          principles: RecordResponse.characters.includes("principles") || false, // 원칙적인
+          flexible: RecordResponse.characters.includes("flexible") || false, // 유연한
+          patience: RecordResponse.characters.includes("patience") || false, // 인내심
+          active: RecordResponse.characters.includes("active") || false, // 적극적인
+          honesty: RecordResponse.characters.includes("honesty") || false, // 정직한
+          creative: RecordResponse.characters.includes("creative") || false, // 창의적인
+          responsibility:
+            RecordResponse.characters.includes("responsibility") || false, //책임감
+          best: RecordResponse.characters.includes("best") || false, // 최고의
+          leading: RecordResponse.characters.includes("leading") || false, // 팀을이끄는
+          committed: RecordResponse.characters.includes("committed") || false, // 헌신적인
+          innovative: RecordResponse.characters.includes("innovative") || false, // 혁신적인
+          realistic: RecordResponse.characters.includes("realistic") || false, // 현실적인
+          cooperative:
+            RecordResponse.characters.includes("cooperative") || false, // 협동적인
+        });
+      });
   }
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -379,14 +446,6 @@ export default class extends React.Component<{}, PortfolioIState> {
     if (this.state.cooperative) {
       await feature_list.push("cooperative");
     }
-    console.log(
-      this.state.name,
-      this.state.year,
-      this.state.month,
-      this.state.day
-    );
-    console.log(this.state.email, this.state.phone);
-    console.log(feature_list);
     if (
       feature_list.length === 4 &&
       this.state.email !== "" &&
@@ -418,6 +477,7 @@ export default class extends React.Component<{}, PortfolioIState> {
       month,
       days,
       day,
+      email,
       phone,
       customer,
       national,
@@ -462,6 +522,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         month={month}
         days={days}
         day={day}
+        email={email}
         phone={phone}
         handleChange={this.handleChange}
         error={error}

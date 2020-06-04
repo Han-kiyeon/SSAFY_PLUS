@@ -19,11 +19,12 @@ const Box = styled.div`
   height: 100%;
   width: 100%;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 18px;
   transition: background-color 0.2s ease-in-out;
   background-color: #fafafa;
   color: #070707;
   opacity: 0.7;
+  font-weight: 600;
   :hover {
     background-color: #08088a;
     color: #fafafa;
