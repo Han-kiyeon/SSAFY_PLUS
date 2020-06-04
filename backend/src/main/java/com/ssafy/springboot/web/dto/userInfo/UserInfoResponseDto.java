@@ -20,11 +20,13 @@ public class UserInfoResponseDto {
     private String phone;
     private String profile_image_url;
 
+    private HighschoolResponseDto highschool;
+    private UniversityResponseDto university;
+
     private List<AwardResponseDto> awards;
     private List<CareerResponseDto> careers;
-    private HighschoolResponseDto highschool;
     private List<LicenceResponseDto> licences;
-    private UniversityResponseDto university;
+
 
     public UserInfoResponseDto(UserInfo entity) {
         this.user_info_id = entity.getUser_info_id();

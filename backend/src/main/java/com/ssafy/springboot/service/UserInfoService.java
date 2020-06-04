@@ -71,6 +71,7 @@ public class UserInfoService {
                 userInfoRepository.findByUserID(user.getUser_id()));
 
         Long id = ret.getUser_info_id();
+        System.out.println(id);
         ret.setAwards(
                 awardRepository.findAllByUserInfoId(id)
                         .stream()

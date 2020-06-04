@@ -32,6 +32,7 @@ public class LicenceSaveRequestDto {
                 .date(date)
                 .grade(grade)
                 .association(association)
+                .userInfo(userInfo)
                 .build();
     }
 }

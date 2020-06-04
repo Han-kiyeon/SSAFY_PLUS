@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags = {"UserInfo"})
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/userInfo")
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class UserInfoController {
         return userInfoService.findAll();
     }
 
-    @GetMapping("/{email:.+}/")
+    @GetMapping("/get/{email:.+}/")
     public UserInfoResponseDto findByEmail(@PathVariable String email) {
         System.out.println(email);
 
@@ -38,7 +40,6 @@ public class UserInfoController {
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody UserInfoSaveRequestDto requestDto) {
-        System.out.println("Portfolio SAVE");
         return userInfoService.save(requestDto);
     }
 

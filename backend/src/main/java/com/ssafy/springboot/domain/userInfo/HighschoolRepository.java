@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface HighschoolRepository extends JpaRepository<Highschool, Long> {
 
-    @Query("SELECT h FROM Career h WHERE h.userInfo.user_info_id = :user_info_id")
+    @Query("SELECT h FROM Highschool h WHERE h.userInfo.user_info_id = :user_info_id")
     Highschool findAllByUserInfoId(@Param("user_info_id") Long user_info_id);
 
 }

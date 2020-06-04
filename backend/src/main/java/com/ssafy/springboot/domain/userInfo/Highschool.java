@@ -18,9 +18,7 @@ public class Highschool {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long highschool_id;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "user_info_id")
     @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_info_id")
     private UserInfo userInfo;
 
@@ -40,5 +38,16 @@ public class Highschool {
         if (name != null) this.name = name;
         if (location != null) this.location = location;
         if (duration != null) this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "Highschool{" +
+                "highschool_id=" + highschool_id +
+                ", userInfo=" + userInfo +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", duration='" + duration + '\'' +
+                '}';
     }
 }
