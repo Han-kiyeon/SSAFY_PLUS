@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import MyInfoPresenter from "components/MyInfo/MyInfoPresenter";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
+
 interface MyInfoIState {
   name: string;
   birth: string;
