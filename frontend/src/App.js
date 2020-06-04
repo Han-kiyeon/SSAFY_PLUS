@@ -12,15 +12,18 @@ import BreakingError from "views/BreakingError/BreakingError";
 const hist = createBrowserHistory();
 
 function App() {
-  console.log("app들어옴");
   return (
     <Router history={hist}>
       <Switch>
         <Route path="/plus" component={SsafyPlus} />
-        <Route path="/auth/signUP" component={SsafyPlus} />
-        <Route path="/auth/signIn" component={SsafyPlus} />
         <Route path="/plus/breakingerror/" exact={true} component={SsafyPlus} />
-        <Redirect from="/" to="/plus/main" />
+        <Route path="/auth/SignIn" component={SignIn} />
+        {window.sessionStorage.getItem("user_email") === null &&
+          !window.location.href.includes("/auth/signIn") &&
+          (window.location.href = "/auth/signIn")}
+        {window.sessionStorage.getItem("user_email") !== null && (
+          <Redirect from="/" to="/plus/main" />
+        )}
       </Switch>
     </Router>
   );
