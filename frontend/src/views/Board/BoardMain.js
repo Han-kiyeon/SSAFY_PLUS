@@ -80,12 +80,21 @@ export default function Board() {
     }
     const changePassword = (e) => {
         setPassword(e.target.value);
+        setType('private')
+        console.log(password);
+        console.log(type);
     }
     const changeType = (e) => {
         setType(e.target.value);
     }
     // 게시판 만들기 axios
     const submit = () => {
+        console.log(password);
+        console.log(type);
+        if(password.length>1){
+            setType('private');
+            console.log(type)
+        }
         axios({
             method: "post",
             url: `http://13.125.238.102:8080/api/board`,
@@ -131,7 +140,13 @@ export default function Board() {
                                         )
                                     },
                                     {
-                                        tabButton: "인기 자유 게시판",
+                                        tabButton: "전체 비공개 게시판",
+                                        tabContent: (
+                                            <BoardList type="private" />
+                                        )
+                                    },
+                                    {
+                                        tabButton: "인기 게시판",
                                         tabContent: (
                                             <BoardList type="top" />
                                         )
@@ -217,7 +232,6 @@ export default function Board() {
                                                     <Select
                                                         labelId="demo-simple-select-helper-label"
                                                         id="demo-simple-select-helper"
-                                                        value={type}
                                                         onChange={changeType}
                                                     >
                                                         <MenuItem value={'public'}>공식</MenuItem>
