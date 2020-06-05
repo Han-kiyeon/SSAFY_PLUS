@@ -22,7 +22,7 @@ interface ProjectDTO {
   name: "string";
   period: "string";
   roles: Array<string>;
-  myStack: Array<String>;
+  my_stacks: Array<String>;
   stacks: "string";
   url: "string";
 }
@@ -39,7 +39,7 @@ function PortfolioResultPresenter({
 }: PortfolioDTO) {
   return (
     <>
-      {false && name !== "" && projects !== [] && skills !== [] && (
+      {name !== "" && projects !== [] && skills !== [] && (
         <PDFDownloadLink
           document={
             <Portfolio

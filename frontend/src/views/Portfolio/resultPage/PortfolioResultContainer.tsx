@@ -22,7 +22,7 @@ interface ProjectDTO {
   name: "string";
   period: "string";
   roles: Array<string>;
-  myStack: Array<String>;
+  my_stacks: Array<String>;
   stacks: "string";
   url: "string";
 }

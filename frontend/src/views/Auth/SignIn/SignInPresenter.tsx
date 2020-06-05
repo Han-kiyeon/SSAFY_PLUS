@@ -5,7 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 const Container = styled.div`
-  margin: 50px 5px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40vw;
+  background-color: #f7f7f7;
 `;
 
 const Form = styled.form`
@@ -13,14 +17,31 @@ const Form = styled.form`
 `;
 
 const CardBox = styled.div`
-  background-color: #fafafa;
-  padding: 20px 10px;
-  height: 50vh;
-  width: 50vw;
+  margin: 15vh 5vw 10vh 5vw;
+  display: inline-block;
+  background-color: #ffffff;
+  border-radius: 2px;
+  padding: 60px 15px;
+  box-shadow: 0 20px 25px 0 rgba(0, 0, 0, 0.07);
+  transform: translateX(-40%);
+  width: 30vw;
+  height: 60vh;
 `;
-
+const ImageBox = styled.div`
+  display: inline-block;
+  background-image: url(https://images.wallpaperscraft.com/image/autumn_foliage_park_trees_111839_2560x1600.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+`;
+const InfoBox = styled.div`
+  display: inline-block;
+  height: 100vh;
+`;
 const TestLogin = styled.form`
-  margin: 20px;
+  display: inline-block;
+  margin: 0px 20px;
   font-size: 20px;
   :hover {
     cursor: pointer;
@@ -53,36 +74,40 @@ function SignInPresenter({
   const classes = useStyles();
   return (
     <>
+      <ImageBox />
       <Container>
-        <CardBox>
-          <Form onSubmit={handleSubmit} className={classes.loginbar}>
-            <TextField
-              label="이메일 계정"
-              helperText="ex) example@gmail.com"
-              onChange={updateTerm}
-              name="userId"
-              value={userId}
-              variant="outlined"
-            ></TextField>
-            <br />
-            <TextField
-              label="비밀번호"
-              onChange={updateTerm}
-              name="password"
-              value={password}
-              variant="outlined"
-            ></TextField>
-            <br />
-            <Link to={{ pathname: "/auth/signUp" }}>회원가입 하러가기</Link>
-          </Form>
-          <Form onSubmit={handleSubmit} className={classes.button}>
-            <Button variant="contained" color="primary">
-              로그인
-            </Button>
-          </Form>
-        </CardBox>
-        <TestLogin onClick={loginTest1}>Test Login (Position:1) </TestLogin>
-        <TestLogin onClick={loginTest2}>Test Login (Position:3) </TestLogin>
+        <InfoBox>
+          <CardBox>
+            <Form onSubmit={handleSubmit} className={classes.loginbar}>
+              <TextField
+                label="이메일 계정"
+                helperText="ex) example@gmail.com"
+                onChange={updateTerm}
+                name="userId"
+                value={userId}
+                variant="outlined"
+              ></TextField>
+              <br />
+              <TextField
+                label="비밀번호"
+                onChange={updateTerm}
+                name="password"
+                value={password}
+                variant="outlined"
+              ></TextField>
+              <br />
+            </Form>
+            <Form onSubmit={handleSubmit} className={classes.button}>
+              <Button variant="contained" color="primary">
+                로그인
+              </Button>
+              <Link to={{ pathname: "/auth/signUp" }}>회원가입 하러가기</Link>
+            </Form>
+          </CardBox>
+          <TestLogin onClick={loginTest1}>Test Login (Position:1) </TestLogin>
+
+          <TestLogin onClick={loginTest2}>Test Login (Position:3) </TestLogin>
+        </InfoBox>
       </Container>
     </>
   );

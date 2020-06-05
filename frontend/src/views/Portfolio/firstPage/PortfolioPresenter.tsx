@@ -20,6 +20,7 @@ interface PortfolioIState {
   month: number;
   days: number[];
   day: number;
+  email: string;
   phone: string;
   customer: boolean; // 고객지향
   national: boolean; // 국제적인
@@ -125,6 +126,7 @@ function PortfolioPresenter({
   days,
   day,
   phone,
+  email,
   handleSubmit,
   updateTerm,
   handleChange,
@@ -182,6 +184,7 @@ function PortfolioPresenter({
             helperText="ex) 김싸피"
             onChange={updateTerm}
             name="name"
+            value={name}
           ></TextField>
         </form>
         <Name>{name}</Name>
@@ -252,6 +255,7 @@ function PortfolioPresenter({
             helperText="ex) ssafy@gmail.com"
             onChange={updateTerm}
             name="email"
+            value={email}
           ></TextField>
         </form>
         <Name>{name}</Name>
