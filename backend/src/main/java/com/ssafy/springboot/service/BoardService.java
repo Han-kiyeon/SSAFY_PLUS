@@ -5,6 +5,7 @@ import com.ssafy.springboot.domain.board.*;
 import com.ssafy.springboot.web.dto.board.*;
 import com.ssafy.springboot.domain.user.*;
 
+import com.sun.net.httpserver.HttpsConfigurator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,5 +89,25 @@ public class BoardService {
         if (list.size() > 10)
             list.subList(0, 9);
         return list.stream().map(BoardListResponseDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<BoardListResponseDto> postCntTop10() {
+        List<Board> list = boardRepository.postCntTop10();
+        if (list.size() > 10)
+            list.subList(0, 9);
+        return list.stream().map(BoardListResponseDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public ResponseEntity<?> isJoin(String email, Long id) {
+        User user = userRepository.findByEmail(email);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User does not exist... user_email=" + email);
+
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Board does not exist... " + id));
+
+        return ResponseEntity.status(HttpStatus.OK).body(boardPartyService.isJoin(user.getUser_id(), board.getBoard_id()));
     }
 }

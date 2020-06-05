@@ -68,7 +68,23 @@ public class BoardController {
 
     @ApiOperation(value = "비공개 게시판 중 가입자가 많은 순 목록 조회(10개)")
     @GetMapping("/top10")
-    public List<BoardListResponseDto> findByUser() {
+    public List<BoardListResponseDto> top10() {
         return boardService.top10();
+    }
+
+    @ApiOperation(value = "게시글이 많은 게시판 top10")
+    @GetMapping("/postCntTop10")
+    public List<BoardListResponseDto> postCntTop10() {
+        return boardService.postCntTop10();
+    }
+
+    @ApiOperation(value = "유저가 게시판에 가입했는지 확인")
+    @GetMapping("isJoin/{email:.+}/{board_id}")
+    public ResponseEntity<?> isJoin(@PathVariable String email, @PathVariable Long board_id) {
+
+        System.out.println(email + " " + board_id);
+        return boardService.isJoin(email, board_id);
+
+
     }
 }

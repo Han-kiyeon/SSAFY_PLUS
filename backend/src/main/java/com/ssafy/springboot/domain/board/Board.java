@@ -35,6 +35,8 @@ public class Board extends BaseTimeEntity {
     private String type;
     private String password;
 
+    private Long post_cnt;
+
 
     @Builder
     public Board(User user, String title, String contents, String topic, String type, String password) {
@@ -44,6 +46,7 @@ public class Board extends BaseTimeEntity {
         this.topic = topic;
         this.type = type;
         this.password = password;
+        this.post_cnt = Long.valueOf(0);
     }
 
 

@@ -35,8 +35,10 @@ public class PostsService {
         if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User does not exist...  ");
         System.out.println(requestDto.getBoard_id());
         Board board = boardRepository.findByBoard_id(requestDto.getBoard_id());
-        System.out.println(board);
         if (board == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Post does not exist...  ");
+        System.out.println("\n\n\nboardID="+board.getBoard_id()+"\n\n\n");
+        boardRepository.postCntUp(board.getBoard_id());
+
         return ResponseEntity.
                 status(HttpStatus.OK).
                 body(postsRepository.save(requestDto.toEntity(user, board)).getPost_id());
@@ -64,7 +66,7 @@ public class PostsService {
     public void delete(Long id) {
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Post does not exist...  id=" + id));
-
+        boardRepository.postCntDown(posts.getBoard().getBoard_id());
         postsRepository.delete(posts);
     }
 

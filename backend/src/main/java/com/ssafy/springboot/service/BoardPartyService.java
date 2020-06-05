@@ -54,5 +54,11 @@ public class BoardPartyService {
         return null;
     }
 
+    @Transactional
+    public boolean isJoin(Long user_id, Long board_id) {
+        BoardParty entity = boardPartyRepository.findByPostIDAndUserID(user_id, board_id);
+        return entity != null;
+    }
+
 
 }
