@@ -29,11 +29,10 @@ const footerStyle = {
     float: "right!important"
   },
   footer: {
-    bottom: "0",
     height: "50px",
+    bottom: "0",
     borderTop: "1px solid " + grayColor[11],
     padding: "15px 0",
-    backgroundColor: "white",
     ...defaultFont
   },
   container,

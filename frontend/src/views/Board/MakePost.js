@@ -1,35 +1,16 @@
 import React from 'react';
 import axios from "axios";
 
-// @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Schedule from "@material-ui/icons/Schedule";
-import List from "@material-ui/icons/List";
-
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Close from "@material-ui/icons/Close";
-import Slide from "@material-ui/core/Slide";
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from 'components/Card/CardFooter';
 import Button from "components/CustomButtons/Button.js";
-import NavPills from "components/NavPills/NavPills.js";
 import CustomInput from "components/CustomInput/CustomInput.js"
 // 스타일(꾸미는 용)
 import modalStyle from "assets/jss/material-dashboard-react/components/modalStyle.js";
-import PostListByType from "components/Board/PostListByType.js"
-import Editor from "components/Editor/Editor.js"
-import DetailPost from 'components/Board/DetailPost';
 
 import ReactSummernote from 'react-summernote';
 import 'react-summernote/dist/react-summernote.css'; // import styles
@@ -56,15 +37,15 @@ export default function MakePost(props) {
     }
     const onImageUpload = (images, insertImage) => {
         for (let i = 0; i < images.length; i++) {
-          const reader = new FileReader();
-    
-          reader.onloadend = () => {
-            insertImage(reader.result);
-          };
-    
-          reader.readAsDataURL(images[i]);
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                insertImage(reader.result);
+            };
+
+            reader.readAsDataURL(images[i]);
         }
-      };
+    };
     // 게시글 만들기 axios
     const submit = () => {
         axios({
@@ -78,7 +59,6 @@ export default function MakePost(props) {
             },
         })
             .then((res) => {
-                console.log(props);
                 props.history.push({ pathname: "/plus/postList", state: { board_id: board_id } });
             })
             .catch((error) => {

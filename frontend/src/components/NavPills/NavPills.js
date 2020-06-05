@@ -88,12 +88,12 @@ export default function NavPills(props) {
   );
   return horizontal !== undefined ? (
     <GridContainer>
-      <GridItem {...horizontal.tabsGrid}>{tabButtons}</GridItem>
+      <GridItem {...horizontal.tabsGrid}><h1>{tabButtons}</h1></GridItem>
       <GridItem {...horizontal.contentGrid}>{tabContent}</GridItem>
     </GridContainer>
   ) : (
     <div>
-      {tabButtons}
+      <h4>{tabButtons}</h4>
       {tabContent}
     </div>
   );

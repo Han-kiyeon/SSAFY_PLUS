@@ -20,7 +20,7 @@ class BoardList extends React.Component {
             loading: false,
             page: 1,
             start: 0,
-            end: 5
+            end: 7
         };
     }
 
@@ -29,8 +29,8 @@ class BoardList extends React.Component {
         let list = [];
         this.setState({
             page: page + 1,
-            start: start + 5,
-            end: end + 5
+            start: start + 7,
+            end: end + 7
         });
         list = this.state.info.slice(this.state.start, this.state.end)
         this.setState({
@@ -44,8 +44,8 @@ class BoardList extends React.Component {
         let list = [];
         this.setState({
             page: page - 1,
-            start: start - 5,
-            end: end - 5
+            start: start - 7,
+            end: end - 7
         });
         list = this.state.info.slice(this.state.start, this.state.end)
         this.setState({
