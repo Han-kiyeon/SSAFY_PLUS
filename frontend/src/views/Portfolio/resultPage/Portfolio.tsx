@@ -31,7 +31,7 @@ interface ProjectDTO {
   name: "string";
   period: "string";
   roles: Array<string>;
-  myStack: Array<String>;
+  my_stacks: Array<String>;
   stacks: "string";
   url: "string";
 }
@@ -322,6 +322,36 @@ const styles = StyleSheet.create({
   },
 });
 
+const characterMap = new Map<string, string>();
+characterMap.set("customer", "고객지향");
+characterMap.set("national", "국제적인");
+characterMap.set("positive", "긍정적인");
+characterMap.set("steady", "꾸준한");
+characterMap.set("versatile", "다재다능한");
+characterMap.set("reliable", "듬직한");
+characterMap.set("goal", "목표지향적인");
+characterMap.set("bright", "밝은");
+characterMap.set("learner", "빨리배우는");
+characterMap.set("sincere", "성실한");
+characterMap.set("communicating", "소통하는");
+characterMap.set("doing", "실행력");
+characterMap.set("passionate", "열정적인");
+characterMap.set("polite", "예의바른");
+characterMap.set("perfective", "완벽주의");
+characterMap.set("principles", "원칙적인");
+characterMap.set("flexible", "유연한");
+characterMap.set("patience", "인내심");
+characterMap.set("active", "적극적인");
+characterMap.set("honesty", "정직한");
+characterMap.set("creative", "창의적인");
+characterMap.set("responsibility", "책임감");
+characterMap.set("best", "최고의");
+characterMap.set("leading", "팀을 이끄는");
+characterMap.set("committed", "헌신적인");
+characterMap.set("innovative", "혁신적인");
+characterMap.set("realistic", "현실적인");
+characterMap.set("cooperative", "협동적인");
+
 function Portfolio({
   name,
   birth,
@@ -344,10 +374,18 @@ function Portfolio({
             &nbsp; {email} &nbsp; {phone}
           </Text>
           <View style={styles.f_Characters}>
-            <Text style={styles.f_Character}>#{characters[0]}</Text>
-            <Text style={styles.f_Character}>#{characters[1]}</Text>
-            <Text style={styles.f_Character}>#{characters[2]}</Text>
-            <Text style={styles.f_Character}>#{characters[3]}</Text>
+            <Text style={styles.f_Character}>
+              #{characterMap.get(characters[0])}
+            </Text>
+            <Text style={styles.f_Character}>
+              #{characterMap.get(characters[1])}
+            </Text>
+            <Text style={styles.f_Character}>
+              #{characterMap.get(characters[2])}
+            </Text>
+            <Text style={styles.f_Character}>
+              #{characterMap.get(characters[3])}
+            </Text>
           </View>
         </View>
       </Page>
@@ -378,48 +416,58 @@ function Portfolio({
             <View style={styles.s_skiilBoxShadow4}></View>
             <View style={styles.s_skiilBoxShadow5}></View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skills[0].name}</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[0] && skills[0].name}
+              </Text>
               <Text style={styles.s_skillBox_reason}>
-                {skills[0].description}
+                {skills[0] && skills[0].description}
               </Text>
               <Text style={styles.s_skillBox_score}>
-                {skills[0].percentage}/100
+                {skills[0] && skills[0].percentage}/100
               </Text>
             </View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skills[1].name}</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[1] && skills[1].name}
+              </Text>
               <Text style={styles.s_skillBox_reason}>
-                {skills[1].description}
+                {skills[1] && skills[1].description}
               </Text>
               <Text style={styles.s_skillBox_score}>
-                {skills[1].percentage}/100
+                {skills[1] && skills[1].percentage}/100
               </Text>
             </View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skills[2].name}</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[2] && skills[2].name}
+              </Text>
               <Text style={styles.s_skillBox_reason}>
-                {skills[2].description}
+                {skills[2] && skills[2].description}
               </Text>
               <Text style={styles.s_skillBox_score}>
-                {skills[2].percentage}/100
+                {skills[2] && skills[2].percentage}/100
               </Text>
             </View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skills[3].name}</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[3] && skills[3].name}
+              </Text>
               <Text style={styles.s_skillBox_reason}>
-                {skills[3].description}
+                {skills[3] && skills[3].description}
               </Text>
               <Text style={styles.s_skillBox_score}>
-                {skills[3].percentage}/100
+                {skills[3] && skills[3].percentage}/100
               </Text>
             </View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skills[4].name}</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[4] && skills[4].name}
+              </Text>
               <Text style={styles.s_skillBox_reason}>
-                {skills[4].description}
+                {skills[4] && skills[4].description}
               </Text>
               <Text style={styles.s_skillBox_score}>
-                {skills[4].percentage}/100
+                {skills[4] && skills[4].percentage}/100
               </Text>
             </View>
           </View>
@@ -456,8 +504,9 @@ function Portfolio({
               </Text>
               <Text style={styles.fo_subtext}> my role</Text>
               <Text style={styles.fo_mystack}>
-                {projects[0].myStack[0]} &nbsp; {projects[0].myStack[1]} &nbsp;{" "}
-                {projects[0].myStack[2]}
+                {projects[0].my_stacks && projects[0].my_stacks[0]} &nbsp;
+                {projects[0].my_stacks && projects[0].my_stacks[1]} &nbsp;
+                {projects[0].my_stacks && projects[0].my_stacks[2]}
               </Text>
               {projects[0].roles[0] && (
                 <Text style={styles.fo_myroles}>1. {projects[0].roles[0]}</Text>
@@ -505,8 +554,9 @@ function Portfolio({
               </Text>
               <Text style={styles.fo_subtext}> my role</Text>
               <Text style={styles.fo_mystack}>
-                {projects[1].myStack[0]} &nbsp; {projects[1].myStack[1]} &nbsp;{" "}
-                {projects[1].myStack[2]}
+                {projects[1].my_stacks && projects[1].my_stacks[0]} &nbsp;
+                {projects[1].my_stacks && projects[1].my_stacks[1]} &nbsp;
+                {projects[1].my_stacks && projects[1].my_stacks[2]}
               </Text>
               {projects[1].roles[0] && (
                 <Text style={styles.fo_myroles}>1. {projects[1].roles[0]}</Text>
@@ -554,8 +604,9 @@ function Portfolio({
               </Text>
               <Text style={styles.fo_subtext}> my role</Text>
               <Text style={styles.fo_mystack}>
-                {projects[2].myStack[0]} &nbsp; {projects[2].myStack[1]} &nbsp;{" "}
-                {projects[2].myStack[2]}
+                {projects[2].my_stacks && projects[2].my_stacks[0]} &nbsp;
+                {projects[2].my_stacks && projects[2].my_stacks[1]} &nbsp;
+                {projects[2].my_stacks && projects[2].my_stacks[2]}
               </Text>
               {projects[2].roles[0] && (
                 <Text style={styles.fo_myroles}>1. {projects[2].roles[0]}</Text>
@@ -603,8 +654,9 @@ function Portfolio({
               </Text>
               <Text style={styles.fo_subtext}> my role</Text>
               <Text style={styles.fo_mystack}>
-                {projects[3].myStack[0]} &nbsp; {projects[3].myStack[1]} &nbsp;{" "}
-                {projects[3].myStack[2]}
+                {projects[3].my_stacks && projects[3].my_stacks[0]} &nbsp;
+                {projects[3].my_stacks && projects[3].my_stacks[1]} &nbsp;
+                {projects[3].my_stacks && projects[3].my_stacks[2]}
               </Text>
               {projects[3].roles[0] && (
                 <Text style={styles.fo_myroles}>1. {projects[3].roles[0]}</Text>
