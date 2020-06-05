@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { NavLink, Link } from "react-router-dom";
-import Table from "components/Table/Table.js";
+import { Link } from "react-router-dom";
 
 import ReactSummernote from 'react-summernote';
 import 'react-summernote/dist/react-summernote.css'; // import styles
@@ -34,7 +33,7 @@ class DetailPost extends React.Component {
         })
             .then((res) => {
                 console.log(res.data)
-                this.setState({title: res.data.title, content: res.data.content, user_email: res.data.user_email });
+                this.setState({ title: res.data.title, content: res.data.content, user_email: res.data.user_email });
             })
             .catch((error) => {
                 console.log(error);
