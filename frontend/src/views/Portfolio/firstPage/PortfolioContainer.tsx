@@ -1,7 +1,32 @@
 import React from "react";
 import PortfolioPresenter from "./PortfolioPresenter";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
 
+interface PortfolioDTO {
+  name: string;
+  birth: string;
+  email: string;
+  phone: string;
+  characters: string[];
+  projects: Array<ProjectDTO>;
+  skills: Array<SkillDTO>;
+  project_len: number;
+}
+interface SkillDTO {
+  description: "string";
+  name: "string";
+  percentage: number;
+}
+interface ProjectDTO {
+  description: "string";
+  name: "string";
+  period: "string";
+  roles: Array<string>;
+  myStack: Array<String>;
+  stacks: "string";
+  url: "string";
+}
 interface PortfolioIState {
   name: string;
   years: number[];
@@ -136,18 +161,25 @@ export default class extends React.Component<{}, PortfolioIState> {
     cooperative: false, // 협동적인
     error: false,
   };
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";
     }
+    var link = window.location.href.split("/");
+    var portfolio: PortfolioDTO = (
+      await axios.get(
+        `http://13.125.238.102:8080/api/portfolio/${portfolio_id}`
+      )
+    ).data;
+    console.log(portfolio);
+    // window.sessionStorage.setItem("u");
   }
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

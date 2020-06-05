@@ -4,7 +4,7 @@ import EpisodePresenter from "./EpisodePresenter";
 interface IEpisode {
   episodes: Array<{
     id: number;
-    user_id: number;
+    user_email: string;
     date: string;
     title: string;
     strength: Array<string>;
@@ -17,7 +17,7 @@ export default class extends React.Component<{}, IEpisode> {
     episodes: [
       {
         id: 1,
-        user_id: 2,
+        user_email: "test2@gmail.com",
         date: "2020-03-31",
         title: "SSAFY 공통프로젝트",
         strength: ["배려", "노력"],
@@ -25,7 +25,7 @@ export default class extends React.Component<{}, IEpisode> {
       },
       {
         id: 2,
-        user_id: 2,
+        user_email: "test2@gmail.com",
         date: "2020-03-31",
         title: "SSAFY 특화프로젝트",
         strength: ["리더쉽", "협동"],
@@ -33,7 +33,7 @@ export default class extends React.Component<{}, IEpisode> {
       },
       {
         id: 3,
-        user_id: 2,
+        user_email: "test2@gmail.com",
         date: "2020-05-31",
         title: "SSAFY 심화프로젝트",
         strength: ["열정", "협동"],

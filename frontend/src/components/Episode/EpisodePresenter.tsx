@@ -14,7 +14,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 interface PortfolioIState {
   episodes: Array<{
     id: number;
-    user_id: number;
+    user_email: string;
     date: string;
     title: string;
     strength: Array<string>;

@@ -52,11 +52,10 @@ export default class extends React.Component<{}, PortfolioIState> {
   componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";

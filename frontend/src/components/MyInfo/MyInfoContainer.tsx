@@ -10,43 +10,48 @@ interface MyInfoIState {
   email: string;
   gender: string;
   phone: string;
-  university: {
-    name: string;
-    location: string;
-    duration: string;
-    major: string;
-    subMajor: string;
-    gradeAvg: string;
-    classification: string;
-  };
-  highschool: {
-    name: string;
-    location: string;
-    duration: string;
-  };
-  careers: Array<{
-    id: number;
-    name: string;
-    position: string;
-    duration: string;
-    description: string;
-  }>;
+  university: universityDTO;
+  highschool: highschoolDTO;
+  careers: Array<careersDTO>;
   careerLen: number;
-  awards: Array<{
-    id: number;
-    name: string;
-    date: string;
-    organization: string;
-  }>;
+  awards: Array<awardDTO>;
   awardLen: number;
-  classifications: Array<{
-    type: string;
-    name: string;
-    date: string;
-    grade: string;
-    association: string;
-  }>;
-  classificationLen: number;
+  licences: Array<licenceDTO>;
+  licenceLen: number;
+}
+interface universityDTO {
+  name: string;
+  location: string;
+  duration: string;
+  major: string;
+  subMajor: string;
+  gradeAvg: string;
+  licence: string;
+}
+interface highschoolDTO {
+  name: string;
+  location: string;
+  duration: string;
+}
+interface careersDTO {
+  id: number;
+  name: string;
+  position: string;
+  duration: string;
+  description: string;
+}
+interface awardDTO {
+  id: number;
+  name: string;
+  date: string;
+  organization: string;
+}
+interface licenceDTO {
+  type: string;
+  name: string;
+  date: string;
+  grade: string;
+  association: string;
 }
 export default class extends React.Component<{}, MyInfoIState> {
   state = {
@@ -65,7 +70,7 @@ export default class extends React.Component<{}, MyInfoIState> {
       major: "",
       subMajor: "",
       gradeAvg: "",
-      classification: "",
+      licence: "",
     },
 
     // 고등학교
@@ -135,7 +140,7 @@ export default class extends React.Component<{}, MyInfoIState> {
     ],
     awardLen: 0,
     // 자격 사항
-    classifications: [
+    licences: [
       {
         id: 1,
         type: "",
@@ -169,11 +174,25 @@ export default class extends React.Component<{}, MyInfoIState> {
         association: "",
       },
     ],
-    classificationLen: 0,
+    licenceLen: 0,
     tempValue: "",
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    axios
+      .get(
+        `http://13.125.238.102:8080/api/userInfo/get/${window.sessionStorage.getItem(
+          "user_email"
+        )}/`
+      )
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(e => {
+        console.log("기존 회원정보가 존재하지 않습니다.");
+        console.log("개발자라서 이 콘솔을 보고계시겠죠?");
+        console.log("본인의 인적사항을 적어주세요!");
+      });
   }
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -263,7 +282,7 @@ export default class extends React.Component<{}, MyInfoIState> {
             major: this.state.university.major,
             subMajor: this.state.university.subMajor,
             gradeAvg: this.state.university.gradeAvg,
-            classification: this.state.university.classification,
+            licence: this.state.university.licence,
           },
         });
       } else if (name === "university_location") {
@@ -275,7 +294,7 @@ export default class extends React.Component<{}, MyInfoIState> {
             major: this.state.university.major,
             subMajor: this.state.university.subMajor,
             gradeAvg: this.state.university.gradeAvg,
-            classification: this.state.university.classification,
+            licence: this.state.university.licence,
           },
         });
       } else if (name === "university_duration") {
@@ -287,7 +306,7 @@ export default class extends React.Component<{}, MyInfoIState> {
             major: this.state.university.major,
             subMajor: this.state.university.subMajor,
             gradeAvg: this.state.university.gradeAvg,
-            classification: this.state.university.classification,
+            licence: this.state.university.licence,
           },
         });
         this.state.tempValue = value;
@@ -303,7 +322,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               major: this.state.university.major,
               subMajor: this.state.university.subMajor,
               gradeAvg: this.state.university.gradeAvg,
-              classification: this.state.university.classification,
+              licence: this.state.university.licence,
             },
           });
         } else if (
@@ -318,7 +337,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               major: this.state.university.major,
               subMajor: this.state.university.subMajor,
               gradeAvg: this.state.university.gradeAvg,
-              classification: this.state.university.classification,
+              licence: this.state.university.licence,
             },
           });
         } else if (
@@ -333,7 +352,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               major: this.state.university.major,
               subMajor: this.state.university.subMajor,
               gradeAvg: this.state.university.gradeAvg,
-              classification: this.state.university.classification,
+              licence: this.state.university.licence,
             },
           });
         } else if (
@@ -348,7 +367,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               major: this.state.university.major,
               subMajor: this.state.university.subMajor,
               gradeAvg: this.state.university.gradeAvg,
-              classification: this.state.university.classification,
+              licence: this.state.university.licence,
             },
           });
         } else if (
@@ -363,7 +382,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               major: this.state.university.major,
               subMajor: this.state.university.subMajor,
               gradeAvg: this.state.university.gradeAvg,
-              classification: this.state.university.classification,
+              licence: this.state.university.licence,
             },
           });
         } else if (
@@ -378,7 +397,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               major: this.state.university.major,
               subMajor: this.state.university.subMajor,
               gradeAvg: this.state.university.gradeAvg,
-              classification: this.state.university.classification,
+              licence: this.state.university.licence,
             },
           });
         } else if (this.state.tempValue.length > 17) {
@@ -390,7 +409,7 @@ export default class extends React.Component<{}, MyInfoIState> {
               major: this.state.university.major,
               subMajor: this.state.university.subMajor,
               gradeAvg: this.state.university.gradeAvg,
-              classification: this.state.university.classification,
+              licence: this.state.university.licence,
             },
           });
         }
@@ -403,7 +422,7 @@ export default class extends React.Component<{}, MyInfoIState> {
             major: value,
             subMajor: this.state.university.subMajor,
             gradeAvg: this.state.university.gradeAvg,
-            classification: this.state.university.classification,
+            licence: this.state.university.licence,
           },
         });
       } else if (name === "university_subMajor") {
@@ -415,7 +434,7 @@ export default class extends React.Component<{}, MyInfoIState> {
             major: this.state.university.major,
             subMajor: value,
             gradeAvg: this.state.university.gradeAvg,
-            classification: this.state.university.classification,
+            licence: this.state.university.licence,
           },
         });
       } else if (name === "university_gradeAvg") {
@@ -427,10 +446,10 @@ export default class extends React.Component<{}, MyInfoIState> {
             major: this.state.university.major,
             subMajor: this.state.university.subMajor,
             gradeAvg: value,
-            classification: this.state.university.classification,
+            licence: this.state.university.licence,
           },
         });
-      } else if (name === "university_classification") {
+      } else if (name === "university_licence") {
         this.setState({
           university: {
             name: this.state.university.name,
@@ -439,7 +458,7 @@ export default class extends React.Component<{}, MyInfoIState> {
             major: this.state.university.major,
             subMajor: this.state.university.subMajor,
             gradeAvg: this.state.university.gradeAvg,
-            classification: value,
+            licence: value,
           },
         });
       }
@@ -1797,50 +1816,50 @@ export default class extends React.Component<{}, MyInfoIState> {
           ],
         });
       }
-    } else if (name.startsWith("classifications")) {
-      if (name === "classifications[0]_type") {
+    } else if (name.startsWith("licences")) {
+      if (name === "licences[0]_type") {
         this.setState({
-          classifications: [
+          licences: [
             {
               type: value,
-              name: this.state.classifications[0].name,
-              date: this.state.classifications[0].date,
-              grade: this.state.classifications[0].grade,
-              association: this.state.classifications[0].association,
+              name: this.state.licences[0].name,
+              date: this.state.licences[0].date,
+              grade: this.state.licences[0].grade,
+              association: this.state.licences[0].association,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[0]_name") {
+      } else if (name === "licences[0]_name") {
         this.setState({
-          classifications: [
+          licences: [
             {
-              type: this.state.classifications[0].type,
+              type: this.state.licences[0].type,
               name: value,
-              date: this.state.classifications[0].date,
-              grade: this.state.classifications[0].grade,
-              association: this.state.classifications[0].association,
+              date: this.state.licences[0].date,
+              grade: this.state.licences[0].grade,
+              association: this.state.licences[0].association,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[0]_date") {
+      } else if (name === "licences[0]_date") {
         await this.setState({
-          classifications: [
+          licences: [
             {
-              type: this.state.classifications[0].type,
-              name: this.state.classifications[0].name,
+              type: this.state.licences[0].type,
+              name: this.state.licences[0].name,
               date: value,
-              grade: this.state.classifications[0].grade,
-              association: this.state.classifications[0].association,
+              grade: this.state.licences[0].grade,
+              association: this.state.licences[0].association,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
         this.state.tempValue = value;
@@ -1849,18 +1868,18 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) !== "."
         ) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
 
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -1868,18 +1887,18 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) === "."
         ) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 4),
 
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -1887,17 +1906,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) !== "."
         ) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -1905,109 +1924,109 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) === "."
         ) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 7),
 
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (this.state.tempValue.length === 11) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 10),
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         }
-      } else if (name === "classifications[0]_grade") {
+      } else if (name === "licences[0]_grade") {
         this.setState({
-          classifications: [
+          licences: [
             {
-              type: this.state.classifications[0].type,
-              name: this.state.classifications[0].name,
-              date: this.state.classifications[0].date,
+              type: this.state.licences[0].type,
+              name: this.state.licences[0].name,
+              date: this.state.licences[0].date,
               grade: value,
-              association: this.state.classifications[0].association,
+              association: this.state.licences[0].association,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[0]_association") {
+      } else if (name === "licences[0]_association") {
         this.setState({
-          classifications: [
+          licences: [
             {
-              type: this.state.classifications[0].type,
-              name: this.state.classifications[0].name,
-              date: this.state.classifications[0].date,
-              grade: this.state.classifications[0].grade,
+              type: this.state.licences[0].type,
+              name: this.state.licences[0].name,
+              date: this.state.licences[0].date,
+              grade: this.state.licences[0].grade,
               association: value,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[1]_type") {
+      } else if (name === "licences[1]_type") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
               type: value,
-              name: this.state.classifications[1].name,
-              date: this.state.classifications[1].date,
-              grade: this.state.classifications[1].grade,
-              association: this.state.classifications[1].association,
+              name: this.state.licences[1].name,
+              date: this.state.licences[1].date,
+              grade: this.state.licences[1].grade,
+              association: this.state.licences[1].association,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[1]_name") {
+      } else if (name === "licences[1]_name") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
-              type: this.state.classifications[1].type,
+              type: this.state.licences[1].type,
               name: value,
-              date: this.state.classifications[1].date,
-              grade: this.state.classifications[1].grade,
-              association: this.state.classifications[1].association,
+              date: this.state.licences[1].date,
+              grade: this.state.licences[1].grade,
+              association: this.state.licences[1].association,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[1]_date") {
+      } else if (name === "licences[1]_date") {
         await this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
-              type: this.state.classifications[1].type,
-              name: this.state.classifications[1].name,
+              type: this.state.licences[1].type,
+              name: this.state.licences[1].name,
               date: value,
-              grade: this.state.classifications[1].grade,
-              association: this.state.classifications[1].association,
+              grade: this.state.licences[1].grade,
+              association: this.state.licences[1].association,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
         this.state.tempValue = value;
@@ -2016,17 +2035,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2034,17 +2053,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 4),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2052,17 +2071,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2070,108 +2089,108 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 7),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (this.state.tempValue.length === 11) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 10),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         }
-      } else if (name === "classifications[1]_grade") {
+      } else if (name === "licences[1]_grade") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
-              type: this.state.classifications[1].type,
-              name: this.state.classifications[1].name,
-              date: this.state.classifications[1].date,
+              type: this.state.licences[1].type,
+              name: this.state.licences[1].name,
+              date: this.state.licences[1].date,
               grade: value,
-              association: this.state.classifications[1].association,
+              association: this.state.licences[1].association,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[1]_association") {
+      } else if (name === "licences[1]_association") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
-              type: this.state.classifications[1].type,
-              name: this.state.classifications[1].name,
-              date: this.state.classifications[1].date,
-              grade: this.state.classifications[1].grade,
+              type: this.state.licences[1].type,
+              name: this.state.licences[1].name,
+              date: this.state.licences[1].date,
+              grade: this.state.licences[1].grade,
               association: value,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[2]_type") {
+      } else if (name === "licences[2]_type") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
               type: value,
-              name: this.state.classifications[2].name,
-              date: this.state.classifications[2].date,
-              grade: this.state.classifications[2].grade,
-              association: this.state.classifications[2].association,
+              name: this.state.licences[2].name,
+              date: this.state.licences[2].date,
+              grade: this.state.licences[2].grade,
+              association: this.state.licences[2].association,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[2]_name") {
+      } else if (name === "licences[2]_name") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
-              type: this.state.classifications[2].type,
+              type: this.state.licences[2].type,
               name: value,
-              date: this.state.classifications[2].date,
-              grade: this.state.classifications[2].grade,
-              association: this.state.classifications[2].association,
+              date: this.state.licences[2].date,
+              grade: this.state.licences[2].grade,
+              association: this.state.licences[2].association,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[2]_date") {
+      } else if (name === "licences[2]_date") {
         await this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
-              type: this.state.classifications[2].type,
-              name: this.state.classifications[2].name,
+              type: this.state.licences[2].type,
+              name: this.state.licences[2].name,
               date: value,
-              grade: this.state.classifications[2].grade,
-              association: this.state.classifications[2].association,
+              grade: this.state.licences[2].grade,
+              association: this.state.licences[2].association,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
         this.state.tempValue = value;
@@ -2180,17 +2199,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2198,17 +2217,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 4),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2216,17 +2235,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2234,107 +2253,107 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 7),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         } else if (this.state.tempValue.length === 11) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 10),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         }
-      } else if (name === "classifications[2]_grade") {
+      } else if (name === "licences[2]_grade") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
-              type: this.state.classifications[2].type,
-              name: this.state.classifications[2].name,
-              date: this.state.classifications[2].date,
+              type: this.state.licences[2].type,
+              name: this.state.licences[2].name,
+              date: this.state.licences[2].date,
               grade: value,
-              association: this.state.classifications[2].association,
+              association: this.state.licences[2].association,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[2]_association") {
+      } else if (name === "licences[2]_association") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
-              type: this.state.classifications[2].type,
-              name: this.state.classifications[2].name,
-              date: this.state.classifications[2].date,
-              grade: this.state.classifications[2].grade,
+              type: this.state.licences[2].type,
+              name: this.state.licences[2].name,
+              date: this.state.licences[2].date,
+              grade: this.state.licences[2].grade,
               association: value,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[3]_type") {
+      } else if (name === "licences[3]_type") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
               type: value,
-              name: this.state.classifications[3].name,
-              date: this.state.classifications[3].date,
-              grade: this.state.classifications[3].grade,
-              association: this.state.classifications[3].association,
+              name: this.state.licences[3].name,
+              date: this.state.licences[3].date,
+              grade: this.state.licences[3].grade,
+              association: this.state.licences[3].association,
             },
           ],
         });
-      } else if (name === "classifications[3]_name") {
+      } else if (name === "licences[3]_name") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
-              type: this.state.classifications[3].type,
+              type: this.state.licences[3].type,
               name: value,
-              date: this.state.classifications[3].date,
-              grade: this.state.classifications[3].grade,
-              association: this.state.classifications[3].association,
+              date: this.state.licences[3].date,
+              grade: this.state.licences[3].grade,
+              association: this.state.licences[3].association,
             },
           ],
         });
-      } else if (name === "classifications[3]_date") {
+      } else if (name === "licences[3]_date") {
         await this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
-              type: this.state.classifications[3].type,
-              name: this.state.classifications[3].name,
+              type: this.state.licences[3].type,
+              name: this.state.licences[3].name,
               date: value,
-              grade: this.state.classifications[3].grade,
-              association: this.state.classifications[3].association,
+              grade: this.state.licences[3].grade,
+              association: this.state.licences[3].association,
             },
           ],
         });
@@ -2344,16 +2363,16 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
@@ -2362,16 +2381,16 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 4),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
@@ -2380,16 +2399,16 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
@@ -2398,61 +2417,61 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 7),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
         } else if (this.state.tempValue.length === 11) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 10),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
         }
-      } else if (name === "classifications[3]_grade") {
+      } else if (name === "licences[3]_grade") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
-              type: this.state.classifications[3].type,
-              name: this.state.classifications[3].name,
-              date: this.state.classifications[3].date,
+              type: this.state.licences[3].type,
+              name: this.state.licences[3].name,
+              date: this.state.licences[3].date,
               grade: value,
-              association: this.state.classifications[3].association,
+              association: this.state.licences[3].association,
             },
           ],
         });
-      } else if (name === "classifications[3]_association") {
+      } else if (name === "licences[3]_association") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
-              type: this.state.classifications[3].type,
-              name: this.state.classifications[3].name,
-              date: this.state.classifications[3].date,
-              grade: this.state.classifications[3].grade,
+              type: this.state.licences[3].type,
+              name: this.state.licences[3].name,
+              date: this.state.licences[3].date,
+              grade: this.state.licences[3].grade,
               association: value,
             },
           ],
@@ -2481,13 +2500,13 @@ export default class extends React.Component<{}, MyInfoIState> {
     }
   };
   handleClassMinus = (event: React.FormEvent) => {
-    if (this.state.classificationLen > 0) {
-      this.setState({ classificationLen: this.state.classificationLen - 1 });
+    if (this.state.licenceLen > 0) {
+      this.setState({ licenceLen: this.state.licenceLen - 1 });
     }
   };
   handleClassAdd = (event: React.FormEvent) => {
-    if (this.state.classificationLen < 4) {
-      this.setState({ classificationLen: this.state.classificationLen + 1 });
+    if (this.state.licenceLen < 4) {
+      this.setState({ licenceLen: this.state.licenceLen + 1 });
     }
   };
   useStyles = makeStyles((theme: Theme) =>
@@ -2543,8 +2562,8 @@ export default class extends React.Component<{}, MyInfoIState> {
       careerLen,
       awards,
       awardLen,
-      classifications,
-      classificationLen,
+      licences,
+      licenceLen,
     } = this.state;
     return (
       <MyInfoPresenter
@@ -2568,8 +2587,8 @@ export default class extends React.Component<{}, MyInfoIState> {
         careerLen={careerLen}
         awards={awards}
         awardLen={awardLen}
-        classifications={classifications}
-        classificationLen={classificationLen}
+        licences={licences}
+        licenceLen={licenceLen}
       />
     );
   }
