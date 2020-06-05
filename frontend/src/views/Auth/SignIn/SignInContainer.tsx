@@ -57,16 +57,17 @@ export default class extends React.Component<{}, SignInIState> {
     createStyles({
       loginbar: {
         "& > *": {
-          margin: theme.spacing(1),
+          margin: theme.spacing(2),
           marginTop: "2vh",
-          width: "22vw",
+          width: "15vw",
+          fontsize: "10",
         },
       },
       button: {
         "& > *": {
           margin: theme.spacing(1),
-          marginTop: "2vh",
-          width: "7vw",
+          marginTop: "3vh",
+          width: "5vw",
         },
       },
     })
