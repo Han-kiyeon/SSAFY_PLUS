@@ -6,6 +6,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import TextField from "@material-ui/core/TextField";
 import BoxDiv from "./LinkTo";
+import Upload from "components/Upload";
 
 interface PortfolioPresenterI {
   useStyles: any;
@@ -155,6 +156,7 @@ export default function DisplayPresenter({
           ))}
         </Card>
       </Container>
+      <Upload></Upload>
     </>
   );
 }
