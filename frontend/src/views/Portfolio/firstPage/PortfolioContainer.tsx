@@ -1,11 +1,7 @@
 import React from "react";
 import PortfolioPresenter from "./PortfolioPresenter";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-<<<<<<< HEAD
 import axios from "axios";
-=======
-import Axios from "axios";
->>>>>>> 8a184b6db05e2513d2971c107552fc4a26ceaf47
 
 interface PortfolioDTO {
   name: string;
@@ -177,9 +173,8 @@ export default class extends React.Component<{}, PortfolioIState> {
       window.location.href = "../../main";
     }
     var RecordResponse: any;
-    var portfolio = axios.get(
-      `http://13.125.238.102:8080/api/portfolio/${link[link.length - 1]}`
-    )
+    var portfolio = axios
+      .get(`http://13.125.238.102:8080/api/portfolio/${portfolio_id}`)
       .then(response => {
         RecordResponse = response.data;
         window.sessionStorage.setItem("portfolio_name", response.data.name);
@@ -490,7 +485,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         JSON.stringify(feature_list)
       );
       var link = window.location.href.split("/");
-      var portfolio_id = parseInt(link[link.length - 1]);
+      var portfolio_id = link[6].split("#")[0];
       window.location.href = `../2/${portfolio_id}`;
     }
   };

@@ -156,7 +156,7 @@ export default function DisplayPresenter({
           ))}
         </Card>
       </Container>
-      <Upload></Upload>
+      <Upload />
     </>
   );
 }

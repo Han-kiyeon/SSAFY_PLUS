@@ -8,6 +8,7 @@ import Select from "@material-ui/core/Select";
 import Fab from "@material-ui/core/Fab";
 import Add from "@material-ui/icons/Add";
 import Minus from "@material-ui/icons/Remove";
+import SubmitButton from "@material-ui/core/Button";
 
 interface MyInfoIState {
   useStyles: any;
@@ -18,6 +19,7 @@ interface MyInfoIState {
   handleClassMinus: (event: React.FormEvent) => void;
   handleClassAdd: (event: React.FormEvent) => void;
   handleSubmit: (event: React.FormEvent) => void;
+  submitAxios: (event: React.FormEvent) => void;
   updateTerm: any;
   name: string;
   birth: string;
@@ -34,13 +36,14 @@ interface MyInfoIState {
   licenceLen: number;
 }
 interface universityDTO {
+  id: number;
   name: string;
   location: string;
   duration: string;
   major: string;
-  subMajor: string;
-  gradeAvg: string;
-  licence: string;
+  minor: string;
+  grade: string;
+  classification: string;
 }
 interface highschoolDTO {
   name: string;
@@ -48,17 +51,15 @@ interface highschoolDTO {
   duration: string;
 }
 interface careersDTO {
-  id: number;
   name: string;
   position: string;
   duration: string;
   description: string;
 }
 interface awardDTO {
-  id: number;
   name: string;
   date: string;
-  organization: string;
+  association: string;
 }
 interface licenceDTO {
   type: string;
@@ -124,6 +125,7 @@ function MyInfoPresenter({
   handleAwardMinus,
   handleClassAdd,
   handleClassMinus,
+  submitAxios,
   name,
   birth,
   email,
@@ -290,8 +292,8 @@ function MyInfoPresenter({
           <TextField
             label="부 전공"
             onChange={updateTerm}
-            name="university_subMajor"
-            value={university.subMajor}
+            name="university_minor"
+            value={university.minor}
             variant="outlined"
           ></TextField>
         </Form>
@@ -305,8 +307,8 @@ function MyInfoPresenter({
           <TextField
             label="평균 학점"
             onChange={updateTerm}
-            name="university_gradeAvg"
-            value={university.gradeAvg}
+            name="university_grade"
+            value={university.grade}
             variant="outlined"
           ></TextField>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -316,7 +318,7 @@ function MyInfoPresenter({
             </InputLabel>
             <Select
               labelId="demo-simple-select-outlined-label"
-              value={university.licence}
+              value={university.classification}
               onChange={updateTerm}
               label="university_licence"
               name="university_licence"
@@ -655,8 +657,8 @@ function MyInfoPresenter({
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="awards[0]_organization"
-              value={awards[0].organization}
+              name="awards[0]_association"
+              value={awards[0].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
@@ -690,8 +692,8 @@ function MyInfoPresenter({
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="awards[1]_organization"
-              value={awards[1].organization}
+              name="awards[1]_association"
+              value={awards[1].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
@@ -725,8 +727,8 @@ function MyInfoPresenter({
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="awards[2]_organization"
-              value={awards[2].organization}
+              name="awards[2]_association"
+              value={awards[2].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
@@ -760,8 +762,8 @@ function MyInfoPresenter({
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="awards[3]_organization"
-              value={awards[3].organization}
+              name="awards[3]_association"
+              value={awards[3].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
@@ -1002,6 +1004,10 @@ function MyInfoPresenter({
           </BlockForm>
         </>
       )}
+      <br />
+      <SubmitButton onClick={submitAxios} variant="contained" color="primary">
+        저장하기
+      </SubmitButton>
     </Container>
   );
 }

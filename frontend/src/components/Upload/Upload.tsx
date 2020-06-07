@@ -1,60 +1,53 @@
-import React, { Component } from "react";
+import React from "react";
+import ImageUploader from "react-images-upload";
 import axios from "axios";
 
-interface UploadIState {
-  image: File | null | undefined;
+interface UploadIForm {
+  picture: any;
 }
-
-class App extends React.Component<{}, UploadIState> {
+export default class Upload extends React.Component<{}, UploadIForm> {
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      image: null,
-    };
+    this.state = { picture: "" };
+    this.onDrop = this.onDrop.bind(this);
   }
+  // handleFileInput(e) {
+  //   this.setState({
+  //     selectedFile: e.target.files[0],
+  //   });
+  // }
 
-  onImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  async onDrop(pictureFiles: any) {
     await this.setState({
-      image: event.target.files?.item(0),
+      picture: pictureFiles[0],
     });
-  };
-
-  onSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
+    var newBlob = new Blob(pictureFiles, {
+      type: "application/json",
+    });
+    console.log(newBlob);
     var formData = new FormData();
-    if (this.state.image !== undefined && this.state.image !== null) {
-      formData.append("file", this.state.image);
-    }
-    console.log(formData);
-    axios
-      .post("http://13.125.238.102:8080/api/uploadFile", FormData, {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      })
-      .then(res => {
-        console.log(res);
-      });
-  };
+    formData.set("file", newBlob);
+    console.log("form", formData);
+
+    // axios
+    //   .post("http://localhost:8080/api/uploadFile", formData)
+    //   .then(res => {
+    //     console .log(res.data, formData);
+    //   })
+    //   .catch(err => {
+    //     console.log(err.data, formData);
+    //   });
+  }
 
   render() {
     return (
-      <div className="App">
-        <form onSubmit={this.onSubmit}>
-          <input
-            type="file"
-            name="files"
-            onChange={this.onImageChange}
-            alt="image"
-          />
-          <br />
-          <button type="submit">Send</button>
-        </form>
-      </div>
+      <ImageUploader
+        withIcon={true}
+        buttonText="Choose images"
+        onChange={this.onDrop}
+        imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+        maxFileSize={5242880}
+      />
     );
   }
 }
-
-export default App;

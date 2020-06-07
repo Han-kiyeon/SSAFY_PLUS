@@ -231,7 +231,7 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   handleBeforeButton = async (event: React.FormEvent) => {
     var link = window.location.href.split("/");
-    var portfolio_id = parseInt(link[link.length - 1]);
+    var portfolio_id = link[6].split("#")[0];
     window.location.href = `../1/${portfolio_id}`;
   };
   handleNextButton = async (event: React.FormEvent) => {
@@ -273,7 +273,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         JSON.stringify(skills)
       );
       var link = window.location.href.split("/");
-      var portfolio_id = parseInt(link[link.length - 1]);
+      var portfolio_id = link[6].split("#")[0];
       window.location.href = `../3/${portfolio_id}`;
     }
   };
