@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       "& > *": {
         margin: theme.spacing(1),
         height: "5vh",
+        fontSize: 16,
       },
     },
     modal: {
@@ -51,6 +52,10 @@ const useStyles = makeStyles((theme: Theme) =>
       border: "2px solid #000",
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+    },
+    title: {
+      display: "block",
+      margin: "10px",
     },
   })
 );
@@ -120,7 +125,7 @@ export default class extends React.Component<{}, CreateContainerI> {
         title: this.state.new_title,
         user_email: window.sessionStorage.getItem("user_email"),
       });
-      this.setState({ new_title: "" });
+      window.location.reload();
     }
   };
 

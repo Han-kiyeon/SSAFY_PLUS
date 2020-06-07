@@ -8,6 +8,7 @@ import Select from "@material-ui/core/Select";
 import Fab from "@material-ui/core/Fab";
 import Add from "@material-ui/icons/Add";
 import Minus from "@material-ui/icons/Remove";
+import SubmitButton from "@material-ui/core/Button";
 
 interface MyInfoIState {
   useStyles: any;
@@ -17,50 +18,55 @@ interface MyInfoIState {
   handleAwardAdd: (event: React.FormEvent) => void;
   handleClassMinus: (event: React.FormEvent) => void;
   handleClassAdd: (event: React.FormEvent) => void;
+  handleSubmit: (event: React.FormEvent) => void;
+  submitAxios: (event: React.FormEvent) => void;
+  updateTerm: any;
   name: string;
   birth: string;
   email: string;
   gender: string;
   phone: string;
-  university: {
-    name: string;
-    location: string;
-    duration: string;
-    major: string;
-    subMajor: string;
-    gradeAvg: string;
-    classification: string;
-  };
-  highschool: {
-    name: string;
-    location: string;
-    duration: string;
-  };
-  careers: Array<{
-    id: number;
-    name: string;
-    position: string;
-    duration: string;
-    description: string;
-  }>;
+  university: universityDTO;
+  highschool: highschoolDTO;
+  careers: Array<careersDTO>;
   careerLen: number;
-  awards: Array<{
-    id: number;
-    name: string;
-    date: string;
-    organization: string;
-  }>;
+  awards: Array<awardDTO>;
   awardLen: number;
-  classifications: Array<{
-    type: string;
-    name: string;
-    date: string;
-    grade: string;
-    association: string;
-  }>;
-  classificationLen: number;
-  handleSubmit: (event: React.FormEvent) => void;
-  updateTerm: any;
+  licences: Array<licenceDTO>;
+  licenceLen: number;
+}
+interface universityDTO {
+  id: number;
+  name: string;
+  location: string;
+  duration: string;
+  major: string;
+  minor: string;
+  grade: string;
+  classification: string;
+}
+interface highschoolDTO {
+  name: string;
+  location: string;
+  duration: string;
+}
+interface careersDTO {
+  name: string;
+  position: string;
+  duration: string;
+  description: string;
+}
+interface awardDTO {
+  name: string;
+  date: string;
+  association: string;
+}
+interface licenceDTO {
+  type: string;
+  name: string;
+  date: string;
+  grade: string;
+  association: string;
 }
 const Container = styled.div`
   border-top: 2px solid rgba(13, 13, 13, 0.3);
@@ -119,6 +125,7 @@ function MyInfoPresenter({
   handleAwardMinus,
   handleClassAdd,
   handleClassMinus,
+  submitAxios,
   name,
   birth,
   email,
@@ -130,8 +137,8 @@ function MyInfoPresenter({
   careerLen,
   awards,
   awardLen,
-  classifications,
-  classificationLen,
+  licences,
+  licenceLen,
 }: MyInfoIState) {
   const classes = useStyles();
 
@@ -285,8 +292,8 @@ function MyInfoPresenter({
           <TextField
             label="부 전공"
             onChange={updateTerm}
-            name="university_subMajor"
-            value={university.subMajor}
+            name="university_minor"
+            value={university.minor}
             variant="outlined"
           ></TextField>
         </Form>
@@ -300,8 +307,8 @@ function MyInfoPresenter({
           <TextField
             label="평균 학점"
             onChange={updateTerm}
-            name="university_gradeAvg"
-            value={university.gradeAvg}
+            name="university_grade"
+            value={university.grade}
             variant="outlined"
           ></TextField>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -313,8 +320,8 @@ function MyInfoPresenter({
               labelId="demo-simple-select-outlined-label"
               value={university.classification}
               onChange={updateTerm}
-              label="university_classification"
-              name="university_classification"
+              label="university_licence"
+              name="university_licence"
             >
               <MenuItem value={"Graduation"}>졸업</MenuItem>
               <MenuItem value={"GraduationSoon"}>졸업 예정</MenuItem>
@@ -419,7 +426,7 @@ function MyInfoPresenter({
               ></TextField>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
               <TextField
-                label="재학 기간"
+                label="근무 기간"
                 onChange={updateTerm}
                 name="careers[0]_duration"
                 value={careers[0].duration}
@@ -650,8 +657,8 @@ function MyInfoPresenter({
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="awards[0]_organization"
-              value={awards[0].organization}
+              name="awards[0]_association"
+              value={awards[0].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
@@ -685,8 +692,8 @@ function MyInfoPresenter({
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="awards[1]_organization"
-              value={awards[1].organization}
+              name="awards[1]_association"
+              value={awards[1].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
@@ -720,8 +727,8 @@ function MyInfoPresenter({
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="awards[2]_organization"
-              value={awards[2].organization}
+              name="awards[2]_association"
+              value={awards[2].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
@@ -755,8 +762,8 @@ function MyInfoPresenter({
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="awards[3]_organization"
-              value={awards[3].organization}
+              name="awards[3]_association"
+              value={awards[3].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
@@ -764,7 +771,7 @@ function MyInfoPresenter({
       )}
       <Box>
         <AddTitle>자격 사항</AddTitle>
-        {classificationLen !== 4 && (
+        {licenceLen !== 4 && (
           <Button className={classes.AMButton} onClick={handleClassAdd}>
             <Fab color="primary" aria-label="next" size="small">
               <Add fontSize="small" />
@@ -772,7 +779,7 @@ function MyInfoPresenter({
           </Button>
         )}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        {classificationLen > 0 && (
+        {licenceLen > 0 && (
           <Button className={classes.AMButton} onClick={handleClassMinus}>
             <Fab color="primary" aria-label="next" size="small">
               <Minus fontSize="small" />
@@ -781,7 +788,7 @@ function MyInfoPresenter({
         )}
         <br />
       </Box>
-      {classificationLen > 0 && (
+      {licenceLen > 0 && (
         <>
           <SubTitle>어학 / 자격증 1</SubTitle>
           <BlockForm
@@ -794,8 +801,8 @@ function MyInfoPresenter({
               label="종류"
               helperText="ex) 어학(영어), 자격증"
               onChange={updateTerm}
-              name="classifications[0]_type"
-              value={classifications[0].type}
+              name="licences[0]_type"
+              value={licences[0].type}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -803,16 +810,16 @@ function MyInfoPresenter({
               label="자격 이름"
               helperText="ex) OPIC, 정보처리기사"
               onChange={updateTerm}
-              name="classifications[0]_name"
-              value={classifications[0].name}
+              name="licences[0]_name"
+              value={licences[0].name}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               label="취득 날짜"
               onChange={updateTerm}
-              name="classifications[0]_date"
-              value={classifications[0].date}
+              name="licences[0]_date"
+              value={licences[0].date}
               variant="outlined"
             ></TextField>
             <br />
@@ -820,22 +827,22 @@ function MyInfoPresenter({
               label="성적"
               onChange={updateTerm}
               helperText="ex) 기사, IM, Level 7"
-              name="classifications[0]_grade"
-              value={classifications[0].grade}
+              name="licences[0]_grade"
+              value={licences[0].grade}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="classifications[0]_association"
-              value={classifications[0].association}
+              name="licences[0]_association"
+              value={licences[0].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
         </>
       )}
-      {classificationLen > 1 && (
+      {licenceLen > 1 && (
         <>
           <SubTitle>어학 / 자격증 2</SubTitle>
           <BlockForm
@@ -848,8 +855,8 @@ function MyInfoPresenter({
               label="종류"
               helperText="ex) 어학(영어), 자격증"
               onChange={updateTerm}
-              name="classifications[1]_type"
-              value={classifications[1].type}
+              name="licences[1]_type"
+              value={licences[1].type}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -857,16 +864,16 @@ function MyInfoPresenter({
               label="자격 이름"
               helperText="ex) OPIC, 정보처리기사"
               onChange={updateTerm}
-              name="classifications[1]_name"
-              value={classifications[1].name}
+              name="licences[1]_name"
+              value={licences[1].name}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               label="취득 날짜"
               onChange={updateTerm}
-              name="classifications[1]_date"
-              value={classifications[1].date}
+              name="licences[1]_date"
+              value={licences[1].date}
               variant="outlined"
             ></TextField>
             <br />
@@ -874,22 +881,22 @@ function MyInfoPresenter({
               label="성적"
               onChange={updateTerm}
               helperText="ex) 기사, IM, Level 7"
-              name="classifications[1]_grade"
-              value={classifications[1].grade}
+              name="licences[1]_grade"
+              value={licences[1].grade}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="classifications[1]_association"
-              value={classifications[1].association}
+              name="licences[1]_association"
+              value={licences[1].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
         </>
       )}
-      {classificationLen > 2 && (
+      {licenceLen > 2 && (
         <>
           <SubTitle>어학 / 자격증 3</SubTitle>
           <BlockForm
@@ -902,8 +909,8 @@ function MyInfoPresenter({
               label="종류"
               helperText="ex) 어학(영어), 자격증"
               onChange={updateTerm}
-              name="classifications[2]_type"
-              value={classifications[2].type}
+              name="licences[2]_type"
+              value={licences[2].type}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -911,16 +918,16 @@ function MyInfoPresenter({
               label="자격 이름"
               helperText="ex) OPIC, 정보처리기사"
               onChange={updateTerm}
-              name="classifications[2]_name"
-              value={classifications[2].name}
+              name="licences[2]_name"
+              value={licences[2].name}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               label="취득 날짜"
               onChange={updateTerm}
-              name="classifications[2]_date"
-              value={classifications[2].date}
+              name="licences[2]_date"
+              value={licences[2].date}
               variant="outlined"
             ></TextField>
             <br />
@@ -928,22 +935,22 @@ function MyInfoPresenter({
               label="성적"
               onChange={updateTerm}
               helperText="ex) 기사, IM, Level 7"
-              name="classifications[2]_grade"
-              value={classifications[2].grade}
+              name="licences[2]_grade"
+              value={licences[2].grade}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="classifications[2]_association"
-              value={classifications[2].association}
+              name="licences[2]_association"
+              value={licences[2].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
         </>
       )}
-      {classificationLen > 3 && (
+      {licenceLen > 3 && (
         <>
           <SubTitle>어학 / 자격증 4</SubTitle>
           <BlockForm
@@ -956,8 +963,8 @@ function MyInfoPresenter({
               label="종류"
               helperText="ex) 어학(영어), 자격증"
               onChange={updateTerm}
-              name="classifications[3]_type"
-              value={classifications[3].type}
+              name="licences[3]_type"
+              value={licences[3].type}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -965,16 +972,16 @@ function MyInfoPresenter({
               label="자격 이름"
               helperText="ex) OPIC, 정보처리기사"
               onChange={updateTerm}
-              name="classifications[3]_name"
-              value={classifications[3].name}
+              name="licences[3]_name"
+              value={licences[3].name}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               label="취득 날짜"
               onChange={updateTerm}
-              name="classifications[3]_date"
-              value={classifications[3].date}
+              name="licences[3]_date"
+              value={licences[3].date}
               variant="outlined"
             ></TextField>
             <br />
@@ -982,21 +989,25 @@ function MyInfoPresenter({
               label="성적"
               onChange={updateTerm}
               helperText="ex) 기사, IM, Level 7"
-              name="classifications[3]_grade"
-              value={classifications[3].grade}
+              name="licences[3]_grade"
+              value={licences[3].grade}
               variant="outlined"
             ></TextField>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               label="지급 기관"
               onChange={updateTerm}
-              name="classifications[3]_association"
-              value={classifications[3].association}
+              name="licences[3]_association"
+              value={licences[3].association}
               variant="outlined"
             ></TextField>
           </BlockForm>
         </>
       )}
+      <br />
+      <SubmitButton onClick={submitAxios} variant="contained" color="primary">
+        저장하기
+      </SubmitButton>
     </Container>
   );
 }

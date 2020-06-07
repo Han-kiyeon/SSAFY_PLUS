@@ -37,61 +37,41 @@ export default function SearchBox() {
   }
 
   function appClick() {
+    if(value)
     getSearchList(value);
     return false;
   }
 
   async function getSearchList(value) {
-    if (value === "안") {
-      setSearchLists([
-        {
-          id: 0,
-          bname: "a",
-        },
-        {
-          id: 1,
-          bname: "b",
-        },
-        {
-          id: 2,
-          bname: "c",
-        },
-      ])
+    if (value.length > 0) {
+      if (value[0] != " ") {
+        const searchLists = await axios.get(`http://13.125.238.102:8080/api/breakingError/errors/searchTitle?keyword=${value}`);
+        setSearchLists(searchLists);
+      }else{
+        setSearchLists(null);
+      }
+    } else {
+      setSearchLists(null);
     }
-    if (value === "안녕") {
-      setSearchLists([
-        {
-          id: 0,
-          bname: "d",
-        },
-        {
-          id: 1,
-          bname: "e",
-        },
-        {
-          id: 2,
-          bname: "f",
-        },
-      ])
-    }
-    // const searchLists = await axios.get(`${value}`);
   }
 
   function RSearchList(searchLists) {
     if (searchLists != null) {
-      return (<GridItem xs={12} sm={6} md={12}>
-        <Card id="search">
-          {searchLists === null ? console.log(searchLists) : searchLists.map(searchList => {
-            return <SearchList id={searchList.id} bname={searchList.bname} key={searchList.id} />
-          })}
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <DateRange />
+      if (searchLists.data.length > 0) {
+        return (<GridItem xs={12} sm={6} md={12}>
+          <Card id="search">
+            {searchLists === null ? console.log(searchLists) : searchLists.data.map((searchList, index) => {
+              return <SearchList answerCnt={searchList.answerCnt} content={searchList.content} errorId={searchList.errorId} likeCnt={searchList.likeCnt} title={searchList.title} userEmail={searchList.userEmail} key={index} />
+            })}
+            <CardFooter stats>
+              <div className={classes.stats}>
+                <DateRange />
                   Last 24 Hours
                 </div>
-          </CardFooter>
-        </Card>
-      </GridItem>);
+            </CardFooter>
+          </Card>
+        </GridItem>);
+      }
     }
   }
 

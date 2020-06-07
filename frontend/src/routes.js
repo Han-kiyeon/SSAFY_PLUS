@@ -62,7 +62,7 @@ const dashboardRoutes = [
   },
   {
     path: "/episode",
-    name: "Job Support",
+    name: "취업 지원",
     icon: WorkIcon,
     component: Support,
     layout: "/plus",

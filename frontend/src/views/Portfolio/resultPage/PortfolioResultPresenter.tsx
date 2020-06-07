@@ -11,20 +11,23 @@ interface PortfolioDTO {
   projects: Array<ProjectDTO>;
   skills: Array<SkillDTO>;
   project_len: number;
+  profile_image_url: string;
 }
 interface SkillDTO {
-  description: "string";
-  name: "string";
+  description: string;
+  name: string;
   percentage: number;
 }
 interface ProjectDTO {
-  description: "string";
-  name: "string";
-  period: "string";
+  description: string;
+  name: string;
+  period: string;
   roles: Array<string>;
-  myStack: Array<String>;
-  stacks: "string";
-  url: "string";
+  my_stacks: Array<String>;
+  stacks: string;
+  url: string;
+  big_image_url: string;
+  small_image_url: string;
 }
 
 function PortfolioResultPresenter({
@@ -33,13 +36,14 @@ function PortfolioResultPresenter({
   email,
   phone,
   characters,
+  profile_image_url,
   skills,
   project_len,
   projects,
 }: PortfolioDTO) {
   return (
     <>
-      {false && name !== "" && projects !== [] && skills !== [] && (
+      {name !== "" && projects !== [] && skills !== [] && (
         <PDFDownloadLink
           document={
             <Portfolio
@@ -51,6 +55,7 @@ function PortfolioResultPresenter({
               skills={skills}
               project_len={project_len}
               projects={projects}
+              profile_image_url={profile_image_url}
             />
           }
           fileName={`${window.sessionStorage.getItem("portfolio_title")}.pdf`}

@@ -23,17 +23,17 @@ export default function Footer(props) {
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#company" className={classes.block}>
+              <a href="https://edu.ssafy.com/comm/login/SecurityLoginForm.do" className={classes.block}>
                 EDU SSAFY
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#portfolio" className={classes.block}>
+              <a href="https://job.ssafy.com/comm/login/SecurityLoginForm.do" className={classes.block}>
                 JOB SSAFY
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#blog" className={classes.block}>
+              <a href="https://meeting.ssafy.com/" className={classes.block}>
                 MEETING SSAFY
               </a>
             </ListItem>

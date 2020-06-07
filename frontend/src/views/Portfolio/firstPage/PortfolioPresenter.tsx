@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
@@ -10,6 +9,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Fab from "@material-ui/core/Fab";
 import ChevronRight from "@material-ui/icons/ChevronRight";
+import Upload from "components/Upload/profileImg/";
 
 interface PortfolioIState {
   name: string;
@@ -20,6 +20,7 @@ interface PortfolioIState {
   month: number;
   days: number[];
   day: number;
+  email: string;
   phone: string;
   customer: boolean; // 고객지향
   national: boolean; // 국제적인
@@ -54,6 +55,7 @@ interface PortfolioIState {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleNextButton: (event: React.FormEvent) => void;
   error: boolean;
+  profile_image_url: string;
 }
 
 const Card = styled.div`
@@ -125,6 +127,8 @@ function PortfolioPresenter({
   days,
   day,
   phone,
+  email,
+  profile_image_url,
   handleSubmit,
   updateTerm,
   handleChange,
@@ -182,6 +186,7 @@ function PortfolioPresenter({
             helperText="ex) 김싸피"
             onChange={updateTerm}
             name="name"
+            value={name}
           ></TextField>
         </form>
         <Name>{name}</Name>
@@ -237,6 +242,10 @@ function PortfolioPresenter({
         <Name>{name}</Name>
         <Todo>님의 이메일을 입력해주세요</Todo>
         <br />
+        <Name>{name}</Name>
+        <Todo>님의 증명사진을 등록해주세요</Todo>
+        <Upload />
+        <br />
         <Description>
           포트폴리오에 입력되는 이메일입니다. &nbsp; 스팸메일을 보내지 않으니
           걱정하지 마세요😅
@@ -252,6 +261,7 @@ function PortfolioPresenter({
             helperText="ex) ssafy@gmail.com"
             onChange={updateTerm}
             name="email"
+            value={email}
           ></TextField>
         </form>
         <Name>{name}</Name>

@@ -58,7 +58,14 @@ const EpisodeBoxSubTitle = styled.div`
   opacity: 0.7;
 `;
 
-function Card({ id, date, title, strength, content, useStyles }: ICard) {
+export default function Card({
+  id,
+  date,
+  title,
+  strength,
+  content,
+  useStyles,
+}: ICard) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -163,5 +170,3 @@ Card.propTypes = {
   strength: PropTypes.array,
   content: PropTypes.string,
 };
-
-export default Card;
