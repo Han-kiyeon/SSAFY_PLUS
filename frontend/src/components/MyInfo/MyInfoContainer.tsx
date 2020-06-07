@@ -278,17 +278,13 @@ export default class extends React.Component<{}, MyInfoIState> {
           }
         )
         .then(res => {
-          console.log("Success", res);
           this.setState({
             postInfo: false,
           });
         })
-        .catch(e => {
-          console.log("fail", e);
-        });
+        .catch(e => {});
     } else {
       await this.asyncValue();
-      console.log(this.state.licences, this.state.awards, this.state.careers);
       axios
         .put(
           `http://13.125.238.102:8080/api/userInfo/${window.sessionStorage.getItem(

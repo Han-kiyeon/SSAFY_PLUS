@@ -426,7 +426,7 @@ function MyInfoPresenter({
               ></TextField>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
               <TextField
-                label="재학 기간"
+                label="근무 기간"
                 onChange={updateTerm}
                 name="careers[0]_duration"
                 value={careers[0].duration}
