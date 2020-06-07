@@ -624,11 +624,10 @@ export default class extends React.Component<{}, PortfolioIState> {
   componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";
@@ -891,7 +890,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         JSON.stringify(projects)
       );
       var link = window.location.href.split("/");
-      var portfolio_id = parseInt(link[link.length - 1]);
+      var portfolio_id = link[6].split("#")[0];
 
       //put 신호 넣기
       axios
@@ -916,7 +915,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         });
     }
     var link = window.location.href.split("/");
-    var portfolio_id = parseInt(link[link.length - 1]);
+    var portfolio_id = link[6].split("#")[0];
     window.location.href = `http://localhost:3000/plus/portfolio/result/${portfolio_id}`;
   };
 

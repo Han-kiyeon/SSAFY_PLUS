@@ -52,11 +52,10 @@ export default class extends React.Component<{}, PortfolioIState> {
   componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";
@@ -232,7 +231,7 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   handleBeforeButton = async (event: React.FormEvent) => {
     var link = window.location.href.split("/");
-    var portfolio_id = parseInt(link[link.length - 1]);
+    var portfolio_id = link[6].split("#")[0];
     window.location.href = `../1/${portfolio_id}`;
   };
   handleNextButton = async (event: React.FormEvent) => {
@@ -274,7 +273,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         JSON.stringify(skills)
       );
       var link = window.location.href.split("/");
-      var portfolio_id = parseInt(link[link.length - 1]);
+      var portfolio_id = link[6].split("#")[0];
       window.location.href = `../3/${portfolio_id}`;
     }
   };

@@ -32,6 +32,7 @@ export default class extends React.Component<{}, SignInIState> {
     await window.sessionStorage.setItem("user_name", "Test1");
     await window.sessionStorage.setItem("user_email", "test1@gmail.com");
     await window.sessionStorage.setItem("user_position", "1");
+    await window.sessionStorage.setItem("user_id", "2");
     window.location.href = "../plus/main";
   };
   loginTest2 = async (event: React.FormEvent) => {
@@ -39,6 +40,7 @@ export default class extends React.Component<{}, SignInIState> {
     await window.sessionStorage.setItem("user_name", "Test2");
     await window.sessionStorage.setItem("user_email", "test2@gmail.com");
     await window.sessionStorage.setItem("user_position", "3");
+    await window.sessionStorage.setItem("user_id", "3");
     window.location.href = "../plus/main";
   };
 

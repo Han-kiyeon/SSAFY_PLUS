@@ -1,8 +1,32 @@
 import React from "react";
 import PortfolioPresenter from "./PortfolioPresenter";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Axios from "axios";
+import axios from "axios";
 
+interface PortfolioDTO {
+  name: string;
+  birth: string;
+  email: string;
+  phone: string;
+  characters: string[];
+  projects: Array<ProjectDTO>;
+  skills: Array<SkillDTO>;
+  project_len: number;
+}
+interface SkillDTO {
+  description: "string";
+  name: "string";
+  percentage: number;
+}
+interface ProjectDTO {
+  description: "string";
+  name: "string";
+  period: "string";
+  roles: Array<string>;
+  myStack: Array<String>;
+  stacks: "string";
+  url: "string";
+}
 interface PortfolioIState {
   name: string;
   years: number[];
@@ -137,22 +161,20 @@ export default class extends React.Component<{}, PortfolioIState> {
     cooperative: false, // 협동적인
     error: false,
   };
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";
     }
     var RecordResponse: any;
-    var portfolio = Axios.get(
-      `http://13.125.238.102:8080/api/portfolio/${link[link.length - 1]}`
-    )
+    var portfolio = axios
+      .get(`http://13.125.238.102:8080/api/portfolio/${portfolio_id}`)
       .then(response => {
         RecordResponse = response.data;
         window.sessionStorage.setItem("portfolio_name", response.data.name);
@@ -463,7 +485,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         JSON.stringify(feature_list)
       );
       var link = window.location.href.split("/");
-      var portfolio_id = parseInt(link[link.length - 1]);
+      var portfolio_id = link[6].split("#")[0];
       window.location.href = `../2/${portfolio_id}`;
     }
   };

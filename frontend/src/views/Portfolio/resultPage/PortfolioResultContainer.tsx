@@ -41,11 +41,10 @@ export default class extends React.Component<{}, PortfolioDTO> {
   async componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";
@@ -53,7 +52,7 @@ export default class extends React.Component<{}, PortfolioDTO> {
 
     var portfolio: PortfolioDTO = (
       await Axios.get(
-        `http://13.125.238.102:8080/api/portfolio/${link[link.length - 1]}`
+        `http://13.125.238.102:8080/api/portfolio/${portfolio_id}`
       )
     ).data;
 

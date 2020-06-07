@@ -1,50 +1,56 @@
 import React from "react";
-import styled from "styled-components";
 import MyInfoPresenter from "components/MyInfo/MyInfoPresenter";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
+
 interface MyInfoIState {
   name: string;
   birth: string;
   email: string;
   gender: string;
   phone: string;
-  university: {
-    name: string;
-    location: string;
-    duration: string;
-    major: string;
-    subMajor: string;
-    gradeAvg: string;
-    classification: string;
-  };
-  highschool: {
-    name: string;
-    location: string;
-    duration: string;
-  };
-  careers: Array<{
-    id: number;
-    name: string;
-    position: string;
-    duration: string;
-    description: string;
-  }>;
+  university: universityDTO;
+  highschool: highschoolDTO;
+  careers: Array<careersDTO>;
   careerLen: number;
-  awards: Array<{
-    id: number;
-    name: string;
-    date: string;
-    organization: string;
-  }>;
+  awards: Array<awardDTO>;
   awardLen: number;
-  classifications: Array<{
-    type: string;
-    name: string;
-    date: string;
-    grade: string;
-    association: string;
-  }>;
-  classificationLen: number;
+  licences: Array<licenceDTO>;
+  licenceLen: number;
+  postInfo: boolean;
+}
+interface universityDTO {
+  id: number;
+  name: string;
+  location: string;
+  duration: string;
+  major: string;
+  minor: string;
+  grade: string;
+  classification: string;
+}
+interface highschoolDTO {
+  name: string;
+  location: string;
+  duration: string;
+}
+interface careersDTO {
+  name: string;
+  position: string;
+  duration: string;
+  description: string;
+}
+interface awardDTO {
+  name: string;
+  date: string;
+  association: string;
+}
+interface licenceDTO {
+  type: string;
+  name: string;
+  date: string;
+  grade: string;
+  association: string;
 }
 export default class extends React.Component<{}, MyInfoIState> {
   state = {
@@ -57,12 +63,13 @@ export default class extends React.Component<{}, MyInfoIState> {
     // 학력 사항
     // 대학
     university: {
+      id: 0,
       name: "",
       location: "",
       duration: "",
       major: "",
-      subMajor: "",
-      gradeAvg: "",
+      minor: "",
+      grade: "",
       classification: "",
     },
 
@@ -75,28 +82,24 @@ export default class extends React.Component<{}, MyInfoIState> {
     // 경력 사항
     careers: [
       {
-        id: 1,
         name: "",
         position: "",
         duration: "",
         description: "",
       },
       {
-        id: 2,
         name: "",
         position: "",
         duration: "",
         description: "",
       },
       {
-        id: 3,
         name: "",
         position: "",
         duration: "",
         description: "",
       },
       {
-        id: 4,
         name: "",
         position: "",
         duration: "",
@@ -107,35 +110,30 @@ export default class extends React.Component<{}, MyInfoIState> {
     // 수상 내역
     awards: [
       {
-        id: 1,
         name: "",
-        organization: "",
+        association: "",
         date: "",
       },
       {
-        id: 2,
         name: "",
-        organization: "",
+        association: "",
         date: "",
       },
       {
-        id: 3,
         name: "",
-        organization: "",
+        association: "",
         date: "",
       },
       {
-        id: 4,
         name: "",
-        organization: "",
+        association: "",
         date: "",
       },
     ],
     awardLen: 0,
     // 자격 사항
-    classifications: [
+    licences: [
       {
-        id: 1,
         type: "",
         name: "",
         date: "",
@@ -143,7 +141,6 @@ export default class extends React.Component<{}, MyInfoIState> {
         association: "",
       },
       {
-        id: 2,
         type: "",
         name: "",
         date: "",
@@ -151,7 +148,6 @@ export default class extends React.Component<{}, MyInfoIState> {
         association: "",
       },
       {
-        id: 3,
         type: "",
         name: "",
         date: "",
@@ -159,7 +155,6 @@ export default class extends React.Component<{}, MyInfoIState> {
         association: "",
       },
       {
-        id: 4,
         type: "",
         name: "",
         date: "",
@@ -167,14 +162,159 @@ export default class extends React.Component<{}, MyInfoIState> {
         association: "",
       },
     ],
-    classificationLen: 0,
+    licenceLen: 0,
     tempValue: "",
+    postInfo: false,
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    axios
+      .get(
+        `http://13.125.238.102:8080/api/userInfo/get/${window.sessionStorage.getItem(
+          "user_email"
+        )}/`
+      )
+      .then(res => {
+        this.setState({
+          name: res.data.name || this.state.name,
+          gender: res.data.gender || this.state.gender,
+          birth: res.data.birth || this.state.birth,
+          phone: res.data.phone || this.state.phone,
+          email: res.data.email || this.state.email,
+          university: res.data.university || this.state.university,
+          highschool: res.data.highschool || this.state.highschool,
+          careers: res.data.careers,
+          careerLen: res.data.careers.length || 0,
+          awards: res.data.awards || this.state.awards,
+          awardLen: res.data.awards.length || 0,
+          licences: res.data.licences || this.state.licences,
+          licenceLen: res.data.licences.length || 0,
+        });
+      })
+      .catch(e => {
+        console.log("기존 회원정보가 존재하지 않습니다.");
+        console.log("이 콘솔을 보고계시다면 개발자시겠죠?");
+        console.log("본인의 인적사항을 적어주세요!");
+        this.setState({
+          postInfo: true,
+        });
+      });
   }
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+  };
+
+  asyncValue = () => {
+    if (this.state.awards[0] === undefined) {
+      this.setState({ awards: [] });
+    } else if (this.state.awards[1] === undefined) {
+      this.setState({ awards: [this.state.awards[0]] });
+    } else if (this.state.awards[2] === undefined) {
+      this.setState({ awards: [this.state.awards[0], this.state.awards[1]] });
+    } else if (this.state.awards[3] === undefined) {
+      this.setState({
+        awards: [
+          this.state.awards[0],
+          this.state.awards[1],
+          this.state.awards[2],
+        ],
+      });
+    }
+    if (this.state.licences[0] === undefined) {
+      this.setState({ licences: [] });
+    } else if (this.state.licences[1] === undefined) {
+      this.setState({ licences: [this.state.licences[0]] });
+    } else if (this.state.licences[2] === undefined) {
+      this.setState({
+        licences: [this.state.licences[0], this.state.licences[1]],
+      });
+    } else if (this.state.licences[3] === undefined) {
+      this.setState({
+        licences: [
+          this.state.licences[0],
+          this.state.licences[1],
+          this.state.licences[2],
+        ],
+      });
+    }
+    if (this.state.careers[0] === undefined) {
+      this.setState({ careers: [] });
+    } else if (this.state.careers[1] === undefined) {
+      this.setState({ careers: [this.state.careers[0]] });
+    } else if (this.state.careers[2] === undefined) {
+      this.setState({
+        careers: [this.state.careers[0], this.state.careers[1]],
+      });
+    } else if (this.state.careers[3] === undefined) {
+      this.setState({
+        careers: [
+          this.state.careers[0],
+          this.state.careers[1],
+          this.state.careers[2],
+        ],
+      });
+    }
+  };
+  submitAxios = async (event: React.FormEvent) => {
+    if (this.state.postInfo) {
+      await this.asyncValue();
+      axios
+        .post(
+          `http://13.125.238.102:8080/api/userInfo/${window.sessionStorage.getItem(
+            "user_id"
+          )}`,
+          {
+            name: this.state.name,
+            birth: this.state.birth,
+            user_email: window.sessionStorage.getItem("user_email"),
+            gender: this.state.gender,
+            phone: this.state.phone,
+            email: this.state.email,
+            university: this.state.university,
+            highschool: this.state.highschool,
+            careers: this.state.careers,
+            awards: this.state.awards,
+            licences: this.state.licences,
+          }
+        )
+        .then(res => {
+          console.log("Success", res);
+          this.setState({
+            postInfo: false,
+          });
+        })
+        .catch(e => {
+          console.log("fail", e);
+        });
+    } else {
+      await this.asyncValue();
+      console.log(this.state.licences, this.state.awards, this.state.careers);
+      axios
+        .put(
+          `http://13.125.238.102:8080/api/userInfo/${window.sessionStorage.getItem(
+            "user_id"
+          )}`,
+          {
+            name: this.state.name,
+            birth: this.state.birth,
+            user_email: window.sessionStorage.getItem("user_email"),
+            gender: this.state.gender,
+            phone: this.state.phone,
+            email: this.state.email,
+            university: this.state.university,
+            highschool: this.state.highschool,
+            careers: this.state.careers,
+            awards: this.state.awards,
+            licences: this.state.licences,
+          }
+        )
+        .then(res => {
+          console.log("Success", res);
+        })
+        .catch(e => {
+          console.log("fail", e);
+        });
+    }
   };
 
   updateTerm = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -255,36 +395,39 @@ export default class extends React.Component<{}, MyInfoIState> {
       if (name === "university_name") {
         this.setState({
           university: {
+            id: this.state.university.id,
             name: value,
             location: this.state.university.location,
             duration: this.state.university.duration,
             major: this.state.university.major,
-            subMajor: this.state.university.subMajor,
-            gradeAvg: this.state.university.gradeAvg,
+            minor: this.state.university.minor,
+            grade: this.state.university.grade,
             classification: this.state.university.classification,
           },
         });
       } else if (name === "university_location") {
         this.setState({
           university: {
+            id: this.state.university.id,
             name: this.state.university.name,
             location: value,
             duration: this.state.university.duration,
             major: this.state.university.major,
-            subMajor: this.state.university.subMajor,
-            gradeAvg: this.state.university.gradeAvg,
+            minor: this.state.university.minor,
+            grade: this.state.university.grade,
             classification: this.state.university.classification,
           },
         });
       } else if (name === "university_duration") {
         await this.setState({
           university: {
+            id: this.state.university.id,
             name: this.state.university.name,
             location: this.state.university.location,
             duration: value,
             major: this.state.university.major,
-            subMajor: this.state.university.subMajor,
-            gradeAvg: this.state.university.gradeAvg,
+            minor: this.state.university.minor,
+            grade: this.state.university.grade,
             classification: this.state.university.classification,
           },
         });
@@ -295,12 +438,13 @@ export default class extends React.Component<{}, MyInfoIState> {
         ) {
           this.setState({
             university: {
+              id: this.state.university.id,
               name: this.state.university.name,
               location: this.state.university.location,
               duration: value.substring(0, 4) + "." + value.substring(4, 5),
               major: this.state.university.major,
-              subMajor: this.state.university.subMajor,
-              gradeAvg: this.state.university.gradeAvg,
+              minor: this.state.university.minor,
+              grade: this.state.university.grade,
               classification: this.state.university.classification,
             },
           });
@@ -310,12 +454,13 @@ export default class extends React.Component<{}, MyInfoIState> {
         ) {
           this.setState({
             university: {
+              id: this.state.university.id,
               name: this.state.university.name,
               location: this.state.university.location,
               duration: value.substring(0, 4),
               major: this.state.university.major,
-              subMajor: this.state.university.subMajor,
-              gradeAvg: this.state.university.gradeAvg,
+              minor: this.state.university.minor,
+              grade: this.state.university.grade,
               classification: this.state.university.classification,
             },
           });
@@ -325,12 +470,13 @@ export default class extends React.Component<{}, MyInfoIState> {
         ) {
           this.setState({
             university: {
+              id: this.state.university.id,
               name: this.state.university.name,
               location: this.state.university.location,
               duration: value.substring(0, 7) + " - " + value.substring(7, 8),
               major: this.state.university.major,
-              subMajor: this.state.university.subMajor,
-              gradeAvg: this.state.university.gradeAvg,
+              minor: this.state.university.minor,
+              grade: this.state.university.grade,
               classification: this.state.university.classification,
             },
           });
@@ -340,12 +486,13 @@ export default class extends React.Component<{}, MyInfoIState> {
         ) {
           this.setState({
             university: {
+              id: this.state.university.id,
               name: this.state.university.name,
               location: this.state.university.location,
               duration: value.substring(0, 7),
               major: this.state.university.major,
-              subMajor: this.state.university.subMajor,
-              gradeAvg: this.state.university.gradeAvg,
+              minor: this.state.university.minor,
+              grade: this.state.university.grade,
               classification: this.state.university.classification,
             },
           });
@@ -355,12 +502,13 @@ export default class extends React.Component<{}, MyInfoIState> {
         ) {
           this.setState({
             university: {
+              id: this.state.university.id,
               name: this.state.university.name,
               location: this.state.university.location,
               duration: value.substring(0, 14) + "." + value.substring(14, 15),
               major: this.state.university.major,
-              subMajor: this.state.university.subMajor,
-              gradeAvg: this.state.university.gradeAvg,
+              minor: this.state.university.minor,
+              grade: this.state.university.grade,
               classification: this.state.university.classification,
             },
           });
@@ -370,24 +518,26 @@ export default class extends React.Component<{}, MyInfoIState> {
         ) {
           this.setState({
             university: {
+              id: this.state.university.id,
               name: this.state.university.name,
               location: this.state.university.location,
               duration: value.substring(0, 14),
               major: this.state.university.major,
-              subMajor: this.state.university.subMajor,
-              gradeAvg: this.state.university.gradeAvg,
+              minor: this.state.university.minor,
+              grade: this.state.university.grade,
               classification: this.state.university.classification,
             },
           });
         } else if (this.state.tempValue.length > 17) {
           this.setState({
             university: {
+              id: this.state.university.id,
               name: this.state.university.name,
               location: this.state.university.location,
               duration: value.substring(0, 17),
               major: this.state.university.major,
-              subMajor: this.state.university.subMajor,
-              gradeAvg: this.state.university.gradeAvg,
+              minor: this.state.university.minor,
+              grade: this.state.university.grade,
               classification: this.state.university.classification,
             },
           });
@@ -395,48 +545,52 @@ export default class extends React.Component<{}, MyInfoIState> {
       } else if (name === "university_major") {
         this.setState({
           university: {
+            id: this.state.university.id,
             name: this.state.university.name,
             location: this.state.university.location,
             duration: this.state.university.duration,
             major: value,
-            subMajor: this.state.university.subMajor,
-            gradeAvg: this.state.university.gradeAvg,
+            minor: this.state.university.minor,
+            grade: this.state.university.grade,
             classification: this.state.university.classification,
           },
         });
-      } else if (name === "university_subMajor") {
+      } else if (name === "university_minor") {
         this.setState({
           university: {
+            id: this.state.university.id,
             name: this.state.university.name,
             location: this.state.university.location,
             duration: this.state.university.duration,
             major: this.state.university.major,
-            subMajor: value,
-            gradeAvg: this.state.university.gradeAvg,
+            minor: value,
+            grade: this.state.university.grade,
             classification: this.state.university.classification,
           },
         });
-      } else if (name === "university_gradeAvg") {
+      } else if (name === "university_grade") {
         this.setState({
           university: {
+            id: this.state.university.id,
             name: this.state.university.name,
             location: this.state.university.location,
             duration: this.state.university.duration,
             major: this.state.university.major,
-            subMajor: this.state.university.subMajor,
-            gradeAvg: value,
+            minor: this.state.university.minor,
+            grade: value,
             classification: this.state.university.classification,
           },
         });
-      } else if (name === "university_classification") {
+      } else if (name === "university_licence") {
         this.setState({
           university: {
+            id: this.state.university.id,
             name: this.state.university.name,
             location: this.state.university.location,
             duration: this.state.university.duration,
             major: this.state.university.major,
-            subMajor: this.state.university.subMajor,
-            gradeAvg: this.state.university.gradeAvg,
+            minor: this.state.university.minor,
+            grade: this.state.university.grade,
             classification: value,
           },
         });
@@ -548,7 +702,6 @@ export default class extends React.Component<{}, MyInfoIState> {
         this.setState({
           careers: [
             {
-              id: this.state.careers[0].id,
               name: value,
               position: this.state.careers[0].position,
               duration: this.state.careers[0].duration,
@@ -563,7 +716,6 @@ export default class extends React.Component<{}, MyInfoIState> {
         this.setState({
           careers: [
             {
-              id: this.state.careers[0].id,
               name: this.state.careers[0].name,
               position: value,
               duration: this.state.careers[0].duration,
@@ -578,7 +730,6 @@ export default class extends React.Component<{}, MyInfoIState> {
         await this.setState({
           careers: [
             {
-              id: this.state.careers[0].id,
               name: this.state.careers[0].name,
               position: this.state.careers[0].position,
               duration: value,
@@ -597,7 +748,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             careers: [
               {
-                id: this.state.careers[0].id,
                 name: this.state.careers[0].name,
                 position: this.state.careers[0].position,
                 duration: value.substring(0, 4) + "." + value.substring(4, 5),
@@ -615,7 +765,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             careers: [
               {
-                id: this.state.careers[0].id,
                 name: this.state.careers[0].name,
                 position: this.state.careers[0].position,
                 duration: value.substring(0, 4),
@@ -633,7 +782,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             careers: [
               {
-                id: this.state.careers[0].id,
                 name: this.state.careers[0].name,
                 position: this.state.careers[0].position,
                 duration: value.substring(0, 7) + " - " + value.substring(7, 8),
@@ -651,7 +799,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             careers: [
               {
-                id: this.state.careers[0].id,
                 name: this.state.careers[0].name,
                 position: this.state.careers[0].position,
                 duration: value.substring(0, 7),
@@ -669,7 +816,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             careers: [
               {
-                id: this.state.careers[0].id,
                 name: this.state.careers[0].name,
                 position: this.state.careers[0].position,
                 duration:
@@ -688,7 +834,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             careers: [
               {
-                id: this.state.careers[0].id,
                 name: this.state.careers[0].name,
                 position: this.state.careers[0].position,
                 duration: value.substring(0, 14),
@@ -703,7 +848,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             careers: [
               {
-                id: this.state.careers[0].id,
                 name: this.state.careers[0].name,
                 position: this.state.careers[0].position,
                 duration: value.substring(0, 17),
@@ -719,7 +863,6 @@ export default class extends React.Component<{}, MyInfoIState> {
         this.setState({
           careers: [
             {
-              id: this.state.careers[0].id,
               name: this.state.careers[0].name,
               position: this.state.careers[0].position,
               duration: this.state.careers[0].duration,
@@ -735,7 +878,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           careers: [
             this.state.careers[0],
             {
-              id: this.state.careers[1].id,
               name: value,
               position: this.state.careers[1].position,
               duration: this.state.careers[1].duration,
@@ -750,7 +892,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           careers: [
             this.state.careers[0],
             {
-              id: this.state.careers[1].id,
               name: this.state.careers[1].name,
               position: value,
               duration: this.state.careers[1].duration,
@@ -765,7 +906,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           careers: [
             this.state.careers[0],
             {
-              id: this.state.careers[1].id,
               name: this.state.careers[1].name,
               position: this.state.careers[1].position,
               duration: value,
@@ -784,7 +924,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             careers: [
               this.state.careers[0],
               {
-                id: this.state.careers[1].id,
                 name: this.state.careers[1].name,
                 position: this.state.careers[1].position,
                 duration: value.substring(0, 4) + "." + value.substring(4, 5),
@@ -802,7 +941,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             careers: [
               this.state.careers[0],
               {
-                id: this.state.careers[1].id,
                 name: this.state.careers[1].name,
                 position: this.state.careers[1].position,
                 duration: value.substring(0, 4),
@@ -820,7 +958,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             careers: [
               this.state.careers[0],
               {
-                id: this.state.careers[1].id,
                 name: this.state.careers[1].name,
                 position: this.state.careers[1].position,
                 duration: value.substring(0, 7) + " - " + value.substring(7, 8),
@@ -838,7 +975,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             careers: [
               this.state.careers[0],
               {
-                id: this.state.careers[1].id,
                 name: this.state.careers[1].name,
                 position: this.state.careers[1].position,
                 duration: value.substring(0, 7),
@@ -856,7 +992,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             careers: [
               this.state.careers[0],
               {
-                id: this.state.careers[1].id,
                 name: this.state.careers[1].name,
                 position: this.state.careers[1].position,
                 duration:
@@ -875,7 +1010,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             careers: [
               this.state.careers[0],
               {
-                id: this.state.careers[1].id,
                 name: this.state.careers[1].name,
                 position: this.state.careers[1].position,
                 duration: value.substring(0, 14),
@@ -890,7 +1024,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             careers: [
               this.state.careers[0],
               {
-                id: this.state.careers[1].id,
                 name: this.state.careers[1].name,
                 position: this.state.careers[1].position,
                 duration: value.substring(0, 17),
@@ -906,7 +1039,6 @@ export default class extends React.Component<{}, MyInfoIState> {
           careers: [
             this.state.careers[0],
             {
-              id: this.state.careers[1].id,
               name: this.state.careers[1].name,
               position: this.state.careers[1].position,
               duration: this.state.careers[1].duration,
@@ -922,7 +1054,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[0],
             this.state.careers[1],
             {
-              id: this.state.careers[2].id,
               name: value,
               position: this.state.careers[2].position,
               duration: this.state.careers[2].duration,
@@ -937,7 +1068,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[0],
             this.state.careers[1],
             {
-              id: this.state.careers[2].id,
               name: this.state.careers[2].name,
               position: value,
               duration: this.state.careers[2].duration,
@@ -952,7 +1082,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[0],
             this.state.careers[1],
             {
-              id: this.state.careers[2].id,
               name: this.state.careers[2].name,
               position: this.state.careers[2].position,
               duration: value,
@@ -971,7 +1100,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[0],
               this.state.careers[1],
               {
-                id: this.state.careers[2].id,
                 name: this.state.careers[2].name,
                 position: this.state.careers[2].position,
                 duration: value.substring(0, 4) + "." + value.substring(4, 5),
@@ -989,7 +1117,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[0],
               this.state.careers[1],
               {
-                id: this.state.careers[2].id,
                 name: this.state.careers[2].name,
                 position: this.state.careers[2].position,
                 duration: value.substring(0, 4),
@@ -1007,7 +1134,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[0],
               this.state.careers[1],
               {
-                id: this.state.careers[2].id,
                 name: this.state.careers[2].name,
                 position: this.state.careers[2].position,
                 duration: value.substring(0, 7) + " - " + value.substring(7, 8),
@@ -1025,7 +1151,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[0],
               this.state.careers[1],
               {
-                id: this.state.careers[2].id,
                 name: this.state.careers[2].name,
                 position: this.state.careers[2].position,
                 duration: value.substring(0, 7),
@@ -1043,7 +1168,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[0],
               this.state.careers[1],
               {
-                id: this.state.careers[2].id,
                 name: this.state.careers[2].name,
                 position: this.state.careers[2].position,
                 duration:
@@ -1062,7 +1186,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[0],
               this.state.careers[1],
               {
-                id: this.state.careers[2].id,
                 name: this.state.careers[2].name,
                 position: this.state.careers[2].position,
                 duration: value.substring(0, 14),
@@ -1077,7 +1200,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[0],
               this.state.careers[1],
               {
-                id: this.state.careers[2].id,
                 name: this.state.careers[2].name,
                 position: this.state.careers[2].position,
                 duration: value.substring(0, 17),
@@ -1093,7 +1215,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[0],
             this.state.careers[1],
             {
-              id: this.state.careers[2].id,
               name: this.state.careers[2].name,
               position: this.state.careers[2].position,
               duration: this.state.careers[2].duration,
@@ -1109,7 +1230,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[1],
             this.state.careers[2],
             {
-              id: this.state.careers[3].id,
               name: value,
               position: this.state.careers[3].position,
               duration: this.state.careers[3].duration,
@@ -1124,7 +1244,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[1],
             this.state.careers[2],
             {
-              id: this.state.careers[3].id,
               name: this.state.careers[3].name,
               position: value,
               duration: this.state.careers[3].duration,
@@ -1139,7 +1258,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[1],
             this.state.careers[2],
             {
-              id: this.state.careers[3].id,
               name: this.state.careers[3].name,
               position: this.state.careers[3].position,
               duration: value,
@@ -1158,7 +1276,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[1],
               this.state.careers[2],
               {
-                id: this.state.careers[3].id,
                 name: this.state.careers[3].name,
                 position: this.state.careers[3].position,
                 duration: value.substring(0, 4) + "." + value.substring(4, 5),
@@ -1176,7 +1293,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[1],
               this.state.careers[2],
               {
-                id: this.state.careers[3].id,
                 name: this.state.careers[3].name,
                 position: this.state.careers[3].position,
                 duration: value.substring(0, 4),
@@ -1194,7 +1310,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[1],
               this.state.careers[2],
               {
-                id: this.state.careers[3].id,
                 name: this.state.careers[3].name,
                 position: this.state.careers[3].position,
                 duration: value.substring(0, 7) + " - " + value.substring(7, 8),
@@ -1212,7 +1327,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[1],
               this.state.careers[2],
               {
-                id: this.state.careers[3].id,
                 name: this.state.careers[3].name,
                 position: this.state.careers[3].position,
                 duration: value.substring(0, 7),
@@ -1230,7 +1344,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[1],
               this.state.careers[2],
               {
-                id: this.state.careers[3].id,
                 name: this.state.careers[3].name,
                 position: this.state.careers[3].position,
                 duration:
@@ -1249,7 +1362,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[1],
               this.state.careers[2],
               {
-                id: this.state.careers[3].id,
                 name: this.state.careers[3].name,
                 position: this.state.careers[3].position,
                 duration: value.substring(0, 14),
@@ -1264,7 +1376,6 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.careers[1],
               this.state.careers[2],
               {
-                id: this.state.careers[3].id,
                 name: this.state.careers[3].name,
                 position: this.state.careers[3].position,
                 duration: value.substring(0, 17),
@@ -1280,7 +1391,6 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.careers[1],
             this.state.careers[2],
             {
-              id: this.state.careers[3].id,
               name: this.state.careers[3].name,
               position: this.state.careers[3].position,
               duration: this.state.careers[3].duration,
@@ -1294,10 +1404,9 @@ export default class extends React.Component<{}, MyInfoIState> {
         this.setState({
           awards: [
             {
-              id: this.state.awards[0].id,
               name: value,
               date: this.state.awards[0].date,
-              organization: this.state.awards[0].organization,
+              association: this.state.awards[0].association,
             },
             this.state.awards[1],
             this.state.awards[2],
@@ -1308,10 +1417,9 @@ export default class extends React.Component<{}, MyInfoIState> {
         await this.setState({
           awards: [
             {
-              id: this.state.awards[0].id,
               name: this.state.awards[0].name,
               date: value,
-              organization: this.state.awards[0].organization,
+              association: this.state.awards[0].association,
             },
             this.state.awards[1],
             this.state.awards[2],
@@ -1326,10 +1434,9 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             awards: [
               {
-                id: this.state.awards[0].id,
                 name: this.state.awards[0].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                organization: this.state.awards[0].organization,
+                association: this.state.awards[0].association,
               },
               this.state.awards[1],
               this.state.awards[2],
@@ -1343,10 +1450,9 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             awards: [
               {
-                id: this.state.awards[0].id,
                 name: this.state.awards[0].name,
                 date: value.substring(0, 4),
-                organization: this.state.awards[0].organization,
+                association: this.state.awards[0].association,
               },
               this.state.awards[1],
               this.state.awards[2],
@@ -1360,10 +1466,9 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             awards: [
               {
-                id: this.state.awards[0].id,
                 name: this.state.awards[0].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                organization: this.state.awards[0].organization,
+                association: this.state.awards[0].association,
               },
               this.state.awards[1],
               this.state.awards[2],
@@ -1377,10 +1482,9 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             awards: [
               {
-                id: this.state.awards[0].id,
                 name: this.state.awards[0].name,
                 date: value.substring(0, 7),
-                organization: this.state.awards[0].organization,
+                association: this.state.awards[0].association,
               },
               this.state.awards[1],
               this.state.awards[2],
@@ -1391,10 +1495,9 @@ export default class extends React.Component<{}, MyInfoIState> {
           this.setState({
             awards: [
               {
-                id: this.state.awards[0].id,
                 name: this.state.awards[0].name,
                 date: value.substring(0, 10),
-                organization: this.state.awards[0].organization,
+                association: this.state.awards[0].association,
               },
               this.state.awards[1],
               this.state.awards[2],
@@ -1402,14 +1505,13 @@ export default class extends React.Component<{}, MyInfoIState> {
             ],
           });
         }
-      } else if (name === "awards[0]_organization") {
+      } else if (name === "awards[0]_association") {
         this.setState({
           awards: [
             {
-              id: this.state.awards[0].id,
               name: this.state.awards[0].name,
               date: this.state.awards[0].date,
-              organization: value,
+              association: value,
             },
             this.state.awards[1],
             this.state.awards[2],
@@ -1421,10 +1523,9 @@ export default class extends React.Component<{}, MyInfoIState> {
           awards: [
             this.state.awards[0],
             {
-              id: this.state.awards[1].id,
               name: value,
               date: this.state.awards[1].date,
-              organization: this.state.awards[1].organization,
+              association: this.state.awards[1].association,
             },
             this.state.awards[2],
             this.state.awards[3],
@@ -1435,10 +1536,9 @@ export default class extends React.Component<{}, MyInfoIState> {
           awards: [
             this.state.awards[0],
             {
-              id: this.state.awards[1].id,
               name: this.state.awards[1].name,
               date: value,
-              organization: this.state.awards[1].organization,
+              association: this.state.awards[1].association,
             },
             this.state.awards[2],
             this.state.awards[3],
@@ -1453,10 +1553,9 @@ export default class extends React.Component<{}, MyInfoIState> {
             awards: [
               this.state.awards[0],
               {
-                id: this.state.awards[1].id,
                 name: this.state.awards[1].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                organization: this.state.awards[1].organization,
+                association: this.state.awards[1].association,
               },
               this.state.awards[2],
               this.state.awards[3],
@@ -1470,10 +1569,9 @@ export default class extends React.Component<{}, MyInfoIState> {
             awards: [
               this.state.awards[0],
               {
-                id: this.state.awards[1].id,
                 name: this.state.awards[1].name,
                 date: value.substring(0, 4),
-                organization: this.state.awards[1].organization,
+                association: this.state.awards[1].association,
               },
               this.state.awards[2],
               this.state.awards[3],
@@ -1487,10 +1585,9 @@ export default class extends React.Component<{}, MyInfoIState> {
             awards: [
               this.state.awards[0],
               {
-                id: this.state.awards[1].id,
                 name: this.state.awards[1].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                organization: this.state.awards[1].organization,
+                association: this.state.awards[1].association,
               },
               this.state.awards[2],
               this.state.awards[3],
@@ -1504,10 +1601,9 @@ export default class extends React.Component<{}, MyInfoIState> {
             awards: [
               this.state.awards[0],
               {
-                id: this.state.awards[1].id,
                 name: this.state.awards[1].name,
                 date: value.substring(0, 7),
-                organization: this.state.awards[1].organization,
+                association: this.state.awards[1].association,
               },
               this.state.awards[2],
               this.state.awards[3],
@@ -1518,25 +1614,23 @@ export default class extends React.Component<{}, MyInfoIState> {
             awards: [
               this.state.awards[0],
               {
-                id: this.state.awards[1].id,
                 name: this.state.awards[1].name,
                 date: value.substring(0, 10),
-                organization: this.state.awards[1].organization,
+                association: this.state.awards[1].association,
               },
               this.state.awards[2],
               this.state.awards[3],
             ],
           });
         }
-      } else if (name === "awards[1]_organization") {
+      } else if (name === "awards[1]_association") {
         this.setState({
           awards: [
             this.state.awards[0],
             {
-              id: this.state.awards[1].id,
               name: this.state.awards[1].name,
               date: this.state.awards[1].date,
-              organization: value,
+              association: value,
             },
             this.state.awards[2],
             this.state.awards[3],
@@ -1548,10 +1642,9 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.awards[0],
             this.state.awards[1],
             {
-              id: this.state.awards[2].id,
               name: value,
               date: this.state.awards[2].date,
-              organization: this.state.awards[2].organization,
+              association: this.state.awards[2].association,
             },
             this.state.awards[3],
           ],
@@ -1562,10 +1655,9 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.awards[0],
             this.state.awards[1],
             {
-              id: this.state.awards[2].id,
               name: this.state.awards[2].name,
               date: value,
-              organization: this.state.awards[2].organization,
+              association: this.state.awards[2].association,
             },
             this.state.awards[3],
           ],
@@ -1580,10 +1672,9 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[0],
               this.state.awards[1],
               {
-                id: this.state.awards[2].id,
                 name: this.state.awards[2].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                organization: this.state.awards[2].organization,
+                association: this.state.awards[2].association,
               },
               this.state.awards[3],
             ],
@@ -1597,10 +1688,9 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[0],
               this.state.awards[1],
               {
-                id: this.state.awards[2].id,
                 name: this.state.awards[2].name,
                 date: value.substring(0, 4),
-                organization: this.state.awards[2].organization,
+                association: this.state.awards[2].association,
               },
               this.state.awards[3],
             ],
@@ -1614,10 +1704,9 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[0],
               this.state.awards[1],
               {
-                id: this.state.awards[2].id,
                 name: this.state.awards[2].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                organization: this.state.awards[2].organization,
+                association: this.state.awards[2].association,
               },
               this.state.awards[3],
             ],
@@ -1631,10 +1720,9 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[0],
               this.state.awards[1],
               {
-                id: this.state.awards[2].id,
                 name: this.state.awards[2].name,
                 date: value.substring(0, 7),
-                organization: this.state.awards[2].organization,
+                association: this.state.awards[2].association,
               },
               this.state.awards[3],
             ],
@@ -1645,25 +1733,23 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[0],
               this.state.awards[1],
               {
-                id: this.state.awards[2].id,
                 name: this.state.awards[2].name,
                 date: value.substring(0, 10),
-                organization: this.state.awards[2].organization,
+                association: this.state.awards[2].association,
               },
               this.state.awards[3],
             ],
           });
         }
-      } else if (name === "awards[2]_organization") {
+      } else if (name === "awards[2]_association") {
         this.setState({
           awards: [
             this.state.awards[0],
             this.state.awards[1],
             {
-              id: this.state.awards[2].id,
               name: this.state.awards[2].name,
               date: this.state.awards[2].date,
-              organization: value,
+              association: value,
             },
             this.state.awards[3],
           ],
@@ -1675,10 +1761,9 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.awards[1],
             this.state.awards[2],
             {
-              id: this.state.awards[3].id,
               name: value,
               date: this.state.awards[3].date,
-              organization: this.state.awards[3].organization,
+              association: this.state.awards[3].association,
             },
           ],
         });
@@ -1689,10 +1774,9 @@ export default class extends React.Component<{}, MyInfoIState> {
             this.state.awards[1],
             this.state.awards[2],
             {
-              id: this.state.awards[3].id,
               name: this.state.awards[3].name,
               date: value,
-              organization: this.state.awards[3].organization,
+              association: this.state.awards[3].association,
             },
           ],
         });
@@ -1707,10 +1791,9 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[1],
               this.state.awards[2],
               {
-                id: this.state.awards[3].id,
                 name: this.state.awards[3].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                organization: this.state.awards[3].organization,
+                association: this.state.awards[3].association,
               },
             ],
           });
@@ -1724,10 +1807,9 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[1],
               this.state.awards[2],
               {
-                id: this.state.awards[3].id,
                 name: this.state.awards[3].name,
                 date: value.substring(0, 4),
-                organization: this.state.awards[3].organization,
+                association: this.state.awards[3].association,
               },
             ],
           });
@@ -1741,10 +1823,9 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[1],
               this.state.awards[2],
               {
-                id: this.state.awards[3].id,
                 name: this.state.awards[3].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                organization: this.state.awards[3].organization,
+                association: this.state.awards[3].association,
               },
             ],
           });
@@ -1758,10 +1839,9 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[1],
               this.state.awards[2],
               {
-                id: this.state.awards[3].id,
                 name: this.state.awards[3].name,
                 date: value.substring(0, 7),
-                organization: this.state.awards[3].organization,
+                association: this.state.awards[3].association,
               },
             ],
           });
@@ -1772,73 +1852,71 @@ export default class extends React.Component<{}, MyInfoIState> {
               this.state.awards[1],
               this.state.awards[2],
               {
-                id: this.state.awards[3].id,
                 name: this.state.awards[3].name,
                 date: value.substring(0, 10),
-                organization: this.state.awards[3].organization,
+                association: this.state.awards[3].association,
               },
             ],
           });
         }
-      } else if (name === "awards[3]_organization") {
+      } else if (name === "awards[3]_association") {
         this.setState({
           awards: [
             this.state.awards[0],
             this.state.awards[1],
             this.state.awards[2],
             {
-              id: this.state.awards[3].id,
               name: this.state.awards[3].name,
               date: this.state.awards[3].date,
-              organization: value,
+              association: value,
             },
           ],
         });
       }
-    } else if (name.startsWith("classifications")) {
-      if (name === "classifications[0]_type") {
+    } else if (name.startsWith("licences")) {
+      if (name === "licences[0]_type") {
         this.setState({
-          classifications: [
+          licences: [
             {
               type: value,
-              name: this.state.classifications[0].name,
-              date: this.state.classifications[0].date,
-              grade: this.state.classifications[0].grade,
-              association: this.state.classifications[0].association,
+              name: this.state.licences[0].name,
+              date: this.state.licences[0].date,
+              grade: this.state.licences[0].grade,
+              association: this.state.licences[0].association,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[0]_name") {
+      } else if (name === "licences[0]_name") {
         this.setState({
-          classifications: [
+          licences: [
             {
-              type: this.state.classifications[0].type,
+              type: this.state.licences[0].type,
               name: value,
-              date: this.state.classifications[0].date,
-              grade: this.state.classifications[0].grade,
-              association: this.state.classifications[0].association,
+              date: this.state.licences[0].date,
+              grade: this.state.licences[0].grade,
+              association: this.state.licences[0].association,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[0]_date") {
+      } else if (name === "licences[0]_date") {
         await this.setState({
-          classifications: [
+          licences: [
             {
-              type: this.state.classifications[0].type,
-              name: this.state.classifications[0].name,
+              type: this.state.licences[0].type,
+              name: this.state.licences[0].name,
               date: value,
-              grade: this.state.classifications[0].grade,
-              association: this.state.classifications[0].association,
+              grade: this.state.licences[0].grade,
+              association: this.state.licences[0].association,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
         this.state.tempValue = value;
@@ -1847,18 +1925,18 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) !== "."
         ) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
 
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -1866,18 +1944,18 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) === "."
         ) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 4),
 
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -1885,17 +1963,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) !== "."
         ) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -1903,109 +1981,109 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) === "."
         ) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 7),
 
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (this.state.tempValue.length === 11) {
           this.setState({
-            classifications: [
+            licences: [
               {
-                type: this.state.classifications[0].type,
-                name: this.state.classifications[0].name,
+                type: this.state.licences[0].type,
+                name: this.state.licences[0].name,
                 date: value.substring(0, 10),
-                grade: this.state.classifications[0].grade,
-                association: this.state.classifications[0].association,
+                grade: this.state.licences[0].grade,
+                association: this.state.licences[0].association,
               },
-              this.state.classifications[1],
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[1],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         }
-      } else if (name === "classifications[0]_grade") {
+      } else if (name === "licences[0]_grade") {
         this.setState({
-          classifications: [
+          licences: [
             {
-              type: this.state.classifications[0].type,
-              name: this.state.classifications[0].name,
-              date: this.state.classifications[0].date,
+              type: this.state.licences[0].type,
+              name: this.state.licences[0].name,
+              date: this.state.licences[0].date,
               grade: value,
-              association: this.state.classifications[0].association,
+              association: this.state.licences[0].association,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[0]_association") {
+      } else if (name === "licences[0]_association") {
         this.setState({
-          classifications: [
+          licences: [
             {
-              type: this.state.classifications[0].type,
-              name: this.state.classifications[0].name,
-              date: this.state.classifications[0].date,
-              grade: this.state.classifications[0].grade,
+              type: this.state.licences[0].type,
+              name: this.state.licences[0].name,
+              date: this.state.licences[0].date,
+              grade: this.state.licences[0].grade,
               association: value,
             },
-            this.state.classifications[1],
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[1],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[1]_type") {
+      } else if (name === "licences[1]_type") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
               type: value,
-              name: this.state.classifications[1].name,
-              date: this.state.classifications[1].date,
-              grade: this.state.classifications[1].grade,
-              association: this.state.classifications[1].association,
+              name: this.state.licences[1].name,
+              date: this.state.licences[1].date,
+              grade: this.state.licences[1].grade,
+              association: this.state.licences[1].association,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[1]_name") {
+      } else if (name === "licences[1]_name") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
-              type: this.state.classifications[1].type,
+              type: this.state.licences[1].type,
               name: value,
-              date: this.state.classifications[1].date,
-              grade: this.state.classifications[1].grade,
-              association: this.state.classifications[1].association,
+              date: this.state.licences[1].date,
+              grade: this.state.licences[1].grade,
+              association: this.state.licences[1].association,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[1]_date") {
+      } else if (name === "licences[1]_date") {
         await this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
-              type: this.state.classifications[1].type,
-              name: this.state.classifications[1].name,
+              type: this.state.licences[1].type,
+              name: this.state.licences[1].name,
               date: value,
-              grade: this.state.classifications[1].grade,
-              association: this.state.classifications[1].association,
+              grade: this.state.licences[1].grade,
+              association: this.state.licences[1].association,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
         this.state.tempValue = value;
@@ -2014,17 +2092,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2032,17 +2110,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 4),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2050,17 +2128,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2068,108 +2146,108 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 7),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         } else if (this.state.tempValue.length === 11) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
+            licences: [
+              this.state.licences[0],
               {
-                type: this.state.classifications[1].type,
-                name: this.state.classifications[1].name,
+                type: this.state.licences[1].type,
+                name: this.state.licences[1].name,
                 date: value.substring(0, 10),
-                grade: this.state.classifications[1].grade,
-                association: this.state.classifications[1].association,
+                grade: this.state.licences[1].grade,
+                association: this.state.licences[1].association,
               },
-              this.state.classifications[2],
-              this.state.classifications[3],
+              this.state.licences[2],
+              this.state.licences[3],
             ],
           });
         }
-      } else if (name === "classifications[1]_grade") {
+      } else if (name === "licences[1]_grade") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
-              type: this.state.classifications[1].type,
-              name: this.state.classifications[1].name,
-              date: this.state.classifications[1].date,
+              type: this.state.licences[1].type,
+              name: this.state.licences[1].name,
+              date: this.state.licences[1].date,
               grade: value,
-              association: this.state.classifications[1].association,
+              association: this.state.licences[1].association,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[1]_association") {
+      } else if (name === "licences[1]_association") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
+          licences: [
+            this.state.licences[0],
             {
-              type: this.state.classifications[1].type,
-              name: this.state.classifications[1].name,
-              date: this.state.classifications[1].date,
-              grade: this.state.classifications[1].grade,
+              type: this.state.licences[1].type,
+              name: this.state.licences[1].name,
+              date: this.state.licences[1].date,
+              grade: this.state.licences[1].grade,
               association: value,
             },
-            this.state.classifications[2],
-            this.state.classifications[3],
+            this.state.licences[2],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[2]_type") {
+      } else if (name === "licences[2]_type") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
               type: value,
-              name: this.state.classifications[2].name,
-              date: this.state.classifications[2].date,
-              grade: this.state.classifications[2].grade,
-              association: this.state.classifications[2].association,
+              name: this.state.licences[2].name,
+              date: this.state.licences[2].date,
+              grade: this.state.licences[2].grade,
+              association: this.state.licences[2].association,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[2]_name") {
+      } else if (name === "licences[2]_name") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
-              type: this.state.classifications[2].type,
+              type: this.state.licences[2].type,
               name: value,
-              date: this.state.classifications[2].date,
-              grade: this.state.classifications[2].grade,
-              association: this.state.classifications[2].association,
+              date: this.state.licences[2].date,
+              grade: this.state.licences[2].grade,
+              association: this.state.licences[2].association,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[2]_date") {
+      } else if (name === "licences[2]_date") {
         await this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
-              type: this.state.classifications[2].type,
-              name: this.state.classifications[2].name,
+              type: this.state.licences[2].type,
+              name: this.state.licences[2].name,
               date: value,
-              grade: this.state.classifications[2].grade,
-              association: this.state.classifications[2].association,
+              grade: this.state.licences[2].grade,
+              association: this.state.licences[2].association,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
         this.state.tempValue = value;
@@ -2178,17 +2256,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2196,17 +2274,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 4),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2214,17 +2292,17 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         } else if (
@@ -2232,107 +2310,107 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 7),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         } else if (this.state.tempValue.length === 11) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
               {
-                type: this.state.classifications[2].type,
-                name: this.state.classifications[2].name,
+                type: this.state.licences[2].type,
+                name: this.state.licences[2].name,
                 date: value.substring(0, 10),
-                grade: this.state.classifications[2].grade,
-                association: this.state.classifications[2].association,
+                grade: this.state.licences[2].grade,
+                association: this.state.licences[2].association,
               },
-              this.state.classifications[3],
+              this.state.licences[3],
             ],
           });
         }
-      } else if (name === "classifications[2]_grade") {
+      } else if (name === "licences[2]_grade") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
-              type: this.state.classifications[2].type,
-              name: this.state.classifications[2].name,
-              date: this.state.classifications[2].date,
+              type: this.state.licences[2].type,
+              name: this.state.licences[2].name,
+              date: this.state.licences[2].date,
               grade: value,
-              association: this.state.classifications[2].association,
+              association: this.state.licences[2].association,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[2]_association") {
+      } else if (name === "licences[2]_association") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
             {
-              type: this.state.classifications[2].type,
-              name: this.state.classifications[2].name,
-              date: this.state.classifications[2].date,
-              grade: this.state.classifications[2].grade,
+              type: this.state.licences[2].type,
+              name: this.state.licences[2].name,
+              date: this.state.licences[2].date,
+              grade: this.state.licences[2].grade,
               association: value,
             },
-            this.state.classifications[3],
+            this.state.licences[3],
           ],
         });
-      } else if (name === "classifications[3]_type") {
+      } else if (name === "licences[3]_type") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
               type: value,
-              name: this.state.classifications[3].name,
-              date: this.state.classifications[3].date,
-              grade: this.state.classifications[3].grade,
-              association: this.state.classifications[3].association,
+              name: this.state.licences[3].name,
+              date: this.state.licences[3].date,
+              grade: this.state.licences[3].grade,
+              association: this.state.licences[3].association,
             },
           ],
         });
-      } else if (name === "classifications[3]_name") {
+      } else if (name === "licences[3]_name") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
-              type: this.state.classifications[3].type,
+              type: this.state.licences[3].type,
               name: value,
-              date: this.state.classifications[3].date,
-              grade: this.state.classifications[3].grade,
-              association: this.state.classifications[3].association,
+              date: this.state.licences[3].date,
+              grade: this.state.licences[3].grade,
+              association: this.state.licences[3].association,
             },
           ],
         });
-      } else if (name === "classifications[3]_date") {
+      } else if (name === "licences[3]_date") {
         await this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
-              type: this.state.classifications[3].type,
-              name: this.state.classifications[3].name,
+              type: this.state.licences[3].type,
+              name: this.state.licences[3].name,
               date: value,
-              grade: this.state.classifications[3].grade,
-              association: this.state.classifications[3].association,
+              grade: this.state.licences[3].grade,
+              association: this.state.licences[3].association,
             },
           ],
         });
@@ -2342,16 +2420,16 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 4) + "." + value.substring(4, 5),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
@@ -2360,16 +2438,16 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(4, 5) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 4),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
@@ -2378,16 +2456,16 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) !== "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 7) + "." + value.substring(7, 8),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
@@ -2396,61 +2474,61 @@ export default class extends React.Component<{}, MyInfoIState> {
           value.substring(7, 8) === "."
         ) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 7),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
         } else if (this.state.tempValue.length === 11) {
           this.setState({
-            classifications: [
-              this.state.classifications[0],
-              this.state.classifications[1],
-              this.state.classifications[2],
+            licences: [
+              this.state.licences[0],
+              this.state.licences[1],
+              this.state.licences[2],
               {
-                type: this.state.classifications[3].type,
-                name: this.state.classifications[3].name,
+                type: this.state.licences[3].type,
+                name: this.state.licences[3].name,
                 date: value.substring(0, 10),
-                grade: this.state.classifications[3].grade,
-                association: this.state.classifications[3].association,
+                grade: this.state.licences[3].grade,
+                association: this.state.licences[3].association,
               },
             ],
           });
         }
-      } else if (name === "classifications[3]_grade") {
+      } else if (name === "licences[3]_grade") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
-              type: this.state.classifications[3].type,
-              name: this.state.classifications[3].name,
-              date: this.state.classifications[3].date,
+              type: this.state.licences[3].type,
+              name: this.state.licences[3].name,
+              date: this.state.licences[3].date,
               grade: value,
-              association: this.state.classifications[3].association,
+              association: this.state.licences[3].association,
             },
           ],
         });
-      } else if (name === "classifications[3]_association") {
+      } else if (name === "licences[3]_association") {
         this.setState({
-          classifications: [
-            this.state.classifications[0],
-            this.state.classifications[1],
-            this.state.classifications[2],
+          licences: [
+            this.state.licences[0],
+            this.state.licences[1],
+            this.state.licences[2],
             {
-              type: this.state.classifications[3].type,
-              name: this.state.classifications[3].name,
-              date: this.state.classifications[3].date,
-              grade: this.state.classifications[3].grade,
+              type: this.state.licences[3].type,
+              name: this.state.licences[3].name,
+              date: this.state.licences[3].date,
+              grade: this.state.licences[3].grade,
               association: value,
             },
           ],
@@ -2460,32 +2538,65 @@ export default class extends React.Component<{}, MyInfoIState> {
   };
   handleCareerMinus = (event: React.FormEvent) => {
     if (this.state.careerLen > 0) {
+      var newCareers = this.state.careers;
+      newCareers.pop();
+      this.setState({ careers: newCareers });
       this.setState({ careerLen: this.state.careerLen - 1 });
     }
   };
   handleCareerAdd = (event: React.FormEvent) => {
     if (this.state.careerLen < 4) {
+      var newCareers = this.state.careers;
+      newCareers.push({
+        name: "",
+        position: "",
+        duration: "",
+        description: "",
+      });
+      this.setState({ careers: newCareers });
       this.setState({ careerLen: this.state.careerLen + 1 });
     }
   };
   handleAwardMinus = (event: React.FormEvent) => {
     if (this.state.awardLen > 0) {
+      var newAwards = this.state.awards;
+      newAwards.pop();
+      this.setState({ awards: newAwards });
       this.setState({ awardLen: this.state.awardLen - 1 });
     }
   };
   handleAwardAdd = (event: React.FormEvent) => {
     if (this.state.awardLen < 4) {
+      var newAwards = this.state.awards;
+      newAwards.push({
+        name: "",
+        date: "",
+        association: "",
+      });
+      this.setState({ awards: newAwards });
       this.setState({ awardLen: this.state.awardLen + 1 });
     }
   };
   handleClassMinus = (event: React.FormEvent) => {
-    if (this.state.classificationLen > 0) {
-      this.setState({ classificationLen: this.state.classificationLen - 1 });
+    if (this.state.licenceLen > 0) {
+      var newLicences = this.state.licences;
+      newLicences.pop();
+      this.setState({ licences: newLicences });
+      this.setState({ licenceLen: this.state.licenceLen - 1 });
     }
   };
   handleClassAdd = (event: React.FormEvent) => {
-    if (this.state.classificationLen < 4) {
-      this.setState({ classificationLen: this.state.classificationLen + 1 });
+    if (this.state.licenceLen < 4) {
+      var newLicences = this.state.licences;
+      newLicences.push({
+        type: "",
+        name: "",
+        date: "",
+        grade: "",
+        association: "",
+      });
+      this.setState({ licences: newLicences });
+      this.setState({ licenceLen: this.state.licenceLen + 1 });
     }
   };
   useStyles = makeStyles((theme: Theme) =>
@@ -2493,13 +2604,13 @@ export default class extends React.Component<{}, MyInfoIState> {
       input8: {
         "& > *": {
           marginTop: "2vh",
-          width: "8vw",
+          width: "15vw",
         },
       },
       input10: {
         "& > *": {
           marginTop: "2vh",
-          width: "10vw",
+          width: "17vw",
         },
       },
       input15: {
@@ -2541,8 +2652,8 @@ export default class extends React.Component<{}, MyInfoIState> {
       careerLen,
       awards,
       awardLen,
-      classifications,
-      classificationLen,
+      licences,
+      licenceLen,
     } = this.state;
     return (
       <MyInfoPresenter
@@ -2555,6 +2666,7 @@ export default class extends React.Component<{}, MyInfoIState> {
         handleAwardMinus={this.handleAwardMinus}
         handleClassAdd={this.handleClassAdd}
         handleClassMinus={this.handleClassMinus}
+        submitAxios={this.submitAxios}
         name={name}
         birth={birth}
         email={email}
@@ -2566,8 +2678,8 @@ export default class extends React.Component<{}, MyInfoIState> {
         careerLen={careerLen}
         awards={awards}
         awardLen={awardLen}
-        classifications={classifications}
-        classificationLen={classificationLen}
+        licences={licences}
+        licenceLen={licenceLen}
       />
     );
   }

@@ -1,3 +1,3 @@
-import FileSelector from "./Upload";
+import Upload from "./Upload";
 
-export default FileSelector;
+export default Upload;
