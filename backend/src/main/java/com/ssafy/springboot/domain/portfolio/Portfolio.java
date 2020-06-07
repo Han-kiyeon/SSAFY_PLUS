@@ -33,13 +33,15 @@ public class Portfolio extends BaseTimeEntity {
     private String birth;
     private String email;
     private String phone;
+    private String profile_image_url;
+
 
     @ElementCollection
     private List<String> characters;
 
 
     @Builder
-    public Portfolio(User user, String title, String name, String birth, String email, String phone
+    public Portfolio(User user, String title, String name, String birth, String email, String phone, String profile_image_url
             , List<String> characters) {
         this.title = title;
         this.user = user;
@@ -47,15 +49,17 @@ public class Portfolio extends BaseTimeEntity {
         this.birth = birth;
         this.email = email;
         this.phone = phone;
+        this.profile_image_url = profile_image_url;
         this.characters = characters;
     }
 
-    public void update(String title, String name, String birth, String email, String phone, List<String> characters) {
+    public void update(String title, String name, String birth, String email, String phone, String profile_image_url, List<String> characters) {
         if (title != null) this.title = title;
         if (name != null) this.name = name;
         if (birth != null) this.birth = birth;
         if (email != null) this.email = email;
         if (phone != null) this.phone = phone;
+        if (profile_image_url != null) this.profile_image_url = profile_image_url;
         if (characters != null) this.characters = characters;
     }
 

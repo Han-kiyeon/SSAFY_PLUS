@@ -109,7 +109,7 @@ public class PortfolioService {
                 .orElseThrow(() -> new IllegalArgumentException("Portfolio does not exist... id=" + id));
 
         portfolio.update(requestDto.getTitle(), requestDto.getName(), requestDto.getBirth(), requestDto.getEmail(),
-                requestDto.getPhone(), requestDto.getCharacters());
+                requestDto.getPhone(), requestDto.getProfile_image_url(), requestDto.getCharacters());
         if (requestDto.getProjects() != null) {
             List<Project> projects = projectRepository.findAllByPortfolioId(portfolio.getPortfolio_id());
             //삭제

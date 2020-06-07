@@ -166,7 +166,7 @@ public class UserInfoService {
                 .orElseThrow(() -> new IllegalArgumentException("UserInfo does not exist... id=" + id));
 
         userInfo.update(requestDto.getName(), requestDto.getBirth(), requestDto.getEmail(), requestDto.getGender(),
-                requestDto.getPhone(), requestDto.getProfile_image_url());
+                requestDto.getPhone());
 
         if (requestDto.getAwards() != null) {
             List<Award> awards = awardRepository.findAllByUserInfoId(userInfo.getUser_info_id());
