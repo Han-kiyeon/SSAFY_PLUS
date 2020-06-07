@@ -3,6 +3,8 @@ package com.ssafy.springboot.web.dto.BreakingError;
 import com.ssafy.springboot.domain.BreakingError.Answers;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class AnswersListResponseDto {
     private Long answer_id;
@@ -12,6 +14,8 @@ public class AnswersListResponseDto {
     private String content;
     private Long like_cnt;
     private Long answer_cnt;
+    private LocalDateTime created_date;
+    private LocalDateTime modified_date;
 
     public AnswersListResponseDto(Answers entity) {
         this.answer_id = entity.getAnswer_id();
@@ -21,5 +25,7 @@ public class AnswersListResponseDto {
         this.content = entity.getContent();
         this.like_cnt = entity.getLike_cnt();
         this.answer_cnt = entity.getAnswer_cnt();
+        this.created_date = entity.getCreatedDate();
+        this.modified_date = entity.getModifiedDate();
     }
 }
