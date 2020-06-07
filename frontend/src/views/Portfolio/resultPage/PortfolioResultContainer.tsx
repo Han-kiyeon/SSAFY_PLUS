@@ -11,20 +11,23 @@ interface PortfolioDTO {
   projects: Array<ProjectDTO>;
   skills: Array<SkillDTO>;
   project_len: number;
+  profile_image_url: string;
 }
 interface SkillDTO {
-  description: "string";
-  name: "string";
+  description: string;
+  name: string;
   percentage: number;
 }
 interface ProjectDTO {
-  description: "string";
-  name: "string";
-  period: "string";
+  description: string;
+  name: string;
+  period: string;
   roles: Array<string>;
   my_stacks: Array<String>;
-  stacks: "string";
-  url: "string";
+  stacks: string;
+  url: string;
+  big_image_url: string;
+  small_image_url: string;
 }
 
 export default class extends React.Component<{}, PortfolioDTO> {
@@ -37,6 +40,7 @@ export default class extends React.Component<{}, PortfolioDTO> {
     skills: [],
     project_len: 0,
     projects: [],
+    profile_image_url: "",
   };
   async componentDidMount() {
     window.scrollTo(0, 0);
@@ -58,13 +62,14 @@ export default class extends React.Component<{}, PortfolioDTO> {
 
     this.setState({ project_len: portfolio.projects.length });
     this.setState({
-      name: portfolio.name,
-      birth: portfolio.birth,
-      email: portfolio.email,
-      phone: portfolio.phone,
+      name: portfolio.name || "",
+      birth: portfolio.birth || "",
+      email: portfolio.email || "",
+      phone: portfolio.phone || "",
       characters: portfolio.characters || [],
       skills: portfolio.skills || [],
       projects: portfolio.projects || [],
+      profile_image_url: portfolio.profile_image_url || "",
     });
   }
   render() {
@@ -77,6 +82,7 @@ export default class extends React.Component<{}, PortfolioDTO> {
       skills,
       project_len,
       projects,
+      profile_image_url,
     } = this.state;
     return (
       <>
@@ -89,6 +95,7 @@ export default class extends React.Component<{}, PortfolioDTO> {
           skills={skills}
           project_len={project_len}
           projects={projects}
+          profile_image_url={profile_image_url}
         />
       </>
     );

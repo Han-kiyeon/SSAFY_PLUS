@@ -8,8 +8,6 @@ import {
   Font,
   Image,
 } from "@react-pdf/renderer";
-import firstPic from "./testImg/hhh_1.png";
-import firstPic2 from "./testImg/hhh_2.png";
 
 interface PortfolioDTO {
   name: string;
@@ -20,20 +18,23 @@ interface PortfolioDTO {
   projects: Array<ProjectDTO>;
   skills: Array<SkillDTO>;
   project_len: number;
+  profile_image_url: string;
 }
 interface SkillDTO {
-  description: "string";
-  name: "string";
+  description: string;
+  name: string;
   percentage: number;
 }
 interface ProjectDTO {
-  description: "string";
-  name: "string";
-  period: "string";
+  description: string;
+  name: string;
+  period: string;
   roles: Array<string>;
   my_stacks: Array<String>;
-  stacks: "string";
-  url: "string";
+  stacks: string;
+  url: string;
+  big_image_url: string;
+  small_image_url: string;
 }
 const fontUrl =
   "https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.2/Cafe24Dangdanghae.woff";
@@ -361,6 +362,7 @@ function Portfolio({
   skills,
   project_len,
   projects,
+  profile_image_url,
 }: PortfolioDTO) {
   return (
     <Document>
@@ -403,10 +405,7 @@ function Portfolio({
               이메일 &nbsp;&nbsp; : {email}
             </Text>
             <Text style={styles.s_InfoBox_contents}>전화번호 : {phone}</Text>
-            <Image
-              style={styles.s_image}
-              source="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsnCO2zl9DBZJ4v8mdXNYD1AlT1q3Y5A9e6qb4tkX2Dwvzpp6y&usqp=CAU"
-            />
+            <Image style={styles.s_image} source={profile_image_url} />
           </View>
           <Text style={styles.s_skillTitle}>Skills</Text>
           <View style={styles.s_skills}>
@@ -475,7 +474,7 @@ function Portfolio({
       </Page>
       {project_len > 0 && (
         <Page object-fit="fill" size="A4" style={styles.thirdPage}>
-          <Image style={styles.t_projectImg} src={firstPic} />
+          <Image style={styles.t_projectImg} src={projects[0].big_image_url} />
           <View style={styles.t_project_descBox}>
             <Text style={styles.t_project_title}>Project 1.</Text>
             <Text style={styles.t_project_subtitle}>{projects[0].name}</Text>
@@ -519,13 +518,16 @@ function Portfolio({
               )}
             </View>
             <View style={styles.fo_projectImg_shadow}></View>
-            <Image style={styles.fo_projectImg} src={firstPic2} />
+            <Image
+              style={styles.fo_projectImg}
+              src={projects[0].small_image_url}
+            />
           </View>
         </Page>
       )}
       {project_len > 1 && (
         <Page object-fit="fill" size="A4" style={styles.thirdPage}>
-          <Image style={styles.t_projectImg} src={firstPic} />
+          <Image style={styles.t_projectImg} src={projects[1].big_image_url} />
           <View style={styles.t_project_descBox}>
             <Text style={styles.t_project_title}>Project 2.</Text>
             <Text style={styles.t_project_subtitle}>{projects[1].name}</Text>
@@ -569,13 +571,16 @@ function Portfolio({
               )}
             </View>
             <View style={styles.fo_projectImg_shadow}></View>
-            <Image style={styles.fo_projectImg} src={firstPic2} />
+            <Image
+              style={styles.fo_projectImg}
+              src={projects[1].small_image_url}
+            />
           </View>
         </Page>
       )}
       {project_len > 2 && (
         <Page object-fit="fill" size="A4" style={styles.thirdPage}>
-          <Image style={styles.t_projectImg} src={firstPic} />
+          <Image style={styles.t_projectImg} src={projects[2].big_image_url} />
           <View style={styles.t_project_descBox}>
             <Text style={styles.t_project_title}>Project 3.</Text>
             <Text style={styles.t_project_subtitle}>{projects[2].name}</Text>
@@ -619,13 +624,16 @@ function Portfolio({
               )}
             </View>
             <View style={styles.fo_projectImg_shadow}></View>
-            <Image style={styles.fo_projectImg} src={firstPic2} />
+            <Image
+              style={styles.fo_projectImg}
+              src={projects[2].small_image_url}
+            />
           </View>
         </Page>
       )}
       {project_len > 3 && (
         <Page object-fit="fill" size="A4" style={styles.thirdPage}>
-          <Image style={styles.t_projectImg} src={firstPic} />
+          <Image style={styles.t_projectImg} src={projects[3].big_image_url} />
           <View style={styles.t_project_descBox}>
             <Text style={styles.t_project_title}>Project 4.</Text>
             <Text style={styles.t_project_subtitle}>{projects[3].name}</Text>
@@ -669,7 +677,10 @@ function Portfolio({
               )}
             </View>
             <View style={styles.fo_projectImg_shadow}></View>
-            <Image style={styles.fo_projectImg} src={firstPic2} />
+            <Image
+              style={styles.fo_projectImg}
+              src={projects[3].small_image_url}
+            />
           </View>
         </Page>
       )}

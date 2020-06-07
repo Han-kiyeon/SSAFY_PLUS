@@ -11,40 +11,37 @@ export default class Upload extends React.Component<{}, UploadIForm> {
     this.state = { picture: "" };
     this.onDrop = this.onDrop.bind(this);
   }
-  // handleFileInput(e) {
-  //   this.setState({
-  //     selectedFile: e.target.files[0],
-  //   });
-  // }
 
   async onDrop(pictureFiles: any) {
     await this.setState({
       picture: pictureFiles[0],
     });
-    var newBlob = new Blob(pictureFiles, {
-      type: "application/json",
-    });
-    console.log(newBlob);
-    var formData = new FormData();
-    formData.set("file", newBlob);
-    console.log("form", formData);
 
-    // axios
-    //   .post("http://localhost:8080/api/uploadFile", formData)
-    //   .then(res => {
-    //     console .log(res.data, formData);
-    //   })
-    //   .catch(err => {
-    //     console.log(err.data, formData);
-    //   });
+    var formData = new FormData();
+
+    formData.append("file", this.state.picture);
+    var ImageType = window.sessionStorage.getItem("nowImageType");
+    axios
+      .post("http://13.125.238.102:8080/api/uploadFile", formData)
+      .then(res => {
+        window.sessionStorage.setItem(
+          "project_SmImg1",
+          res.data.fileDownloadUri
+        );
+      })
+      .catch(err => {
+        console.log(err, formData);
+      });
   }
 
   render() {
     return (
       <ImageUploader
-        withIcon={true}
-        buttonText="Choose images"
+        withIcon={false}
+        buttonText="이미지 선택하기"
         onChange={this.onDrop}
+        withLabel={false}
+        withPreview={true}
         imgExtension={[".jpg", ".gif", ".png", ".gif"]}
         maxFileSize={5242880}
       />

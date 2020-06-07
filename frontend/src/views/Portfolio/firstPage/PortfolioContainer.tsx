@@ -66,6 +66,7 @@ interface PortfolioIState {
   realistic: boolean; // 현실적인
   cooperative: boolean; // 협동적인
   error: boolean;
+  profile_image_url: string;
 }
 export default class extends React.Component<{}, PortfolioIState> {
   state = {
@@ -160,6 +161,7 @@ export default class extends React.Component<{}, PortfolioIState> {
     realistic: false, // 현실적인
     cooperative: false, // 협동적인
     error: false,
+    profile_image_url: "",
   };
   async componentDidMount() {
     window.scrollTo(0, 0);
@@ -530,6 +532,7 @@ export default class extends React.Component<{}, PortfolioIState> {
       realistic,
       cooperative,
       error,
+      profile_image_url,
     } = this.state;
     return (
       <PortfolioPresenter
@@ -576,6 +579,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         innovative={innovative}
         realistic={realistic}
         cooperative={cooperative}
+        profile_image_url={profile_image_url}
       />
     );
   }
