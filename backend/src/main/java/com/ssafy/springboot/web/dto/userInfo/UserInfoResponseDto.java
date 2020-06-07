@@ -18,7 +18,6 @@ public class UserInfoResponseDto {
     private String email;
     private String gender;
     private String phone;
-    private String profile_image_url;
 
     private HighschoolResponseDto highschool;
     private UniversityResponseDto university;
@@ -36,7 +35,6 @@ public class UserInfoResponseDto {
         this.email = entity.getEmail();
         this.gender = entity.getGender();
         this.phone = entity.getPhone();
-        this.profile_image_url = entity.getProfile_image_url();
         this.awards = new ArrayList<>();
         this.careers = new ArrayList<>();
         this.highschool = null;

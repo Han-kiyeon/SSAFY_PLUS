@@ -30,27 +30,22 @@ public class UserInfo {
     private String email;
     private String gender;
     private String phone;
-    private String profile_image_url;
 
     @Builder
-    public UserInfo(User user, String name, String birth, String email, String gender, String phone,
-                    String profile_image_url) {
+    public UserInfo(User user, String name, String birth, String email, String gender, String phone) {
         this.user = user;
         this.name = name;
         this.birth = birth;
         this.email = email;
         this.gender = gender;
         this.phone = phone;
-        this.profile_image_url = profile_image_url;
     }
 
-    public void update(String name, String birth, String email, String gender, String phone,
-                       String profile_image_url) {
+    public void update(String name, String birth, String email, String gender, String phone) {
         if (name != null) this.name = name;
         if (birth != null) this.birth = birth;
         if (email != null) this.email = email;
         if (gender != null) this.gender = gender;
         if (phone != null) this.phone = phone;
-        if (profile_image_url != null) this.profile_image_url = profile_image_url;
     }
 }

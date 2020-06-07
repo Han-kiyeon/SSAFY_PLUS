@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 public class UniversityResponseDto {
 
-    private Long university_id;
     private String name;
     private String location;
     private String duration;
@@ -16,7 +15,6 @@ public class UniversityResponseDto {
     private String classification;
 
     public UniversityResponseDto(University entity) {
-        this.university_id = entity.getUniversity_id();
         this.name = entity.getName();
         this.location = entity.getLocation();
         this.duration = entity.getDuration();

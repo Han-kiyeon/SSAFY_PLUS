@@ -19,7 +19,6 @@ public class UserInfoSaveRequestDto {
     private String email;
     private String gender;
     private String phone;
-    private String profile_image_url;
 
     private HighschoolSaveRequestDto highschool;
     private UniversitySaveRequestDto university;
@@ -29,7 +28,7 @@ public class UserInfoSaveRequestDto {
     private List<LicenceSaveRequestDto> licences;
 
     public UserInfoSaveRequestDto(String user_email, String name, String birth, String email, String gender,
-                                  String phone, String profile_image_url, HighschoolSaveRequestDto highschool,
+                                  String phone, HighschoolSaveRequestDto highschool,
                                   UniversitySaveRequestDto university, List<AwardSaveRequestDto> awards,
                                   List<CareerSaveRequestDto> careers, List<LicenceSaveRequestDto> licences) {
         this.user_email = user_email;
@@ -38,7 +37,6 @@ public class UserInfoSaveRequestDto {
         this.email = email;
         this.gender = gender;
         this.phone = phone;
-        this.profile_image_url = profile_image_url;
         this.highschool = highschool;
         this.university = university;
         this.awards = awards;
@@ -56,7 +54,6 @@ public class UserInfoSaveRequestDto {
                 .email(email)
                 .gender(gender)
                 .phone(phone)
-                .profile_image_url(profile_image_url)
                 .user(user)
                 .build();
     }

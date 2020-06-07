@@ -17,7 +17,6 @@ public class UserInfoUpdateRequestDto {
     private String email;
     private String gender;
     private String phone;
-    private String profile_image_url;
 
     private HighschoolUpdateRequestDto highschool;
     private UniversityUpdateRequestDto university;
@@ -29,7 +28,7 @@ public class UserInfoUpdateRequestDto {
     @Builder
 
     public UserInfoUpdateRequestDto(String user_email, String name, String birth, String email, String gender,
-                                    String phone, String profile_image_url, HighschoolUpdateRequestDto highschool,
+                                    String phone, HighschoolUpdateRequestDto highschool,
                                     UniversityUpdateRequestDto university, List<AwardUpdateRequestDto> awards,
                                     List<CareerUpdateRequestDto> careers, List<LicenceUpdateRequestDto> licences) {
         this.user_email = user_email;
@@ -38,7 +37,6 @@ public class UserInfoUpdateRequestDto {
         this.email = email;
         this.gender = gender;
         this.phone = phone;
-        this.profile_image_url = profile_image_url;
         this.highschool = highschool;
         this.university = university;
         this.awards = awards;
