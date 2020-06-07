@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import SSAFYlogo from "assets/img/SSAFYlogo.png";
 
 const Container = styled.div`
   position: absolute;
   top: 0px;
   right: 0px;
   width: 40vw;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
 `;
 
 const Form = styled.form`
@@ -34,6 +35,11 @@ const ImageBox = styled.div`
   background-size: cover;
   height: 100vh;
   width: 100vw;
+`;
+const Logo = styled.div`
+  height: 5vh;
+  width: 5vh;
+  background-image: url(${SSAFYlogo});
 `;
 const InfoBox = styled.div`
   display: inline-block;
@@ -78,6 +84,7 @@ function SignInPresenter({
       <Container>
         <InfoBox>
           <CardBox>
+            <Logo />
             <Form onSubmit={handleSubmit} className={classes.loginbar}>
               <TextField
                 label="이메일 계정"
