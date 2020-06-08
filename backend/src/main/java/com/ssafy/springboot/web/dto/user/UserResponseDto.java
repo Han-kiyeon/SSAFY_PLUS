@@ -15,6 +15,7 @@ public class UserResponseDto {
     private String season;
     private String section;
     private String profile_img;
+    private Long answer_like;
 
     private Role role;
 
@@ -27,5 +28,6 @@ public class UserResponseDto {
         this.section = entity.getSection();
         this.profile_img = entity.getProfile_img();
         this.role = entity.getRole();
+        this.answer_like = entity.getAnswer_like();
     }
 }

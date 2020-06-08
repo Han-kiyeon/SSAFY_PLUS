@@ -40,10 +40,12 @@ public class AnswerLikeService {
             AnswerLikeSaveRequestDto dto = new AnswerLikeSaveRequestDto(user.getEmail(), answer.getAnswer_id());
             answerLikeRepository.save(dto.toEntity(user, answer));
             answersRepository.likeCntUp(answer.getAnswer_id());
+            userRepository.answerLikeUp(answer.getUser().getUser_id());
             return ResponseEntity.status(HttpStatus.OK).body("like");
         } else {
             answerLikeRepository.delete(answerLike);
             answersRepository.likeCntDown(answer.getAnswer_id());
+            userRepository.answerLikeDown(answer.getUser().getUser_id());
             return ResponseEntity.status(HttpStatus.OK).body("unlike");
         }
     }

@@ -3,6 +3,7 @@ package com.ssafy.springboot.service;
 import com.ssafy.springboot.domain.user.User;
 import com.ssafy.springboot.domain.user.UserRepository;
 import com.ssafy.springboot.web.dto.user.UserJwtResponsetDto;
+import com.ssafy.springboot.web.dto.user.UserResponseDto;
 import com.ssafy.springboot.web.dto.user.UserSaveRequestDto;
 import com.ssafy.springboot.web.dto.user.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -151,5 +153,13 @@ public class UserService {
             System.out.println("해당 사용자가 없거나,아이디/비밀번호가 일치하지 않습니다.");
             return null;
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserResponseDto> getAnswerLikeRank(){
+        return userRepository.showLikeRank()
+                .stream()
+                .map(UserResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

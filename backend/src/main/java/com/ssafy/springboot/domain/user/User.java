@@ -46,6 +46,9 @@ public class User extends BaseTimeEntity {
     @Column
     private String profile_img;
 
+    @Column
+    private Long answer_like;
+
 
     @Builder
     public User(Long user_id, String email, String password, String name, String nickname,
@@ -63,6 +66,7 @@ public class User extends BaseTimeEntity {
         else
             this.profile_img = "./src/userimg/user.jpg";
         this.role = role;
+        this.answer_like = Long.valueOf(0);
     }
 
 

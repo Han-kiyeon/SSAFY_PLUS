@@ -151,6 +151,10 @@ public class UserController {
         cm.CookieDelete(request, response);
     }
 
+    @GetMapping("/answerLike")
+    public List<UserResponseDto> getAnswerLikeRank(){
+        return userService.getAnswerLikeRank();
+    }
 
     public static String encrypt(String rawpass) {
         try {
