@@ -6,6 +6,7 @@ import com.ssafy.springboot.web.dto.user.UserJwtResponsetDto;
 import com.ssafy.springboot.web.dto.user.UserResponseDto;
 import com.ssafy.springboot.web.dto.user.UserSaveRequestDto;
 import com.ssafy.springboot.web.dto.user.UserUpdateRequestDto;
+import com.ssafy.springboot.web.dto.userInfo.UserInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -39,6 +40,12 @@ public class UserService {
     @Transactional
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Transactional
+    public UserJwtResponsetDto getUserByEmail(String email) {
+        User entity = userRepository.findByEmail(email);
+        return new UserJwtResponsetDto(entity);
     }
 
 
