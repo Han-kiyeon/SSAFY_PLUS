@@ -6,6 +6,7 @@ import com.ssafy.springboot.domain.BreakingError.Answers;
 import com.ssafy.springboot.domain.BreakingError.AnswersRepository;
 import com.ssafy.springboot.domain.user.User;
 import com.ssafy.springboot.domain.user.UserRepository;
+import com.ssafy.springboot.web.dto.BreakingError.AnswerLikeCheckRequestDto;
 import com.ssafy.springboot.web.dto.BreakingError.AnswerLikeSaveRequestDto;
 import com.ssafy.springboot.web.dto.BreakingError.AnswerLikeUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -48,5 +49,18 @@ public class AnswerLikeService {
             userRepository.answerLikeDown(answer.getUser().getUser_id());
             return ResponseEntity.status(HttpStatus.OK).body("unlike");
         }
+    }
+
+    @Transactional
+    public boolean likeCheck(AnswerLikeCheckRequestDto requestDto){
+        Answers answer = answersRepository.findById(requestDto.getAnswer_id())
+                .orElseThrow(() -> new IllegalArgumentException("해당 답변이 없습니다. id=" + requestDto.getAnswer_id()));
+        //유저 있나 확인
+        User user = userRepository.findByEmail(requestDto.getUser_email());
+
+        if (answerLikeRepository.findByAnswerIDAndUserID(answer.getAnswer_id(), user.getUser_id())==null){
+            return false;
+        }else
+            return true;
     }
 }
