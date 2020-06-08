@@ -14,8 +14,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import styled from "styled-components"
 import './BreakingError.css';
-import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
-import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
+
 
 class BreakingError2 extends React.Component {
   state = {
@@ -40,6 +39,7 @@ class BreakingError2 extends React.Component {
   useStyles = makeStyles((theme) => ({
     grid: {
       flexGrow: 1,
+      padding: "40px 20px",
     },
   }));
   render() {
@@ -69,10 +69,8 @@ class BreakingError2 extends React.Component {
       {location.state.errorList.created_date[2]+"일"}
       {location.state.errorList.created_date[3]+"시"}
       {location.state.errorList.created_date[4]+"분"}
-      {location.state.errorList.created_date[5]+"초"}
       </div>
       <div className="floatLeft">질문자: {location.state.errorList.userEmail}</div>
-      {/* <div id="errorListLikeCnt"><ThumbUpAltOutlinedIcon style={{fontSize: "1.5vw"}} />&nbsp;{location.state.errorList.likeCnt}</div> */}
               <CardFooter stats>
                 <div className={classes.stats}>
               </div>
@@ -80,7 +78,7 @@ class BreakingError2 extends React.Component {
             </Paper>
           </Grid>
           <br></br>
-          {isLoading ? true : answerLists.data.map(answerList => {
+          {isLoading ? true : answerLists.data.reverse().map(answerList => {
             return (<><AnswerList key={answerList.answer_id} answer_id={answerList.answer_id} title={answerList.title} content={answerList.content} user_email={answerList.user_email} answer_cnt={answerList.answer_cnt} error_id={answerList.error_id} like_cnt={answerList.like_cnt} />
             </>)
           }

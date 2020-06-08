@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     width: "25vw",
   },
   TableContainer: {
-    width: "45vw",
+    width: "52vw",
   },
   fontTitle: {
     fontSize: "0.9vw",
@@ -49,7 +49,7 @@ export default function RankTable(
           </TableRow>
         </TableHead>
         <TableBody>
-          {rankLists.rankLists.map((rankList, index) => (
+          {rankLists.rankLists.reverse().map((rankList, index) => (
             <TableRow  key={rankList.errorId}>
               <TableCell className={classes.fontContent} component="th" scope="row" align="center">
                 {(index+1)===1 && "🥇"}
