@@ -11,9 +11,9 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import axios from "axios";
-import ErrorList from "./ErrorList.js";
 import RankList from "./RankList.js";
 import SearchBox from "./SearchBox.js";
+import Tab from "./Tab.js";
 import './BreakingError.css';
 
 
@@ -22,21 +22,7 @@ class BreakingError extends React.Component {
     context: "",
     isLoading: true,
     errorLists: [],
-    rankLists: [
-      {
-        id: 0,
-        bname: "a",
-      },
-      {
-        id: 1,
-        bname: "b",
-      },
-      {
-        id: 2,
-        bname: "c",
-      },
-
-    ],
+    rankLists: []
   };
 
   getBreakingError = async () => {
@@ -44,7 +30,8 @@ class BreakingError extends React.Component {
     this.setState({errorLists, isLoading : false });
   }
   getRankList = async () => {
-    // const rankLists = await axios.get("");
+    const rankLists = await axios.get("http://13.125.238.102:8080/api/user/answerLike");
+    this.setState({rankLists});
   }
   componentDidMount() {
     this.getBreakingError();
@@ -62,46 +49,12 @@ class BreakingError extends React.Component {
 
   render() {
     const classes = this.useStyles;
-    const { isLoading, errorLists} = this.state;
+    const { isLoading, errorLists, rankLists} = this.state;
     return (
       <div>
-       
+        
         <GridContainer>
-               <SearchBox />
-          <GridItem xs={12} sm={6} md={6}>
-            <Card>
-              <CardHeader color="success" stats icon>
-                <p className={classes.cardCategory}> 미해결 에러 </p>
-                {isLoading ? true : errorLists.data.map(errorList => {
-                  return <ErrorList key={errorList.errorId} answerCnt={errorList.answerCnt} content={errorList.content} errorId={errorList.errorId} likeCnt={errorList.likeCnt} title={errorList.title} userEmail={errorList.userEmail} />
-                })}
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <DateRange />
-                Last 24 Hours 
-              </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={6} md={6}>
-            <Card>
-              <CardHeader color="success" stats icon>
-                <p className={classes.cardCategory}> SSAFY Debug Rank </p>
-                {isLoading ? true : this.state.rankLists.map(rankList => {
-                  return <RankList id={rankList.id} bname={rankList.bname} key={rankList.id} />
-                }
-                )
-                }
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <DateRange />
-                Last 24 Hours
-              </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
+          <Tab errorLists={errorLists} isLoading={isLoading} rankLists={rankLists}/>
         </GridContainer>
       </div>
     );
