@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -29,14 +28,17 @@ public class PostsService {
     private final UserRepository userRepository;
     private final PostsRepository postsRepository;
 
+
     @Transactional
     public ResponseEntity<?> save(PostsSaveRequestDto requestDto) {
         User user = userRepository.findByEmail(requestDto.getUser_email());
-        if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("아이디 없음?!");
+        if (user == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User does not exist...  ");
         System.out.println(requestDto.getBoard_id());
         Board board = boardRepository.findByBoard_id(requestDto.getBoard_id());
-        System.out.println(board);
-        if (board == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("게시판 없음?!");
+        if (board == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Post does not exist...  ");
+        System.out.println("\n\n\nboardID="+board.getBoard_id()+"\n\n\n");
+        boardRepository.postCntUp(board.getBoard_id());
+
         return ResponseEntity.
                 status(HttpStatus.OK).
                 body(postsRepository.save(requestDto.toEntity(user, board)).getPost_id());
@@ -45,7 +47,7 @@ public class PostsService {
     @Transactional(readOnly = true)
     public PostsResponseDto findById(Long id) {
         Posts entity = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Post does not exist...  id=" + id));
 
         return new PostsResponseDto(entity);
     }
@@ -53,7 +55,7 @@ public class PostsService {
     @Transactional
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
         Posts posts = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Post does not exist...  id=" + id));
 
         posts.update(requestDto.getTitle(), requestDto.getContent());
 
@@ -63,16 +65,29 @@ public class PostsService {
     @Transactional
     public void delete(Long id) {
         Posts posts = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-
+                .orElseThrow(() -> new IllegalArgumentException("Post does not exist...  id=" + id));
+        boardRepository.postCntDown(posts.getBoard().getBoard_id());
         postsRepository.delete(posts);
     }
 
 
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc() {
-        return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new) //.map(posts -> new PostsListResponseDto(post))
+        return postsRepository.findAllDesc()
+                .stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findByBoardID(Long id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Board does not exist...  id=" + id));
+
+        return postsRepository.findByBoardID(board.getBoard_id())
+                .stream()
+                .map(PostsListResponseDto::new)
                 .collect(Collectors.toList());
     }
 }

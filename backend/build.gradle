@@ -15,12 +15,13 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group 'com.ssfay'
+group 'com.ssafy'
 version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -30,11 +31,14 @@ dependencies {
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
     compile group: 'org.javassist', name: 'javassist', version: '3.25.0-GA'
 
+    //jackson
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+    compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.9.13'
 
     //Spring Data JPA
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('com.h2database:h2')
-
     //JWT
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
 
@@ -60,5 +64,11 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-mail")
     compile "org.springframework:spring-context-support"
     compile "com.sun.mail:javax.mail"
+
+    //SLF4J API
+    compile("org.slf4j:slf4j-api")
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 

@@ -32,7 +32,7 @@ public class Posts extends BaseTimeEntity {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "board_id")
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "board_id") // 게시글 번호
+    @JoinColumn(name = "board_id")
     private Board board;
 
     //테이블의 컬럼을 나타냄 기본값 이외의 추가로 변경이 필요한 옵션이 있을때 사용
@@ -59,5 +59,18 @@ public class Posts extends BaseTimeEntity {
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Posts{" +
+                "post_id=" + post_id +
+                ", user=" + user +
+                ", board=" + board +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", like_cnt=" + like_cnt +
+                ", comment_cnt=" + comment_cnt +
+                '}';
     }
 }

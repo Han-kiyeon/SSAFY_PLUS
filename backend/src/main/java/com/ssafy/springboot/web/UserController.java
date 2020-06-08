@@ -47,20 +47,27 @@ public class UserController {
     }
 
 
+    @ApiOperation("유저의 정보.")
+    @GetMapping("/get/{email:.+}/")
+    public UserJwtResponsetDto findByID(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
+
     // 회원 가입
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody UserSaveRequestDto userSaveRequestDto) {
         if (checkId(userSaveRequestDto.getEmail()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("이메일 중복!!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Email duplication!!");
         String secPass = encrypt(userSaveRequestDto.getPassword());
         userSaveRequestDto.setPassword(secPass);
         userService.signUp(userSaveRequestDto);
-        return ResponseEntity.status(HttpStatus.OK).body("회원가입 완료!!");
+        return ResponseEntity.status(HttpStatus.OK).body("Registration completed!!");
     }
 
     // 아이디 중복 확인(회원가입시)
-    @PostMapping("/checkid/{email:.+}")
+    @GetMapping("/checkid/{email:.+}/")
     public boolean checkId(@PathVariable String email) {
+        System.out.println(email);
         return userService.checkEmail(email);
     }
 
@@ -74,7 +81,7 @@ public class UserController {
             map.put("email", email);
             return ResponseEntity.status(HttpStatus.OK).body(map);
         } else
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("불일치");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("mismatch");
     }
 
 
@@ -150,6 +157,10 @@ public class UserController {
         cm.CookieDelete(request, response);
     }
 
+    @GetMapping("/answerLike")
+    public List<UserListResponseDto> getAnswerLikeRank(){
+        return userService.getAnswerLikeRank();
+    }
 
     public static String encrypt(String rawpass) {
         try {

@@ -1,13 +1,11 @@
 package com.ssafy.springboot.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ssafy.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -43,9 +41,12 @@ public class User extends BaseTimeEntity {
     @Column
     private String profile_img;
 
+    @Column
+    private Long answer_like;
+
 
     @Builder
-    public User(Long user_id, String email, String password, String name,
+    public User(Long user_id, String email, String password, String name, String nickname,
                 String position, String season, String section, String profile_img, Role role) {
         this.user_id = user_id;
         this.email = email;
@@ -59,6 +60,7 @@ public class User extends BaseTimeEntity {
         else
             this.profile_img = "./src/userimg/user.jpg";
         this.role = role;
+        this.answer_like = Long.valueOf(0);
     }
 
 
@@ -74,5 +76,20 @@ public class User extends BaseTimeEntity {
             this.section = section;
         if (profile_img != null)
             this.profile_img = profile_img;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", position='" + position + '\'' +
+                ", season='" + season + '\'' +
+                ", section='" + section + '\'' +
+                ", role=" + role +
+                ", profile_img='" + profile_img + '\'' +
+                '}';
     }
 }

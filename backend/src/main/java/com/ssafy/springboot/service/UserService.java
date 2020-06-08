@@ -2,9 +2,8 @@ package com.ssafy.springboot.service;
 
 import com.ssafy.springboot.domain.user.User;
 import com.ssafy.springboot.domain.user.UserRepository;
-import com.ssafy.springboot.web.dto.user.UserJwtResponsetDto;
-import com.ssafy.springboot.web.dto.user.UserSaveRequestDto;
-import com.ssafy.springboot.web.dto.user.UserUpdateRequestDto;
+import com.ssafy.springboot.web.dto.user.*;
+import com.ssafy.springboot.web.dto.userInfo.UserInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +37,12 @@ public class UserService {
     @Transactional
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Transactional
+    public UserJwtResponsetDto getUserByEmail(String email) {
+        User entity = userRepository.findByEmail(email);
+        return new UserJwtResponsetDto(entity);
     }
 
 
@@ -151,5 +157,13 @@ public class UserService {
             System.out.println("해당 사용자가 없거나,아이디/비밀번호가 일치하지 않습니다.");
             return null;
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserListResponseDto> getAnswerLikeRank(){
+        return userRepository.showLikeRank()
+                .stream()
+                .map(UserListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

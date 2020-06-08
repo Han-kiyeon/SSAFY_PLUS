@@ -28,16 +28,6 @@ public class PostsSaveRequestDto {
         this.content = content;
     }
 
-//    @Builder
-//    public PostsSaveRequestDto(String user_email, Long board_id,
-//                               String title, String content, Long like_cnt, Long comment_cnt) {
-//        this.user_email = user_email;
-//        this.board_id = board_id;
-//        this.title = title;
-//        this.content = content;
-//        this.like_cnt = like_cnt;
-//        this.comment_cnt = comment_cnt;
-//    }
 
     public Posts toEntity(User user, Board board) {
         return Posts.builder()
