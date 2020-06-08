@@ -10,4 +10,5 @@ public interface AnswerLikeRepository extends JpaRepository<AnswerLike, Long> {
     AnswerLike findByAnswerIDAndUserID(@Param("answer_id") Long answer_id, @Param("user_id") Long user_id);
 
 
+
 }
