@@ -66,6 +66,7 @@ export default class extends React.Component<{}, PortfolioIState> {
     // console.log(skillSession);
     skillSession.length !== 0 &&
       this.setState({
+        name: sessionStorage.getItem("portfolio_name") || "",
         stack1: skillSession[0].name,
         stack2: skillSession[1].name,
         stack3: skillSession[2].name,

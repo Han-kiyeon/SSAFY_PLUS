@@ -49,12 +49,14 @@ export default class extends React.Component<{}, SignInIState> {
           axios
             .get(`http://13.125.238.102:8080/api/user/get/${userId}/`)
             .then(res => {
-              window.sessionStorage.setItem("user_email", userId);
+              console.log(res);
               window.sessionStorage.setItem("user_id", res.data.user_id);
               window.sessionStorage.setItem("user_position", res.data.position);
             });
         })
         .then(res => {
+          window.sessionStorage.setItem("user_email", userId);
+          console.log(res);
           window.location.href = "../plus/board";
         });
     } catch {

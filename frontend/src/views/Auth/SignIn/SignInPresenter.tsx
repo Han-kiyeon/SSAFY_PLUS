@@ -107,8 +107,7 @@ function SignInPresenter({
             <Form onSubmit={handleSubmit} className={classes.loginbar}>
               <Title>아이디</Title>
               <TextField
-                label="이메일 계정"
-                helperText="Test ID: test2@gmail.com"
+                label="Test ID: test2@gmail.com"
                 onChange={updateTerm}
                 name="userId"
                 value={userId}
@@ -117,8 +116,7 @@ function SignInPresenter({
               <br />
               <Title>비밀번호</Title>
               <TextField
-                label="비밀번호"
-                helperText="Test PW: 1234"
+                label="Test PW: Tkvl12#"
                 onChange={updateTerm}
                 name="password"
                 value={password}
