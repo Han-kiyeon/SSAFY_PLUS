@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  listItem: {
+    fontSize: "1.5vw",
+  },
 }));
 
 function CommentList({ answer_id }) {
@@ -25,7 +28,7 @@ function CommentList({ answer_id }) {
   const [commentLists, setCommentLists] = React.useState(null);
   async function getCommentLists() {
     const commentLists = await axios.get(`http://13.125.238.102:8080/api/breakingError/answers/list/${answer_id}`);
-    setCommentLists(commentLists.data);
+    setCommentLists(commentLists.data.reverse());
   }
   useEffect(() => {
     getCommentLists();
@@ -34,24 +37,23 @@ function CommentList({ answer_id }) {
     <div>
       {commentLists == null ? null : commentLists.map(commentList => {
         return (<><div key={commentList.answer_id}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
+          {console.log(commentList, "뭐가들음?")}
+            <div id="commentEmail" className="commentClass">{commentList.user_email}</div>
+            <div id="commentContent" className="commentClass">
               {commentList.content}
-              <ListItemText primary={commentList.user_email} secondary="Jan 9, 2014" />
-            </ListItem>
-            {/* <Divider variant="inset" component="li" /> */}
             </div>
-            </>
+            <div id="commentDate" className="commentClass">
+              {commentList.created_date[0] + "." + commentList.created_date[1] + "." + commentList.created_date[2] + "." + commentList.created_date[3] + ":" + commentList.created_date[4]}
+            </div>
+          {/* <Divider variant="inset" component="li" /> */}
+        </div>
+        <br></br>
+        <br></br>
+        </>
         )
       }
       )
       }
-      <br></br>
-      <br></br>
     </div>);
 }
 

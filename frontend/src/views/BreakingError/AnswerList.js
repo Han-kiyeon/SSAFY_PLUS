@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import './BreakingError.css';
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -19,6 +19,8 @@ import Icon from '@material-ui/core/Icon';
 import axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import './BreakingError.css';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
+import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -29,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
     button: {
         '& > *': {
             margin: theme.spacing(1),
-            width: '5vw',
+            width: '4vw',
         },
     },
     text: {
         '& > *': {
           margin: theme.spacing(1),
-          width: '25vw',
+          width: '35vw',
+          textAlign: 'bottom',
         },
       },
 }));
@@ -45,15 +48,58 @@ function AnswerList({ answer_id, title, content, user_email, answer_cnt, error_i
     const classes = useStyles();
     const [contents, setContents] = React.useState('');
     const [value, setValue] = React.useState(null);
-
+    const [like, setLike] = React.useState(false);
     const handleChange = (event) => {
         setContents(event.target.value);
     };
+    async function getLike(){
+        await axios({
+            method: 'post',
+            url: 'http://13.125.238.102:8080/api/answerlike/likeCheck',
+            data: {
+                answer_id: answer_id,
+                user_email: user_email,
+            }
+        }).then(res => {
+            console.log(res.data);
+            setLike(res.data);
+        });
+    }
+    
+    useEffect(() => {
+        getLike();
+    }, []);
     function appKeyPress(e) {
         if (e.key === 'Enter') {
             appClick();
             e.preventDefault();
         }
+    }
+    const setTrue = async () => {
+        await axios({
+            method: 'put',
+            url: 'http://13.125.238.102:8080/api/answerlike',
+            data: {
+                answer_id: answer_id,
+                user_email: user_email,
+            }
+        }).then(res => {
+            console.log(res);
+            setLike(true);
+        });
+    }
+    const setFalse = async () => {
+        await axios({
+            method: 'put',
+            url: 'http://13.125.238.102:8080/api/answerlike',
+            data: {
+                answer_id: answer_id,
+                user_email: user_email,
+            }
+        }).then(res => {
+            console.log(res);
+            setLike(false);
+        });
     }
     const appClick = async () => {
         await axios({
@@ -82,17 +128,22 @@ function AnswerList({ answer_id, title, content, user_email, answer_cnt, error_i
                 <div id="answerContent">
                     {content}
                 </div>
+                 <div id="answerListLikeCnt">
+                 {!like &&  <ThumbUpAltOutlinedIcon style={{fontSize: "1.5vw"}} onClick={setTrue} /> }
+                 {like &&  <ThumbUpAltRoundedIcon style={{fontSize: "1.5vw"}} onClick={setFalse} /> }
+                     &nbsp;<div id="gachihasheul">{like_cnt}</div></div>
                 <CardFooter stats>
                     <div className={classes.stats}>
-
                     </div>
                 </CardFooter>
+                <CommentList answer_id={answer_id} />
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <form className={classes.text} id="answerTextField" noValidate autoComplete="off">
                             <TextField id="standard-basic" label="댓글" value={value} onChange={handleChange} onKeyPress={appKeyPress} />
                         </form>
                         <Button
+                            id="answerButton"
                             onClick={appClick}
                             variant="contained"
                             color="primary"
@@ -103,11 +154,9 @@ function AnswerList({ answer_id, title, content, user_email, answer_cnt, error_i
       </Button>
                     </GridItem>
                 </GridContainer>
-                <CommentList answer_id={answer_id} />
             </Paper>
         </Grid>
         <br></br>
-
     </div>);
 }
 

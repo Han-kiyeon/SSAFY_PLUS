@@ -94,8 +94,6 @@ function MakeAnswer(searchLists) {
                         답변올리기
       </Button>
                 </div>
-
-
             </Paper>
         </Grid>
     </div>
