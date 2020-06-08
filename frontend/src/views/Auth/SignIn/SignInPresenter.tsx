@@ -59,6 +59,7 @@ const TestLogin = styled.form`
   }
 `;
 const Title = styled.span`
+  display: block;
   font-size: 13px;
   font-weight: 600;
   opacity: 0.5;
