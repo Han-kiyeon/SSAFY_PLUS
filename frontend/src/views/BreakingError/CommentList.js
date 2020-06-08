@@ -43,7 +43,7 @@ function CommentList({ answer_id }) {
               {commentList.content}
               <ListItemText primary={commentList.user_email} secondary="Jan 9, 2014" />
             </ListItem>
-            <Divider variant="inset" component="li" />
+            {/* <Divider variant="inset" component="li" /> */}
             </div>
             </>
         )

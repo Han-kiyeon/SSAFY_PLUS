@@ -19,6 +19,7 @@ function App() {
         <Route path="/plus" component={SsafyPlus} />
         <Route path="/auth/signUP" component={SsafyPlus} />
         <Route path="/auth/signIn" component={SsafyPlus} />
+        <Route path="/plus/breakingerror_datail/:id"  component={SsafyPlus} />
         <Route path="/plus/breakingerror/" exact={true} component={SsafyPlus} />
         <Redirect from="/" to="/plus/main" />
       </Switch>
