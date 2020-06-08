@@ -27,3 +27,68 @@ p {
     text-align: left;
     color: black;
 }
+
+#errorListTitle{
+    color: black;
+    text-align: left;
+    font-size: 1.7vw;
+    padding-top: 1vw;
+}
+
+#errorListContent{
+    color: black;
+    text-align: left;
+    font-size: 1.5vw;
+    padding-top: 1vw;
+    padding-right: 1vw;
+    padding-left: 1vw;
+    line-height: 2.2vw;
+}
+
+.floatLeft{
+    float: right;
+    font-size: 0.8vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+#errorListLikeCnt{
+    text-align: right;
+    font-size: 1.5vw;
+    padding-right: 2vw;
+}
+
+#errorh4{
+    padding-top: 2vw;
+    padding-left: 3vw;
+}
+
+.paddingLeft{
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+#replyButton{
+    padding-left: 2vw;
+    padding-bottom: 2vw;
+}
+
+#answerTitle{
+    color: black;
+    text-align: left;
+    font-size: 1.7vw;
+}
+#answerContent{
+    color: black;
+    text-align: left;
+    font-size: 1.5vw;
+    padding-top: 1vw;
+    padding-right: 1vw;
+    padding-left: 1vw;
+    line-height: 2.2vw;
+}
+
+#answerTextField{
+    text-align: left;
+    padding-left: 0.5vw;
+}

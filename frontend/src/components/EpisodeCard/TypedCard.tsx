@@ -76,6 +76,9 @@ export default function Card({
   const handleClose = () => {
     setOpen(false);
   };
+  const tagChange = (event: any, values: any) => {
+    strength = values;
+  };
   const updateTerm = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value, name },
@@ -143,6 +146,7 @@ export default function Card({
                   options={tags.map(option => option.title)}
                   defaultValue={strength}
                   filterSelectedOptions
+                  onChange={tagChange}
                   renderInput={params => <TextField {...params} />}
                 />
               </div>

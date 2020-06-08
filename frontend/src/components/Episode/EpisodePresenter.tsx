@@ -123,7 +123,6 @@ function PortfolioPresenter({ episodes }: PortfolioIState) {
   };
   return (
     <>
-      {console.log(episodes)}
       <div className={classes.button}>
         <Button
           size="large"

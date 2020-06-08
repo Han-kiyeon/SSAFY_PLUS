@@ -18,6 +18,7 @@ import SendIcon from '@material-ui/icons/Send';
 import Icon from '@material-ui/core/Icon';
 import axios from "axios";
 import TextField from '@material-ui/core/TextField';
+import './BreakingError.css';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,8 +28,14 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         '& > *': {
+            margin: theme.spacing(1),
+            width: '5vw',
+        },
+    },
+    text: {
+        '& > *': {
           margin: theme.spacing(1),
-          width: '25ch',
+          width: '25vw',
         },
       },
 }));
@@ -44,11 +51,11 @@ function AnswerList({ answer_id, title, content, user_email, answer_cnt, error_i
     };
     function appKeyPress(e) {
         if (e.key === 'Enter') {
-          appClick();
-          e.preventDefault();
+            appClick();
+            e.preventDefault();
         }
-      }
-      const appClick =  async() =>{
+    }
+    const appClick = async () => {
         await axios({
             method: 'post',
             url: 'http://13.125.238.102:8080/api/breakingError/answers',
@@ -59,41 +66,44 @@ function AnswerList({ answer_id, title, content, user_email, answer_cnt, error_i
                 title: "",
                 user_email: window.sessionStorage.getItem("user_email")
             }
-          }).then(res=>{
-              console.log(res)
-          });
+        }).then(res => {
+            console.log(res)
+        });
         window.location.reload(true);
     }
     return (<div>
         <Grid item xs>
             <Paper className={classes.paper}>
                 <CardHeader color="success" stats icon>
-                    <p className={classes.cardCategory}> 미해결 에러 </p>
-                    {title}
+                    <div id="answerTitle">
+                        {title}
+                    </div>
                 </CardHeader>
-                {content}
+                <div id="answerContent">
+                    {content}
+                </div>
                 <CardFooter stats>
                     <div className={classes.stats}>
-                        
-              </div>
+
+                    </div>
                 </CardFooter>
                 <GridContainer>
-            <GridItem xs={12} sm={12} md={12}>
-            <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="standard-basic" label="검색" value={value} onChange={handleChange} onKeyPress={appKeyPress} />
-    </form>
-            <Button
-        onClick={appClick}
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        endIcon={<SendIcon/>}
-      >
-        작성하기
+                    <GridItem xs={12} sm={12} md={12}>
+                        <form className={classes.text} id="answerTextField" noValidate autoComplete="off">
+                            <TextField id="standard-basic" label="댓글" value={value} onChange={handleChange} onKeyPress={appKeyPress} />
+                        </form>
+                        <Button
+                            onClick={appClick}
+                            variant="contained"
+                            color="primary"
+                            className={classes.button}
+                            endIcon={<SendIcon />}
+                        >
+                            작성하기
       </Button>
-            </GridItem>
-        </GridContainer>
-                <CommentList answer_id={answer_id}/>
+                    </GridItem>
+                </GridContainer>
+                <CommentList answer_id={answer_id} />
             </Paper>
         </Grid>
         <br></br>

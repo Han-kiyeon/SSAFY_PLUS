@@ -19,7 +19,7 @@ class Editor extends React.Component {
   render() {
     return (
       <ReactSummernote
-        value=""
+        value=" "
         options={{
           lang: 'ko-KR',
           height: 350,

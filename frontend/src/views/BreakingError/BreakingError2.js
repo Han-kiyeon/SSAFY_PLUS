@@ -12,13 +12,16 @@ import Paper from '@material-ui/core/Paper';
 import DateRange from "@material-ui/icons/DateRange";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
+import styled from "styled-components"
+import './BreakingError.css';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
+import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
 
 class BreakingError2 extends React.Component {
   state = {
     isLoading: true,
     answerLists: [],
   };
-
   
   componentDidMount() {
     const { location, history } = this.props;
@@ -29,10 +32,10 @@ class BreakingError2 extends React.Component {
   }
   getAnswerList = async (location) => {
     console.log(this);
-              if (location.state !== undefined) {
-    const answerLists = await axios.get(`http://13.125.238.102:8080/api/breakingError/answers/error/${location.state.errorList.errorId}`);
-    this.setState({ answerLists, isLoading: false });
-              } 
+    if (location.state !== undefined) {
+      const answerLists = await axios.get(`http://13.125.238.102:8080/api/breakingError/answers/error/${location.state.errorList.errorId}`);
+      this.setState({ answerLists, isLoading: false });
+    } 
   }
   useStyles = makeStyles((theme) => ({
     grid: {
@@ -43,6 +46,7 @@ class BreakingError2 extends React.Component {
     const { isLoading, answerLists } = this.state;
     const classes = this.useStyles;
     const { location } = this.props;
+    console.log(location, "값보자")
     if (location.state) {
       return (<div className={classes.grid}>
         <Grid container
@@ -52,14 +56,25 @@ class BreakingError2 extends React.Component {
           <Grid item xs>
             <Paper className={classes.paper}>
               <CardHeader color="success" stats icon>
-                <p className={classes.cardCategory}> 미해결 에러 </p>
-                {location.state.title}
+              <div id="errorListTitle">
+                {location.state.errorList.title}
+              </div>
               </CardHeader>
-              {location.state.content}
+              <div id="errorListContent">
+                {location.state.errorList.content.replace(/(<([^>]+)>)/ig,"")}
+              </div>
+      <div className="floatLeft">등록일자: 
+      {location.state.errorList.created_date[0]+"년"}
+      {location.state.errorList.created_date[1]+"월"}
+      {location.state.errorList.created_date[2]+"일"}
+      {location.state.errorList.created_date[3]+"시"}
+      {location.state.errorList.created_date[4]+"분"}
+      {location.state.errorList.created_date[5]+"초"}
+      </div>
+      <div className="floatLeft">질문자: {location.state.errorList.userEmail}</div>
+      {/* <div id="errorListLikeCnt"><ThumbUpAltOutlinedIcon style={{fontSize: "1.5vw"}} />&nbsp;{location.state.errorList.likeCnt}</div> */}
               <CardFooter stats>
                 <div className={classes.stats}>
-                  <DateRange />
-                Last 24 Hours
               </div>
               </CardFooter>
             </Paper>
