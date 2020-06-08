@@ -158,7 +158,7 @@ public class UserController {
     }
 
     @GetMapping("/answerLike")
-    public List<UserResponseDto> getAnswerLikeRank(){
+    public List<UserListResponseDto> getAnswerLikeRank(){
         return userService.getAnswerLikeRank();
     }
 

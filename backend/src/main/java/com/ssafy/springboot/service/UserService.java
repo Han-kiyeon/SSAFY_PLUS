@@ -2,10 +2,7 @@ package com.ssafy.springboot.service;
 
 import com.ssafy.springboot.domain.user.User;
 import com.ssafy.springboot.domain.user.UserRepository;
-import com.ssafy.springboot.web.dto.user.UserJwtResponsetDto;
-import com.ssafy.springboot.web.dto.user.UserResponseDto;
-import com.ssafy.springboot.web.dto.user.UserSaveRequestDto;
-import com.ssafy.springboot.web.dto.user.UserUpdateRequestDto;
+import com.ssafy.springboot.web.dto.user.*;
 import com.ssafy.springboot.web.dto.userInfo.UserInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,10 +160,10 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserResponseDto> getAnswerLikeRank(){
+    public List<UserListResponseDto> getAnswerLikeRank(){
         return userRepository.showLikeRank()
                 .stream()
-                .map(UserResponseDto::new)
+                .map(UserListResponseDto::new)
                 .collect(Collectors.toList());
     }
 }
