@@ -31,17 +31,20 @@ p {
 #errorListTitle{
     color: black;
     text-align: left;
-    font-size: 1.7vw;
-    padding-top: 1vw;
+    font-size: 25px;
+    font-weight: 600;
+    opacity: 0.8;
+    padding-top: 1.5vw;
+    padding-bottom: 2vh;
+    border-bottom: 2px solid rgba(0,0,0,0.4);
+
 }
 
 #errorListContent{
     color: black;
     text-align: left;
     font-size: 1.5vw;
-    padding-top: 1vw;
-    padding-right: 1vw;
-    padding-left: 1vw;
+    padding: 3vh 3vw;
     line-height: 2.2vw;
 }
 
@@ -76,19 +79,59 @@ p {
 #answerTitle{
     color: black;
     text-align: left;
-    font-size: 1.7vw;
+    font-size: 25px;
+    font-weight: 600;
+    opacity: 0.8;
+    padding-top: 1.5vw;
+    padding-bottom: 2vh;
+    border-bottom: 2px solid rgba(0,0,0,0.4);
 }
 #answerContent{
     color: black;
     text-align: left;
     font-size: 1.5vw;
-    padding-top: 1vw;
-    padding-right: 1vw;
-    padding-left: 1vw;
+    padding: 3vh 3vw;
     line-height: 2.2vw;
 }
 
 #answerTextField{
     text-align: left;
     padding-left: 0.5vw;
+    
+}
+
+#answerButton{
+    transform: translate(2.5vw, -3.5vw);
+}
+
+#commentContent{
+    font-weight: 600;
+    padding-left: 1vw;
+}
+#commentEmail{
+    font-weight: 600;
+    padding-left: 1vw;
+}
+
+.commentClass{
+    float: left;
+    font-size: 1.2vw;
+}
+            
+#commentDate{
+                float: right;
+                font-weight: 600;
+                padding-left: 1vw;
+}
+
+#answerListLikeCnt{
+    text-align: right;
+    padding-right: 2vw;
+    font-size: 1.5vw;
+    font-size: 20px;
+    display: block;
+}
+#gachihasheul{
+    transform: translateX(-1.2%);
+    font-size: 16px;
 }
