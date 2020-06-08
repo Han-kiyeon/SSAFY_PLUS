@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class UserJwtResponsetDto {
+
+    private Long user_id;
     private String email;
     private String name;
     private String position;
@@ -19,6 +21,7 @@ public class UserJwtResponsetDto {
     private Role role;
 
     public UserJwtResponsetDto(User entity) {
+        this.user_id = entity.getUser_id();
         this.email = entity.getEmail();
         this.name = entity.getName();
         this.position = entity.getPosition();
