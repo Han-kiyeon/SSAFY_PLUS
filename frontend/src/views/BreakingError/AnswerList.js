@@ -126,7 +126,7 @@ function AnswerList({ answer_id, title, content, user_email, answer_cnt, error_i
                     </div>
                 </CardHeader>
                 <div id="answerContent">
-                    {content}
+                    {content.replace(/(<([^>]+)>)/ig,"")}
                 </div>
                  <div id="answerListLikeCnt">
                  {!like &&  <ThumbUpAltOutlinedIcon style={{fontSize: "1.5vw"}} onClick={setTrue} /> }
