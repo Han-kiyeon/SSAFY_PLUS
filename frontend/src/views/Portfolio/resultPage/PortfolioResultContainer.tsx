@@ -1,63 +1,76 @@
 import React from "react";
 import PortfolioResultPresenter from "./PortfolioResultPresenter";
+import Axios from "axios";
 
-interface PortfolioResultIState {
+interface PortfolioDTO {
   name: string;
   birth: string;
   email: string;
   phone: string;
   characters: string[];
-  skill1: string[];
-  skill2: string[];
-  skill3: string[];
-  skill4: string[];
-  skill5: string[];
+  projects: Array<ProjectDTO>;
+  skills: Array<SkillDTO>;
   project_len: number;
-  t_projectName1: string;
-  t_projectPeriod1: string;
-  t_projectDesc1: string;
-  t_mystacks1: string[];
-  t_projectStacks1: string;
-  t_roles1: string[];
+  profile_image_url: string;
+}
+interface SkillDTO {
+  description: string;
+  name: string;
+  percentage: number;
+}
+interface ProjectDTO {
+  description: string;
+  name: string;
+  period: string;
+  roles: Array<string>;
+  my_stacks: Array<String>;
+  stacks: string;
+  url: string;
+  big_image_url: string;
+  small_image_url: string;
 }
 
-export default class extends React.Component<{}, PortfolioResultIState> {
+export default class extends React.Component<{}, PortfolioDTO> {
   state = {
-    name: "음영현",
-    birth: "1991-12-22",
-    email: "opwer032@naver.com",
-    phone: "010-7759-1222",
-    characters: ["긍정적인", "꾸준한", "듬직한", "팀을 이끄는"],
-    skill1: ["Python", "80", "REST API 구축 및 빅데이터 알고리즘 적용"],
-    skill2: ["Java", "80", "REST API 구축 및 알고리즘 학습"],
-    skill3: ["Mysql", "80", "인터넷을 참고하여 원하는 기능 구현 가능"],
-    skill4: ["React", "70", "Component 단위 홈페이지 구현 가능"],
-    skill5: ["JavaScript", "60", "함수 단위 구현"],
-    project_len: 2,
-    t_projectName1: "ㅎㅎㅎ (핫, 힙, 힐링 플레이스)",
-    t_projectPeriod1: "2020.03 - 2020.05",
-    t_projectDesc1: "[빅데이터] 핫플레이스 추천 SNS",
-    t_mystacks1: ["백엔드 엔지니어", "데이터 엔지니어"],
-    t_projectStacks1: "React, Django, MySQL, AWS",
-    t_roles1: [
-      "REST API 모델 설계 및 구현",
-      "빅데이터 추천 시스템 구축",
-      "배포",
-    ],
-    t_projectUrl1: "https://lab.ssafy.com/s02-bigdata-sub3/s02p23a202",
+    name: "",
+    birth: "",
+    email: "",
+    phone: "",
+    characters: [],
+    skills: [],
+    project_len: 0,
+    projects: [],
+    profile_image_url: "",
   };
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";
     }
+
+    var portfolio: PortfolioDTO = (
+      await Axios.get(
+        `http://13.125.238.102:8080/api/portfolio/${portfolio_id}`
+      )
+    ).data;
+
+    this.setState({ project_len: portfolio.projects.length });
+    this.setState({
+      name: portfolio.name || "",
+      birth: portfolio.birth || "",
+      email: portfolio.email || "",
+      phone: portfolio.phone || "",
+      characters: portfolio.characters || [],
+      skills: portfolio.skills || [],
+      projects: portfolio.projects || [],
+      profile_image_url: portfolio.profile_image_url || "",
+    });
   }
   render() {
     const {
@@ -66,39 +79,25 @@ export default class extends React.Component<{}, PortfolioResultIState> {
       email,
       phone,
       characters,
-      skill1,
-      skill2,
-      skill3,
-      skill4,
-      skill5,
+      skills,
       project_len,
-      t_projectName1,
-      t_projectPeriod1,
-      t_projectDesc1,
-      t_mystacks1,
-      t_projectStacks1,
-      t_roles1,
+      projects,
+      profile_image_url,
     } = this.state;
     return (
-      <PortfolioResultPresenter
-        name={name}
-        birth={birth}
-        email={email}
-        phone={phone}
-        characters={characters}
-        skill1={skill1}
-        skill2={skill2}
-        skill3={skill3}
-        skill4={skill4}
-        skill5={skill5}
-        project_len={project_len}
-        t_projectName1={t_projectName1}
-        t_projectPeriod1={t_projectPeriod1}
-        t_projectDesc1={t_projectDesc1}
-        t_mystacks1={t_mystacks1}
-        t_projectStacks1={t_projectStacks1}
-        t_roles1={t_roles1}
-      />
+      <>
+        <PortfolioResultPresenter
+          name={name}
+          birth={birth}
+          email={email}
+          phone={phone}
+          characters={characters}
+          skills={skills}
+          project_len={project_len}
+          projects={projects}
+          profile_image_url={profile_image_url}
+        />
+      </>
     );
   }
 }

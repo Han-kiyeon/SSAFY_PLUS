@@ -39,7 +39,7 @@ const cartTitleStyles = makeStyles(styles);
 export default function PostList(props) {
     const { board_id, btitle } = props.location.state;
     const classesCartTitle = cartTitleStyles();
-
+    console.log(props);
     return (
         <div>
             <GridContainer>

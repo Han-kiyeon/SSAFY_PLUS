@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Fab from "@material-ui/core/Fab";
 import Add from "@material-ui/icons/Add";
@@ -12,6 +11,14 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
+import UploadBig1 from "components/Upload/Project1/BigImg";
+import UploadSm1 from "components/Upload/Project1/SmImg";
+import UploadBig2 from "components/Upload/Project2/BigImg";
+import UploadSm2 from "components/Upload/Project2/SmImg";
+import UploadBig3 from "components/Upload/Project3/BigImg";
+import UploadSm3 from "components/Upload/Project3/SmImg";
+import UploadBig4 from "components/Upload/Project4/BigImg";
+import UploadSm4 from "components/Upload/Project4/SmImg";
 
 interface PortfolioIState {
   useStyles: any;
@@ -536,6 +543,15 @@ function PortfolioPresenter({
                 value={projectUrl1}
               ></TextField>
             </form>
+            <Todo>프로젝트와 관련된 이미지를 업로드해주세요</Todo>
+            <Description>
+              고화질 이미지 &nbsp;&nbsp;가로 / 세로 비율 &nbsp;&nbsp; 1 / 1.414
+            </Description>
+            <UploadBig1 />
+            <Description>
+              중화질 이미지 &nbsp;&nbsp;가로 / 세로 비율 &nbsp;&nbsp; 1.78 / 1
+            </Description>
+            <UploadSm1 />
           </Project>
           {projectLen > 1 && (
             <Project>
@@ -811,6 +827,16 @@ function PortfolioPresenter({
                   value={projectUrl2}
                 ></TextField>
               </form>
+              <Todo>프로젝트와 관련된 이미지를 업로드해주세요</Todo>
+              <Description>
+                고화질 이미지 &nbsp;&nbsp;가로 / 세로 비율 &nbsp;&nbsp; 1 /
+                1.414
+              </Description>
+              <UploadBig2 />
+              <Description>
+                중화질 이미지 &nbsp;&nbsp;가로 / 세로 비율 &nbsp;&nbsp; 1.78 / 1
+              </Description>
+              <UploadSm2 />
             </Project>
           )}
           {projectLen > 2 && (
@@ -1087,6 +1113,16 @@ function PortfolioPresenter({
                   value={projectUrl3}
                 ></TextField>
               </form>
+              <Todo>프로젝트와 관련된 이미지를 업로드해주세요</Todo>
+              <Description>
+                고화질 이미지 &nbsp;&nbsp;가로 / 세로 비율 &nbsp;&nbsp; 1 /
+                1.414
+              </Description>
+              <UploadBig3 />
+              <Description>
+                중화질 이미지 &nbsp;&nbsp;가로 / 세로 비율 &nbsp;&nbsp; 1.78 / 1
+              </Description>
+              <UploadSm3 />
             </Project>
           )}
           {projectLen > 3 && (
@@ -1363,6 +1399,16 @@ function PortfolioPresenter({
                   value={projectUrl4}
                 ></TextField>
               </form>
+              <Todo>프로젝트와 관련된 이미지를 업로드해주세요</Todo>
+              <Description>
+                고화질 이미지 &nbsp;&nbsp;가로 / 세로 비율 &nbsp;&nbsp; 1 /
+                1.414
+              </Description>
+              <UploadBig4 />
+              <Description>
+                중화질 이미지 &nbsp;&nbsp;가로 / 세로 비율 &nbsp;&nbsp; 1.78 / 1
+              </Description>
+              <UploadSm4 />
             </Project>
           )}
           {projectLen > 1 && (

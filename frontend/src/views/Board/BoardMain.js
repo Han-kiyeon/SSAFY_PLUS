@@ -2,11 +2,6 @@
 import React from 'react';
 import axios from "axios";
 
-// @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Schedule from "@material-ui/icons/Schedule";
-import List from "@material-ui/icons/List";
-
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -18,7 +13,6 @@ import Close from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -28,15 +22,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from 'components/Card/CardFooter';
 import Button from "components/CustomButtons/Button.js";
 import NavPills from "components/NavPills/NavPills.js";
 import CustomInput from "components/CustomInput/CustomInput.js"
-import CustomRadio from "components/CustomRadio/CustomRadio.js"
 import BoardList from "components/Board/BoardList.js"
-import Editor from "components/Editor/Editor.js"
 
 // 스타일(꾸미는 용)
 import modalStyle from "assets/jss/material-dashboard-react/components/modalStyle.js";
@@ -80,12 +71,21 @@ export default function Board() {
     }
     const changePassword = (e) => {
         setPassword(e.target.value);
+        setType('private')
+        console.log(password);
+        console.log(type);
     }
     const changeType = (e) => {
         setType(e.target.value);
     }
     // 게시판 만들기 axios
     const submit = () => {
+        console.log(password);
+        console.log(type);
+        if (password.length > 1) {
+            setType('private');
+            console.log(type)
+        }
         axios({
             method: "post",
             url: `http://13.125.238.102:8080/api/board`,
@@ -99,10 +99,7 @@ export default function Board() {
         })
             .then((res) => {
                 setModal(false);
-                setTitle('');
-                setContents('');
-                setPassword('');
-                setType('');
+                window.location.reload(false);
             })
             .catch((error) => {
                 alert("리뷰 작성에 실패했습니다");
@@ -115,42 +112,50 @@ export default function Board() {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardBody>
-                            <NavPills
-                                color="info"
-                                tabs={[
-                                    {
-                                        tabButton: "공식 게시판",
-                                        tabContent: (
-                                            <BoardList type="public" />
-                                        )
-                                    },
-                                    {
-                                        tabButton: "전체 자유 게시판",
-                                        tabContent: (
-                                            <BoardList type="free" />
-                                        )
-                                    },
-                                    {
-                                        tabButton: "인기 자유 게시판",
-                                        tabContent: (
-                                            <BoardList type="top" />
-                                        )
-                                    },
-                                    {
-                                        tabButton: "내가 가입한 자유 게시판",
-                                        tabContent: (
-                                            <BoardList type="free" my="true" />
-                                        )
-                                    },
-                                ]}
-                            />
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={12}>
+                                    <NavPills
+                                        color="info"
+                                        tabs={[
+                                            {
+                                                tabButton: "전체 공식 게시판",
+                                                tabContent: (
+                                                    <BoardList type="public" />
+                                                )
+                                            },
+                                            {
+                                                tabButton: "전체 자유 게시판",
+                                                tabContent: (
+                                                    <BoardList type="free" />
+                                                )
+                                            },
+                                            {
+                                                tabButton: "전체 비공개 게시판",
+                                                tabContent: (
+                                                    <BoardList type="private" />
+                                                )
+                                            },
+                                            {
+                                                tabButton: "인기 게시판",
+                                                tabContent: (
+                                                    <BoardList type="top" />
+                                                )
+                                            },
+                                            {
+                                                tabButton: "내가 가입한 자유 게시판",
+                                                tabContent: (
+                                                    <BoardList type="free" my="true" />
+                                                )
+                                            },
+                                        ]}
+                                    />
+                                </GridItem>
+                            </GridContainer>
                         </CardBody>
-                        <CardFooter>
-                            <div>
-                                <Button color="info" round onClick={() => setModal(true)}>
-                                    게시판 만들기
+                        <CardFooter stats>
+                            <Button color="info" round onClick={() => setModal(true)}>
+                                게시판 만들기
                                 </Button>
-                            </div>
                             <Dialog
                                 classes={{
                                     root: classes.center,
@@ -217,7 +222,6 @@ export default function Board() {
                                                     <Select
                                                         labelId="demo-simple-select-helper-label"
                                                         id="demo-simple-select-helper"
-                                                        value={type}
                                                         onChange={changeType}
                                                     >
                                                         <MenuItem value={'public'}>공식</MenuItem>

@@ -1,26 +1,65 @@
 import React from "react";
 import Portfolio from "./Portfolio";
+import styled from "styled-components";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-interface PortfolioResultIState {
+interface PortfolioDTO {
   name: string;
   birth: string;
   email: string;
   phone: string;
   characters: string[];
-  skill1: string[];
-  skill2: string[];
-  skill3: string[];
-  skill4: string[];
-  skill5: string[];
+  projects: Array<ProjectDTO>;
+  skills: Array<SkillDTO>;
   project_len: number;
-  t_projectName1: string;
-  t_projectPeriod1: string;
-  t_projectDesc1: string;
-  t_mystacks1: string[];
-  t_projectStacks1: string;
-  t_roles1: string[];
+  profile_image_url: string;
 }
+interface SkillDTO {
+  description: string;
+  name: string;
+  percentage: number;
+}
+interface ProjectDTO {
+  description: string;
+  name: string;
+  period: string;
+  roles: Array<string>;
+  my_stacks: Array<String>;
+  stacks: string;
+  url: string;
+  big_image_url: string;
+  small_image_url: string;
+}
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+`;
+const Card = styled.div`
+  padding: 30px 0px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  height: 60vh;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+`;
+const InfoText = styled.span`
+  font-weight: 500;
+`;
+const DownLoadText = styled.span`
+  font-weight: 600;
+`;
+const Image = styled.div`
+  background-image: url(http://13.125.238.102:8080/api/downloadFile/0c8f92e0-98ed-4c5f-ae75-88e8963294c3);
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  height: 30vh;
+  width: 23vw;
+  margin: 10px auto 30px auto;
+`;
 
 function PortfolioResultPresenter({
   name,
@@ -28,51 +67,47 @@ function PortfolioResultPresenter({
   email,
   phone,
   characters,
-  skill1,
-  skill2,
-  skill3,
-  skill4,
-  skill5,
+  profile_image_url,
+  skills,
   project_len,
-  t_projectName1,
-  t_projectPeriod1,
-  t_projectDesc1,
-  t_mystacks1,
-  t_projectStacks1,
-  t_roles1,
-}: PortfolioResultIState) {
+  projects,
+}: PortfolioDTO) {
   return (
-    <PDFDownloadLink
-      document={
-        <Portfolio
-          name={name}
-          birth={birth}
-          email={email}
-          phone={phone}
-          characters={characters}
-          skill1={skill1}
-          skill2={skill2}
-          skill3={skill3}
-          skill4={skill4}
-          skill5={skill5}
-          project_len={project_len}
-          t_projectName1={t_projectName1}
-          t_projectPeriod1={t_projectPeriod1}
-          t_projectDesc1={t_projectDesc1}
-          t_mystacks1={t_mystacks1}
-          t_projectStacks1={t_projectStacks1}
-          t_roles1={t_roles1}
-        />
-      }
-      fileName="pdf_test.pdf"
-      style={{
-        textDecoration: "none",
-        padding: "10px",
-        border: "1px solid black",
-      }}
-    >
-      포트폴리오 다운로드
-    </PDFDownloadLink>
+    <Container>
+      <Card>
+        <InfoText>
+          🎉포트폴리오가 완성되었습니다🙋‍♂
+          <br />
+          pdf 파일로 다운로드 받아보세요
+          <br />
+        </InfoText>
+        <Image />
+        {name !== "" && projects !== [] && skills !== [] && (
+          <PDFDownloadLink
+            document={
+              <Portfolio
+                name={name}
+                birth={birth}
+                email={email}
+                phone={phone}
+                characters={characters}
+                skills={skills}
+                project_len={project_len}
+                projects={projects}
+                profile_image_url={profile_image_url}
+              />
+            }
+            fileName={`${window.sessionStorage.getItem("portfolio_title")}.pdf`}
+            style={{
+              textDecoration: "none",
+              padding: "10px",
+            }}
+          >
+            <DownLoadText>포트폴리오 다운로드</DownLoadText>
+          </PDFDownloadLink>
+        )}
+      </Card>
+    </Container>
   );
 }
 

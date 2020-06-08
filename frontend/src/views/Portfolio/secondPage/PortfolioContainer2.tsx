@@ -27,7 +27,7 @@ interface PortfolioIState {
 }
 export default class extends React.Component<{}, PortfolioIState> {
   state = {
-    name: "음메리카노",
+    name: "",
     stack1: "Java",
     reason1: "",
     stack1_etc: false,
@@ -52,15 +52,38 @@ export default class extends React.Component<{}, PortfolioIState> {
   componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";
     }
+    var skillSession = JSON.parse(
+      window.sessionStorage.getItem("portfolio_2_skills") || ""
+    );
+    // console.log(skillSession);
+    skillSession.length !== 0 &&
+      this.setState({
+        stack1: skillSession[0].name,
+        stack2: skillSession[1].name,
+        stack3: skillSession[2].name,
+        stack4: skillSession[3].name,
+        stack5: skillSession[4].name,
+
+        stack1_score: skillSession[0].percentage,
+        stack2_score: skillSession[1].percentage,
+        stack3_score: skillSession[2].percentage,
+        stack4_score: skillSession[3].percentage,
+        stack5_score: skillSession[4].percentage,
+
+        reason1: skillSession[0].description,
+        reason2: skillSession[1].description,
+        reason3: skillSession[2].description,
+        reason4: skillSession[3].description,
+        reason5: skillSession[4].description,
+      });
   }
 
   useStyles = makeStyles((theme: Theme) =>
@@ -208,7 +231,7 @@ export default class extends React.Component<{}, PortfolioIState> {
   };
   handleBeforeButton = async (event: React.FormEvent) => {
     var link = window.location.href.split("/");
-    var portfolio_id = parseInt(link[link.length - 1]);
+    var portfolio_id = link[6].split("#")[0];
     window.location.href = `../1/${portfolio_id}`;
   };
   handleNextButton = async (event: React.FormEvent) => {
@@ -250,7 +273,7 @@ export default class extends React.Component<{}, PortfolioIState> {
         JSON.stringify(skills)
       );
       var link = window.location.href.split("/");
-      var portfolio_id = parseInt(link[link.length - 1]);
+      var portfolio_id = link[6].split("#")[0];
       window.location.href = `../3/${portfolio_id}`;
     }
   };

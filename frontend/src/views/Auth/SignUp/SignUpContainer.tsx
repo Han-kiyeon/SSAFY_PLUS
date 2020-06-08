@@ -1,12 +1,15 @@
 import React from "react";
 import SignUpPresenter from "./SignUpPresenter";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
 
 interface SignUpIState {
   userId: string;
+  name: string;
   password: string;
   position: string;
-  section: number;
-  season: number;
+  section: string;
+  season: string;
   loading: boolean;
   error: any;
 }
@@ -14,10 +17,11 @@ interface SignUpIState {
 export default class extends React.Component<{}, SignUpIState> {
   state = {
     userId: "",
+    name: "",
     password: "",
     position: "",
-    section: 0,
-    season: 0,
+    section: "",
+    season: "",
     loading: false,
     error: null,
   };
@@ -25,23 +29,94 @@ export default class extends React.Component<{}, SignUpIState> {
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (this.state.userId !== "" && this.state.password !== "") {
-      console.log("login 요청");
-      this.Login();
+      this.SignUp();
     }
   };
   componentDidMount() {
     window.scrollTo(0, 0);
   }
-  Login = async () => {
-    const { userId, password } = this.state;
-    this.setState({ loading: true });
+  keyPress = (event: any) => {
+    if (
+      this.state.userId !== "" &&
+      this.state.password !== "" &&
+      this.state.name !== "" &&
+      this.state.position !== "" &&
+      this.state.section !== "" &&
+      this.state.season !== "" &&
+      event.key === "Enter"
+    ) {
+      this.SignUp();
+    }
+  };
+  SignUp = async () => {
+    const { userId, name, password, position, section, season } = this.state;
     try {
+      axios
+        .post("http://13.125.238.102:8080/api/user/signup", {
+          email: userId,
+          name: name,
+          password: password,
+          position: position,
+          profile_img: "string",
+          role: "GUEST",
+          season: season,
+          section: section,
+        })
+        .then(res => {
+          window.sessionStorage.setItem("user_email", userId);
+          window.sessionStorage.setItem("user_id", res.data.user_id);
+          window.sessionStorage.setItem("user_position", res.data.position);
+          window.location.href = "../plus/board";
+        });
     } catch {
-      this.setState({ error: "Can't find results." });
+      this.setState({ error: "유저정보를 찾을 수 없습니다." });
     } finally {
       this.setState({ loading: false });
     }
   };
+  useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      Bar: {
+        "& > *": {
+          margin: 10,
+          width: "15vw",
+          height: "8vh",
+        },
+      },
+      longBar: {
+        "& > *": {
+          display: "block",
+          margin: 10,
+          width: "30vw",
+          height: "8vh",
+        },
+      },
+      signUpBar: {
+        "& > *": {
+          width: "30vw",
+          height: "8vh",
+        },
+      },
+      button: {
+        "& > *": {
+          width: "15vw",
+          height: "3vh",
+        },
+      },
+      input10: {
+        "& > *": {
+          marginTop: "2vh",
+          width: "17vw",
+        },
+      },
+      input20: {
+        "& > *": {
+          marginTop: "2vh",
+          width: "10vw",
+        },
+      },
+    })
+  );
 
   updateTerm = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -54,9 +129,11 @@ export default class extends React.Component<{}, SignUpIState> {
     } else if (name === "position") {
       this.setState({ position: value });
     } else if (name === "section") {
-      this.setState({ section: parseInt(value) });
+      this.setState({ section: value });
     } else if (name === "season") {
-      this.setState({ season: parseInt(value) });
+      this.setState({ season: value });
+    } else if (name === "name") {
+      this.setState({ name: value });
     }
   };
 
@@ -69,18 +146,22 @@ export default class extends React.Component<{}, SignUpIState> {
       position,
       section,
       season,
+      name,
     } = this.state;
     return (
       <SignUpPresenter
         userId={userId}
         password={password}
         loading={loading}
+        name={name}
         error={error}
         position={position}
         section={section}
         season={season}
         updateTerm={this.updateTerm}
         handleSubmit={this.handleSubmit}
+        useStyles={this.useStyles}
+        keyPress={this.keyPress}
       />
     );
   }

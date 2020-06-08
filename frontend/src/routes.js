@@ -1,5 +1,4 @@
 // 가져올 아이콘 모양들
-import Home from "@material-ui/icons/Home";
 import Assignment from "@material-ui/icons/Assignment";
 import Description from "@material-ui/icons/Description";
 import PermIdentity from "@material-ui/icons/PermIdentity";
@@ -7,7 +6,6 @@ import WorkIcon from "@material-ui/icons/Work";
 import ErrorIcon from "@material-ui/icons/Error";
 
 // 레이아웃에 입힐 뷰들
-import Main from "views/Main/Main.js";
 import Portfolio from "views/Portfolio/firstPage";
 import Portfolio2 from "views/Portfolio/secondPage";
 import Portfolio3 from "views/Portfolio/thirdPage";
@@ -21,16 +19,9 @@ import SignUp from "views/Auth/SignUp";
 import BreakingError from "views/BreakingError/BreakingError.js";
 import MakePost from "views/Board/MakePost.js";
 import BreakingError2 from "views/BreakingError/BreakingError2.js";
+import PostUpdate from "views/Board/PostUpdate.js";
 
 const dashboardRoutes = [
-  {
-    id: 1,
-    path: "/main",
-    name: "Main",
-    icon: Home,
-    component: Main,
-    layout: "/plus",
-  },
   {
     id: 3,
     path: "/board",
@@ -61,7 +52,7 @@ const dashboardRoutes = [
   },
   {
     path: "/episode",
-    name: "Job Support",
+    name: "취업 지원",
     icon: WorkIcon,
     component: Support,
     layout: "/plus",
@@ -115,6 +106,12 @@ const dashboardRoutes = [
     path: "/postcreate",
     name: "게시글작성하기",
     component: MakePost,
+    layout: "/plus",
+  },
+  {
+    path: "/postupdate",
+    name: "게시글수정하기",
+    component: PostUpdate,
     layout: "/plus",
   },
 ];

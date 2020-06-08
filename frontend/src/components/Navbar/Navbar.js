@@ -48,12 +48,13 @@ export default function Header(props) {
       {routes.map((prop, key) => {
         var activePro = " ";
         if (
-          (prop.layout === "/plus" &&
-            prop.path !== "/postList" && prop.path !== "/postdetail" && prop.path !== "/postcreate" &&
-            !prop.path.startsWith("/portfolio/") &&
-            !prop.path.startsWith("/breakingerror_detail/")) ||
-          (prop.path === "/signIn" &&
-            sessionStorage.getItem("user_email") === null)
+          prop.layout === "/plus" &&
+          prop.path !== "/postList" &&
+          prop.path !== "/postdetail" &&
+          prop.path !== "/postcreate" &&
+          prop.path !== "/postupdate" &&
+          !prop.path.startsWith("/portfolio/") &&
+          !prop.path.startsWith("/breakingerror_detail/")
         ) {
           return (
             <Button

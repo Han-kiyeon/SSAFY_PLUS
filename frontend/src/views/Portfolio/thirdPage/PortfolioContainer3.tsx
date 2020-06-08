@@ -14,6 +14,8 @@ interface PortfolioIState {
   projectDo12: string;
   projectDo13: string;
   projectUrl1: string;
+  projectImgL1: string;
+  projectImgS1: string;
   error1: boolean;
   frontend1: boolean;
   backend1: boolean;
@@ -34,6 +36,8 @@ interface PortfolioIState {
   projectDo22: string;
   projectDo23: string;
   projectUrl2: string;
+  projectImgL2: string;
+  projectImgS2: string;
   error2: boolean;
   frontend2: boolean;
   backend2: boolean;
@@ -54,6 +58,8 @@ interface PortfolioIState {
   projectDo32: string;
   projectDo33: string;
   projectUrl3: string;
+  projectImgL3: string;
+  projectImgS3: string;
   error3: boolean;
   frontend3: boolean;
   backend3: boolean;
@@ -74,6 +80,8 @@ interface PortfolioIState {
   projectDo42: string;
   projectDo43: string;
   projectUrl4: string;
+  projectImgL4: string;
+  projectImgS4: string;
   error4: boolean;
   frontend4: boolean;
   backend4: boolean;
@@ -99,6 +107,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo12: "",
     projectDo13: "",
     projectUrl1: "",
+    projectImgL1: "",
+    projectImgS1: "",
     error1: false,
     frontend1: false,
     backend1: false,
@@ -119,6 +129,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo22: "",
     projectDo23: "",
     projectUrl2: "",
+    projectImgL2: "",
+    projectImgS2: "",
     error2: false,
     frontend2: false,
     backend2: false,
@@ -139,6 +151,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo32: "",
     projectDo33: "",
     projectUrl3: "",
+    projectImgL3: "",
+    projectImgS3: "",
     error3: false,
     frontend3: false,
     backend3: false,
@@ -159,6 +173,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo42: "",
     projectDo43: "",
     projectUrl4: "",
+    projectImgL4: "",
+    projectImgS4: "",
     error4: false,
     frontend4: false,
     backend4: false,
@@ -621,18 +637,61 @@ export default class extends React.Component<{}, PortfolioIState> {
       this.setState({ projectUrl4: value });
     }
   };
-  async componentDidMount() {
+  componentDidMount() {
     window.scrollTo(0, 0);
     var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
     if (
       window.sessionStorage.getItem("portfolio_list") !== undefined &&
-      window.sessionStorage
-        .getItem("portfolio_list")
-        ?.includes(link[link.length - 1])
+      window.sessionStorage.getItem("portfolio_list")?.includes(portfolio_id)
     ) {
     } else {
       window.location.href = "../../main";
     }
+    var portfolios = JSON.parse(
+      window.sessionStorage.getItem("portfolio_3_projects") || ""
+    );
+    // console.log(portfolios);
+    if (portfolios[0].my_stacks.includes("프론트엔드 엔지니어")) {
+      this.setState({ frontend1: true });
+    }
+    if (portfolios[0].my_stacks.includes("백엔드 엔지니어")) {
+      this.setState({ backend1: true });
+    }
+    if (portfolios[0].my_stacks.includes("안드로이드 엔지니어")) {
+      this.setState({ android1: true });
+    }
+    if (portfolios[0].my_stacks.includes("IOS 엔지니어")) {
+      this.setState({ IOS1: true });
+    }
+    if (portfolios[0].my_stacks.includes("게임 엔지니어")) {
+      this.setState({ game1: true });
+    }
+    if (portfolios[0].my_stacks.includes("AR/VR 엔지니어")) {
+      this.setState({ ARVR1: true });
+    }
+    if (portfolios[0].my_stacks.includes("블록체인 엔지니어")) {
+      this.setState({ block1: true });
+    }
+    if (portfolios[0].my_stacks.includes("머신러닝 엔지니어")) {
+      this.setState({ machine1: true });
+    }
+    if (portfolios[0].my_stacks.includes("데이터 엔지니어")) {
+      this.setState({ data1: true });
+    }
+    if (portfolios[0].my_stacks.includes("기타")) {
+      this.setState({ etc1: true });
+    }
+    this.setState({
+      projectName1: portfolios[0].name || "",
+      projectTerm1: portfolios[0].period || "",
+      projectDesc1: portfolios[0].description || "",
+      projectStack1: portfolios[0].stacks || "",
+      projectDo11: portfolios[0].roles[0] || "",
+      projectDo12: portfolios[0].roles[1] || "",
+      projectDo13: portfolios[0].roles[2] || "",
+      projectUrl1: portfolios[0].url || "",
+    });
   }
 
   handleBeforeButton = async (event: React.FormEvent) => {
@@ -646,13 +705,50 @@ export default class extends React.Component<{}, PortfolioIState> {
     await roles.push(this.state.projectDo11);
     await roles.push(this.state.projectDo12);
     await roles.push(this.state.projectDo13);
+    var myStack = [];
+    if (this.state.frontend1) {
+      myStack.push("프론트엔드 엔지니어");
+    }
+    if (this.state.backend1) {
+      myStack.push("백엔드 엔지니어");
+    }
+    if (this.state.fullstack1) {
+      myStack.push("풀스택 엔지니어");
+    }
+    if (this.state.android1) {
+      myStack.push("안드로이드 엔지니어");
+    }
+    if (this.state.IOS1) {
+      myStack.push("IOS 엔지니어");
+    }
+    if (this.state.game1) {
+      myStack.push("게임 엔지니어");
+    }
+    if (this.state.ARVR1) {
+      myStack.push("AR/VR 엔지니어");
+    }
+    if (this.state.block1) {
+      myStack.push("블록체인 엔지니어");
+    }
+    if (this.state.machine1) {
+      myStack.push("머신러닝 엔지니어");
+    }
+    if (this.state.data1) {
+      myStack.push("데이터 엔지니어");
+    }
+    if (this.state.etc1) {
+      myStack.push("기타");
+    }
     var project1 = await {
       name: this.state.projectName1,
       period: this.state.projectTerm1,
       description: this.state.projectDesc1,
       roles,
-      stacks: [this.state.projectStack1],
+      stacks: this.state.projectStack1,
       url: this.state.projectUrl1,
+      my_stacks: myStack,
+      big_image_url: window.sessionStorage.getItem("project_BigImg1") || "",
+      small_image_url: window.sessionStorage.getItem("project_SmImg1") || "",
     };
     projects.push(project1);
 
@@ -661,7 +757,40 @@ export default class extends React.Component<{}, PortfolioIState> {
       await roles2.push(this.state.projectDo21);
       await roles2.push(this.state.projectDo22);
       await roles2.push(this.state.projectDo23);
-
+      var myStack = [];
+      if (this.state.frontend2) {
+        myStack.push("프론트엔드 엔지니어");
+      }
+      if (this.state.backend2) {
+        myStack.push("백엔드 엔지니어");
+      }
+      if (this.state.fullstack2) {
+        myStack.push("풀스택 엔지니어");
+      }
+      if (this.state.android2) {
+        myStack.push("안드로이드 엔지니어");
+      }
+      if (this.state.IOS2) {
+        myStack.push("IOS 엔지니어");
+      }
+      if (this.state.game2) {
+        myStack.push("게임 엔지니어");
+      }
+      if (this.state.ARVR2) {
+        myStack.push("AR/VR 엔지니어");
+      }
+      if (this.state.block2) {
+        myStack.push("블록체인 엔지니어");
+      }
+      if (this.state.machine2) {
+        myStack.push("머신러닝 엔지니어");
+      }
+      if (this.state.data2) {
+        myStack.push("데이터 엔지니어");
+      }
+      if (this.state.etc2) {
+        myStack.push("기타");
+      }
       var project2 = await {
         name: this.state.projectName2,
         period: this.state.projectTerm2,
@@ -669,6 +798,9 @@ export default class extends React.Component<{}, PortfolioIState> {
         roles: roles2,
         stacks: this.state.projectStack2,
         url: this.state.projectUrl2,
+        my_stacks: myStack,
+        big_image_url: window.sessionStorage.getItem("project_BigImg2") || "",
+        small_image_url: window.sessionStorage.getItem("project_SmImg2") || "",
       };
       projects.push(project2);
     }
@@ -677,7 +809,40 @@ export default class extends React.Component<{}, PortfolioIState> {
       await roles3.push(this.state.projectDo31);
       await roles3.push(this.state.projectDo32);
       await roles3.push(this.state.projectDo33);
-
+      var myStack = [];
+      if (this.state.frontend3) {
+        myStack.push("프론트엔드 엔지니어");
+      }
+      if (this.state.backend3) {
+        myStack.push("백엔드 엔지니어");
+      }
+      if (this.state.fullstack3) {
+        myStack.push("풀스택 엔지니어");
+      }
+      if (this.state.android3) {
+        myStack.push("안드로이드 엔지니어");
+      }
+      if (this.state.IOS3) {
+        myStack.push("IOS 엔지니어");
+      }
+      if (this.state.game3) {
+        myStack.push("게임 엔지니어");
+      }
+      if (this.state.ARVR3) {
+        myStack.push("AR/VR 엔지니어");
+      }
+      if (this.state.block3) {
+        myStack.push("블록체인 엔지니어");
+      }
+      if (this.state.machine3) {
+        myStack.push("머신러닝 엔지니어");
+      }
+      if (this.state.data3) {
+        myStack.push("데이터 엔지니어");
+      }
+      if (this.state.etc3) {
+        myStack.push("기타");
+      }
       var project3 = await {
         name: this.state.projectName3,
         period: this.state.projectTerm3,
@@ -685,6 +850,9 @@ export default class extends React.Component<{}, PortfolioIState> {
         roles: roles3,
         stacks: this.state.projectStack3,
         url: this.state.projectUrl3,
+        my_stacks: myStack,
+        big_image_url: window.sessionStorage.getItem("project_BigImg3") || "",
+        small_image_url: window.sessionStorage.getItem("project_SmImg3") || "",
       };
       projects.push(project3);
     }
@@ -693,7 +861,40 @@ export default class extends React.Component<{}, PortfolioIState> {
       await roles4.push(this.state.projectDo41);
       await roles4.push(this.state.projectDo42);
       await roles4.push(this.state.projectDo43);
-
+      var myStack = [];
+      if (this.state.frontend4) {
+        myStack.push("프론트엔드 엔지니어");
+      }
+      if (this.state.backend4) {
+        myStack.push("백엔드 엔지니어");
+      }
+      if (this.state.fullstack4) {
+        myStack.push("풀스택 엔지니어");
+      }
+      if (this.state.android4) {
+        myStack.push("안드로이드 엔지니어");
+      }
+      if (this.state.IOS4) {
+        myStack.push("IOS 엔지니어");
+      }
+      if (this.state.game4) {
+        myStack.push("게임 엔지니어");
+      }
+      if (this.state.ARVR4) {
+        myStack.push("AR/VR 엔지니어");
+      }
+      if (this.state.block4) {
+        myStack.push("블록체인 엔지니어");
+      }
+      if (this.state.machine4) {
+        myStack.push("머신러닝 엔지니어");
+      }
+      if (this.state.data4) {
+        myStack.push("데이터 엔지니어");
+      }
+      if (this.state.etc4) {
+        myStack.push("기타");
+      }
       var project4 = await {
         name: this.state.projectName4,
         period: this.state.projectTerm4,
@@ -701,6 +902,9 @@ export default class extends React.Component<{}, PortfolioIState> {
         roles: roles4,
         stacks: this.state.projectStack4,
         url: this.state.projectUrl4,
+        my_stacks: myStack,
+        big_image_url: window.sessionStorage.getItem("project_BigImg4") || "",
+        small_image_url: window.sessionStorage.getItem("project_SmImg4") || "",
       };
       projects.push(project4);
     }
@@ -710,32 +914,34 @@ export default class extends React.Component<{}, PortfolioIState> {
         JSON.stringify(projects)
       );
       var link = window.location.href.split("/");
-      var portfolio_id = parseInt(link[link.length - 1]);
+      var portfolio_id = link[6].split("#")[0];
 
       //put 신호 넣기
-      console.log(
-        typeof window.sessionStorage.getItem("portfolio_2_skills"),
-        window.sessionStorage.getItem("portfolio_2_skills")
-      );
       axios
         .put(`http://13.125.238.102:8080/api/portfolio/${portfolio_id}`, {
           name: window.sessionStorage.getItem("portfolio_name"),
           birth: window.sessionStorage.getItem("portfolio_birth"),
           email: window.sessionStorage.getItem("portfolio_email"),
-          characters: window.sessionStorage.getItem("portfolio_feature_list"),
-          // projects: window.sessionStorage.getItem("portfolio_3_projects"),
-          projects: [],
-          // skills: window.sessionStorage.getItem("portfolio_2_skills"),
-          skills: [],
+          phone: window.sessionStorage.getItem("portfolio_phone"),
+          profile_image_url: window.sessionStorage.getItem("profile_image_url"),
+          characters: JSON.parse(
+            window.sessionStorage.getItem("portfolio_feature_list") || "[]"
+          ),
+          projects: JSON.parse(
+            window.sessionStorage.getItem("portfolio_3_projects") || "[]"
+          ),
+          skills: JSON.parse(
+            window.sessionStorage.getItem("portfolio_2_skills") || "[]"
+          ),
           user_email: window.sessionStorage.getItem("user_email"),
         })
         .then(response => {
-          console.log("put신호 넣어봄");
+          // console.log("put신호 넣어봄");
         });
     }
-    //result 에서 get 정보 받고 대입하기                                                                                                 ````````````
-    // var portfolio_id = parseInt(window.location.href.substring(39));
-    // window.location.href = `http://localhost:3000/plus/portfolio/result/${portfolio_id}`;
+    var link = window.location.href.split("/");
+    var portfolio_id = link[6].split("#")[0];
+    window.location.href = `http://localhost:3000/plus/portfolio/result/${portfolio_id}`;
   };
 
   render() {

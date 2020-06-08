@@ -8,35 +8,40 @@ import {
   Font,
   Image,
 } from "@react-pdf/renderer";
-import firstPic from "./testImg/hhh_1.png";
-import firstPic2 from "./testImg/hhh_2.png";
 
+interface PortfolioDTO {
+  name: string;
+  birth: string;
+  email: string;
+  phone: string;
+  characters: string[];
+  projects: Array<ProjectDTO>;
+  skills: Array<SkillDTO>;
+  project_len: number;
+  profile_image_url: string;
+}
+interface SkillDTO {
+  description: string;
+  name: string;
+  percentage: number;
+}
+interface ProjectDTO {
+  description: string;
+  name: string;
+  period: string;
+  roles: Array<string>;
+  my_stacks: Array<String>;
+  stacks: string;
+  url: string;
+  big_image_url: string;
+  small_image_url: string;
+}
 const fontUrl =
   "https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.2/Cafe24Dangdanghae.woff";
 Font.register({
   family: "Impact",
   src: fontUrl,
 });
-
-interface PortfolioIState {
-  name: string;
-  birth: string;
-  email: string;
-  phone: string;
-  characters: string[];
-  skill1: string[];
-  skill2: string[];
-  skill3: string[];
-  skill4: string[];
-  skill5: string[];
-  project_len: number;
-  t_projectName1: string;
-  t_projectPeriod1: string;
-  t_projectDesc1: string;
-  t_mystacks1: string[];
-  t_projectStacks1: string;
-  t_roles1: string[];
-}
 
 const styles = StyleSheet.create({
   Page: {
@@ -318,25 +323,47 @@ const styles = StyleSheet.create({
   },
 });
 
+const characterMap = new Map<string, string>();
+characterMap.set("customer", "고객지향");
+characterMap.set("national", "국제적인");
+characterMap.set("positive", "긍정적인");
+characterMap.set("steady", "꾸준한");
+characterMap.set("versatile", "다재다능한");
+characterMap.set("reliable", "듬직한");
+characterMap.set("goal", "목표지향적인");
+characterMap.set("bright", "밝은");
+characterMap.set("learner", "빨리배우는");
+characterMap.set("sincere", "성실한");
+characterMap.set("communicating", "소통하는");
+characterMap.set("doing", "실행력");
+characterMap.set("passionate", "열정적인");
+characterMap.set("polite", "예의바른");
+characterMap.set("perfective", "완벽주의");
+characterMap.set("principles", "원칙적인");
+characterMap.set("flexible", "유연한");
+characterMap.set("patience", "인내심");
+characterMap.set("active", "적극적인");
+characterMap.set("honesty", "정직한");
+characterMap.set("creative", "창의적인");
+characterMap.set("responsibility", "책임감");
+characterMap.set("best", "최고의");
+characterMap.set("leading", "팀을 이끄는");
+characterMap.set("committed", "헌신적인");
+characterMap.set("innovative", "혁신적인");
+characterMap.set("realistic", "현실적인");
+characterMap.set("cooperative", "협동적인");
+
 function Portfolio({
   name,
   birth,
   email,
   phone,
   characters,
-  skill1,
-  skill2,
-  skill3,
-  skill4,
-  skill5,
+  skills,
   project_len,
-  t_projectName1,
-  t_projectPeriod1,
-  t_projectDesc1,
-  t_mystacks1,
-  t_projectStacks1,
-  t_roles1,
-}: PortfolioIState) {
+  projects,
+  profile_image_url,
+}: PortfolioDTO) {
   return (
     <Document>
       <Page style={styles.Page}>
@@ -349,10 +376,18 @@ function Portfolio({
             &nbsp; {email} &nbsp; {phone}
           </Text>
           <View style={styles.f_Characters}>
-            <Text style={styles.f_Character}>#{characters[0]}</Text>
-            <Text style={styles.f_Character}>#{characters[1]}</Text>
-            <Text style={styles.f_Character}>#{characters[2]}</Text>
-            <Text style={styles.f_Character}>#{characters[3]}</Text>
+            <Text style={styles.f_Character}>
+              #{characterMap.get(characters[0])}
+            </Text>
+            <Text style={styles.f_Character}>
+              #{characterMap.get(characters[1])}
+            </Text>
+            <Text style={styles.f_Character}>
+              #{characterMap.get(characters[2])}
+            </Text>
+            <Text style={styles.f_Character}>
+              #{characterMap.get(characters[3])}
+            </Text>
           </View>
         </View>
       </Page>
@@ -370,10 +405,7 @@ function Portfolio({
               이메일 &nbsp;&nbsp; : {email}
             </Text>
             <Text style={styles.s_InfoBox_contents}>전화번호 : {phone}</Text>
-            <Image
-              style={styles.s_image}
-              source="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsnCO2zl9DBZJ4v8mdXNYD1AlT1q3Y5A9e6qb4tkX2Dwvzpp6y&usqp=CAU"
-            />
+            <Image style={styles.s_image} source={profile_image_url} />
           </View>
           <Text style={styles.s_skillTitle}>Skills</Text>
           <View style={styles.s_skills}>
@@ -383,41 +415,71 @@ function Portfolio({
             <View style={styles.s_skiilBoxShadow4}></View>
             <View style={styles.s_skiilBoxShadow5}></View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skill1[0]}</Text>
-              <Text style={styles.s_skillBox_reason}>{skill1[2]}</Text>
-              <Text style={styles.s_skillBox_score}>{skill1[1]}/100</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[0] && skills[0].name}
+              </Text>
+              <Text style={styles.s_skillBox_reason}>
+                {skills[0] && skills[0].description}
+              </Text>
+              <Text style={styles.s_skillBox_score}>
+                {skills[0] && skills[0].percentage}/100
+              </Text>
             </View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skill2[0]}</Text>
-              <Text style={styles.s_skillBox_reason}>{skill2[2]}</Text>
-              <Text style={styles.s_skillBox_score}>{skill2[1]}/100</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[1] && skills[1].name}
+              </Text>
+              <Text style={styles.s_skillBox_reason}>
+                {skills[1] && skills[1].description}
+              </Text>
+              <Text style={styles.s_skillBox_score}>
+                {skills[1] && skills[1].percentage}/100
+              </Text>
             </View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skill3[0]}</Text>
-              <Text style={styles.s_skillBox_reason}>{skill3[2]}</Text>
-              <Text style={styles.s_skillBox_score}>{skill3[1]}/100</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[2] && skills[2].name}
+              </Text>
+              <Text style={styles.s_skillBox_reason}>
+                {skills[2] && skills[2].description}
+              </Text>
+              <Text style={styles.s_skillBox_score}>
+                {skills[2] && skills[2].percentage}/100
+              </Text>
             </View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skill4[0]}</Text>
-              <Text style={styles.s_skillBox_reason}>{skill4[2]}</Text>
-              <Text style={styles.s_skillBox_score}>{skill4[1]}/100</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[3] && skills[3].name}
+              </Text>
+              <Text style={styles.s_skillBox_reason}>
+                {skills[3] && skills[3].description}
+              </Text>
+              <Text style={styles.s_skillBox_score}>
+                {skills[3] && skills[3].percentage}/100
+              </Text>
             </View>
             <View style={styles.s_skiilBox}>
-              <Text style={styles.s_skillBox_title}>{skill5[0]}</Text>
-              <Text style={styles.s_skillBox_reason}>{skill5[2]}</Text>
-              <Text style={styles.s_skillBox_score}>{skill5[1]}/100</Text>
+              <Text style={styles.s_skillBox_title}>
+                {skills[4] && skills[4].name}
+              </Text>
+              <Text style={styles.s_skillBox_reason}>
+                {skills[4] && skills[4].description}
+              </Text>
+              <Text style={styles.s_skillBox_score}>
+                {skills[4] && skills[4].percentage}/100
+              </Text>
             </View>
           </View>
         </View>
       </Page>
       {project_len > 0 && (
         <Page object-fit="fill" size="A4" style={styles.thirdPage}>
-          <Image style={styles.t_projectImg} src={firstPic} />
+          <Image style={styles.t_projectImg} src={projects[0].big_image_url} />
           <View style={styles.t_project_descBox}>
             <Text style={styles.t_project_title}>Project 1.</Text>
-            <Text style={styles.t_project_subtitle}>{t_projectName1}</Text>
-            <Text style={styles.t_project_desc}>{t_projectDesc1}</Text>
-            <Text style={styles.t_project_desc}>{t_projectStacks1}</Text>
+            <Text style={styles.t_project_subtitle}>{projects[0].name}</Text>
+            <Text style={styles.t_project_desc}>{projects[0].description}</Text>
+            <Text style={styles.t_project_desc}>{projects[0].stacks}</Text>
           </View>
         </Page>
       )}
@@ -427,31 +489,198 @@ function Portfolio({
           <View style={styles.Box}>
             <View style={styles.fo_desc_box_shadow}></View>
             <View style={styles.fo_desc_box}>
-              <Text style={styles.fo_project_info_title}>{t_projectName1}</Text>
-              <Text style={styles.fo_project_desc}>{t_projectDesc1}</Text>
-              <Text style={styles.fo_project_subdesc}>
-                프로젝트 기간: {t_projectPeriod1}
+              <Text style={styles.fo_project_info_title}>
+                {projects[0].name}
+              </Text>
+              <Text style={styles.fo_project_desc}>
+                {projects[0].description}
               </Text>
               <Text style={styles.fo_project_subdesc}>
-                프로젝트 스택: {t_projectStacks1}
+                프로젝트 기간: {projects[0].period}
+              </Text>
+              <Text style={styles.fo_project_subdesc}>
+                프로젝트 스택: {projects[0].stacks}
               </Text>
               <Text style={styles.fo_subtext}> my role</Text>
               <Text style={styles.fo_mystack}>
-                {" "}
-                {t_mystacks1[0]} &nbsp; {t_mystacks1[1]} &nbsp; {t_mystacks1[2]}
+                {projects[0].my_stacks && projects[0].my_stacks[0]} &nbsp;
+                {projects[0].my_stacks && projects[0].my_stacks[1]} &nbsp;
+                {projects[0].my_stacks && projects[0].my_stacks[2]}
               </Text>
-              {t_roles1[0] && (
-                <Text style={styles.fo_myroles}>1. {t_roles1[0]}</Text>
+              {projects[0].roles[0] && (
+                <Text style={styles.fo_myroles}>1. {projects[0].roles[0]}</Text>
               )}
-              {t_roles1[1] && (
-                <Text style={styles.fo_myroles}>2. {t_roles1[1]}</Text>
+              {projects[0].roles[1] && (
+                <Text style={styles.fo_myroles}>2. {projects[0].roles[1]}</Text>
               )}
-              {t_roles1[2] && (
-                <Text style={styles.fo_myroles}>3. {t_roles1[2]}</Text>
+              {projects[0].roles[2] && (
+                <Text style={styles.fo_myroles}>3. {projects[0].roles[2]}</Text>
               )}
             </View>
             <View style={styles.fo_projectImg_shadow}></View>
-            <Image style={styles.fo_projectImg} src={firstPic2} />
+            <Image
+              style={styles.fo_projectImg}
+              src={projects[0].small_image_url}
+            />
+          </View>
+        </Page>
+      )}
+      {project_len > 1 && (
+        <Page object-fit="fill" size="A4" style={styles.thirdPage}>
+          <Image style={styles.t_projectImg} src={projects[1].big_image_url} />
+          <View style={styles.t_project_descBox}>
+            <Text style={styles.t_project_title}>Project 2.</Text>
+            <Text style={styles.t_project_subtitle}>{projects[1].name}</Text>
+            <Text style={styles.t_project_desc}>{projects[1].description}</Text>
+            <Text style={styles.t_project_desc}>{projects[1].stacks}</Text>
+          </View>
+        </Page>
+      )}
+      {project_len > 1 && (
+        <Page style={styles.Page}>
+          <View style={styles.Shadow}></View>
+          <View style={styles.Box}>
+            <View style={styles.fo_desc_box_shadow}></View>
+            <View style={styles.fo_desc_box}>
+              <Text style={styles.fo_project_info_title}>
+                {projects[1].name}
+              </Text>
+              <Text style={styles.fo_project_desc}>
+                {projects[1].description}
+              </Text>
+              <Text style={styles.fo_project_subdesc}>
+                프로젝트 기간: {projects[1].period}
+              </Text>
+              <Text style={styles.fo_project_subdesc}>
+                프로젝트 스택: {projects[1].stacks}
+              </Text>
+              <Text style={styles.fo_subtext}> my role</Text>
+              <Text style={styles.fo_mystack}>
+                {projects[1].my_stacks && projects[1].my_stacks[0]} &nbsp;
+                {projects[1].my_stacks && projects[1].my_stacks[1]} &nbsp;
+                {projects[1].my_stacks && projects[1].my_stacks[2]}
+              </Text>
+              {projects[1].roles[0] && (
+                <Text style={styles.fo_myroles}>1. {projects[1].roles[0]}</Text>
+              )}
+              {projects[1].roles[1] && (
+                <Text style={styles.fo_myroles}>2. {projects[1].roles[1]}</Text>
+              )}
+              {projects[1].roles[2] && (
+                <Text style={styles.fo_myroles}>3. {projects[1].roles[2]}</Text>
+              )}
+            </View>
+            <View style={styles.fo_projectImg_shadow}></View>
+            <Image
+              style={styles.fo_projectImg}
+              src={projects[1].small_image_url}
+            />
+          </View>
+        </Page>
+      )}
+      {project_len > 2 && (
+        <Page object-fit="fill" size="A4" style={styles.thirdPage}>
+          <Image style={styles.t_projectImg} src={projects[2].big_image_url} />
+          <View style={styles.t_project_descBox}>
+            <Text style={styles.t_project_title}>Project 3.</Text>
+            <Text style={styles.t_project_subtitle}>{projects[2].name}</Text>
+            <Text style={styles.t_project_desc}>{projects[2].description}</Text>
+            <Text style={styles.t_project_desc}>{projects[2].stacks}</Text>
+          </View>
+        </Page>
+      )}
+      {project_len > 2 && (
+        <Page style={styles.Page}>
+          <View style={styles.Shadow}></View>
+          <View style={styles.Box}>
+            <View style={styles.fo_desc_box_shadow}></View>
+            <View style={styles.fo_desc_box}>
+              <Text style={styles.fo_project_info_title}>
+                {projects[2].name}
+              </Text>
+              <Text style={styles.fo_project_desc}>
+                {projects[2].description}
+              </Text>
+              <Text style={styles.fo_project_subdesc}>
+                프로젝트 기간: {projects[2].period}
+              </Text>
+              <Text style={styles.fo_project_subdesc}>
+                프로젝트 스택: {projects[2].stacks}
+              </Text>
+              <Text style={styles.fo_subtext}> my role</Text>
+              <Text style={styles.fo_mystack}>
+                {projects[2].my_stacks && projects[2].my_stacks[0]} &nbsp;
+                {projects[2].my_stacks && projects[2].my_stacks[1]} &nbsp;
+                {projects[2].my_stacks && projects[2].my_stacks[2]}
+              </Text>
+              {projects[2].roles[0] && (
+                <Text style={styles.fo_myroles}>1. {projects[2].roles[0]}</Text>
+              )}
+              {projects[2].roles[1] && (
+                <Text style={styles.fo_myroles}>2. {projects[2].roles[1]}</Text>
+              )}
+              {projects[2].roles[2] && (
+                <Text style={styles.fo_myroles}>3. {projects[2].roles[2]}</Text>
+              )}
+            </View>
+            <View style={styles.fo_projectImg_shadow}></View>
+            <Image
+              style={styles.fo_projectImg}
+              src={projects[2].small_image_url}
+            />
+          </View>
+        </Page>
+      )}
+      {project_len > 3 && (
+        <Page object-fit="fill" size="A4" style={styles.thirdPage}>
+          <Image style={styles.t_projectImg} src={projects[3].big_image_url} />
+          <View style={styles.t_project_descBox}>
+            <Text style={styles.t_project_title}>Project 4.</Text>
+            <Text style={styles.t_project_subtitle}>{projects[3].name}</Text>
+            <Text style={styles.t_project_desc}>{projects[3].description}</Text>
+            <Text style={styles.t_project_desc}>{projects[3].stacks}</Text>
+          </View>
+        </Page>
+      )}
+      {project_len > 3 && (
+        <Page style={styles.Page}>
+          <View style={styles.Shadow}></View>
+          <View style={styles.Box}>
+            <View style={styles.fo_desc_box_shadow}></View>
+            <View style={styles.fo_desc_box}>
+              <Text style={styles.fo_project_info_title}>
+                {projects[3].name}
+              </Text>
+              <Text style={styles.fo_project_desc}>
+                {projects[3].description}
+              </Text>
+              <Text style={styles.fo_project_subdesc}>
+                프로젝트 기간: {projects[3].period}
+              </Text>
+              <Text style={styles.fo_project_subdesc}>
+                프로젝트 스택: {projects[3].stacks}
+              </Text>
+              <Text style={styles.fo_subtext}> my role</Text>
+              <Text style={styles.fo_mystack}>
+                {projects[3].my_stacks && projects[3].my_stacks[0]} &nbsp;
+                {projects[3].my_stacks && projects[3].my_stacks[1]} &nbsp;
+                {projects[3].my_stacks && projects[3].my_stacks[2]}
+              </Text>
+              {projects[3].roles[0] && (
+                <Text style={styles.fo_myroles}>1. {projects[3].roles[0]}</Text>
+              )}
+              {projects[3].roles[1] && (
+                <Text style={styles.fo_myroles}>2. {projects[3].roles[1]}</Text>
+              )}
+              {projects[3].roles[2] && (
+                <Text style={styles.fo_myroles}>3. {projects[3].roles[2]}</Text>
+              )}
+            </View>
+            <View style={styles.fo_projectImg_shadow}></View>
+            <Image
+              style={styles.fo_projectImg}
+              src={projects[3].small_image_url}
+            />
           </View>
         </Page>
       )}
