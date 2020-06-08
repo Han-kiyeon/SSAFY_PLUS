@@ -1,25 +1,44 @@
 import React from "react";
 import styled from "styled-components";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
 
 interface SignUpIState {
   userId: string;
+  name: string;
   password: string;
   position: string;
-  section: number;
-  season: number;
+  section: string;
+  season: string;
   loading: boolean;
   error: any;
-  updateTerm: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  updateTerm: any;
   handleSubmit: (event: React.FormEvent) => void;
+  useStyles: any;
+  keyPress: any;
 }
 
 const Container = styled.div``;
-
-const Form = styled.form`
-  margin-bottom: 50px;
-  width: 100%;
+const Title = styled.div`
+  font-size: 1.2em;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+  padding: 20px 0px;
 `;
 
+const Form = styled.form`
+  display: inline-block;
+`;
+
+const BlockForm = styled.form`
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 10px;
+`;
 const CardBox = styled.div`
   height: 50vh;
   width: 50vw;
@@ -27,14 +46,11 @@ const CardBox = styled.div`
 const Input = styled.input`
   width: 50vw;
 `;
-const Button = styled.button`
-  height: 5vh;
-  width: 10vw;
-`;
 
-const SignInPresenter: React.FunctionComponent<SignUpIState> = ({
+function SignInPresenter({
   userId,
   password,
+  name,
   loading,
   error,
   position,
@@ -42,53 +58,99 @@ const SignInPresenter: React.FunctionComponent<SignUpIState> = ({
   season,
   updateTerm,
   handleSubmit,
-}) => (
-  <>
-    <Container>
-      <CardBox>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            placeholder="ID를 입력해주세요."
-            value={userId}
-            onChange={updateTerm}
-            name="userId"
-            type="text"
-          ></Input>
+  keyPress,
+  useStyles,
+}: SignUpIState) {
+  const classes = useStyles();
+  return (
+    <>
+      <Container>
+        <Title>회원 가입</Title>
+        <CardBox>
+          <Form onSubmit={handleSubmit}>
+            <TextField
+              label="아이디"
+              onChange={updateTerm}
+              name="userId"
+              value={userId}
+              variant="outlined"
+              className={classes.longBar}
+            ></TextField>
+            <br />
+            <TextField
+              label="비밀번호"
+              onChange={updateTerm}
+              name="password"
+              value={password}
+              variant="outlined"
+              className={classes.longBar}
+            ></TextField>
+          </Form>
           <br />
-          <Input
-            placeholder="Password를 입력해주세요."
-            value={password}
-            onChange={updateTerm}
-            name="password"
-            type="text"
-          ></Input>
+          <Form
+            className={classes.Bar}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="이름"
+              onChange={updateTerm}
+              name="name"
+              value={name}
+              variant="outlined"
+            ></TextField>
+            <FormControl variant="outlined">
+              <InputLabel id="demo-simple-select-outlined-label">
+                직급
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                value={position}
+                onChange={updateTerm}
+                label="position"
+                name="position"
+              >
+                <MenuItem value={"교수"}>교수</MenuItem>
+                <MenuItem value={"프로"}>프로</MenuItem>
+                <MenuItem value={"취업컨설턴트"}>취업컨설턴트</MenuItem>
+                <MenuItem value={"코치"}>코치</MenuItem>
+                <MenuItem value={"교육생"}>교육생</MenuItem>
+              </Select>
+            </FormControl>
+          </Form>
           <br />
-          <Input
-            placeholder="직급을 입력해주세요."
-            value={position}
-            onChange={updateTerm}
-            name="position"
-            type="text"
-          ></Input>
-          <br />
-          <Input
-            placeholder="반을 입력해주세요."
-            value={section}
-            onChange={updateTerm}
-            name="section"
-          ></Input>
-          <br />
-          <Input
-            placeholder="기수를 입력해주세요."
-            value={season}
+          <TextField
+            label="기수"
             onChange={updateTerm}
             name="season"
-          ></Input>
+            value={season}
+            variant="outlined"
+            className={classes.Bar}
+          ></TextField>
+          <TextField
+            label="반"
+            onChange={updateTerm}
+            name="section"
+            value={section}
+            variant="outlined"
+            className={classes.Bar}
+            onKeyPress={keyPress}
+          ></TextField>
+
           <br />
-          <Button>Sign Up</Button>
-        </Form>
-      </CardBox>
-    </Container>
-  </>
-);
+          <br />
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={handleSubmit}
+          >
+            회원 가입
+          </Button>
+        </CardBox>
+      </Container>
+    </>
+  );
+}
 export default SignInPresenter;

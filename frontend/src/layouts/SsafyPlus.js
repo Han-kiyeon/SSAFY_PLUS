@@ -27,7 +27,7 @@ const switchRoutes = (
       );
       return null;
     })}
-    <Redirect from="/plus" to="/plus/main" />
+    <Redirect from="/plus" to="/plus/board" />
   </Switch>
 );
 

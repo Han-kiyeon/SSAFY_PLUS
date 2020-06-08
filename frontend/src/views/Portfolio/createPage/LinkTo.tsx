@@ -39,6 +39,7 @@ const Box = styled.div`
 
 export default function BoxDiv({ id, title }: PortfolioPresenterI) {
   function makePortfolio() {
+    // window.sessionStorage.setItem("portfolio_title", title);
     window.location.href = `./portfolio/1/${id}`;
   }
   return (

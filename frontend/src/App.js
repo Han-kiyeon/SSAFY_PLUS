@@ -22,7 +22,7 @@ function App() {
           !window.location.href.includes("/auth/signIn") &&
           (window.location.href = "/auth/signIn")}
         {window.sessionStorage.getItem("user_email") !== null && (
-          <Redirect from="/" to="/plus/main" />
+          <Redirect from="/" to="/plus/board" />
         )}
       </Switch>
     </Router>

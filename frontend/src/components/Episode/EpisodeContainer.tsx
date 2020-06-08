@@ -1,5 +1,6 @@
 import React from "react";
 import EpisodePresenter from "./EpisodePresenter";
+import axios from "axios";
 
 interface IEpisode {
   episodes: Array<{
@@ -14,35 +15,20 @@ interface IEpisode {
 
 export default class extends React.Component<{}, IEpisode> {
   state = {
-    episodes: [
-      {
-        id: 1,
-        user_email: "test2@gmail.com",
-        date: "2020-03-31",
-        title: "SSAFY 공통프로젝트",
-        strength: ["배려", "노력"],
-        content: "공통프로젝트에서 이러저러해서 열심히 노력하였다",
-      },
-      {
-        id: 2,
-        user_email: "test2@gmail.com",
-        date: "2020-03-31",
-        title: "SSAFY 특화프로젝트",
-        strength: ["리더쉽", "협동"],
-        content: "특화프로젝트에서 이러저러해서 열심히 노력하였다",
-      },
-      {
-        id: 3,
-        user_email: "test2@gmail.com",
-        date: "2020-05-31",
-        title: "SSAFY 심화프로젝트",
-        strength: ["열정", "협동"],
-        content: "심화프로젝트에서 이러저러해서 열심히 노력하였다",
-      },
-    ],
+    episodes: [],
   };
   componentDidMount() {
     window.scrollTo(0, 0);
+    axios
+      .get(
+        `http://13.125.238.102:8080/api/episode/list/${window.sessionStorage.getItem(
+          "user_email"
+        )}/`
+      )
+      .then(res => {
+        console.log(res);
+        this.setState({ episodes: res.data });
+      });
   }
   render() {
     const { episodes } = this.state;

@@ -14,6 +14,8 @@ interface PortfolioIState {
   projectDo12: string;
   projectDo13: string;
   projectUrl1: string;
+  projectImgL1: string;
+  projectImgS1: string;
   error1: boolean;
   frontend1: boolean;
   backend1: boolean;
@@ -34,6 +36,8 @@ interface PortfolioIState {
   projectDo22: string;
   projectDo23: string;
   projectUrl2: string;
+  projectImgL2: string;
+  projectImgS2: string;
   error2: boolean;
   frontend2: boolean;
   backend2: boolean;
@@ -54,6 +58,8 @@ interface PortfolioIState {
   projectDo32: string;
   projectDo33: string;
   projectUrl3: string;
+  projectImgL3: string;
+  projectImgS3: string;
   error3: boolean;
   frontend3: boolean;
   backend3: boolean;
@@ -74,6 +80,8 @@ interface PortfolioIState {
   projectDo42: string;
   projectDo43: string;
   projectUrl4: string;
+  projectImgL4: string;
+  projectImgS4: string;
   error4: boolean;
   frontend4: boolean;
   backend4: boolean;
@@ -99,6 +107,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo12: "",
     projectDo13: "",
     projectUrl1: "",
+    projectImgL1: "",
+    projectImgS1: "",
     error1: false,
     frontend1: false,
     backend1: false,
@@ -119,6 +129,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo22: "",
     projectDo23: "",
     projectUrl2: "",
+    projectImgL2: "",
+    projectImgS2: "",
     error2: false,
     frontend2: false,
     backend2: false,
@@ -139,6 +151,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo32: "",
     projectDo33: "",
     projectUrl3: "",
+    projectImgL3: "",
+    projectImgS3: "",
     error3: false,
     frontend3: false,
     backend3: false,
@@ -159,6 +173,8 @@ export default class extends React.Component<{}, PortfolioIState> {
     projectDo42: "",
     projectDo43: "",
     projectUrl4: "",
+    projectImgL4: "",
+    projectImgS4: "",
     error4: false,
     frontend4: false,
     backend4: false,

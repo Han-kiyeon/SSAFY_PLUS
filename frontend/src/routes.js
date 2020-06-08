@@ -1,5 +1,4 @@
 // 가져올 아이콘 모양들
-import Home from "@material-ui/icons/Home";
 import Assignment from "@material-ui/icons/Assignment";
 import Description from "@material-ui/icons/Description";
 import PermIdentity from "@material-ui/icons/PermIdentity";
@@ -7,7 +6,6 @@ import WorkIcon from "@material-ui/icons/Work";
 import ErrorIcon from "@material-ui/icons/Error";
 
 // 레이아웃에 입힐 뷰들
-import Main from "views/Main/Main.js";
 import Portfolio from "views/Portfolio/firstPage";
 import Portfolio2 from "views/Portfolio/secondPage";
 import Portfolio3 from "views/Portfolio/thirdPage";
@@ -24,14 +22,6 @@ import BreakingError2 from "views/BreakingError/BreakingError2.js";
 import PostUpdate from "views/Board/PostUpdate.js";
 
 const dashboardRoutes = [
-  {
-    id: 1,
-    path: "/main",
-    name: "Main",
-    icon: Home,
-    component: Main,
-    layout: "/plus",
-  },
   {
     id: 3,
     path: "/board",

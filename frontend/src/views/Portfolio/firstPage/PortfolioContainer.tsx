@@ -195,6 +195,46 @@ export default class extends React.Component<{}, PortfolioIState> {
           "portfolio_3_projects",
           JSON.stringify(response.data.projects) || "[]"
         );
+        if (response.data.projects[0] !== undefined) {
+          window.sessionStorage.setItem(
+            "project_BigImg1",
+            JSON.stringify(response.data.projects[0].big_image_url) || ""
+          );
+          window.sessionStorage.setItem(
+            "project_SmImg1",
+            JSON.stringify(response.data.projects[0].small_image_url) || ""
+          );
+        }
+        if (response.data.projects[1] !== undefined) {
+          window.sessionStorage.setItem(
+            "project_BigImg2",
+            JSON.stringify(response.data.projects[1].big_image_url) || ""
+          );
+          window.sessionStorage.setItem(
+            "project_SmImg2",
+            JSON.stringify(response.data.projects[1].small_image_url) || ""
+          );
+        }
+        if (response.data.projects[2] !== undefined) {
+          window.sessionStorage.setItem(
+            "project_BigImg3",
+            JSON.stringify(response.data.projects[2].big_image_url) || ""
+          );
+          window.sessionStorage.setItem(
+            "project_SmImg3",
+            JSON.stringify(response.data.projects[2].small_image_url) || ""
+          );
+        }
+        if (response.data.projects[3] !== undefined) {
+          window.sessionStorage.setItem(
+            "project_BigImg4",
+            JSON.stringify(response.data.projects[3].big_image_url) || ""
+          );
+          window.sessionStorage.setItem(
+            "project_SmImg4",
+            JSON.stringify(response.data.projects[3].small_image_url) || ""
+          );
+        }
       })
       .finally(() => {
         var birth = RecordResponse.birth.split("-");
