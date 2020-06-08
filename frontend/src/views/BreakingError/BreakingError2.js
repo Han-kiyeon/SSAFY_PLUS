@@ -5,6 +5,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import GridContainer from "components/Grid/GridContainer.js";
 import axios from "axios";
 import AnswerList from "./AnswerList.js";
+import MakeAnswer from "./MakeAnswer.js";
 import CommentList from "./CommentList.js";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +18,8 @@ class BreakingError2 extends React.Component {
     isLoading: true,
     answerLists: [],
   };
+
+  
   componentDidMount() {
     const { location, history } = this.props;
     if (location.state === undefined) {
@@ -25,8 +28,11 @@ class BreakingError2 extends React.Component {
     this.getAnswerList(location);
   }
   getAnswerList = async (location) => {
-    const answerLists = await axios.get(`http://13.125.238.102:8080/api/breakingError/answers/error/${location.state.errorId}`);
+    console.log(this);
+              if (location.state !== undefined) {
+    const answerLists = await axios.get(`http://13.125.238.102:8080/api/breakingError/answers/error/${location.state.errorList.errorId}`);
     this.setState({ answerLists, isLoading: false });
+              } 
   }
   useStyles = makeStyles((theme) => ({
     grid: {
@@ -37,8 +43,6 @@ class BreakingError2 extends React.Component {
     const { isLoading, answerLists } = this.state;
     const classes = this.useStyles;
     const { location } = this.props;
-    console.log(location, "변수확인")
-
     if (location.state) {
       return (<div className={classes.grid}>
         <Grid container
@@ -67,6 +71,7 @@ class BreakingError2 extends React.Component {
           }
           )
           }
+        <MakeAnswer errorId={this.props.location.state.errorList.errorId}/>
         </Grid>
       </div>);
     }

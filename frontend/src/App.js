@@ -16,6 +16,9 @@ function App() {
     <Router history={hist}>
       <Switch>
         <Route path="/plus" component={SsafyPlus} />
+        <Route path="/auth/signUP" component={SsafyPlus} />
+        <Route path="/auth/signIn" component={SsafyPlus} />
+        <Route path="/plus/breakingerror_datail/:id"  component={SsafyPlus} />
         <Route path="/plus/breakingerror/" exact={true} component={SsafyPlus} />
         <Route path="/auth/SignIn" component={SignIn} />
         {window.sessionStorage.getItem("user_email") === null &&
