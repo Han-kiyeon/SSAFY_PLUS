@@ -1,13 +1,11 @@
 package com.ssafy.springboot.web.dto.user;
 
-
 import com.ssafy.springboot.domain.user.Role;
 import com.ssafy.springboot.domain.user.User;
 import lombok.Getter;
 
 @Getter
-public class UserResponseDto {
-
+public class UserListResponseDto {
     private String email;
     private String password;
     private String name;
@@ -19,10 +17,9 @@ public class UserResponseDto {
 
     private Role role;
 
-    public UserResponseDto(User entity) {
+    public UserListResponseDto(User entity) {
         this.email = entity.getEmail();
         this.name = entity.getName();
-        this.password = entity.getPassword();
         this.position = entity.getPosition();
         this.season = entity.getSeason();
         this.section = entity.getSection();
