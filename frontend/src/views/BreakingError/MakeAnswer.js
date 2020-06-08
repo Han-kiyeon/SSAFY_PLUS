@@ -24,11 +24,17 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         '& > *': {
-          margin: theme.spacing(0),
-          width: "8vw",
-          height: "3.5vw"
+            margin: theme.spacing(0),
+            width: "8vw",
+            height: "3.5vw"
+
         },
-      },
+    },
+    paddingLeft: {
+        '& > *': {
+            paddingLeft: "2vw",
+        },
+    },
 }));
 function MakeAnswer(searchLists) {
     const [title, setTitle] = React.useState('');
@@ -41,7 +47,7 @@ function MakeAnswer(searchLists) {
     const changeContents = (e) => {
         setContents(e);
     }
-   const appClick =  async() =>{
+    const appClick = async () => {
         await axios({
             method: 'post',
             url: 'http://13.125.238.102:8080/api/breakingError/answers',
@@ -52,38 +58,42 @@ function MakeAnswer(searchLists) {
                 title: title,
                 user_email: window.sessionStorage.getItem("user_email")
             }
-          }).then(res=>{
-              console.log(res)
-          });
+        }).then(res => {
+            console.log(res)
+        });
         window.location.reload(true);
     }
 
     return (<div>
-       <Grid item xs>
+        <Grid item xs>
             <Paper className={classes.paper}>
-            <h4>에러답변하기</h4>
-        <GridContainer>
-            <GridItem xs={12} sm={12} md={12}><CustomInput
-                labelText="제목"
-                id="title"
-                formControlProps={{
-                    fullWidth: true
-                }}
-                inputProps={{
-                    onChange: changeTitle
-                }}
-            /></GridItem>
-        </GridContainer>
-        <GridContainer>
-            <GridItem xs={12} sm={12} md={12}>
-                <Editor changeContents={changeContents} a={"b"} />
-            </GridItem>
-        </GridContainer>
-        <div className={classes.button}>
-        <Button variant="contained" color="primary" onClick={appClick}>
-        답변올리기
+                <h4 id="errorh4">에러답변하기</h4>
+                <div className="paddingLeft">
+                    <GridContainer>
+                        <GridItem className={classes.paddingLeft} xs={12} sm={12} md={12}><CustomInput
+                            labelText="제목"
+                            id="title"
+                            formControlProps={{
+                                fullWidth: true
+                            }}
+                            inputProps={{
+                                onChange: changeTitle
+                            }}
+                        /></GridItem>
+                    </GridContainer>
+                </div>
+                <div className="paddingLeft">
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={12} className={classes.paddingLeft} >
+                            <Editor changeContents={changeContents} a={"b"} />
+                        </GridItem>
+                    </GridContainer>
+                </div>
+                <div className={classes.button} id="replyButton">
+                    <Button variant="contained" color="primary" onClick={appClick}>
+                        답변올리기
       </Button>
-      </div>
+                </div>
 
 
             </Paper>

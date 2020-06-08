@@ -59,23 +59,7 @@ export default function RankTable(
               
               </TableCell>
               <TableCell className={classes.fontContent} align="center">{rankList.name}</TableCell>
-              <TableCell className={classes.fontContent} align="center">
-                {
-                  rankList.position === "1" && "교수"
-                }
-                {
-                  rankList.position === "2" && "프로"
-                }
-                {
-                  rankList.position === "3" && "코치"
-                }
-                {
-                  rankList.position === "4" && "교육생"
-                }
-                {
-                  rankList.position === "5" && "컨설턴트"
-                }
-              </TableCell>
+              <TableCell className={classes.fontContent} align="center">{rankList.position}</TableCell>
               <TableCell className={classes.fontContent} align="center">{rankList.answer_like}</TableCell>
               <TableCell className={classes.fontContent} align="center">{rankList.season + "기 " + rankList.season + "반"}</TableCell>
             </TableRow>

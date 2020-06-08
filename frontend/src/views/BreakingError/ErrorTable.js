@@ -54,7 +54,6 @@ export default function ErrorTable(
         </TableHead>
         <TableBody>
           {errorLists.errorLists.map((errorList) => (
-            
             <TableRow key={errorList.errorId}>
               <TableCell className={classes.contents} component="th" scope="row">
               <Link to={{
@@ -65,7 +64,7 @@ export default function ErrorTable(
               }}
               >
                 <LinkText>
-                {errorList.title}
+                {errorList.title.length>10 ? errorList.title.substring(0, 10) : errorList.title}
                 </LinkText>
             </Link>
               </TableCell>
@@ -78,7 +77,7 @@ export default function ErrorTable(
               }}
               >
                 <LinkText>
-                {errorList.content.length>50 ? errorList.content.substring(0, 50)+"..." : errorList.content}
+                {errorList.content.replace(/(<([^>]+)>)/ig,"").length>25 ? errorList.content.replace(/(<([^>]+)>)/ig,"").substring(0, 25)+"..." : errorList.content.replace(/(<([^>]+)>)/ig,"")}
                 </LinkText>
             </Link>
                 </TableCell>
