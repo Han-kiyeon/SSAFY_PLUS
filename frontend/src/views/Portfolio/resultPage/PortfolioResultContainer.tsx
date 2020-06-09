@@ -69,7 +69,8 @@ export default class extends React.Component<{}, PortfolioDTO> {
       characters: portfolio.characters || [],
       skills: portfolio.skills || [],
       projects: portfolio.projects || [],
-      profile_image_url: portfolio.profile_image_url || "",
+      profile_image_url:
+        window.sessionStorage.getItem("profile_image_url") || "",
     });
   }
   render() {

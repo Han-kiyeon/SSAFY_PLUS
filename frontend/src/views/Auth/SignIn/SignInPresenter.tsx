@@ -32,14 +32,14 @@ const CardBox = styled.div`
 `;
 const ImageBox = styled.div`
   display: inline-block;
-  background-image: url(http://13.125.238.102:8080/api/downloadFile/4871d4e2-3785-4bc1-9b2b-0157ee02ef7d);
+  background-image: url(http://13.125.238.102:8080/api/downloadFile/8c403862-77fc-4b12-8f4c-5dbad4c7cef6);
   background-repeat: no-repeat;
   background-size: cover;
   height: 99vh;
   width: 99vw;
 `;
 const Logo = styled.div`
-  background-image: url(http://13.125.238.102:8080/api/downloadFile/2ddfbf2c-1dfb-4f0e-a8d8-91b5bbc5c18e);
+  background-image: url(http://13.125.238.102:8080/api/downloadFile/a7bad2ad-6d09-4ae6-b013-7c637f4ea7f8);
   background-repeat: no-repeat;
   background-size: contain;
   height: 13vh;

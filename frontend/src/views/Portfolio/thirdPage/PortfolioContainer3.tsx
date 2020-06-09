@@ -747,8 +747,8 @@ export default class extends React.Component<{}, PortfolioIState> {
       stacks: this.state.projectStack1,
       url: this.state.projectUrl1,
       my_stacks: myStack,
-      big_image_url: window.sessionStorage.getItem("project_BigImg1") || "",
-      small_image_url: window.sessionStorage.getItem("project_SmImg1") || "",
+      big_image_url: window.sessionStorage.getItem("project_BigImg1"),
+      small_image_url: window.sessionStorage.getItem("project_SmImg1"),
     };
     projects.push(project1);
 
@@ -799,8 +799,8 @@ export default class extends React.Component<{}, PortfolioIState> {
         stacks: this.state.projectStack2,
         url: this.state.projectUrl2,
         my_stacks: myStack,
-        big_image_url: window.sessionStorage.getItem("project_BigImg2") || "",
-        small_image_url: window.sessionStorage.getItem("project_SmImg2") || "",
+        big_image_url: window.sessionStorage.getItem("project_BigImg2"),
+        small_image_url: window.sessionStorage.getItem("project_SmImg2"),
       };
       projects.push(project2);
     }
@@ -851,8 +851,8 @@ export default class extends React.Component<{}, PortfolioIState> {
         stacks: this.state.projectStack3,
         url: this.state.projectUrl3,
         my_stacks: myStack,
-        big_image_url: window.sessionStorage.getItem("project_BigImg3") || "",
-        small_image_url: window.sessionStorage.getItem("project_SmImg3") || "",
+        big_image_url: window.sessionStorage.getItem("project_BigImg3"),
+        small_image_url: window.sessionStorage.getItem("project_SmImg3"),
       };
       projects.push(project3);
     }
@@ -903,8 +903,8 @@ export default class extends React.Component<{}, PortfolioIState> {
         stacks: this.state.projectStack4,
         url: this.state.projectUrl4,
         my_stacks: myStack,
-        big_image_url: window.sessionStorage.getItem("project_BigImg4") || "",
-        small_image_url: window.sessionStorage.getItem("project_SmImg4") || "",
+        big_image_url: window.sessionStorage.getItem("project_BigImg4"),
+        small_image_url: window.sessionStorage.getItem("project_SmImg4"),
       };
       projects.push(project4);
     }

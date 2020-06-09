@@ -52,7 +52,7 @@ const DownLoadText = styled.span`
   font-weight: 600;
 `;
 const Image = styled.div`
-  background-image: url(http://13.125.238.102:8080/api/downloadFile/0c8f92e0-98ed-4c5f-ae75-88e8963294c3);
+  background-image: url(http://13.125.238.102:8080/api/downloadFile/e5390517-4bc6-43b5-88ca-d897139e9144);
   background-repeat: no-repeat;
   background-size: contain;
   display: block;
@@ -97,7 +97,7 @@ function PortfolioResultPresenter({
                 profile_image_url={profile_image_url}
               />
             }
-            fileName={`${window.sessionStorage.getItem("portfolio_title")}.pdf`}
+            fileName={"Portfolio.pdf"}
             style={{
               textDecoration: "none",
               padding: "10px",
